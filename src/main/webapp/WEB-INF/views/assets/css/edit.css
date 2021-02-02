@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+
+		.confirm_content_h32{
+		font-size: 18px;
+		padding-bottom:30px;
+		}
+		.resultbox{
+			
+			margin:0 0 0 20px;
+		}
+		
+		.input_txt{
+		 display:block;
+		 font-size:16px; 
+		  
+         margin-right:16px;
+         margin-top:7px;
+         width:80px;
+		}
+		.editbox_input{
+		padding-bottom:23px;
+		display:flex;
+		
+		}
+		
+		.input_txt_h4{
+		font-size:16px; font-weight: 000;
+		}
+		
+		
+		.input_default{
+		width:106px;
+		height:34px;
+		border: 1px solid #ccc;
+    	border-radius: 4px;
+    	color:#333;
+    	font-size:16px;
+    	padding:4px 8px;
+		}
+		
+		
+		.input_default_txt{
+		height:34px;
+		border: 1px solid #ccc;
+    	border-radius: 4px;
+    
+    	font-size:16px;
+    	padding:4px 8px;
+		}
