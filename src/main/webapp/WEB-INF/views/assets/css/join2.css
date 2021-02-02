@@ -1,0 +1,203 @@
+@charset "UTF-8";
+
+
+		#join {
+            height:600px;
+        }
+		#join > .header{
+		width: 100%;
+		height: 170px;
+		background-color: #CEBEA7;
+		margin-bottom: 33px; 
+		}
+        input{
+    	display: block;
+    	border: none;
+    	border-bottom: 2px solid rgb(165,165,165);
+		margin: auto; 
+        opacity: 0.7;
+        text-indent: 1px;
+    	}
+    	
+    	input:focus{
+    	outline: none;
+    	opacity: 1;
+    	}
+        
+		p {
+            width: 80%;
+            margin: auto;
+            font-size:14px;
+            line-height:20px;
+            color:#111111;
+        }
+
+        #id_check{
+            width: 80%;
+            margin: auto;
+            margin-bottom: 50px;
+        }
+
+        #id_check  #join_id {
+            display: block;
+            margin: auto;
+            margin-bottom: 5px;
+            color:#464646;
+            font-size:15px;
+        }
+
+        #id_check #join_id_input {
+            display: inline-block;
+            float: left;
+            width:68%;
+            height:30px;
+            margin: auto;
+            border:2px solid;
+            border-color:#d5d5d5;
+            border-radius:5px;
+
+        }
+
+        #id_check #id_dbl_check{
+            display: inline-block;
+            width: 30%;
+            height: 30px;
+            float: right;
+            background-color:#172F50;
+            color: #fff;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        #join_password {
+            display: block;
+            width: 80%;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            font-size:15px;
+            color:#464646;
+        }
+        #join_password_input {
+            display:block;
+            width:80%;
+            height:30px;
+            margin: auto;
+            border:2px solid;
+            border-color:#d5d5d5;
+            border-radius:5px;
+        }
+
+        li{
+            display: block;
+            width: 80%;
+            margin:auto;
+            margin-top: 3px;
+        }
+        
+        span{
+            display:inline-block;
+            width: 80px;
+            margin: auto;
+            font-size:13px;
+            color:#d5d5d5;
+        }
+
+        #join_english, #join_num{
+            width: 60px;
+        }
+
+
+
+        #join_password_check_input {
+            display:block;
+            width:80%;
+            height:30px;
+            margin: auto;
+            border:2px solid;
+            border-color:#d5d5d5;
+            border-radius:5px;
+        }
+
+        #join_password_same {
+            display: block;
+            width: 80%;
+            margin:auto;
+            margin-top: 5px;
+            font-size:13px;
+            color:#d5d5d5;
+        }
+
+
+
+		#join > .header  h5{
+		display: block;
+		padding-left: 20px;
+		}
+    	
+    	input:focus{
+    	outline: none;
+    	opacity: 1;
+    	}
+    	
+
+    	#join > .header > a{
+    	display: block;
+    	padding: 10px;
+    	}
+    	
+    	#join > .header > a > #d_icon_l{
+    	display: block;
+    	width:23px;
+    	height: 23px;
+    	background-image: url(../img/laporte_clipping.png);
+    	background-repeat:no-repeat;
+    	background-size: 640px 360px;
+    	background-position: -118px -277.4px;
+    	margin: 10px;
+    	text-indent: -10000px;
+    	}
+       
+    	
+    	button{
+    	display: block;
+    	width: 75%;
+    	height: 45px;
+    	border: none;
+    	border-radius: 50px;
+        margin: auto;
+        margin-top: 85px;
+    	}
+
+    	
+    	button:focus{
+    	outline: none;
+    	}
+    	
+		#join .section{
+		height: 280px;
+		}
+       
+    	#join_btn{
+    	background-color:#172F50;
+    	color: #ffffff;
+    	}
+    	
+    	#join_btn:hover{
+    	background-color: #33598c;
+    	}
+    	
+    	#join_btn:focus{
+    	border: none;
+    	}
+    	
+    	#join .footer{
+    	color: rgb(105,105,105);
+		text-align: center;
+		margin-top: 50px;
+    	}
+    	
+    	#join .footer a{
+        color: rgb(105,105,105);
+    	text-decoration: underline;
+    	}

@@ -12,19 +12,19 @@
 					</a>
 				</div>
 				<div id="content1" class="content">
-					<a href="../09_cs/cs.html">고객지원</a>
+					<a href="<%=request.getContextPath()%>/09_cs/cs.do">고객지원</a>
 				</div>
 				<div id="content2" class="content">
-					<a href="../09_cs/fa.html">자주 묻는 질문</a>
+					<a href="<%=request.getContextPath()%>/09_cs/fa.do">자주 묻는 질문</a>
 				</div>
 				<div id="content3" class="content">
-					<a href="../09_cs/csmain.html">문의하기</a>
+					<a href=".<%=request.getContextPath()%>/09_cs/csmain.do">문의하기</a>
 				</div>
 				<div id="content4" class="content">
-					<a href="../09_cs/delivery.html">배송조회 및 관리</a>
+					<a href="<%=request.getContextPath()%>/09_cs/delivery.do">배송조회 및 관리</a>
 				</div>
 				<div id="content5" class="content">
-					<a href="../09_cs/exchange.html">교환환불</a>
+					<a href="<%=request.getContextPath()%>/09_cs/exchange.do">교환환불</a>
 				</div>
 				<div class="ft_collapse">
 					<a href="#content6">
@@ -33,7 +33,7 @@
 					</a>
 				</div>
 				<div id="content6" class="content">
-					<a href="../03_detail/allproduct1.html">쇼핑하기</a>
+					<a href="<%=request.getContextPath()%>/03_detail/allproduct1.do">쇼핑하기</a>
 				</div>
 				<div class="ft_collapse">
 					<a href="#content7, #content8">
@@ -43,7 +43,7 @@
 				</div>
 				
 				<div id="content8" class="content">
-					<a href="../08_reserve/showroom_info.html">홈 퍼니싱 플래닝 서비스</a>
+					<a href="${pageContext.request.contextPath}/08_reserve/showroom_info.do">홈 퍼니싱 플래닝 서비스</a>
 				</div>
 				<ul class="ft_iconbox">
 					<li class="ft_app_icon"><a href="#" id="ft_app_box"></a></li>

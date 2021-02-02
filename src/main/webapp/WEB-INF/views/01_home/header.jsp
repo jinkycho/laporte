@@ -7,11 +7,11 @@
         <div class="hd_container">
             <div class="hd_iconbox">
                 <div class="hd_icon">
-                    <a href="../01_home/home.html" id="hd_logo"><span id="hd_logo_icon"></span></a>
+                    <a href="${pageContext.request.contextPath}" id="hd_logo"><span id="hd_logo_icon"></span></a>
                     <ul class="hd_list">
-                        <li><a href="../02_mypage/mypage.html"><span id="hd_mypage_icon"></span></a></li>
-                        <li><a href="../05_wishlist/wishlist.html"><span id="hd_wishlist_icon"></span></a></li>
-                        <li><a href="../06_cart/cart.html"><span id="hd_cart_icon"></span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/02_mypage/mypage.do"><span id="hd_mypage_icon"></span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span id="hd_wishlist_icon"></span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/06_cart/cart.do"><span id="hd_cart_icon"></span></a></li>
                         <li><a href="#"><span id="hd_menu_icon"></span></a></li>
                     </ul>
                 </div>
@@ -25,7 +25,7 @@
             <!-- 메뉴 로고 및 아이콘 -->
             <div id="hd_menu_header">
                 <div id="hd_menu_logo">
-                    <a href="../01_home/home.html"><span id="hd_menu_logoicon"></span></a>
+                    <a href="../home.jsp"><span id="hd_menu_logoicon"></span></a>
                 </div>
                 <div id="hd_menu_close">
                     <a href="#"><span><b>&times;</b></span></a>
@@ -35,21 +35,21 @@
             <div>
                 <ul id="hd_menu_ul1" class="hd_menu_ul">
                     <li id="hd_menu_product"><a href="#"><h2>모든제품</h2></a></li>
-                    <li><a href="../03_detail/allproduct1.html">가구</a></li>
-                    <li><a href="../03_detail/allproduct2.html">소파 / 암체어</a></li>
-                    <li><a href="../03_detail/allproduct3.html">침대</a></li>
-                    <li><a href="../03_detail/allproduct4.html">수납 / 정리</a></li>
-                    <li><a href="../03_detail/allproduct5.html">주방가구 / 용품</a></li>
-                    <li><a href="../03_detail/allproduct6.html">조명</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct1.do">가구</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do">소파 / 암체어</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct3.do">침대</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct4.do">수납 / 정리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct5.do">주방가구 / 용품</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct6.do">조명</a></li>
                 </ul>
                 <ul id="hd_menu_ul2" class="hd_menu_ul">
-                    <li><a href="../10_event/event.html">이달의 혜택</a></li>
+                    <li><a href="${pageContext.request.contextPath}/10_event/event.do">이달의 혜택</a></li>
                 </ul>
                 <ul id="hd_menu_ul3" class="hd_menu_ul">
-                    <li><a href="../08_reserve/showroom_info.html">컨설팅 쇼룸 정보</a></li>
-                    <li><a href="../09_cs/cs.html">고객지원</a></li>
-                    <li><a href="../02_mypage/order.html">배송조회</a></li>
-                    <li><a href="../02_mypage/mypage.html">내 프로필</a></li>
+                    <li><a href="${pageContext.request.contextPath}/08_reserve/showroom_info.do">컨설팅 쇼룸 정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/09_cs/cs.do">고객지원</a></li>
+                    <li><a href="${pageContext.request.contextPath}/02_mypage/order.dp">배송조회</a></li>
+                    <li><a href="${pageContext.request.contextPath}/02_mypage/mypage.dp">내 프로필</a></li>
                 </ul>
             </div>
         </div>
