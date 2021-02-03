@@ -22,5 +22,29 @@ public class PageController {
 	        // "/src/main/webapp/WEB-INF/views/08_reserve/reserve.jsp" 파일을 View로 지정한다.
 	        return "/08_reserve/reserve";
 	    }
+	 
+	 @RequestMapping(value="/11_admin/admin_userlist.do", method=RequestMethod.GET)
+	    public String adminUserlist() {
+	        // "/src/main/webapp/WEB-INF/views//11_admin/admin_userlist.jsp" 파일을 View로 지정한다.
+	        return "/11_admin/admin_userlist";
+	    }
+	 
+	 @RequestMapping(value="/11_admin/admin_coupon.do", method=RequestMethod.GET)
+	    public String adminCoupon() {
+	        // "/src/main/webapp/WEB-INF/views//11_admin/admin_coupon.jsp" 파일을 View로 지정한다.
+	        return "/11_admin/admin_coupon";
+	    }
+	 
+	 @RequestMapping(value="/11_admin/admin_point.do", method=RequestMethod.GET)
+	    public String adminPoint() {
+	        // "/src/main/webapp/WEB-INF/views//11_admin/admin_point.jsp" 파일을 View로 지정한다.
+	        return "/11_admin/admin_point";
+	    }
+	 
+	 @RequestMapping(value="/11_admin/admin_resvappv.do", method=RequestMethod.GET)
+	    public String adminResvAppv() {
+	        // "/src/main/webapp/WEB-INF/views//11_admin/admin_resvappv.jsp" 파일을 View로 지정한다.
+	        return "/11_admin/admin_resvappv";
+	    }
 	
 }
