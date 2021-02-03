@@ -55,6 +55,7 @@
 							<li><a href="#">개인정보처리방침</a></li>
 							<li><a href="#">웹 사이트 이용약관</a></li>
 							<li><a href="#">Responsible disclosure</a></li>
+							<li><a href="#">관리자</a></li>
 						</ul>
 					</div>
 					<div class="ft_legalinformation">
