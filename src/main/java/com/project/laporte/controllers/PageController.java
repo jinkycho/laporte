@@ -11,6 +11,30 @@ public class PageController {
 	/** 페이지 링크 이동을 위한 임시 controller */
     // -> import org.springframework.web.bind.annotation.RequestMapping;
     // -> import org.springframework.web.bind.annotation.RequestMethod;
+	@RequestMapping(value="/02_mypage/mypage.do", method=RequestMethod.GET)
+    public String mypage() {
+        // "/src/main/webapp/WEB-INF/views/02_mypage/mypage.jsp" 파일을 View로 지정한다.
+        return "/02_mypage/mypage";
+    }
+	
+	@RequestMapping(value="/03_detail/detail.do", method=RequestMethod.GET)
+    public String detail() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/03_detail/detail";
+    }
+	
+	@RequestMapping(value="/04_review/review_modify.do", method=RequestMethod.GET)
+    public String review_modify() {
+        // "/src/main/webapp/WEB-INF/views/04_review/review_modify.jsp" 파일을 View로 지정한다.
+        return "/04_review/review_modify";
+    }
+	
+	@RequestMapping(value="/04_review/review_write.do", method=RequestMethod.GET)
+    public String review_write() {
+        // "/src/main/webapp/WEB-INF/views/04_review/review_write.jsp" 파일을 View로 지정한다.
+        return "/04_review/review_write";
+    }
+	
 	@RequestMapping(value="/08_reserve/showroom_info.do", method=RequestMethod.GET)
 	public String showroom() {
 		// "/src/main/webapp/WEB-INF/views/08_reserve/showroom_info.jsp" 파일을 View로 지정한다.
@@ -46,5 +70,6 @@ public class PageController {
 	        // "/src/main/webapp/WEB-INF/views//11_admin/admin_resvappv.jsp" 파일을 View로 지정한다.
 	        return "/11_admin/admin_resvappv";
 	    }
+	 
 	
 }
