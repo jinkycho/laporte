@@ -12,7 +12,7 @@
 					</a>
 				</div>
 				<div id="content1" class="content">
-					<a href="<%=request.getContextPath()%>/09_cs/cs.do">고객지원</a>
+					<a href="${pageContext.request.contextPath}/09_cs/cs.do">고객지원</a>
 				</div>
 				<div id="content2" class="content">
 					<a href="<%=request.getContextPath()%>/09_cs/fa.do">자주 묻는 질문</a>
