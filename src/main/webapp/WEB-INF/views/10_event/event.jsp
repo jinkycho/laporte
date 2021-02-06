@@ -81,13 +81,13 @@
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
-						<img src="../img/banner1.png" class="banner_img">
+						<img src="../assets/img/banner1.png" class="banner_img">
 					</div>
 					<div class="swiper-slide">
-						<img src="../img/banner2.png" class="banner_img">
+						<img src="../assets/img/banner2.png" class="banner_img">
 					</div>
 					<div class="swiper-slide">
-						<img src="../img/banner3.png" class="banner_img">
+						<img src="../assets/img/banner3.png" class="banner_img">
 					</div>
 				</div>
 				<!-- Add Pagination -->
@@ -115,7 +115,7 @@
 											class="event_date block">2021.01.01 - 2021.02.14</span>
 									</div>
 									<div class="event_img_box pull-right">
-										<img src="../img/sale.png" class="event_img">
+										<img src="../assets/img/sale.png" class="event_img">
 									</div>
 								</div>
 						</a></li>

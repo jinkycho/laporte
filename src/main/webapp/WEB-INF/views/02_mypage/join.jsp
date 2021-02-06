@@ -19,8 +19,8 @@
 	<!-- stylesheet -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/common.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/join.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/join.css">
 
 </head>
 
@@ -79,7 +79,7 @@
 
     </div>
 	
-		<button id="Join_btn" type="submit" onclick="location.href='./join2.html'">동의하고 가입하기</button>
+		<button id="Join_btn" type="submit" onclick="location.href='${pageContext.request.contextPath}/02_mypage/join2.do'">동의하고 가입하기</button>
 	
 	<div class="footer">
 		<h5>laporte.kr-<a href="#">개인정보처리방침</a></h5>
