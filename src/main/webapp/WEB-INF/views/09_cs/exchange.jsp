@@ -16,8 +16,8 @@
 	<!-- stylesheet -->
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="../css/common.css">
-        <link rel="stylesheet" type="text/css" href="../css/exchange.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/exchange.css">
 	
 	<!-- javascript -->
         <script src="http://code.jquery.com/jquery.min.js"></script>
@@ -65,7 +65,8 @@
                 <!-- 페이지 경로-->
                 <div class="page-header">
                     <ol class="breadcrumb">
-                        <li><a href="../01_home/home.html">홈</a></li>
+                        <li><!-- <a href="../01_home/home.html"> --><a href="${pageContext.request.contextPath}../home.do">홈</a>
+                        </li>
                         <li><a href="../09_cs/cs.html">고객 지원</a></li>
                         <!-- 여기가 현재 페이지를 의미합니다. - active클래스 적용됨 -->
                         <li class="active"><a href="../09_cs/exchange.html">교환환불</a></li>
@@ -112,7 +113,7 @@
 								<h4>전화 및 이메일 문의</h4>
 								<p>
 									주문하신 제품에 문제가 있을 경우 
-									<a href="../09_cs/csmain.html" class="csmain_link">고객지원센터</a>로 문의해주세요.
+									<a href="${pageContext.request.contextPath}/09_cs/csmain.do">고객지원센터</a>로 문의해주세요.
 								</p>
 							</div>
 						</div>
@@ -129,18 +130,10 @@
                         
                     </div>
                 </div>
-
-            </div>
 		</section>
 		<%@ include file="../01_home/footer.jsp" %>
 		
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="../js/home.js"></script>
-        <script type="text/javascript">
-			$(document).ready(function() {
-				$("header").load("../01_home/header.html");
-				$("footer").load("../01_home/footer.html");
-			});
-		</script>
+        <script src="../assets/js/home.js"></script>
 	</body>
 </html>

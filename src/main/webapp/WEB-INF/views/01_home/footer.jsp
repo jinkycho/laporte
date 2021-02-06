@@ -18,10 +18,10 @@
 					<a href="<%=request.getContextPath()%>/09_cs/fa.do">자주 묻는 질문</a>
 				</div>
 				<div id="content3" class="content">
-					<a href=".<%=request.getContextPath()%>/09_cs/csmain.do">문의하기</a>
+					<a href="<%=request.getContextPath()%>/09_cs/csmain.do">문의하기</a>
 				</div>
 				<div id="content4" class="content">
-					<a href="<%=request.getContextPath()%>/09_cs/delivery.do">배송조회 및 관리</a>
+					<a href="${pageContext.request.contextPath}/09_cs/delivery.do">배송조회 및 관리</a>
 				</div>
 				<div id="content5" class="content">
 					<a href="<%=request.getContextPath()%>/09_cs/exchange.do">교환환불</a>

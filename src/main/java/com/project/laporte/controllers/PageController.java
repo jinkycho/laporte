@@ -65,6 +65,36 @@ public class PageController {
 	        return "/08_reserve/reserve";
 	    }
 	 
+	 @RequestMapping(value="/09_cs/cs.do", method=RequestMethod.GET)
+	    public String cs() {
+	        // "/src/main/webapp/WEB-INF/views/09_cs/cs.jsp" 파일을 View로 지정한다.
+	        return "/09_cs/cs";
+	    }
+	 
+	 @RequestMapping(value="/09_cs/csmain.do", method=RequestMethod.GET)
+	    public String csmain() {
+	        // "/src/main/webapp/WEB-INF/views/09_cs/csmain.jsp" 파일을 View로 지정한다.
+	        return "/09_cs/csmain";
+	    }
+	 
+	 @RequestMapping(value="/09_cs/delivery.do", method=RequestMethod.GET)
+	    public String delivery() {
+	        // "/src/main/webapp/WEB-INF/views/09_cs/delivery.jsp" 파일을 View로 지정한다.
+	        return "/09_cs/delivery";
+	    }
+	 
+	 @RequestMapping(value="/09_cs/exchange.do", method=RequestMethod.GET)
+	    public String exchange() {
+	        // "/src/main/webapp/WEB-INF/views/09_cs/exchange.jsp" 파일을 View로 지정한다.
+	        return "/09_cs/exchange";
+	    }
+	 
+	 @RequestMapping(value="/09_cs/fa.do", method=RequestMethod.GET)
+	    public String fa() {
+	        // "/src/main/webapp/WEB-INF/views/09_cs/fa.jsp" 파일을 View로 지정한다.
+	        return "/09_cs/fa";
+	    }
+	 
 	 @RequestMapping(value="/10_event/event.do", method=RequestMethod.GET)
 	    public String event() {
 	        // "/src/main/webapp/WEB-INF/views/10_event/event.jsp" 파일을 View로 지정한다.
