@@ -273,10 +273,7 @@
 				cancelButtonText:"취소"
 			});
 		});
-			$(document).ready(function() {
-				$("header").load("../01_home/header.html");
-				$("footer").load("../01_home/footer.html");
-			});
+	
 
 			
 				

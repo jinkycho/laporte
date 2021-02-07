@@ -251,10 +251,7 @@
 	<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="../assets/plugins/toTop/totop.min.js"></script>
 	 <script type="text/javascript">
-			$(document).ready(function() {
-				$("header").load("../01_home/header.html");
-				$("footer").load("../01_home/footer.html");
-			});
+		
 			
 			$('.moveup').tottTop({
 				scrollTop:0

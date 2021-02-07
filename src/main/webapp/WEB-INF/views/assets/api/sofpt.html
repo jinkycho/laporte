@@ -169,18 +169,13 @@
 		
 						<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 				<script>
-				 $(document).on("click",".chk_heart", function(e) {
-						
-						swal({
-							title: "위시리스트 추가",
-							html:"위시리스트에 추가되었습니다",
-							type:"success",
-							showCloseButton:true,
-							confirmButtonText:"확인",
-							showCancelButton:false,
-							cancelButtonText:"취소"
-						});
-					});
+				$(".chk_heart").change(function(e) {
+					if($(".chk_heart").is(":checked") == true){
+						swal('성공', '위시리스트에 추가 되었습니다.', 'success');
+					}else{
+						swal('취소', '위시리스트에서 삭제 되었습니다.', 'error');
+					}
+				});
 				 $(document).on("click",".addcart", function(e) {
 						e.preventDefault();
 						swal({

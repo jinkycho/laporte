@@ -284,10 +284,7 @@
 	 $('.moveup').tottTop({
 			scrollTop:0
 		});
-			$(document).ready(function() {
-				$("header").load("../01_home/header.html");
-				$("footer").load("../01_home/footer.html");
-			});
+		
 			$(".chk_heart").change(function(e) {
 				if($(".chk_heart").is(":checked") == true){
 					swal('성공', '위시리스트에 추가 되었습니다.', 'success');
