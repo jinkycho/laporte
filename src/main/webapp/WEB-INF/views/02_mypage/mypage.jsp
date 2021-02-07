@@ -109,7 +109,7 @@
 					</div>
 					<div class="col-sm-4 col-xs-12 profile_link_box">
 						<div class="profile_bolder">
-						<a class="profile_link_a" href="../08_reserve/reserve_cfm.html">
+						<a class="profile_link_a" href="${pageContext.request.contextPath}/08_reserve/reserve_cfm.do">
 						<div class="profile_link clearfix">
 							<div class="profile_link_txt pull-left">
 								<span class="profile_link_title">
