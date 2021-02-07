@@ -1,203 +1,250 @@
 @charset "UTF-8";
 
+#join {
+	height: 600px;
+}
 
-		#join {
-            height:600px;
-        }
-		#join > .header{
-		width: 100%;
-		height: 170px;
-		background-color: #CEBEA7;
-		margin-bottom: 33px; 
-		}
-        input{
-    	display: block;
-    	border: none;
-    	border-bottom: 2px solid rgb(165,165,165);
-		margin: auto; 
-        opacity: 0.7;
-        text-indent: 1px;
-    	}
-    	
-    	input:focus{
-    	outline: none;
-    	opacity: 1;
-    	}
-        
-		p {
-            width: 80%;
-            margin: auto;
-            font-size:14px;
-            line-height:20px;
-            color:#111111;
-        }
+#join>.header {
+	width: 100%;
+	height: 170px;
+	background-color: #CEBEA7;
+	margin-bottom: 33px;
+}
 
-        #id_check{
-            width: 80%;
-            margin: auto;
-            margin-bottom: 50px;
-        }
+input {
+	display: block;
+	border: none;
+	border-bottom: 2px solid rgb(165, 165, 165);
+	margin: auto;
+	opacity: 0.7;
+	text-indent: 1px;
+}
 
-        #id_check  #join_id {
-            display: block;
-            margin: auto;
-            margin-bottom: 5px;
-            color:#464646;
-            font-size:15px;
-        }
+input:focus {
+	outline: none;
+	opacity: 1;
+}
 
-        #id_check #join_id_input {
-            display: inline-block;
-            float: left;
-            width:68%;
-            height:30px;
-            margin: auto;
-            border:2px solid;
-            border-color:#d5d5d5;
-            border-radius:5px;
+p {
+	width: 80%;
+	margin: auto;
+	font-size: 14px;
+	line-height: 20px;
+	color: #111111;
+}
 
-        }
+label {
+	margin-top: 20px;
+	font-size: 14px;
+}
 
-        #id_check #id_dbl_check{
-            display: inline-block;
-            width: 30%;
-            height: 30px;
-            float: right;
-            background-color:#172F50;
-            color: #fff;
-            font-size: 12px;
-            margin: 0;
-        }
+form .form-control, form select {
+	width: 100%;
+	height: 30px;
+	border: none;
+	border-bottom: 1px solid #929292;
+	box-shadow: none;
+	outline: none;
+	margin-bottom: 45px;
+	border-radius: 0;
+	color: #333;
+	opacity: 1;
+	padding: 0;
+	font-size: 14px;
+}
 
-        #join_password {
-            display: block;
-            width: 80%;
-            margin: auto;
-            margin-top: 30px;
-            margin-bottom: 5px;
-            font-size:15px;
-            color:#464646;
-        }
-        #join_password_input {
-            display:block;
-            width:80%;
-            height:30px;
-            margin: auto;
-            border:2px solid;
-            border-color:#d5d5d5;
-            border-radius:5px;
-        }
+form .form-control {
+	text-indent: 2px;
+}
 
-        li{
-            display: block;
-            width: 80%;
-            margin:auto;
-            margin-top: 3px;
-        }
-        
-        span{
-            display:inline-block;
-            width: 80px;
-            margin: auto;
-            font-size:13px;
-            color:#d5d5d5;
-        }
+form select {
+	text-indent: -1px;
+}
 
-        #join_english, #join_num{
-            width: 60px;
-        }
+form .form-control:focus, form select:hover {
+	box-shadow: none;
+	border-bottom: 1px solid #172f50;
+	color: #172f50;
+	background: none;
+}
+
+.placeholder_event {
+  transition: 0.4s all ease;
+  -ms-transition: 0.4s all ease; /*IE 9*/
+  -webkit-transition: 0.4s all ease; /* 사파리 or 크롬 */
+  transform: translate(8px, 26px) scale(1.2);
+  -ms-transform: translate(8px, 26px) scale(1.2); /*IE 9*/
+  -webkit-transform: translate(8px, 26px) scale(1.2); /* 사파리 or 크롬 */
+}
 
 
+.select_label_ani {
+	transition: 0.5s all ease;
+	-ms-transition: 0.5s all ease; /*IE 9*/
+	-webkit-transition: 0.5s all ease; /* 사파리 or 크롬 */
+	transform: translate(5px, 26px) scale(1.1);
+	-ms-transform: translate(5px, 26px) scale(1.1); /*IE 9*/
+	-webkit-transform: translate(5px, 26px) scale(1.1); /* 사파리 or 크롬 */
+}
 
-        #join_password_check_input {
-            display:block;
-            width:80%;
-            height:30px;
-            margin: auto;
-            border:2px solid;
-            border-color:#d5d5d5;
-            border-radius:5px;
-        }
+.userinfo_insert {
+	width: 80%;
+	margin: auto;
+}
 
-        #join_password_same {
-            display: block;
-            width: 80%;
-            margin:auto;
-            margin-top: 5px;
-            font-size:13px;
-            color:#d5d5d5;
-        }
+.userinfo_insert #join_id_input{
+	width: 68%;
+	margin: 0;
+	margin-bottom: 45px;
+}
 
+.userinfo_insert #id_dbl_check {
+	display: inline-block;
+	height: 35px;
+	width: 30%;
+	position: relative;
+	bottom: 80px;
+	float:right;
+	background-color: #172F50;
+	color: #fff;
+	font-size: 12px;
+	margin: 0;
+}
 
+li {
+	display: block;
+	margin: auto;
+	margin-top: 3px;
+}
 
-		#join > .header  h5{
-		display: block;
-		padding-left: 20px;
-		}
-    	
-    	input:focus{
-    	outline: none;
-    	opacity: 1;
-    	}
-    	
+span {
+	display: inline-block;
+	width: auto;
+	font-size : 13px;
+	color: #d5d5d5;
+	font-size: 13px;
+}
 
-    	#join > .header > a{
-    	display: block;
-    	padding: 10px;
-    	}
-    	
-    	#join > .header > a > #d_icon_l{
-    	display: block;
-    	width:23px;
-    	height: 23px;
-    	background-image: url(../img/laporte_clipping.png);
-    	background-repeat:no-repeat;
-    	background-size: 640px 360px;
-    	background-position: -118px -277.4px;
-    	margin: 10px;
-    	text-indent: -10000px;
-    	}
-       
-    	
-    	button{
-    	display: block;
-    	width: 75%;
-    	height: 45px;
-    	border: none;
-    	border-radius: 50px;
-        margin: auto;
-        margin-top: 85px;
-    	}
+#myform .pw_input{
+	margin-bottom: 3px;	
+}
 
-    	
-    	button:focus{
-    	outline: none;
-    	}
-    	
-		#join .section{
-		height: 280px;
-		}
-       
-    	#join_btn{
-    	background-color:#172F50;
-    	color: #ffffff;
-    	}
-    	
-    	#join_btn:hover{
-    	background-color: #33598c;
-    	}
-    	
-    	#join_btn:focus{
-    	border: none;
-    	}
-    	
-    	#join .footer{
-    	color: rgb(105,105,105);
-		text-align: center;
-		margin-top: 50px;
-    	}
-    	
-    	#join .footer a{
-        color: rgb(105,105,105);
-    	text-decoration: underline;
-    	}
+#join_password_same {
+	display: block;
+	margin: auto;
+	margin-top: 5px;
+	font-size: 13px;
+	color: #d5d5d5;
+}
+
+#join>.header  h5 {
+	display: block;
+	padding-left: 20px;
+}
+
+input:focus {
+	outline: none;
+	opacity: 1;
+}
+
+#join>.header>a {
+	display: block;
+	padding: 10px;
+}
+
+#join>.header>a>#d_icon_l {
+	display: block;
+	width: 23px;
+	height: 23px;
+	background-image: url(../img/laporte_clipping.png);
+	background-repeat: no-repeat;
+	background-size: 640px 360px;
+	background-position: -118px -277.4px;
+	margin: 10px;
+	text-indent: -10000px;
+}
+
+button {
+	display: block;
+	width: 75%;
+	height: 45px;
+	border: none;
+	border-radius: 50px;
+	margin: auto;
+	margin-top: 85px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+button:focus {
+	outline: none;
+}
+
+#join .section {
+	height: 280px;
+}
+
+#join_btn {
+	background-color: #172F50;
+	color: #ffffff;
+}
+
+#join_btn:hover {
+	background-color: #33598c;
+}
+
+#join_btn:focus {
+	border: none;
+}
+
+#join .footer {
+	color: rgb(105, 105, 105);
+	text-align: center;
+	margin-top: 30px;
+}
+
+#join .footer a {
+	color: rgb(105, 105, 105);
+	text-decoration: underline;
+	font-size: 12px;
+}
+
+/*-------------주소 수정 --------------*/
+#contact_address_box {
+	width: 100%;
+	margin: auto;
+	margin-top: 20px;
+}
+
+#find_pc {
+	color: #000;
+	background-color: #cebea7;
+	border: none;
+	width: 100%;
+	height: 45px;
+	border-radius: 30px;
+	font-weight: bold;
+	margin: auto;
+}
+
+#wrap {
+	width: 100% !important;
+}
+
+#daum_pc_find {
+	width: 100%;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.form-control[disabled] {
+	opacity: 0.5;
+	background: none;
+}
+
+.btn_reset {
+	margin: auto;
+	margin-top: 20px;
+	font-size: 14px;
+	font-weight: bold;
+}

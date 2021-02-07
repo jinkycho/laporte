@@ -133,12 +133,13 @@ form select {
   opacity: 1;
   padding: 0;
   font-size: 14px;
+  text-indent: 3px;
 }
 form .form-control {
   text-indent: 2px;
 }
 form select {
-  text-indent: -1px;
+  text-indent: 31px;
 }
 form .form-control:focus,
 form select:hover {

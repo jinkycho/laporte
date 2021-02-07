@@ -19,7 +19,6 @@
 	<!-- stylesheet -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/join.css">
 
 </head>
@@ -47,7 +46,7 @@
         <div class="Join_info_line2">
             <div id="Join_accessterm_text">
                <input type="checkbox" class='information' id="Join_accessterm_checkbox">
-               <label for="Join_accessterm_checkbox"><span>[필수]이용약관 동의 보기</span></label> 
+               <span>[필수]이용약관 동의 보기</span>
             <a href="#content1" id="Join_accessterm_dropdown"></a>
             <div id="content1" class="content">
                 제6조 (회원가입 신청)<br>
@@ -61,7 +60,7 @@
             <div class="Join_info_line3">
                 <div id="Join_personal_text">
                  <input type="checkbox" class='information' id="Join_personal_checkbox">
-                 <label for="Join_personal_checkbox"><span>[필수] 개인정보 처리방침 동의 보기</span></label>
+                 <span>[필수] 개인정보 처리방침 동의 보기</span>
             <a href="#content2" id="Join_personal_dropdown"></a>
             <div id="content2" class="content">
                 라포르테코리아 유한회사(이하 "라포르테"라고 합니다)는 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」제27조의2, 「개인정보 보호법」제30조 등 관련 법령에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보처리방침을 수립ㆍ공개합니다.
@@ -72,7 +71,7 @@
         <div class="Join_info_line4">
             <div id="Join_email_text">
             <input type="checkbox" class='information' id="Join_email_checkbox">
-            <label for="Join_email_checkbox"><span>[선택] 이메일 마케팅 수신 동의</span></label>
+            <span>[선택] 이메일 마케팅 수신 동의</span>
             </div>
         </div>
         
@@ -85,6 +84,9 @@
 		<h5>laporte.kr-<a href="#">개인정보처리방침</a></h5>
 	</div>
 
+</div>
+</div>
+</div>
 </div>
 
 </body>
