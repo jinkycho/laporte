@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="page-header">
                     <ol class="breadcrumb">
-                        <li><a href="${pageContext.request.contextPath}./views/home.do">홈</a></li>
+                        <li><a href=${pageContext.request.contextPath}>홈</a></li>
                         <!-- 여기가 현재 페이지를 의미합니다. - active클래스 적용됨 -->
                         <li class="active"><a href="#">고객 지원</a></li>
                     </ol>

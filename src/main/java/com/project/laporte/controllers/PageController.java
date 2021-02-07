@@ -23,6 +23,36 @@ public class PageController {
         return "/02_mypage/order";
     }
 	
+	@RequestMapping(value="/02_mypage/join.do", method=RequestMethod.GET)
+    public String join() {
+        // "/src/main/webapp/WEB-INF/views/02_mypage/join.jsp" 파일을 View로 지정한다.
+        return "/02_mypage/join";
+    }
+	
+	@RequestMapping(value="/02_mypage/join2.do", method=RequestMethod.GET)
+    public String join2() {
+        // "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.
+        return "/02_mypage/join2";
+    }
+	
+	@RequestMapping(value="/02_mypage/login.do", method=RequestMethod.GET)
+    public String login() {
+        // "/src/main/webapp/WEB-INF/views/02_mypage/login.jsp" 파일을 View로 지정한다.
+        return "/02_mypage/login";
+    }
+	
+	@RequestMapping(value="/02_mypage/login_pwfind.do", method=RequestMethod.GET)
+    public String login_pwfind() {
+        // "/src/main/webapp/WEB-INF/views/02_mypage/login_pwfind.jsp" 파일을 View로 지정한다.
+        return "/02_mypage/login_pwfind";
+    }
+	
+	@RequestMapping(value="/02_mypage/login_pwrevise.do", method=RequestMethod.GET)
+    public String pwrevise() {
+        // "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.
+        return "/02_mypage/login_pwrevise";
+    }
+	
 	@RequestMapping(value="/03_detail/detail.do", method=RequestMethod.GET)
     public String detail() {
         // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.

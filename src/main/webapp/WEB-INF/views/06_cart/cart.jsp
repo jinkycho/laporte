@@ -71,7 +71,7 @@
 	            <div class="cart_none">
 	                <div class="cart_login">
 	                    <div><h4>로그인</h4>
-	                        <div class="cart_text"><a href="../02_mypage/login.html">로그인 또는 회원가입</a>하시면 더 편리하게 이용하실 수 있어요</div>
+	                        <div class="cart_text"><a href="${pageContext.request.contextPath}/02_mypage/login.do">로그인 또는 회원가입</a>하시면 더 편리하게 이용하실 수 있어요</div>
 	                    </div><span id="hd_mypage_icon"></span>
 	                </div>
 	            </div>

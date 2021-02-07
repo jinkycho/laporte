@@ -112,10 +112,10 @@
 					<p>
 						시간이 더 필요하신가요?<br>저장한 후 나중에 구매해보세요.
 					</p>
-					<a href="../02_mypage/join.html" class="link">계정 만들기</a>
+					<!-- <a href="../02_mypage/join.html" class="link"> --><a href="${pageContext.request.contextPath}/02_mypage/join.do" class="link">계정 만들기</a>
 					<div class="wish_btn_box_container clear">
 						<a href="../01_home/home.html" class="wish_btn pull-left">제품검색</a>
-						<a href="../02_mypage/login.html" class="wish_btn pull-right">로그인</a>
+						<a href="${pageContext.request.contextPath}/02_mypage/login.do" class="wish_btn pull-right">로그인</a>
 					</div>
 				</div>
 			</div>

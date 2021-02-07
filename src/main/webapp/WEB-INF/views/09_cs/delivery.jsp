@@ -65,10 +65,10 @@
                 <!-- 페이지 경로-->
                 <div class="page-header">
                     <ol class="breadcrumb">
-                        <li><a href="../01_home/home.html">홈</a></li>
-                        <li><a href="../09_cs/cs.html">고객 지원</a></li>
+                        <li><a href=${pageContext.request.contextPath}>홈</a></li>
+                        <li><a href="${pageContext.request.contextPath}/09_cs/cs.do">고객 지원</a></li>
                         <!-- 여기가 현재 페이지를 의미합니다. - active클래스 적용됨 -->
-                        <li class="active"><a href="../09_cs/cs.html">배송조회 및 관리</a></li>
+                        <li class="active"><a href="#">배송조회 및 관리</a></li>
                     </ol>
                 </div>
                 <!--페이지 경로 끝-->

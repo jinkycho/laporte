@@ -19,8 +19,10 @@
 	 <!-- stylesheet -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/common.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/login_pwfind.css">
+    <link rel="stylesheet" type="text/css" href="..assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/login.css">
+    <link rel="stylesheet" type="text/css" href="..assets/css/login_pwfind.css">
+    <link rel="stylesheet" type="text/css" href="..assets/css/login_pwrevise.css">
     
     <!-- javascript  -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -59,10 +61,10 @@
 		</div>
 		
 		
-		<a id="pw_find" href="login_pwfind.html" class="clearfix">비밀번호 찾기</a>
+		<a id="pw_find" href="${pageContext.request.contextPath}/02_mypage/login_pwfind.do" class="clearfix">비밀번호 찾기</a>
 
 		<button id="login_btn" type="submit">로그인</button>
-		<button id="join_btn" type="button" onclick="location.href='./join.html'">회원가입</button>
+		<button id="join_btn" type="button" onclick="location.href='${pageContext.request.contextPath}/02_mypage/join.do'">회원가입</button>
 	
 	</form>
 	</div>
