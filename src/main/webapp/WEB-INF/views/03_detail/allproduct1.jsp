@@ -75,7 +75,7 @@
 				<div class="furcontent_product">
 					<h3>어느 거실에나 어울리는 소파</h3>
 					<div class="product_box1">
-					<a href="#"><img class="product_box1_img" src="../img/sofa1.png" width="377px" height="377px"/></a>
+					<a href="#"><img class="product_box1_img" src="../assets/img/sofa1.png" width="377px" height="377px"/></a>
 						<div class="furlinkbox">
 							<h4>모든소파</h4>
 							<a href="${pageContext.request.contextPath}/03_detail/allproduct2.do" class="move_link">이동</a>
@@ -88,7 +88,7 @@
 					<h3>무엇이든 수납할 수 있어요</h3>
 					<p class="furcontent_product_p">침실용 서랍장부터 거실용 책장과 벽에 거는 후크까지 모든 종류의 수납 제품을 만나보세요.</p>
 					<div class="product_box2">
-						<a href="#"><img class="product_box2_img"src="../img/Storage.png" width="377px"/></a>	
+						<a href="#"><img class="product_box2_img"src="../assets/img/Storage.png" width="377px"/></a>	
 						<span class="seeMore1"></span>
 						<span class="seeMore2"></span>
 						<span class="seeMore3"></span>
@@ -113,7 +113,7 @@
 				<div class="furcontent_product">
 					<h3>숙면할 수 있는 침대</h3>
 					<div class="product_box1">
-					<a href="#"><img class="product_box1_img" src="../img/bed01.png" width="377px"/></a>
+					<a href="#"><img class="product_box1_img" src="../assets/img/bed01.png" width="377px"/></a>
 						<div class="furlinkbox">
 							<h4>모든침대</h4>
 							<a href="${pageContext.request.contextPath}/03_detail/allproduct3.do" class="move_link">이동</a>

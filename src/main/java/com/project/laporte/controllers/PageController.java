@@ -58,7 +58,42 @@ public class PageController {
         // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
         return "/03_detail/detail";
     }
+
+	@RequestMapping(value="/03_detail/allproduct1.do", method=RequestMethod.GET)
+    public String allproduct1() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/03_detail/allproduct1";
+    }
 	
+	@RequestMapping(value="/03_detail/allproduct2.do", method=RequestMethod.GET)
+    public String allproduct2() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/03_detail/allproduct2";
+    }
+	
+	@RequestMapping(value="/03_detail/allproduct3.do", method=RequestMethod.GET)
+    public String allproduct3() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/03_detail/allproduct3";
+    }
+	
+	@RequestMapping(value="/03_detail/allproduct4.do", method=RequestMethod.GET)
+    public String allproduct4() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/03_detail/allproduct4";
+    }
+	
+	@RequestMapping(value="/03_detail/allproduct5.do", method=RequestMethod.GET)
+    public String allproduct5() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/03_detail/allproduct5";
+    }
+	
+	@RequestMapping(value="/03_detail/allproduct6.do", method=RequestMethod.GET)
+    public String allproduct6() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/03_detail/allproduct6";
+    }
 	@RequestMapping(value="/04_review/review_modify.do", method=RequestMethod.GET)
     public String review_modify() {
         // "/src/main/webapp/WEB-INF/views/04_review/review_modify.jsp" 파일을 View로 지정한다.
@@ -94,6 +129,13 @@ public class PageController {
 	        // "/src/main/webapp/WEB-INF/views/08_reserve/reserve.jsp" 파일을 View로 지정한다.
 	        return "/08_reserve/reserve";
 	    }
+	 
+	 @RequestMapping(value="/08_reserve/reserve_cfm.do", method=RequestMethod.GET)
+	    public String reserve_cfm() {
+	        // "/src/main/webapp/WEB-INF/views/08_reserve/reserve.jsp" 파일을 View로 지정한다.
+	        return "/08_reserve/reserve_cfm";
+	    }
+	 
 	 
 	 @RequestMapping(value="/09_cs/cs.do", method=RequestMethod.GET)
 	    public String cs() {

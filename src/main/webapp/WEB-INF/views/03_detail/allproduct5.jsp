@@ -293,7 +293,7 @@
 	    			$.ajax({
 	    				/** ajax 기본 옵션 */
 	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../api/sofpt.html',// 읽어들일 파일의 경로
+	    				url: '../assets/api/sofpt.html',// 읽어들일 파일의 경로
 	    				method: 'get',			 // 통신방법 (get(기본값), post)
 	    				data: {},				 // 접속대상에게 전달할 파라미터
 	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
@@ -314,7 +314,7 @@
 	    			$.ajax({
 	    				/** ajax 기본 옵션 */
 	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../api/bedpt.html',// 읽어들일 파일의 경로
+	    				url: '../assets/api/bedpt.html',// 읽어들일 파일의 경로
 	    				method: 'get',			 // 통신방법 (get(기본값), post)
 	    				data: {},				 // 접속대상에게 전달할 파라미터
 	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
@@ -335,7 +335,7 @@
 	    			$.ajax({
 	    				/** ajax 기본 옵션 */
 	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../api/accpt.html',// 읽어들일 파일의 경로
+	    				url: '../assets/api/accpt.html',// 읽어들일 파일의 경로
 	    				method: 'get',			 // 통신방법 (get(기본값), post)
 	    				data: {},				 // 접속대상에게 전달할 파라미터
 	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
@@ -358,7 +358,7 @@
 	    			$.ajax({
 	    				/** ajax 기본 옵션 */
 	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../api/kitpt.html',// 읽어들일 파일의 경로
+	    				url: '../assets/api/kitpt.html',// 읽어들일 파일의 경로
 	    				method: 'get',			 // 통신방법 (get(기본값), post)
 	    				data: {},				 // 접속대상에게 전달할 파라미터
 	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
@@ -379,7 +379,7 @@
 	    			$.ajax({
 	    				/** ajax 기본 옵션 */
 	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../api/ligpt.html',// 읽어들일 파일의 경로
+	    				url: '../assets/api/ligpt.html',// 읽어들일 파일의 경로
 	    				method: 'get',			 // 통신방법 (get(기본값), post)
 	    				data: {},				 // 접속대상에게 전달할 파라미터
 	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
@@ -394,8 +394,6 @@
 	    				}
 	    			}); //end $.ajax
 	    		}); // end click
-	    		
-
 	
 	</script>
 </body>
