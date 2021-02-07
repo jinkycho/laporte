@@ -71,7 +71,7 @@
 </div>
 
 <!-- swweetalert -->
-<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
 $(function(){

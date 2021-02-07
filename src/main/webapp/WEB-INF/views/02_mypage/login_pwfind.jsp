@@ -19,7 +19,7 @@
 	 <!-- stylesheet -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/login_pwfind.css">
     
     <!-- javascript  -->
@@ -28,14 +28,14 @@
     
 	<!-- ajax-helper -->
     <link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
-    <script src="../plugins/ajax/ajax_helper.js"></script>
+    <script src="../assets/plugins/ajax/ajax_helper.js"></script>
 </head>
 
 <body>
 
 <div id= "login_pwfind">
 	<div class="header">
-	<a href="login.html">
+	<a href="${pageContext.request.contextPath}/02_mypage/login.do">
 		<span id="d_icon_l">이전으로 가기</span>
 	</a>
 	<h3><b>비밀번호 찾기</b></h3>

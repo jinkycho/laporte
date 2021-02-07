@@ -19,18 +19,16 @@
 	 <!-- stylesheet -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="..assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/login.css">
-    <link rel="stylesheet" type="text/css" href="..assets/css/login_pwfind.css">
-    <link rel="stylesheet" type="text/css" href="..assets/css/login_pwrevise.css">
     
     <!-- javascript  -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery.min.js"></script>
     
 	<!-- ajax-helper -->
-    <link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
-	<script src="../plugins/ajax/ajax_helper.js"></script>
+    <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
+	<script src="../assets/plugins/ajax/ajax_helper.js"></script>
 	
 
 </head>
@@ -39,7 +37,7 @@
 
 <div id= "login">
 	<div class="header">
-		<a href="../01_home/home.html">
+		<a href="${pageContext.request.contextPath}/home.do">
 			<span id="d_icon_l">이전으로 가기</span>
 		</a>
 		<h3><b>지금 la porte로 로그인하세요!</b></h3>
