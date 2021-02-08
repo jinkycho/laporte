@@ -26,7 +26,6 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="../assets/css/common.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/join2.css">
 
 <!-- javascript  -->
@@ -47,18 +46,18 @@
 			<p>아이디와 비밀번호를 입력해주세요.</p>
 		</div>
 
-		<form id="myform" class="userinfo_insert">
+		<form method="post" id="myform" class="userinfo_insert" action="${pageContext.request.contextPath}/02_mypage/join_ok.do">
 		
 			<div class="input_box">
 			<label for='id' id="join_id" class='input_label placeholder_event'>아이디</label> 
-			<input type='text' name='user_id'
+			<input type='text' name='userid'
 				id='join_id_input' class='form-control label_event' />
 			<button id="id_dbl_check" type="submit">아이디중복확인</button>
 			</div>
 			
 			<div class="input_box">
 			<label for='user_name' class='input_label placeholder_event'>이름</label> 
-			<input type='text' name='user_name' id='user_name' class='form-control label_event' />
+			<input type='text' name='name' id='user_name' class='form-control label_event' />
 			</div>
 			
 			
@@ -72,7 +71,7 @@
 			</div>
 			
 			<label for='gender'>성별</label> 
-			<select>
+			<select name='gender'>
 				<option value='M'>남</option>
 				<option value='F'>여</option>
 				<option value='N'>응답거부</option>
@@ -80,7 +79,6 @@
 			
 			<label for='address'>주소</label> 
 			<div id="contact_address_box">
-				<form role="form">
 					<div class="form-group">
 						<button type="button" class="btn btn-primary" id="find_pc"
 							onclick="sample3_execDaumPostcode()">우편번호 찾기</button>
@@ -96,21 +94,21 @@
 
 						<div class="address_input_box">
 							<label for="add_address" class="add_address_label">도로명 주소</label>
-							<input type="text" id="add_address" name="add_address"
-								class="form-control address_label_event" disabled>
+							<input type="text" id="add_address" name="addr1"
+								class="form-control address_label_event" readonly>
 						</div>
 
 						<div class="address_input_box">
 							<label for="add_address_detail" class="add_address_label">상세
 								주소</label> <input type="text" id="add_address_detail"
-								name="add_address_detail"
+								name="addr2"
 								class="form-control address_label_event">
 						</div>
 
 						<div class="address_input_box">
 							<label for="add_post" class="add_address_label">우편번호</label> <input
-								type="text" id="add_post" name="add_post"
-								class="form-control address_label_eventl" disabled>
+								type="text" id="add_post" name="postcode"
+								class="form-control address_label_eventl" readonly>
 						</div>
 
 						<button type="reset" class="btn_reset">다시 입력하기</button>
@@ -121,7 +119,7 @@
 				<div class="input_box">
 				<label for='password' id="join_password" class='input_label placeholder_event'>비밀번호</label> 
 				<input
-					id='join_password_input' class='form-control pw_input label_event' type='password' name='password'/>
+					id='join_password_input' class='form-control pw_input label_event' type='password' name='userpwd'/>
 				</div>
 				
 				<li>

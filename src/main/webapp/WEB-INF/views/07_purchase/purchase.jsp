@@ -383,14 +383,14 @@
 <%@ include file="../01_home/footer.jsp" %>
 
 <!-- swweetalert -->
-<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="../assets/js/home.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 
     //장바구니 상품 정보 가져오기 
-    $.get('../api/item_info/example.json', function(req) {
+    $.get('../assets/api/item_info/example.json', function(req) {
 	    $(".cart_item_img").attr('src', req.img);
 		$(".cart_item_title").html(req.name);
         $(".cart_item_info").html(req.type);
@@ -423,7 +423,7 @@ $(document).ready(function() {
     $('#find_pc').click(function(e){
         e.preventDefault();
         //다음 API 불러오기
-        $.get("daum_pc_find.html", {}, function(req){
+        $.get("${pageContext.request.contextPath}/07_purchase/daum_pc_find.do", {}, function(req){
         //이미 있는 요소는 비운다.
         $("#daum_pc_find").empty();
         // 준비된 요소에게 읽어온 내용을 출력한다.
@@ -736,7 +736,7 @@ $(document).ready(function() {
         /* ----------------- 함수 입력시 여기지우고부터 작성 시작 ------------------ */
     });
     </script>
- <script src="../dist/zebra_datepicker.src.js"></script>
+ <script src="../assets/dist/zebra_datepicker.src.js"></script>
 
 </body>
 </html>

@@ -6,8 +6,8 @@ import lombok.Data;
 public class User {
 	private int userno;
 	private String userid;	
-	private String userpw;
-	private String username;
+	private String userpwd;
+	private String name;
 	private String birthdate;
 	private String phoneno;
 	private String gender;

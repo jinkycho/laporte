@@ -11,6 +11,13 @@ public class PageController {
 	/** 페이지 링크 이동을 위한 임시 controller */
     // -> import org.springframework.web.bind.annotation.RequestMapping;
     // -> import org.springframework.web.bind.annotation.RequestMethod;
+	
+	@RequestMapping(value="/home.do", method=RequestMethod.GET)
+    public String home() {
+        // "/src/main/webapp/WEB-INF/views/home.jsp" 파일을 View로 지정한다.
+        return "/home";
+    }
+	
 	@RequestMapping(value="/02_mypage/mypage.do", method=RequestMethod.GET)
     public String mypage() {
         // "/src/main/webapp/WEB-INF/views/02_mypage/mypage.jsp" 파일을 View로 지정한다.
@@ -27,18 +34,6 @@ public class PageController {
     public String login() {
         // "/src/main/webapp/WEB-INF/views/02_mypage/login.jsp" 파일을 View로 지정한다.
         return "/02_mypage/login";
-    }
-	
-	@RequestMapping(value="/02_mypage/join.do", method=RequestMethod.GET)
-    public String join() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/join.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/join";
-    }
-	
-	@RequestMapping(value="/02_mypage/join2.do", method=RequestMethod.GET)
-    public String join2() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/join2";
     }
 	
 	@RequestMapping(value="/02_mypage/login_pwfind.do", method=RequestMethod.GET)
@@ -116,6 +111,18 @@ public class PageController {
     public String cart() {
         // "/src/main/webapp/WEB-INF/views/06_cart/cart.jsp" 파일을 View로 지정한다.
         return "/06_cart/cart";
+    }
+	
+	@RequestMapping(value="/07_purchase/purchase.do", method=RequestMethod.GET)
+    public String purchase() {
+        // "/src/main/webapp/WEB-INF/views/07purchase/purchase.jsp" 파일을 View로 지정한다.
+        return "/07_purchase/purchase";
+    }
+	
+	@RequestMapping(value="/07_purchase/daum_pc_find.do", method=RequestMethod.GET)
+    public String daum_pc_find() {
+        // "/src/main/webapp/WEB-INF/views/07purchase/daum_pc_find.jsp" 파일을 View로 지정한다.
+        return "/07_purchase/daum_pc_find";
     }
 	
 	@RequestMapping(value="/08_reserve/showroom_info.do", method=RequestMethod.GET)
