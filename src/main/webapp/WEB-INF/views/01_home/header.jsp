@@ -9,7 +9,7 @@
                 <div class="hd_icon">
                     <a href="${pageContext.request.contextPath}" id="hd_logo"><span id="hd_logo_icon"></span></a>
                     <ul class="hd_list">
-                        <li><a href="${pageContext.request.contextPath}/02_mypage/mypage.do"><span id="hd_mypage_icon"></span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/02_mypage/login.do"><span id="hd_mypage_icon"></span></a></li>
                         <li><a href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span id="hd_wishlist_icon"></span></a></li>
                         <li><a href="${pageContext.request.contextPath}/06_cart/cart.do"><span id="hd_cart_icon"></span></a></li>
                         <li><a href="#"><span id="hd_menu_icon"></span></a></li>

@@ -46,13 +46,13 @@
 			<p>아이디와 비밀번호를 입력해주세요.</p>
 		</div>
 
-		<form method="post" id="myform" class="userinfo_insert" action="${pageContext.request.contextPath}/02_mypage/join_ok.do">
+		<form id="joinForm" class="userinfo_insert" action="${pageContext.request.contextPath}/02_mypage">
 		
 			<div class="input_box">
 			<label for='id' id="join_id" class='input_label placeholder_event'>아이디</label> 
 			<input type='text' name='userid'
 				id='join_id_input' class='form-control label_event' />
-			<button id="id_dbl_check" type="submit">아이디중복확인</button>
+			<button id="id_dbl_check" type="submit" onsubmit="idDblCheck()">아이디중복확인</button>
 			</div>
 			
 			<div class="input_box">
@@ -135,8 +135,7 @@
 					<span id="join_password_same">비밀번호 일치 ✓</span>
 				</div>
 				
-					<button id="join_btn" type="submit"
-						onclick="location.href='${pageContext.request.contextPath}/home.do'">가입하기</button>
+					<button id="join_btn" type="submit">가입하기</button>
 		</form>
 
 
@@ -149,7 +148,15 @@
 
 	<script
 		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		  <!--Google CDN 서버로부터 jQuery 참조 -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    
 	<script type="text/javascript">
+	
 		$(function() {
 
 			//비밀번호 이름 시 확인 코멘트 컬러 변경
@@ -215,6 +222,21 @@
 					$(label_event).addClass('placeholder_event');
 				}
 			});
+			
+			  // #joinForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
+	        $("#joinForm").ajaxForm({
+	            // 전송 메서드 지정
+	            method: "POST",
+	            // 서버에서 200 응답을 전달한 경우 실행됨
+	            success: function(json) {
+	                console.log(json);
+	                
+	                // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+	                if (json.rt == "OK") {
+	                    window.location = "${pageContext.request.contextPath}/02_mypage/login.do?userno=" + json.item.userno;
+	                }
+	            }
+	        });
 		});
 
 		/*-------------------------우편번호 ------------------------------------*/

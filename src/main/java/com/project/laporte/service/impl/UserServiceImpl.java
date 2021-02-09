@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	SqlSession sqlSession;
 	
+	/** 회원가입 정보 저장 */
 	@Override
 	public int addUser(User input) throws Exception {
 		int result = 0;
@@ -37,6 +38,27 @@ public class UserServiceImpl implements UserService {
 		}catch(Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 저장에 실패했습니다.");
+		}
+		return result;
+	}
+
+	/** 회원가입 정보 조회 */
+	@Override
+	public User getUserItem(User input) throws Exception {
+		User result = null;
+		
+		try {
+			result = sqlSession.selectOne("UserMapper.selectItem", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result == null");
+			}
+		}catch(NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		}catch(Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
 		}
 		return result;
 	}

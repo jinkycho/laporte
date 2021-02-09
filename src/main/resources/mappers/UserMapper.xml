@@ -11,7 +11,7 @@
         <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
         <result property="userno" column="userno" />
         <result property="userid" column="userid" />
-        <result property="userpw" column="userpw" />
+        <result property="userpwd" column="userpwd" />
         <result property="name" column="name" />
         <result property="birthdate" column="birthdate" />
         <result property="phoneno" column="phoneno" />
@@ -35,4 +35,16 @@
 		#{addr1}, #{addr2}, #{postcode}, 'Y', now(), now(), 0
 		)
 	</insert>
+	
+	
+	<!--  회원정보 조회를  위한 기능 정의 -->
+	<select id="idDblCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
+		SELECT userid FROM user WHERE userid like #{userid}
+	</select>
+	
+	<!--  아이디 중복 확인을 위한 기능 정의 -->
+	<select id="selectItem" parameterType = "com.project.laporte.model.User" resultMap="userMap">
+		SELECT userid, userpwd, name, DATE_FORMAT(birthdate, %Y-%m-%d') AS birthdate, phoneno, gender, addr1, addr2,
+		postcode, editdate, point FROM user WHERE userno = #{userno}
+	</select>
 </mapper>
