@@ -71,7 +71,7 @@
 		<div class="container">
 			<div class="page-header">
 				<ol class="breadcrumb">
-					<li><a href="../01_home/home.html">홈</a></li>
+					<li><a href="${pageContext.request.contextPath}">홈</a></li>
 					<!-- 여기가 현재 페이지를 의미합니다. - active클래스 적용됨 -->
 					<li class="active">이달의 혜택</li>
 				</ol>
