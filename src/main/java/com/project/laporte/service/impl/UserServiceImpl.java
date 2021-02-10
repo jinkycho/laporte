@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.User;
 import com.project.laporte.service.UserService;
 
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 	//-->import org.apache.ibatis.session.Sqlsession
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Autowired
+	WebHelper webHelper;
 	
 	/** 회원가입 정보 저장 */
 	@Override
@@ -63,5 +67,23 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 	
+	/** 아이디 중복 검사*/
+	@Override
+	public int getIdItem(User input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.selectOne("UserMapper.idCheck", input);
+			
+			if(result > 0) {
+				result = 1;
+			}
+			}catch(NullPointerException e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("조회된 데이터가 없습니다.");
+			}
 	
-}
+		return result;					
+		}
+	}
+

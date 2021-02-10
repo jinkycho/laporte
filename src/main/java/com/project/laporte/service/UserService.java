@@ -8,5 +8,7 @@ public interface UserService {
 	
 	/** 회원가입 정보 조회 */
 	public User getUserItem(User input) throws Exception;
-
+	
+	/** 아이디 중복 검사*/
+	public int getIdItem(User input) throws Exception;
 }

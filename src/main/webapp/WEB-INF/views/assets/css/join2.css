@@ -95,7 +95,7 @@ form .form-control:focus, form select:hover {
 	margin-bottom: 45px;
 }
 
-.userinfo_insert #id_dbl_check {
+.userinfo_insert #id_check {
 	display: inline-block;
 	height: 35px;
 	width: 30%;
@@ -122,7 +122,7 @@ span {
 	font-size: 13px;
 }
 
-#myform .pw_input{
+#joinForm .pw_input{
 	margin-bottom: 3px;	
 }
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,7 @@ import com.project.laporte.model.User;
 import com.project.laporte.service.UserService;
 
 @RestController
-public class JoinRestController {
+public class UserRestController {
 	
     /** WebHelper 주입 */
     @Autowired  WebHelper webHelper;
@@ -39,12 +40,32 @@ public class JoinRestController {
         return new ModelAndView("/02_mypage/join");
     }
 	
-	@RequestMapping(value="/02_mypage/join2.do", method=RequestMethod.GET)
-    public ModelAndView join2(Model model) {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.
-        return new ModelAndView("/02_mypage/join2");
-    }
-	
+	/**로그인 중복 검사*/
+	@RequestMapping(value="/02_mypage/id_check.do", method=RequestMethod.POST)
+	public Map<String, Object>id_check(Model model,
+			@RequestParam(value = "join_id_input", defaultValue="") String userid){
+			
+		/**1) 아이디 조회를 위해 Bean에 담는다*/
+			User input = new User();
+			input.setUserid(userid);
+			
+		//조회된 결과를 확인하기 위한 객체
+			int output = 0;
+			
+			try {
+				output = userService.getIdItem(input);
+			}catch (Exception e) {
+	            return webHelper.getJsonError(e.getLocalizedMessage());
+	        }
+	        
+	        /** 2) JSON 출력하기 */
+	        Map<String, Object> data = new HashMap<String, Object>();
+	        data.put("item", output);
+	        
+	        return webHelper.getJsonData(data);
+			
+			
+	}
 	/** 회원가입 작성 폼에 대한 action 페이지*/
 	@RequestMapping(value="/02_mypage", method=RequestMethod.POST)
 	public Map<String, Object> join_post(Model model,
@@ -104,5 +125,33 @@ public class JoinRestController {
 		return webHelper.getJsonData(map);
 	}
 	
+	 /** 회원정보 상세 조회 */
+    @RequestMapping(value = "/02_mypage/{userno}", method = RequestMethod.GET)
+    public Map<String, Object> get_item(@PathVariable("userno") int userno) {
+
+        /** 1) 데이터 조회하기 */
+        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+        User input = new User();
+        input.setUserno(userno);
+
+        // 조회결과를 저장할 객체 선언
+        User output = null;
+
+        try {
+            // 데이터 조회
+            output = userService.getUserItem(input);
+        } catch (Exception e) {
+            return webHelper.getJsonError(e.getLocalizedMessage());
+        }
+        
+        /** 2) JSON 출력하기 */
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("item", output);
+        
+        return webHelper.getJsonData(data);
+    }
+    
+    
+    
 
 }

@@ -52,7 +52,7 @@
 			<label for='id' id="join_id" class='input_label placeholder_event'>아이디</label> 
 			<input type='text' name='userid'
 				id='join_id_input' class='form-control label_event' />
-			<button id="id_dbl_check" type="submit" onsubmit="idDblCheck()">아이디중복확인</button>
+			<button id="id_check">아이디중복확인</button>
 			</div>
 			
 			<div class="input_box">
@@ -223,6 +223,28 @@
 				}
 			});
 			
+			//아이디 중복 검사
+			$('#id_check').click(function(e){
+				e.preventDefault();
+				var uid = $('#join_id_input').val();
+				
+				if(!uid){
+					alert("아이디를 입력해주세요.");
+					return false;
+				}
+					
+					$.post('${pageContext.request.contextPath}/02_mypage/id_check.do', {join_id_input : uid}, function(json){
+						if(json.item != 0){
+						alert("중복된 아이디가 있습니다. 다른 아이디를 사용해주세요.");
+						uid.val("");
+						uid.focus();
+						return false;
+					}
+					alert(uid + "는 사용가능한 아이디입니다.");
+			
+				});
+			});
+			
 			  // #joinForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
 	        $("#joinForm").ajaxForm({
 	            // 전송 메서드 지정
@@ -233,7 +255,7 @@
 	                
 	                // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
 	                if (json.rt == "OK") {
-	                    window.location = "${pageContext.request.contextPath}/02_mypage/login.do?userno=" + json.item.userno;
+	                    window.location = "${pageContext.request.contextPath}/02_mypage/login.do";
 	                }
 	            }
 	        });
