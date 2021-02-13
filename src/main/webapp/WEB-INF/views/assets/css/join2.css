@@ -35,6 +35,10 @@ label {
 	font-size: 14px;
 }
 
+.box{
+	margin-bottom: 45px;	
+}
+
 form .form-control, form select {
 	width: 100%;
 	height: 30px;
@@ -42,7 +46,6 @@ form .form-control, form select {
 	border-bottom: 1px solid #929292;
 	box-shadow: none;
 	outline: none;
-	margin-bottom: 45px;
 	border-radius: 0;
 	color: #333;
 	opacity: 1;
@@ -100,7 +103,7 @@ form .form-control:focus, form select:hover {
 	height: 35px;
 	width: 30%;
 	position: relative;
-	bottom: 80px;
+	bottom: 40px;
 	float:right;
 	background-color: #172F50;
 	color: #fff;

@@ -43,7 +43,7 @@ public class UserRestController {
 	/**로그인 중복 검사*/
 	@RequestMapping(value="/02_mypage/id_check.do", method=RequestMethod.POST)
 	public Map<String, Object>id_check(Model model,
-			@RequestParam(value = "join_id_input", defaultValue="") String userid){
+			@RequestParam(value = "user_id", defaultValue="") String userid){
 			
 		/**1) 아이디 조회를 위해 Bean에 담는다*/
 			User input = new User();
