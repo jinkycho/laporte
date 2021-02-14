@@ -17,7 +17,6 @@
         <result property="adminnote"  column="adminnote" />
         <result property="detailnote" column="detailnote" />
         <result property="detailsize" column="detailsize" />
-        <result property="thumbimg"   column="thumbimg" />
         <result property="catno2"     column="catno2" />
         <result property="group"      column="group" />
         <result property="regdate"    column="regdate" />
@@ -43,10 +42,10 @@
         parameterType="com.project.laporte.model.Product"
         useGeneratedKeys="true"
         keyProperty="prodno">
-        INSERT INTO product (name, price, saleprice, stock, display, color, size, adminnote,
-        detailnote, detailsize, thumbimg, catno2, group, regdate, editdate) 
-        VALUES (#{name}, #{price}, #{saleprice}, #{stock}, #{display}, #{color}, #{size}, #{adminnote}, 
-        #{detailnote}, #{detailsize}, #{thumbimg}, #{catno2}, #{group}, now(), now());
+        INSERT INTO product(name, price, saleprice, stock, display, color, size, adminnote
+        ,detailnote, detailsize, catno2, group, regdate, editdate)VALUES(#{name}, #{price}
+        , #{saleprice}, #{stock}, #{display}, #{color}, #{size}, #{adminnote}
+        ,#{detailnote}, #{detailsize}, #{catno2}, #{group}, now(), now());
     </insert>
     
     <!-- 데이터 삭제를 위한 기능 정의 -->
@@ -60,7 +59,7 @@
         parameterType="com.project.laporte.model.Product">
         UPDATE product SET name=#{name}, price=#{price}, saleprice=#{saleprice}, stock=#{stock}, display=#{display}
         , color=#{color}, size=#{size}, adminnote=#{adminnote}, detailnote=#{detailnote}, detailsize=#{detailsize}
-        , thumbimg=#{thumbimg}, catno2=#{catno2}, group=#{group}, editdate=now()
+        , catno2=#{catno2}, group=#{group}, editdate=now()
         WHERE prodno=#{prodno};
     </update>
 </mapper>

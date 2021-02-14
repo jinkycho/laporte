@@ -16,7 +16,6 @@ public class Product {
 	private String adminnote;
 	private String detailnote;
 	private String detailsize;
-	private String thumbimg;
 	private int catno2;
 	private String group;
 	private String regdate;

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,16 +71,23 @@ public class ProductRestController {
 			@RequestParam(value="name", defaultValue="")String name,
 			@RequestParam(value="price", defaultValue="0")int price,
 			@RequestParam(value="saleprice", defaultValue="0", required=false)int saleprice,
-			@RequestParam(value="stock", defaultValue="0")int stock,
+			@RequestParam(value="stock", defaultValue="0", required=false)int stock,
 			@RequestParam(value="display", defaultValue="")String display,
 			@RequestParam(value="color", defaultValue="")String color,
-			@RequestParam(value="size", defaultValue="")String size,
-			@RequestParam(value="adminnote", defaultValue="", required=false)String adminnote,
+			@RequestParam(value="size", defaultValue="null", required=false)String size,
+			@RequestParam(value="adminnote", defaultValue="null", required=false)String adminnote,
 			@RequestParam(value="detailnote", defaultValue="")String detailnote,
 			@RequestParam(value="detailsize", defaultValue="")String detailsize,
-			@RequestParam(value="thumbimg", defaultValue="")String thumbimg,
 			@RequestParam(value="catno2", defaultValue="0")int catno2,
-			@RequestParam(value="group", defaultValue="")String group){
+			HttpServletRequest request){
+		
+		//체크박스의 name 속성이 동일한 요소가 여러개인 경우 파라미터를 배열로 리턴받는다.
+		String[] arr = request.getParameterValues("prd_group[]");
+		
+		//체크박스의 선택값이 저장괼 문자열
+		// -> arr 배열의 각원소를 첫번째 파라미터로 설정한 구분값을 적용하여 하나의 문자열로 연결
+		String group = String.join(", ", arr);
+		System.out.println(group);
 		
 		/** 데이터 저장하기 */
 		//저장할 값들을 Beans에 담는다.
@@ -93,7 +102,6 @@ public class ProductRestController {
 		input.setAdminnote(adminnote);
 		input.setDetailnote(detailnote);
 		input.setDetailsize(detailsize);
-		input.setThumbimg(thumbimg);
 		input.setCatno2(catno2);
 		input.setGroup(group);
 		

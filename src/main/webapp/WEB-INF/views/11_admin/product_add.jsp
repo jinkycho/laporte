@@ -156,7 +156,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card">
-									
+									<form class="form-inline" action="${pageContext.request.contextPath}/11_admin/product_add">
                                     <div class="card-header">
                                         <h3 class="card-title">기본 정보</h3>
                                     </div>
@@ -166,7 +166,6 @@
                                             <tr>
                                                 <td class="info_table_color">상품 분류 *</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <!-- 1차 카테고리 -->
                                                         <div class="form-group">
                                                             <select id="category1" class="form-control prod_category1" name="catno1">
@@ -185,63 +184,50 @@
                                                             </select>
                                                         </div>
                                                         <!-- 2차 카테고리 끝 -->
-                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">상품 그룹</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="input-group">
-                                                            <label><input type="checkbox" name="product_group" value="group_sale"> 세일</label>
-                                                            <label><input type="checkbox" name="product_group" value="group_new"> 신제품</label>
-                                                            <label><input type="checkbox" name="product_group" value="group_best"> 인기</label>
-                                                            <label><input type="checkbox" name="product_group" value="group_best_month"> 이달의 제품</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="sale"> 세일</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="new"> 신제품</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="best"> 인기</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="best_month"> 이달의 제품</label>
                                                         </div>
-                                                        
-                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">상품명 *</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="상품명" id="product_name">
+                                                            <input type="text" class="form-control" placeholder="상품명" id="product_name" name="name">
                                                         </div>
-                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">상품 색상 *</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="상품 색상" id="product_color">
+                                                            <input type="text" class="form-control" placeholder="상품 색상" id="product_color" name="color">
                                                         </div>
-                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">상품 크기</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="상품 크기" id="product_size">
+                                                            <input type="text" class="form-control" placeholder="상품 크기" id="product_size" name="size">
                                                         </div>
-                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">상품 진열 *</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="input-group" id="product_display">
-                                                            <label><input type="radio" name="display" value="display_y"> 진열함</label>
-                                                            <label><input type="radio" name="display" value="display_n"> 진열안함</label>
+                                                            <label><input type="radio" name="display" value="Y"> 진열함</label>
+                                                            <label><input type="radio" name="display" value="N"> 진열안함</label>
                                                         </div>
-                                                        
-                                                    </form>
                                                 </td>
                                             </tr>
                                         </table>
@@ -258,33 +244,27 @@
                                             <tr>
                                                 <td class="info_table_color">판매가 *</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="product_price">
+                                                            <input type="text" class="form-control" id="product_price" name="price">
                                                         </div>
-                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">할인가</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="product_sale_price">
+                                                            <input type="text" class="form-control" id="product_sale_price" name="saleprice">
                                                         </div>
-                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">재고 *</td>
                                                 <td>
-                                                    <form class="form-inline">
                                                         <div class="input-group">
-                                                            <label><input type="radio" name="product_num" value="product_soldout" > 품절</label>
-                                                            <label><input type="radio" name="product_num" value="product_quantity" > 수량</label> 
-                                                            <input type="text" class="form-control product_quantity_num" />개
+                                                            <label><input type="radio" value="product_soldout" name="stock_status"> 품절</label>
+                                                            <label><input type="radio" value="product_quantity"  name="stock_status"> 수량</label> 
+                                                            <input type="text"  name="stock" class="form-control product_quantity_num" />개
                                                         </div>
-                                                    </form>
                                                 </td>
                                             </tr>
                                         </table>
@@ -300,25 +280,19 @@
                                             <tr>
                                                 <td class="info_table_color" width="20%">관리자 주석</td>
                                                 <td width="80%">
-                                                    <form class="form-inline">
-                                                        <textarea name="admin_notes" id="admin_notes" class="form-control"></textarea>
-                                                    </form>
+                                                        <textarea name="adminnote" id="admin_notes" class="form-control"></textarea>
                                                 </td>
                                             </tr>
                                             <tr id="product_detail_text">
                                                 <td class="info_table_color">상세 설명 *</td>
                                                 <td>
-                                                    <form class="form-inline">
-                                                        <textarea name="product_notes" id="product_notes" class="form-control"></textarea>
-                                                    </form>
+                                                        <textarea name="detailnote" id="product_notes" class="form-control"></textarea>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="info_table_color">상품 상세크기 *</td>
+                                                <td class="info_table_color" action="${pageContext.request.contextPath}/11_admin/product_add">상품 상세크기 *</td>
                                                 <td>
-                                                    <form class="form-inline">
-                                                        <textarea name="product_detail_size" id="product_detail_size" class="form-control"></textarea>
-                                                    </form>
+                                                        <textarea name="detailsize" id="product_detail_size" class="form-control"></textarea>
                                                 </td>
                                             </tr>
                                         </table>
@@ -334,16 +308,12 @@
                                             <tr>
                                                 <td class="info_table_color">대표 이미지 *</td>
                                                 <td>
-                                                    <form class="form-inline" enctype="multipart/form-data">
                                                         <div class="filebox_thumb"> 
                                                             <input type="file" name="product_thumbnail" id="product_thumbnail" class="form-control">
                                                             <input class="upload-name form-control" placeholder="파일선택"><label for="product_thumbnail">업로드</label>
                                                         </div>
-                                                    </form>
-                                                    <form class="form-inline">
                                                         <input type="text" placeholder="이미지 링크" id="product_thumbnail_link" class="form-control">
                                                         <button type="button" class="btn btn-primary thumb_link_btn">업로드</button>
-                                                    </form>
                                                     <div class="explain_box"> ※1개만 업로드 가능</div>
                                                 </td>
                                                 <td class="img_box">
@@ -354,18 +324,14 @@
                                             <tr id="product_detail_text">
                                                 <td class="info_table_color">상세 이미지 *</td>
                                                 <td>
-                                                    <form class="form-inline" enctype="multipart/form-data">
                                                         <div class="filebox_detail">
                                                             <input type="file" name="product_detail_img" id="product_detail_img" multiple />
                                                             <input class="upload-name2 form-control" placeholder="파일선택"><label for="product_detail_img">추가</label>
                                                         </div>
-                                                        <form class="form-inline">
-                                                            <input type="text" placeholder="이미지 링크" id="product_detail_link" class="form-control">
-                                                            <button type="button" class="btn btn-primary detail_link_btn">추가</button>
-                                                        </form>
-                                                        <div class="explain_box"> ※여러장 추가 가능</div>
+                                                        <input type="text" placeholder="이미지 링크" id="product_detail_link" class="form-control">
+                                                        <button type="button" class="btn btn-primary detail_link_btn">추가</button>
+                                                    <div class="explain_box"> ※여러장 추가 가능</div>
                                                         
-                                                    </form>
                                                 </td>
                                                 <td class="img_box">
                                                     <div class="detail_img_wrap">
@@ -379,7 +345,7 @@
                                     </div>
                                     
                                     <!--상품 이미지 끝-->
-
+								</form>
 								</div>
 								<!-- /.card 끝 -->
 							</div>
@@ -400,6 +366,10 @@
 	<!-- Handlebar CDN 참조 -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script type="text/javascript">
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
@@ -581,20 +551,11 @@
                 }
 
                 /* 재고 미입력시 */
-                var stock = $("input[name='product_num']:checked").val();
+                var stock = $("input[name='stock_status']:checked").val();
                 if(!stock){
                     alert("재고 여부를 선택해주세요.");
-                    $("input[name='product_num']").focus();
+                    $("input[name='stock_status']").focus();
                     return false;
-                }else{
-                    if(stock=='product_quantity'){
-                        var product_quantity_num = $(".product_quantity_num").val();
-                        if(!product_quantity_num){
-                            alert("재고 수량을 입력해주세요.");
-                            $(".product_quantity_num").focus();
-                            return false;
-                        }
-                    }
                 }
 
                 /* 상세 설명 미입력시 */
@@ -626,9 +587,26 @@
                     alert("상세 이미지를 추가 해주세요.");
                     return false;
                 }
+                
+                $(".form-inline").ajaxForm({
+                    // 전송 메서드 지정
+                    method: "POST",
+                    // 서버에서 200 응답을 전달한 경우 실행됨
+                    success: function(json) {
+                        console.log(json);
+                        
+                        // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+                        if (json.rt == "OK") {
+                            window.location = "${pageContext.request.contextPath}/11_admin/product_view.do?prodno=" + json.item.prodno;
+                        }
+                    }
+                });
 
             });
         });
+        
+     // .form-inline에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
+        
 	</script>
 </body>
 </html>

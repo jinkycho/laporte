@@ -3,6 +3,7 @@ package com.project.laporte.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,11 @@ public class ProductAjaxController {
 	/** Service 패턴 구현체 주입 */
 	@Autowired 
 	ProductService productService;
+	
+	/** "/프로젝트이름"에 해당하는 ContextPath 변수 주입 */
+	// --> import org.springframework.beans.factory.annotation.Value;
+	@Value("#{servletContext.contextPath}")
+	String contextPath;
 
 	/** 상품 등록 페이지 */
 	@RequestMapping(value="/11_admin/product_add.do", method= {RequestMethod.POST, RequestMethod.GET})
@@ -69,7 +75,37 @@ public class ProductAjaxController {
 		model.addAttribute("catno1", catno1);
 		//model.addAttribute("output", output);
 		
-		return new ModelAndView("/11_admin/product_add");
+		return new ModelAndView("11_admin/product_add");
+	}
+	
+	/** 상품 정보 페이지 (관리자) */
+	@RequestMapping(value="/11_admin/product_view.do", method=RequestMethod.GET)
+	public ModelAndView view(Model model,
+			@RequestParam(value="prodno", defaultValue="0")int prodno) {
+		/** 1) 유효성 검사 */
+		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		if(prodno == 0) {
+			return webHelper.redirect(null, "상품 번호가 없습니다");
+		}
+		
+		/** 2) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		Product input = new Product();
+		input.setProdno(prodno);
+		
+		// 조회결과를 저장할 객체 선언
+		Product output = null;
+		
+		try {
+			//데이터 조회 --> 검색조건 없이 모든 학과 조회
+			output = productService.getProductItem(input);
+		}catch(Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		/** 3) View 처리하기 */
+		model.addAttribute("output", output);
+		return new ModelAndView("11_admin/product_view");
 	}
 	
 
