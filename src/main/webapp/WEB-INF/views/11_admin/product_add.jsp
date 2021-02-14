@@ -169,19 +169,18 @@
                                                     <form class="form-inline">
                                                         <!-- 1차 카테고리 -->
                                                         <div class="form-group">
-                                                            <select id="parent" class="form-control">
+                                                            <select id="category1" class="form-control prod_category1" name="catno1">
                                                                 <option value="">--1차 분류--</option>
-                                                                <option value="sofa">소파/암체어</option>
-                                                                <option value="bed">침대</option>
-                                                                <option value="acceptance">수납/정리</option>
-                                                                <option value="kitchen">주방가구/용품</option>
-                                                                <option value="light">조명</option>
+                                                                <%-- 조회 결과에 따른 반복 처리 --%>
+                												<c:forEach var="item" items="${category1}" varStatus="status">
+                    												<option value="${item.catno1}">${item.catname}</option>
+                												</c:forEach>
                                                             </select>
                                                         </div>
                                                         <!-- 1차 카테고리 끝 -->
                                                         <!-- 2차 카테고리 -->
                                                         <div class="form-group">
-                                                            <select id="child" class="form-control">
+                                                            <select id="category2" class="form-control prod_category2" name="catno2">
                                                                 <option value="">--2차 분류--</option>
                                                             </select>
                                                         </div>
@@ -392,45 +391,40 @@
 		<!-- /wrapper  끝-->
 	</section>
 	<footer></footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script id="category_item_tmpl" type="text/x-handlebars-template">
+	 <!-- Handlebar 탬플릿 코드 -->
+    <script id="cat2-list-tmpl" type="text/x-handlebars-template">
         {{#each item}}
-        <option value="{{value}}">{{text}}</option>
+		<option value="{{catno2}}">{{catname}}</option>
         {{/each}}
     </script>
+	<!-- Handlebar CDN 참조 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript">
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
         });
-        $(function() {
-			/** 드롭다운의 선택 변경 이벤트 */
-			$("#parent").change(
-					function() {
-						// 결과가 표시될 #child에 내용 지우기
-						$("#child").empty();
-						// 사용자 선택값 가져오기
-						var choice = $(this).find("option:selected").val();
-						// 선택값이 없다면 처리 중단
-						if (!choice) {
-							$("#child").html(
-									"<option value=''>--2차분류--</option>")
-						}
-
-						$.get('../api/category.do', {
-							type : choice
-						}, function(req) {
-							// 미리 준비한 HTML틀을 읽어온다.
-							var template = Handlebars.compile($(
-									"#category_item_tmpl").html());
-							// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-							var html = template(req);
-							// #child 읽어온 내용을 추가한다.
-							$("#child").append(html);
-						}); // end $.get
-					}); // end change
-            /**드롭다운 1차 > 2차 선택변경 이벤트 끝 */ 
-        });
+		
+		$(document).on("change", "#category1", function(){
+	    	var catno1 = $("#category1 option:selected").val();
+	    	//선택한 1차카테고리 콘솔에서 확인
+	    	// console.log(catno1); 
+	    	
+	    	$.post("${pageContext.request.contextPath}/11_admin/product_add/category", {
+					"catno1":catno1	    		
+					
+	    	}, function(json){
+	    		$("#category2 option").remove();
+	    		$("#category2").append('<option value="">--2차 분류--</option>');
+	    		var source = $("#cat2-list-tmpl").html();
+	    		var template = Handlebars.compile(source);
+	    		var result = template(json);
+	    		$("#category2").append(result);
+	    	});
+	    });
+		
+		
 
         /* ----------대표 이미지 업로드 후 미리보기 이미지 --------*/
         var sel_files;
@@ -548,11 +542,11 @@
         $(function() {
             $(".product_add_btn").click(function(e) {
                 /*상품 분류 드롭박스 미선택시 */
-                var parent_index = $("#parent > option:selected").index();
-                var child_index = $("#child > option:selected").index();
+                var parent_index = $("#category1 > option:selected").index();
+                var child_index = $("#category2 > option:selected").index();
                 if(parent_index < 1 || child_index < 1){
                     alert("상품 분류를 선택해주세요.");
-                    $("#parent").focus();
+                    $("#category1").focus();
                     return false;
                 }
                 /* 상품명 미입력시 */

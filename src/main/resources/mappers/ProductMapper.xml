@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="productMap"
+        type="com.project.laporte.model.Product">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="prodno"     column="prodno" />
+        <result property="name"       column="name" />
+        <result property="price"      column="price" />
+        <result property="saleprice"  column="saleprice" />
+        <result property="stock"      column="stock" />
+        <result property="display"    column="display" />
+        <result property="color"      column="color" />
+        <result property="size"       column="size" />
+        <result property="adminnote"  column="adminnote" />
+        <result property="detailnote" column="detailnote" />
+        <result property="detailsize" column="detailsize" />
+        <result property="thumbimg"   column="thumbimg" />
+        <result property="catno2"     column="catno2" />
+        <result property="group"      column="group" />
+        <result property="regdate"    column="regdate" />
+        <result property="editdate"   column="editdate" />
+    </resultMap>
+    
+    <!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectItem"
+        parameterType="com.project.laporte.model.Product"
+        resultMap="productMap">
+        SELECT * FROM product WHERE prodno=#{prodno};
+    </select>
+    
+    <!-- 다중행 조회를 위한 기능 정의 -->
+    <select id="selectList"
+    parameterType="com.project.laporte.model.Product"
+    resultMap="productMap">
+		SELECT * FROM product
+	</select>
+
+	<!-- 데이터 저장을 위한 기능 정의 -->
+    <insert id="insertItem"
+        parameterType="com.project.laporte.model.Product"
+        useGeneratedKeys="true"
+        keyProperty="prodno">
+        INSERT INTO product (name, price, saleprice, stock, display, color, size, adminnote,
+        detailnote, detailsize, thumbimg, catno2, group, regdate, editdate) 
+        VALUES (#{name}, #{price}, #{saleprice}, #{stock}, #{display}, #{color}, #{size}, #{adminnote}, 
+        #{detailnote}, #{detailsize}, #{thumbimg}, #{catno2}, #{group}, now(), now());
+    </insert>
+    
+    <!-- 데이터 삭제를 위한 기능 정의 -->
+    <delete id="deleteItem"
+        parameterType="com.project.laporte.model.Product">
+        DELETE FROM product WHERE prodno=#{prodno};
+    </delete>
+
+    <!-- 데이터 갱신을 위한 기능 정의 -->
+    <update id="updateItem"
+        parameterType="com.project.laporte.model.Product">
+        UPDATE product SET name=#{name}, price=#{price}, saleprice=#{saleprice}, stock=#{stock}, display=#{display}
+        , color=#{color}, size=#{size}, adminnote=#{adminnote}, detailnote=#{detailnote}, detailsize=#{detailsize}
+        , thumbimg=#{thumbimg}, catno2=#{catno2}, group=#{group}, editdate=now()
+        WHERE prodno=#{prodno};
+    </update>
+</mapper>

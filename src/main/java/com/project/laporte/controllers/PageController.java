@@ -234,12 +234,6 @@ public class PageController {
 	        return "/11_admin/admin_review";
 	    }
 	 
-	 @RequestMapping(value="/11_admin/product_add.do", method=RequestMethod.GET)
-	    public String ProductAdd() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/product_add.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/product_add";
-	    }
-	 
 	 @RequestMapping(value="/11_admin/admin_userlist.do", method=RequestMethod.GET)
 	    public String adminUserlist() {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_userlist.jsp" 파일을 View로 지정한다.
