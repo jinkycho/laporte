@@ -48,34 +48,39 @@
 
 		<form id="joinForm" class="userinfo_insert" action="${pageContext.request.contextPath}/02_mypage">
 		
-			<div class="input_box">
+			<div class="input_box box">
 			<label for='id' id="join_id" class='input_label placeholder_event'>아이디</label> 
 			<input type='text' name='userid'
-				id='join_id_input' class='form-control label_event' />
+				id='user_id' class='form-control label_event' />
+			<span id='id_e_msg' class='error_msg'>아이디는 영문과 숫자만 사용할 수 있습니다.</span>
 			<button id="id_check">아이디중복확인</button>
 			</div>
 			
-			<div class="input_box">
+			<div class="input_box box">
 			<label for='user_name' class='input_label placeholder_event'>이름</label> 
 			<input type='text' name='name' id='user_name' class='form-control label_event' />
+			<span id='name_e_msg' class='error_msg'>이름은 한글과 영문만 사용할 수 있습니다.</span>
 			</div>
 			
-			
+			<div class='box'>
 			<label for='birthdate'>생년월일</label> 
 			<input type='date' name='birthdate' id='birthdate' class='form-control'/>
-		
-			
-			<div class="input_box">
-			<label for='phoneno' class='input_label placeholder_event'>연락처</label> 
-			<input type='text' name='phoneno' id='phoneno' class='form-control label_event' />
 			</div>
 			
+			<div class="input_box box">
+			<label for='phoneno' class='input_label placeholder_event'>연락처</label> 
+			<input type='text' name='phoneno' id='phone_no' class='form-control label_event' />
+			<span id='phone_e_msg' class='error_msg'>연락처는 숫자만 입력 가능합니다.</span>
+			</div>
+			
+			<div class='box'>
 			<label for='gender'>성별</label> 
 			<select name='gender'>
 				<option value='M'>남</option>
 				<option value='F'>여</option>
 				<option value='N'>응답거부</option>
 			</select>
+			</div>
 			
 			<label for='address'>주소</label> 
 			<div id="contact_address_box">
@@ -149,16 +154,70 @@
 	<script
 		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		  <!--Google CDN 서버로부터 jQuery 참조 -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- jQuery Ajax Form plugin CDN -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- jQuery Ajax Setup -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
     
 	<script type="text/javascript">
-	
-		$(function() {
-
+		$(document).ready(function(){
+			$('#id_e_msg').hide();
+			$('#name_e_msg').hide();
+			$('#phone_e_msg').hide();
+		});
+		
+		
+			//아이디 유효성 검사
+			$('#user_id').keyup(function(e){
+				e.preventDefault();
+				
+				var id = $('#user_id').val();
+				var kor = id.search(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/);
+				var spe = id.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+				
+								
+				if(kor > -1){
+					$('#id_e_msg').css("color", "#f64b4b").show();
+					$('#user_id').val("");
+				}else if(spe > -1){
+					$('#id_e_msg').css("color", "#f64b4b").show();
+					$('#user_id').val("");
+				}else{
+					$('#id_e_msg').hide();
+				}
+			});
+			
+			//이름 유효성 검사
+			$('#user_name').keyup(function(e){
+				var name = $('#user_name').val();
+				var num = name.search(/[0-9]/g);
+				var spe = name.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+								
+				if(num > -1){
+					$('#name_e_msg').css("color", "#f64b4b").show();
+					$('#user_name').val("");
+				}else if(spe > -1){
+					$('#name_e_msg').css("color", "#f64b4b").show();
+					$('#user_name').val("");
+				}else{
+					$('#name_e_msg').hide();
+				}
+			});
+			
+			//연락처 유효성 검사
+			$('#phone_no').keyup(function(e){
+				var phoneNo = $('#phone_no').val();
+				var is_num = !isNaN(phoneNo);
+								
+				if(!is_num){
+					$('#phone_e_msg').css("color", "#f64b4b").show();
+					$('#phone_no').val("");
+				}else{
+					$('#phone_e_msg').hide();
+				}
+			});
+		
+			
 			//비밀번호 이름 시 확인 코멘트 컬러 변경
 			$('#join_password_input').keyup(function(e) {
 				e.preventDefault;
@@ -220,24 +279,25 @@
 				if(!value){
 					var label_event = $(this).parent(".input_box").find('.input_label');
 					$(label_event).addClass('placeholder_event');
+					$(this).parent('.input_box').find('.error_msg').hide();
 				}
 			});
 			
 			//아이디 중복 검사
 			$('#id_check').click(function(e){
 				e.preventDefault();
-				var uid = $('#join_id_input').val();
+				var uid = $('#user_id').val();
 				
 				if(!uid){
 					alert("아이디를 입력해주세요.");
 					return false;
 				}
 					
-					$.post('${pageContext.request.contextPath}/02_mypage/id_check.do', {join_id_input : uid}, function(json){
+					$.post('${pageContext.request.contextPath}/02_mypage/id_check.do', {user_id : uid}, function(json){
 						if(json.item != 0){
 						alert("중복된 아이디가 있습니다. 다른 아이디를 사용해주세요.");
-						uid.val("");
-						uid.focus();
+						$('#user_id').val("");
+						$('#user_id').focus();
 						return false;
 					}
 					alert(uid + "는 사용가능한 아이디입니다.");
@@ -259,7 +319,7 @@
 	                }
 	            }
 	        });
-		});
+
 
 		/*-------------------------우편번호 ------------------------------------*/
 		// 우편번호 찾기 화면을 넣을 element
