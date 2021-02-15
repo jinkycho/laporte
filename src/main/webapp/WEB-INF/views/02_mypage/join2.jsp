@@ -82,6 +82,12 @@
 			</select>
 			</div>
 			
+			<div class='input_box box'>
+			<label for='email' class='input_label placeholder_event'>이메일</label>
+			<input type = 'text' name='email' id='email' class='form-control label_event' />
+			<span id='email_e_msg' class='error_msg'>이메일 형식이 아닙니다.</span>
+			</div>
+			
 			<label for='address'>주소</label> 
 			<div id="contact_address_box">
 					<div class="form-group">
@@ -164,6 +170,7 @@
 			$('#id_e_msg').hide();
 			$('#name_e_msg').hide();
 			$('#phone_e_msg').hide();
+			$('#email_e_msg').hide();
 		});
 		
 		
@@ -214,6 +221,18 @@
 					$('#phone_no').val("");
 				}else{
 					$('#phone_e_msg').hide();
+				}
+			});
+			
+			//이름 유효성 검사
+			$('#email').keyup(function(e){
+				var email = $('#email').val();
+				var email_form = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+				
+				if(email_form.test(email)==false){
+					$('#email_e_msg').css("color", "#f64b4b").show();
+				}else{
+					$('#email_e_msg').hide();
 				}
 			});
 		
@@ -267,6 +286,7 @@
 				}
 
 			});
+			
 			//입력창에 포커스 이벤트가 일어나면 placeholder이벤트 없애기
 			$(".label_event").focus(function() {
 				var label_event = $(this).parent(".input_box").find('.input_label');
@@ -315,6 +335,7 @@
 	                
 	                // json 결과가 OK일 시 로그인 페이지로 이동한다.
 	                if (json.rt == "OK") {
+	        			alert(json.item.userid + "님 회원가입을 축하합니다.");
 	                    window.location = "${pageContext.request.contextPath}/02_mypage/login.do";
 	                }
 	            }

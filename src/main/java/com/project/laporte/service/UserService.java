@@ -14,4 +14,7 @@ public interface UserService {
 	
 	/** 로그인 아이디 비밀번호 검사 */
 	public User checkIdPw(User input) throws Exception;
+	
+	/** 암호화된 비밀번호 검사 */
+	public User checkPw(User input) throws Exception;
 }

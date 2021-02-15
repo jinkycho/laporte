@@ -44,6 +44,9 @@
 
     <!-- RetrifotHelper 주입 설정 -->
     <bean id="retrofitHelper" class="com.project.laporte.helper.RetrofitHelper" />
+    
+    <!--Spring Security 주입 설정  -->
+    <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
     <!-- ======= DATABASE 연동 설정 ======= -->
     <!-- JDBC 객체 생성 -->

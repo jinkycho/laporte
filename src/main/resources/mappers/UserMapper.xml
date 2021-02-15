@@ -16,23 +16,24 @@
         <result property="birthdate" column="birthdate" />
         <result property="phoneno" column="phoneno" />
         <result property="gender" column="gender" />
+        <result property="email" column="email" />
         <result property="addr1" column="addr1" />
         <result property="addr2" column="addr2" />
         <result property="postcode" column="postcode" />
         <result property="userstatus" column="userstatus" />
+        <result property="point" column="point" />
         <result property="regdate" column="regdate" />
         <result property="editdate" column="editdate" />
-        <result property="point" column="point" />
     </resultMap>
 	
 	<!-- 회원정보 저장을 위한 기능 정의 -->
 	<insert id="insertUser"
 		parameterType = "com.project.laporte.model.User"
 		useGeneratedKeys="true" keyProperty="userno">
-		INSERT INTO user(userid, userpwd, name, birthdate, phoneno, gender, addr1, addr2,
-		postcode, userstatus, regdate, editdate, point)
-		VALUES(#{userid}, #{userpwd}, #{name}, #{birthdate}, #{phoneno}, #{gender},
-		#{addr1}, #{addr2}, #{postcode}, 'Y', now(), now(), 0
+		INSERT INTO user(userid, userpwd, name, birthdate, phoneno, gender, email, addr1, addr2,
+		postcode, userstatus, point, regdate, editdate)
+		VALUES(#{userid}, #{userpwd}, #{name}, #{birthdate}, #{phoneno}, #{gender}, #{email},
+		#{addr1}, #{addr2}, #{postcode}, 'Y', 0, now(), now()
 		)
 	</insert>
 		
@@ -49,7 +50,10 @@
 	
 	<!--  로그인 아이디 패스워드 확인 -->
 	<select id="idPwCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
-		SELECT userid FROM user WHERE userid = #{userid} AND userpwd = #{userpwd}
+		SELECT userid, userpwd FROM user WHERE userid = #{userid} AND userpwd = #{userpwd}
+	</select>
+	<select id="pwCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
+		SELECT userid, userpwd FROM user WHERE userid = #{userid}
 	</select>
 	
 	

@@ -11,12 +11,13 @@ public class User {
 	private String birthdate;
 	private String phoneno;
 	private String gender;
+	private String email;
 	private String addr1;
 	private String addr2;
 	private String postcode;
 	private String userstatus;
+	private int point;
 	private String regdate;
 	private String editdate;
-	private int point;
 	
 }

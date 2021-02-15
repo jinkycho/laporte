@@ -99,8 +99,28 @@ public class UserServiceImpl implements UserService {
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getLocalizedMessage());
-			throw new Exception("아이디와 비밀번호가 잘못 되었습니다.");
+			throw new Exception("비밀번호가 잘못 되었습니다.");
 		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public User checkPw(User input) throws Exception {
+		User result = null;
+		
+		try {
+			result = sqlSession.selectOne("UserMapper.pwCheck", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result == null");
+			}
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("존재하지 않는 아이디 입니다.");
+		}catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
 		}
