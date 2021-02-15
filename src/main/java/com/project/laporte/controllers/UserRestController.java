@@ -40,7 +40,7 @@ public class UserRestController {
         return new ModelAndView("/02_mypage/join");
     }
 	
-	/**로그인 중복 검사*/
+	/**아이디 중복 검사*/
 	@RequestMapping(value="/02_mypage/id_check.do", method=RequestMethod.POST)
 	public Map<String, Object>id_check(Model model,
 			@RequestParam(value = "user_id", defaultValue="") String userid){
@@ -85,7 +85,15 @@ public class UserRestController {
 		//POST 방식으로 Join_ok에서 Join cfm
 		
 		/**1) 사용자가 입력한 파라미터 유효성 검사*/
-	
+		if(!regexHelper.isValue(userid))			{return webHelper.getJsonWarning("아이디를 입력하세요.");}
+		if(!regexHelper.isValue(name))				{return webHelper.getJsonWarning("이름을 입력하세요.");}
+		if(!regexHelper.isValue(birthdate))			{return webHelper.getJsonWarning("생년월일을 입력하세요.");}
+		if(!regexHelper.isValue(phoneno))			{return webHelper.getJsonWarning("연락처를 입력하세요.");}
+		if(!regexHelper.isValue(gender))			{return webHelper.getJsonWarning("성별을 입력하세요.");}
+		if(!regexHelper.isValue(addr1))				{return webHelper.getJsonWarning("주소를 입력하세요.");}
+		if(!regexHelper.isValue(addr2))				{return webHelper.getJsonWarning("주소를 입력하세요.");}
+		if(!regexHelper.isValue(postcode))			{return webHelper.getJsonWarning("우편번호를 입력하세요.");}
+		if(!regexHelper.isValue(userpwd))			{return webHelper.getJsonWarning("비밀번호를 입력하세요.");}
         
 		/**2) 데이터 저장하기*/
 		//저장할 값들을 Beans에 담는다.
@@ -124,6 +132,41 @@ public class UserRestController {
 		map.put("item", output);
 		return webHelper.getJsonData(map);
 	}
+		
+	 //로그인 아이디, 패스워드 확인
+	@RequestMapping(value="/02_mypage/login.do", method=RequestMethod.POST)
+	public Map<String, Object> login_post(Model model,
+			@RequestParam(value="userid", defaultValue="") String userid,
+			@RequestParam(value="userpwd", defaultValue="") String userpwd) {
+		
+		/**1) 사용자가 입력한 파라미터 유효성 검사*/
+		if(!regexHelper.isValue(userid))				{return webHelper.getJsonWarning("아이디를 입력하세요.");}
+		if(!regexHelper.isValue(userpwd))				{return webHelper.getJsonWarning("패스워드를 입력하세요.");}
+		
+		/**2) 입력값 일치 확인하기*/
+		//저장할 값들을 Beans에 담는다.
+		User input = new User();
+		input.setUserid(userid);
+		input.setUserpwd(userpwd);
+		
+		// 저장된 결과를 조회하기 위한 객체
+		User output = null;
+
+		try {
+			//데이터 조회
+			output = userService.checkIdPw(input);
+			
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+
+		/** 3)JSON 출력하기 */
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("item", output);
+		return webHelper.getJsonData(data);
+		
+	}
+		
 	
 	 /** 회원정보 상세 조회 */
     @RequestMapping(value = "/02_mypage/{userno}", method = RequestMethod.GET)

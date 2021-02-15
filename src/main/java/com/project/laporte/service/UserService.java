@@ -11,4 +11,7 @@ public interface UserService {
 	
 	/** 아이디 중복 검사*/
 	public int getIdItem(User input) throws Exception;
+	
+	/** 로그인 아이디 비밀번호 검사 */
+	public User checkIdPw(User input) throws Exception;
 }

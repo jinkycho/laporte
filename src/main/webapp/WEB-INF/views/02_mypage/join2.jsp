@@ -46,7 +46,7 @@
 			<p>아이디와 비밀번호를 입력해주세요.</p>
 		</div>
 
-		<form id="joinForm" class="userinfo_insert" action="${pageContext.request.contextPath}/02_mypage">
+		<form id="join-form" class="userinfo_insert" action="${pageContext.request.contextPath}/02_mypage">
 		
 			<div class="input_box box">
 			<label for='id' id="join_id" class='input_label placeholder_event'>아이디</label> 
@@ -305,15 +305,15 @@
 				});
 			});
 			
-			  // #joinForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
-	        $("#joinForm").ajaxForm({
+			  // #join-form에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
+	        $("#join-form").ajaxForm({
 	            // 전송 메서드 지정
 	            method: "POST",
 	            // 서버에서 200 응답을 전달한 경우 실행됨
 	            success: function(json) {
 	                console.log(json);
 	                
-	                // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+	                // json 결과가 OK일 시 로그인 페이지로 이동한다.
 	                if (json.rt == "OK") {
 	                    window.location = "${pageContext.request.contextPath}/02_mypage/login.do";
 	                }

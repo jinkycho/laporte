@@ -46,11 +46,11 @@
 	
 	<div class="section">
 	
-	<form id="login-form">
-		<input id="id_insert" name="id_insert" type="text" placeholder="이메일 또는 휴대폰 번호" />
+	<form id="login-form" action="${pageContext.request.contextPath}/02_mypage/login.do">
+		<input id="id_insert" name="userid" type="text" placeholder="이메일 또는 휴대폰 번호" />
 		
 		<div>
-		<input id="pw_insert" name="pw_insert" type="password" placeholder="비밀번호를 입력하세요"/>
+		<input id="pw_insert" name="userpwd" type="password" placeholder="비밀번호를 입력하세요"/>
 			<a id= "showPassword" href="#">
                <span id="pw_hide_icon">비밀번호숨기기</span>
                <span id="pw_show_icon">비밀번호보이기</span>
@@ -72,7 +72,14 @@
 </div>
 
 
-
+	<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		  <!--Google CDN 서버로부터 jQuery 참조 -->
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    
 <script type="text/javascript">
 
 //자바스크립트가 로딩됐는지 확인
@@ -107,31 +114,26 @@ $(document).ready(function(){
     }
   });
 });
-
-		$("#login-form").submit(function(e) {
-			e.preventDefault();
-
-		var uid = $("#id_insert").val();
-		var upw = $("#pw_insert").val();
-
-		$.post('../api/login_ok.do', {
-			id_insert: uid,
-			pw_insert: upw
-		}, function(json) {
-			// 결과값이 로그인 실패를 의미할 경우
-			if (json.result == "FAIL") {
-				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인하세요.");
-				uid.val("");
-				upw.val("");
-				uid.focus();
-				return false;
-			}
-
-			alert("안녕하세요. " + uid + "님");
-			});
+	
+		//#login-form에 대한 submit 이벤트를 가로채서 Ajax요청을 전송한다.
+		$("#login-form").ajaxForm({
+			//전송 메서드 지정
+			method: "POST",
+			//서버에서 200 응답을 전달한 경우 실행됨
+			success: function(json){
+				console.log(json);
+				
+				//json에 결과가 OK일 시 홈으로 이동
+				if(json.rt == "OK"){
+					alert("안녕하세요. " + json.item.userid + "님");
+					window.location = "${pageContext.request.contextPath}/home.do"
+				}
+			}			
 		});
 
-        
+
+
+		
 </script>
 </body>
 </html>

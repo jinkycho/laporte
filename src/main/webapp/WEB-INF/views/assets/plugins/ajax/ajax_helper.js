@@ -22,7 +22,16 @@ $(function() {
 			// 50x -> Server Error(웹 프로그램 에러)
 			// 200, 0 -> 내용의 형식 에러(JSON,XML)
 			console.log(">> 에러!!!! >> " + error.status);
-
+			
+			//서버에서 반환하는 json 데이터가 존재한다면?
+			if(error.responseJSON){
+				//서버에서 반환하는 json 데이터에 rt라는 key가 있다면?
+				if(error.responseJSON.rt){
+					alert(error.responseJSON.rt);
+					return;
+				}
+			}
+			
 			var error_msg = "[" + error.status + "] " + error.statusText;
 
 			var code = parseInt(error.status / 100);
