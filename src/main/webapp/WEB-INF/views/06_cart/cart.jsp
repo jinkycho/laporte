@@ -50,12 +50,12 @@
 	       					</form>
 	       					<div id="search_result" >
 	       						<h4>추천 검색어</h4>
-	       						<a href="../03_detail/allproduct1.html"><span class="rec_reyword"></span>가구</a>
-								<a href="../03_detail/allproduct3.html"><span class="rec_reyword"></span>침대</a>
-								<a href="../03_detail/allproduct5.html"><span class="rec_reyword"></span>주방</a>
-								<a href="../03_detail/allproduct2.html"><span class="rec_reyword"></span>소파</a>
-								<a href="../03_detail/allproduct4.html"><span class="rec_reyword"></span>수납</a>
-								<a href="../03_detail/allproduct6.html"><span class="rec_reyword"></span>조명</a>
+	       						<a href="${pageContext.request.contextPath}/03_detail/allproduct1.do"><span class="rec_reyword"></span>가구</a>
+								<a href="${pageContext.request.contextPath}/03_detail/allproduct3.do"><span class="rec_reyword"></span>침대</a>
+								<a href="${pageContext.request.contextPath}/03_detail/allproduct5.do"><span class="rec_reyword"></span>주방</a>
+								<a href="${pageContext.request.contextPath}/03_detail/allproduct2.do"><span class="rec_reyword"></span>소파</a>
+								<a href="${pageContext.request.contextPath}/03_detail/allproduct4.do"><span class="rec_reyword"></span>수납</a>
+								<a href="${pageContext.request.contextPath}/03_detail/allproduct6.do"><span class="rec_reyword"></span>조명</a>
 	       					</div>
 	       				</div>
 	       			</div>
@@ -64,9 +64,17 @@
 	        
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
-	        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
-	        	<!-- Ajax구현 - cart_form.html -->
-	         	<div class="cart_form"></div>
+	        <%-- <c:choose>
+		        <c:when test="${output.ea == 0 }"> --%>
+		        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
+	        	<%-- </c:when>
+	        	<c:otherwise> --%>
+	        	
+		        	<!-- Ajax구현 - cart_form.html -->
+		         	<div class="cart_form"></div>
+	        	<%-- </c:otherwise>
+        	</c:choose> --%>
+        	
 	            <!-- 비 로그인 상태 -->
 	            <div class="cart_none">
 	                <div class="cart_login">
@@ -75,6 +83,8 @@
 	                    </div><span id="hd_mypage_icon"></span>
 	                </div>
 	            </div>
+	            <!-- 비 로그인 끝 -->
+	            
 	            <div class="cart_purchase">
 		            <div class="cart_info clearfix">
 		            	<p><strong>주문 내역</strong><br/>
@@ -87,7 +97,7 @@
 		           		</div>
 		            </div>
 		            <div>
-		            	<button id="cart_payment" onclick="location.href='../07_purchase/purchase.html'">결제하기</button>
+		            	<button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button>
 		            </div>
 	            </div>
 	            <div class="cart_footer">
@@ -312,7 +322,7 @@
 					$(".cart_purchase").hide();
 					$(".cart_item_1ea").hide();
 				});
-				
+
 				$(".cart_icon").click(function(e) {
 					e.preventDefault();
 					$(".cart_title").html("장바구니");
