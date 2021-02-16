@@ -17,4 +17,7 @@ public interface UserService {
 	
 	/** 암호화된 비밀번호 검사 */
 	public User checkPw(User input) throws Exception;
+	
+	/** 이메일 존재 여부 검사 */
+	public User checkEmail(User input) throws Exception;
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.laporte.helper.MailHelper;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.User;
@@ -28,6 +29,9 @@ public class UserRestController {
     /** RegexHelper 주입 */
     @Autowired  RegexHelper regexHelper;
 
+    /** MailHlper 주입 */
+    @Autowired MailHelper mailHelper;
+    
     /** Service 패턴 구현체 주입 */
     @Autowired  UserService userService;
     
@@ -192,7 +196,58 @@ public class UserRestController {
 		data.put("item", output);		
 		return webHelper.getJsonData(data);
 	}
+		//비밀번호 찾기
+	@RequestMapping(value="/02_mypage/pwfind.do", method=RequestMethod.POST)
+	public Map<String, Object> send_email(Model model,
+			@RequestParam(value="email", defaultValue="") String email){
 		
+		if(!regexHelper.isValue(email)) 	{return webHelper.getJsonWarning("이메일을 입력하세요.");}
+		
+		/** 1) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건을 Beans에 저장하기
+		User input = new User();
+		input.setEmail(email);
+		
+		// 조회결과를 저장할 객체 선언
+		User output =null;
+		
+		
+						 
+		
+		try {
+			//데이터 조회
+			output = userService.checkEmail(input);
+			
+			//이메일 존재 하면 메일 발송 처리
+			if(output != null) {
+				try {
+					String subject = "la porte 비밀번호 재설정을 위한 메세지 입니다.";
+					String content = "<div style = 'width : 75%; background-color: #cebea7; margin:auto; padding:30px;'>" +
+									 "<h2> 안녕하세요. la porte 입니다 </h2>" + 
+									 "<br />" + 
+									 "<p> 해당 메일은 비밀번호 재설정 요청에 의해 전송된 이메일 입니다. <p>" +
+									 "<br />" +
+									 "<p> 고객님께서 요청하지 않으신 내용이라면 la porte 에 접속하여 비밀번호를 변경해주시고, 고객센터에 문의 해주시기 바랍니다.</p>" +
+									 "<br />" +
+									 "<p> 비밀번호 변경을 요청하셨다면 아래 버튼을 클릭하시면 비밀번호 변경이 가능한 페이지로 이동합니다.</p>" +
+									 "<br />" +
+									 "<a type= 'button' style ='display:block; width:10%; height: 28px; color:#fff; font-size: 12px; font-weight:bold; background-color: #172f50; margin:auto; margin-top: 20px; border-radius:25px;' href='http://localhost:8080/laporte/02_mypage/pwrevise.do'>비밀번호 변경하기</a>" +
+									 "</div>";
+					//sendMail() 메서드 선언시 throws 를 정의했기 때문에 예외처리가 요구된다.
+					mailHelper.sendMail(output.getEmail(), subject, content);
+				}catch(Exception e) {
+					return webHelper.getJsonError(e.getLocalizedMessage());
+				}
+			}
+		}catch(Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		/** 3)JSON 출력하기 */
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("item", output);		
+		return webHelper.getJsonData(data);
+		
+	}
 	
 	 /** 회원정보 상세 조회 */
     @RequestMapping(value = "/02_mypage/{userno}", method = RequestMethod.GET)
@@ -219,8 +274,4 @@ public class UserRestController {
         
         return webHelper.getJsonData(data);
     }
-    
-    
-    
-
 }

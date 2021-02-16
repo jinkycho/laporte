@@ -56,5 +56,9 @@
 		SELECT userid, userpwd FROM user WHERE userid = #{userid}
 	</select>
 	
+	<!--  이메일로 비밀번호 찾기(동일한 이메일 존재 시 userno 을 URL 전달) -->
+	<select id="emailCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
+		SELECT userno, email FROM user WHERE email = #{email}
+	</select>
 	
 </mapper>

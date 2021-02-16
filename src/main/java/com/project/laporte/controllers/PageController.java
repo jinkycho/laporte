@@ -36,16 +36,16 @@ public class PageController {
         return "/02_mypage/login";
     }
 	
-	@RequestMapping(value="/02_mypage/login_pwfind.do", method=RequestMethod.GET)
+	@RequestMapping(value="/02_mypage/pwfind.do", method=RequestMethod.GET)
     public String loginPwFind() {
         // "/src/main/webapp/WEB-INF/views/02_mypage/login_pwfind.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/login_pwfind";
+        return "/02_mypage/pwfind";
     }
 	
-	@RequestMapping(value="/02_mypage/login_pwrevise.do", method=RequestMethod.GET)
+	@RequestMapping(value="/02_mypage/pwrevise.do", method=RequestMethod.GET)
     public String loginPwRevise() {
         // "/src/main/webapp/WEB-INF/views/02_mypage/login_pwrevise.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/login_pwrevise";
+        return "/02_mypage/pwrevise";
     }
 	
 	@RequestMapping(value="/03_detail/detail.do", method=RequestMethod.GET)

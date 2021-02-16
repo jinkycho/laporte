@@ -58,7 +58,7 @@
 		</div>
 		
 		
-		<a id="pw_find" href="${pageContext.request.contextPath}/02_mypage/login_pwfind.do" class="clearfix">비밀번호 찾기</a>
+		<a id="pw_find" href="${pageContext.request.contextPath}/02_mypage/pwfind.do" class="clearfix">비밀번호 찾기</a>
 
 		<button id="login_btn" type="submit">로그인</button>
 		<button id="join_btn" type="button" onclick="location.href='${pageContext.request.contextPath}/02_mypage/join.do'">회원가입</button>

@@ -184,9 +184,11 @@
 				
 								
 				if(kor > -1){
+					$('#user_id').css("border-bottom","2px solid #f64b4b");
 					$('#id_e_msg').css("color", "#f64b4b").show();
 					$('#user_id').val("");
 				}else if(spe > -1){
+					$('#user_id').css("border-bottom","2px solid #f64b4b");
 					$('#id_e_msg').css("color", "#f64b4b").show();
 					$('#user_id').val("");
 				}else{
@@ -201,9 +203,11 @@
 				var spe = name.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 								
 				if(num > -1){
+					$('#user_name').css("border-bottom","2px solid #f64b4b");
 					$('#name_e_msg').css("color", "#f64b4b").show();
 					$('#user_name').val("");
 				}else if(spe > -1){
+					$('#user_name').css("border-bottom","2px solid #f64b4b");
 					$('#name_e_msg').css("color", "#f64b4b").show();
 					$('#user_name').val("");
 				}else{
@@ -217,6 +221,7 @@
 				var is_num = !isNaN(phoneNo);
 								
 				if(!is_num){
+					$('#phone_no').css("border-bottom","2px solid #f64b4b");
 					$('#phone_e_msg').css("color", "#f64b4b").show();
 					$('#phone_no').val("");
 				}else{
@@ -224,12 +229,13 @@
 				}
 			});
 			
-			//이름 유효성 검사
+			//이메일 유효성 검사
 			$('#email').keyup(function(e){
 				var email = $('#email').val();
 				var email_form = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 				
 				if(email_form.test(email)==false){
+					$('#email').css("border-bottom","2px solid #f64b4b");
 					$('#email_e_msg').css("color", "#f64b4b").show();
 				}else{
 					$('#email_e_msg').hide();
