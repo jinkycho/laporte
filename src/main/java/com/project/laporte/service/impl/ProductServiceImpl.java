@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.laporte.model.DetailImg;
+import com.project.laporte.model.Firstimg;
 import com.project.laporte.model.Prod_category1;
 import com.project.laporte.model.Prod_category2;
 import com.project.laporte.model.Product;
@@ -140,7 +142,7 @@ public class ProductServiceImpl implements ProductService{
 		int result = 0;
 
 		try {
-			result = sqlSession.insert("ProductMapper.updateItem", input);
+			result = sqlSession.update("ProductMapper.updateItem", input);
 
 			if (result == 0) {
 				throw new NullPointerException("result=0");
@@ -165,6 +167,14 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int deleteProduct(Product input) throws Exception {
 		int result = 0;
+		
+		int prodno = input.getProdno();
+		
+		DetailImg detailimg = new DetailImg();
+		detailimg.setProdno(prodno);
+		
+		Firstimg firstimg = new Firstimg();
+		firstimg.setProdno(prodno);
 
 		try {
 			
@@ -172,7 +182,13 @@ public class ProductServiceImpl implements ProductService{
 			// --> 리뷰, 위시, 카트, 주문, 상품 상세 이미지
 			//sqlSession.update("?Mapper.unsetProduct", input);
 			
-			result = sqlSession.insert("ProductMapper.deleteItem", input);
+			//참조하는 테이블 수정 - 상품 상세 이미지
+			sqlSession.delete("ProductMapper.deleteProductImg", detailimg);
+			
+			//참조하는 테이블 수정 - 상품 대표 이미지
+			sqlSession.delete("ProductMapper.deleteImgItem", firstimg);
+			
+			result = sqlSession.delete("ProductMapper.deleteItem", input);
 
 			if (result == 0) {
 				throw new NullPointerException("result=0");
@@ -210,6 +226,142 @@ public class ProductServiceImpl implements ProductService{
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	/**
+	 * 상품 데이터 대표 이미지 저장하기
+	 * @param Product 대표 이미지를 저장할 파일의 정보를 담고있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	@Override
+	public int addProductFirstImg(Firstimg input) throws Exception {
+		int result = 0;
+
+		try {
+			result = sqlSession.insert("ProductMapper.insertImgItem", input);
+
+			if (result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("저장된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 저장에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	/**
+	 * 상품 데이터 대표 이미지 정보 조회하기
+	 * @param Product 대표 이미지를 조회할 파일의 정보를 담고있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	@Override
+	public Firstimg getProductFirstImg(Firstimg input) throws Exception {
+		Firstimg result = null;
+
+		try {
+			result = sqlSession.selectOne("ProductMapper.selectImgItem", input);
+
+			if (result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	/**
+	 * 상품 상세이미지 데이터 목록 조회
+	 * @param DetailImg 검색조건을 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	@Override
+	public List<DetailImg> getDeailImgList(DetailImg input) throws Exception {
+		List<DetailImg> result = null;
+
+		try {
+			result = sqlSession.selectList("ProductMapper.selectDetailImg", input);
+
+			if (result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	/**
+	 * 상품 상세이미지 데이터 저장하기
+	 * @param DetailImg 상세이미지를 저장할 파일의 정보를 담고있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	@Override
+	public int addDetailImg(DetailImg input) throws Exception {
+		int result = 0;
+
+		try {
+			result = sqlSession.insert("ProductMapper.insertDetailImg", input);
+
+			if (result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("저장된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 저장에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	/**
+	 * 상품 상세이미지 데이터 삭제하기
+	 * @param DetailImg 상세이미지를 삭제할 파일의 정보를 담고있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	@Override
+	public int deleteDetailImg(DetailImg input) throws Exception {
+		int result = 0;
+
+		try {
+			
+			result = sqlSession.delete("ProductMapper.deleteDetailImg", input);
+
+			if (result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("삭제된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 삭제에 실패했습니다.");
 		}
 
 		return result;

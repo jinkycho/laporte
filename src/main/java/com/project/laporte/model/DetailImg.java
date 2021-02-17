@@ -16,5 +16,4 @@ public class DetailImg {
 	private long fileSize;         //파일의 용량
 	private String filePath;       //서버상의 파일 경로
 	private String fileUrl;        //서버상의 원본 이미지 URL
-	private String imgurl;         //이미지 URL
 }

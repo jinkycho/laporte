@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.DetailImg;
+import com.project.laporte.model.Firstimg;
 import com.project.laporte.model.Prod_category1;
 import com.project.laporte.model.Prod_category2;
 import com.project.laporte.model.Product;
@@ -91,21 +93,57 @@ public class ProductAjaxController {
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
 		Product input = new Product();
+		Firstimg img = new Firstimg();
 		input.setProdno(prodno);
+		img.setProdno(prodno);
 		
 		// 조회결과를 저장할 객체 선언
 		Product output = null;
+		Firstimg imgoutput = null;
 		
 		try {
-			//데이터 조회 --> 검색조건 없이 모든 학과 조회
+			//데이터 조회 
 			output = productService.getProductItem(input);
+			imgoutput = productService.getProductFirstImg(img);
 		}catch(Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 		
 		/** 3) View 처리하기 */
 		model.addAttribute("output", output);
+		model.addAttribute("imgoutput", imgoutput);
 		return new ModelAndView("11_admin/product_view");
+	}
+	
+	/** 상품 상세 이미지 추가 */
+	@RequestMapping(value="/11_admin/product_img.do", method=RequestMethod.GET)
+	public ModelAndView imageadd(Model model,
+			@RequestParam(value="prodno", defaultValue="0")int prodno) {
+		/** 1) 유효성 검사 */
+		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		if(prodno == 0) {
+			return webHelper.redirect(null, "상품 번호가 없습니다");
+		}
+		
+		/** 2) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		DetailImg img = new DetailImg();
+		img.setProdno(prodno);
+		
+		// 조회결과를 저장할 객체 선언
+		List<DetailImg> imgList = null;
+		
+		try {
+			//데이터 조회 
+			imgList = productService.getDeailImgList(img);
+		}catch(Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		/** 3) View 처리하기 */
+		model.addAttribute("img", img);
+		model.addAttribute("imgList", imgList);
+		return new ModelAndView("11_admin/product_img");
 	}
 	
 

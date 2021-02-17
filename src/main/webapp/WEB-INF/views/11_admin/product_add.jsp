@@ -156,7 +156,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card">
-									<form class="form-inline" action="${pageContext.request.contextPath}/11_admin/product_add">
+									<form class="form-inline" action="${pageContext.request.contextPath}/11_admin/product_add" enctype="multipart/form-data">
                                     <div class="card-header">
                                         <h3 class="card-title">기본 정보</h3>
                                     </div>
@@ -190,10 +190,10 @@
                                                 <td class="info_table_color">상품 그룹</td>
                                                 <td>
                                                         <div class="input-group">
-                                                            <label><input type="checkbox" name="prd_group[]" value="sale"> 세일</label>
-                                                            <label><input type="checkbox" name="prd_group[]" value="new"> 신제품</label>
-                                                            <label><input type="checkbox" name="prd_group[]" value="best"> 인기</label>
-                                                            <label><input type="checkbox" name="prd_group[]" value="best_month"> 이달의 제품</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="세일"> 세일</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="신제품"> 신제품</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="인기"> 인기</label>
+                                                            <label><input type="checkbox" name="prd_group[]" value="이달의 제품"> 이달의 제품</label>
                                                         </div>
                                                 </td>
                                             </tr>
@@ -312,8 +312,8 @@
                                                             <input type="file" name="product_thumbnail" id="product_thumbnail" class="form-control">
                                                             <input class="upload-name form-control" placeholder="파일선택"><label for="product_thumbnail">업로드</label>
                                                         </div>
-                                                        <input type="text" placeholder="이미지 링크" id="product_thumbnail_link" class="form-control">
-                                                        <button type="button" class="btn btn-primary thumb_link_btn">업로드</button>
+                                                        <!-- <input type="text" placeholder="이미지 링크" id="product_thumbnail_link" class="form-control">
+                                                        <button type="button" class="btn btn-primary thumb_link_btn">업로드</button> -->
                                                     <div class="explain_box"> ※1개만 업로드 가능</div>
                                                 </td>
                                                 <td class="img_box">
@@ -321,7 +321,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr id="product_detail_text">
+                                           <!--  <tr id="product_detail_text">
                                                 <td class="info_table_color">상세 이미지 *</td>
                                                 <td>
                                                         <div class="filebox_detail">
@@ -337,7 +337,7 @@
                                                     <div class="detail_img_wrap">
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </table>
                                     </div>
                                     <div class="btn_box">
@@ -434,7 +434,7 @@
         }); 
 
          /*이미지 링크로 업로드시 */
-        $(function() {
+       /*  $(function() {
             $(".thumb_link_btn").click(function() {
                 var thumb_link = $("#product_thumbnail_link").val();
                 if(thumb_link){
@@ -445,10 +445,10 @@
                 }
                 
             });
-        });
+        }); */
 
         /*-------------- 상세 이미지 미리보기----------- */
-        var img_files=[];
+        /* var img_files=[];
 
         $(document).ready(function() {
             $("#product_detail_img").on("change", handleImgFilesSelect);
@@ -484,9 +484,9 @@
                 $(".upload-name2").val(cur);
             }); 
         }); 
-
+ */
         /*이미지 링크로 업로드시 */
-        $(function() {
+        /* $(function() {
             $(".detail_link_btn").click(function() {
                 var detail_link = $("#product_detail_link").val();
                 if(detail_link){
@@ -498,15 +498,15 @@
                     alert("이미지 주소를 입력해주세요.");
                 }
             });
-        });
+        }); */
         /*상세 이미지 미리보기에서 삭제 버튼 클릭시*/
-        $(function() {
+        /* $(function() {
             $(document).on('click', '.img_delete_btn', function(e) {
                 $(this).parent().remove();
                 $(".upload-name2").val("");
                 $("#product_detail_link").val("");
             });
-        });
+        }); */
 
         /*-----------------상품 등록 버튼 클릭시 필수 입력란 검사--------------*/
         $(function() {
@@ -582,11 +582,11 @@
                 }
 
                 /* 상세 이미지 미업로드시 */ 
-                var detail = $(".detail_img_wrap img").length;
+                /* var detail = $(".detail_img_wrap img").length;
                 if(detail<1){
                     alert("상세 이미지를 추가 해주세요.");
                     return false;
-                }
+                } */
                 
                 $(".form-inline").ajaxForm({
                     // 전송 메서드 지정

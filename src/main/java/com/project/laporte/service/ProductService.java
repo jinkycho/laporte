@@ -2,10 +2,11 @@ package com.project.laporte.service;
 
 import java.util.List;
 
+import com.project.laporte.model.DetailImg;
+import com.project.laporte.model.Firstimg;
 import com.project.laporte.model.Prod_category1;
 import com.project.laporte.model.Prod_category2;
 import com.project.laporte.model.Product;
-
 
 public interface ProductService {
 	
@@ -53,4 +54,44 @@ public interface ProductService {
 	 * @throws Exception
 	 */
 	public int deleteProduct(Product input) throws Exception;
+	
+	/**
+	 * 상품 데이터 대표 이미지 저장하기
+	 * @param Product 대표 이미지를 저장할 파일의 정보를 담고있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int addProductFirstImg(Firstimg input) throws Exception;
+	
+	/**
+	 * 상품 데이터 대표 이미지 조회하기
+	 * @param Product 대표 이미지를 조회할 파일의 정보를 담고있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	public Firstimg getProductFirstImg(Firstimg input) throws Exception;
+	
+	/**
+	 * 상품 상세이미지 데이터 목록 조회
+	 * @param DetailImg 검색조건을 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public List<DetailImg> getDeailImgList(DetailImg input) throws Exception;
+	
+	/**
+	 * 상품 상세이미지 데이터 저장하기
+	 * @param DetailImg 상세이미지를 저장할 파일의 정보를 담고있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int addDetailImg(DetailImg input) throws Exception;
+	
+	/**
+	 * 상품 상세이미지 데이터 삭제하기
+	 * @param DetailImg 상세이미지를 삭제할 파일의 정보를 담고있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteDetailImg(DetailImg input) throws Exception;
 }

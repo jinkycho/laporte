@@ -21,13 +21,48 @@
         <result property="group"      column="group" />
         <result property="regdate"    column="regdate" />
         <result property="editdate"   column="editdate" />
+        <result property="catname"   column="catname" />
+    </resultMap>
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="firstimgMap"
+        type="com.project.laporte.model.Firstimg">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="prodno"         column="prodno" />
+        <result property="fieldName"      column="fieldName" />
+        <result property="originName"      column="originName" />
+        <result property="contentType"    column="contentType" />
+        <result property="fileSize"       column="fileSize" />
+        <result property="filePath"       column="filePath" />
+        <result property="fileUrl"        column="fileUrl" />
+        <result property="thumbnailPath"  column="thumbnailPath" />
+        <result property="thumbnailUrl"   column="thumbnailUrl" />
+    </resultMap>
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="detailimgMap"
+        type="com.project.laporte.model.DetailImg">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="detailimgno"    column="detailimgno" />
+        <result property="prodno"         column="prodno" />
+        <result property="fieldName"      column="fieldName" />
+        <result property="orginName"      column="originName" />
+        <result property="contentType"    column="contentType" />
+        <result property="fileSize"       column="fileSize" />
+        <result property="filePath"       column="filePath" />
+        <result property="fileUrl"        column="fileUrl" />
     </resultMap>
     
     <!-- 단일행 조회를 위한 기능 정의 -->
     <select id="selectItem"
         parameterType="com.project.laporte.model.Product"
         resultMap="productMap">
-        SELECT * FROM product WHERE prodno=#{prodno};
+        SELECT prodno, name, price, saleprice, stock, display, color, size, adminnote, detailsize, detailnote,
+        c.catno2, `group`, catname 
+        FROM product p
+        INNER JOIN prod_category2 c
+        ON p.catno2 = c.catno2
+        WHERE prodno=#{prodno};
     </select>
     
     <!-- 다중행 조회를 위한 기능 정의 -->
@@ -42,10 +77,38 @@
         parameterType="com.project.laporte.model.Product"
         useGeneratedKeys="true"
         keyProperty="prodno">
-        INSERT INTO product(name, price, saleprice, stock, display, color, size, adminnote
-        ,detailnote, detailsize, catno2, group, regdate, editdate)VALUES(#{name}, #{price}
-        , #{saleprice}, #{stock}, #{display}, #{color}, #{size}, #{adminnote}
-        ,#{detailnote}, #{detailsize}, #{catno2}, #{group}, now(), now());
+        INSERT INTO product(name, price
+        <if test = 'saleprice>0'>
+        , saleprice
+        </if>
+        , stock, display, color
+        <if test ="size !=''">
+        , size
+        </if>
+        <if test ="adminnote !=''">
+        , adminnote
+        </if>
+        ,detailnote, detailsize, catno2
+        <if test = "group !=''">
+        , `group`
+        </if>
+        , regdate, editdate)
+        VALUES(#{name}, #{price}
+        <if test = 'saleprice>0'>
+        ,#{saleprice}
+        </if>
+        , #{stock}, #{display}, #{color}
+        <if test = "size !=''">
+        , #{size}
+        </if>
+        <if test ="adminnote !=''">
+        , #{adminnote}
+        </if>
+        ,#{detailnote}, #{detailsize}, #{catno2}
+        <if test = "group !=''">
+        , #{group,jdbcType=VARCHAR}
+        </if>
+        , now(), now());
     </insert>
     
     <!-- 데이터 삭제를 위한 기능 정의 -->
@@ -59,7 +122,60 @@
         parameterType="com.project.laporte.model.Product">
         UPDATE product SET name=#{name}, price=#{price}, saleprice=#{saleprice}, stock=#{stock}, display=#{display}
         , color=#{color}, size=#{size}, adminnote=#{adminnote}, detailnote=#{detailnote}, detailsize=#{detailsize}
-        , catno2=#{catno2}, group=#{group}, editdate=now()
+        , catno2=#{catno2}, `group`=#{group}, editdate=now()
         WHERE prodno=#{prodno};
     </update>
+    
+    <!-- 대표 이미지 데이터 저장을 위한 기능 정의 -->
+     <insert id="insertImgItem"
+        parameterType="com.project.laporte.model.Firstimg">
+        INSERT INTO firstimg(
+        prodno, fieldName, originName, contentType, fileSize, filePath, fileUrl, thumbnailPath ,thumbnailUrl
+        )VALUES(
+        #{prodno}, #{fieldName}, #{originName}, #{contentType}, #{fileSize}, #{filePath}, #{fileUrl}, #{thumbnailPath},
+        #{thumbnailUrl});
+    </insert>
+    
+    <!-- 대표 이미지 데이터 조회를 위한 기능 정의 -->
+     <select id="selectImgItem"
+        parameterType="com.project.laporte.model.Firstimg"
+        resultMap="firstimgMap">
+        SELECT * FROM firstimg WHERE prodno=#{prodno};
+    </select>
+    
+    <!-- 대표 이미지 데이터 삭제를 위한 기능 정의 -->
+     <delete id="deleteImgItem"
+        parameterType="com.project.laporte.model.Firstimg">
+        Delete FROM firstimg WHERE prodno=#{prodno};
+    </delete>
+    
+    <!-- 상세 이미지 데이터 저장을 위한 기능 정의 -->
+     <insert id="insertDetailImg"
+        parameterType="com.project.laporte.model.DetailImg"
+        useGeneratedKeys="true"
+        keyProperty="detailimgno">
+        INSERT INTO detailimg(
+        prodno, fieldName, originName, contentType, fileSize, filePath, fileUrl
+        )VALUES(
+        #{prodno}, #{fieldName}, #{orginName}, #{contentType}, #{fileSize}, #{filePath}, #{fileUrl});
+    </insert>
+    
+    <!-- 상세 이미지 데이터 조회를 위한 기능 정의 -->
+     <select id="selectDetailImg"
+        parameterType="com.project.laporte.model.DetailImg"
+        resultMap="detailimgMap">
+        SELECT * FROM detailimg WHERE prodno=#{prodno};
+     </select>
+     
+     <!-- 상세 이미지 데이터 개별 삭제를 위한 기능 정의 -->
+     <delete id="deleteDetailImg"
+        parameterType="com.project.laporte.model.DetailImg">
+        DELETE FROM detailimg WHERE detailimgno=#{detailimgno};
+     </delete>
+     
+     <!-- 상품 삭제시 참조하는 상세 이미지 삭제 기능 정의 -->
+     <delete id="deleteProductImg"
+        parameterType="com.project.laporte.model.DetailImg">
+        DELETE FROM detailimg WHERE prodno=#{prodno};
+     </delete>
 </mapper>

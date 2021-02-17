@@ -37,12 +37,32 @@
   float: none;
 }
 .product_add_btn {
-  margin: 15px 0;
+  margin: auto;
   width: fit-content;
   padding: 10px 50px;
 }
+
+.prod_edit,
+.prod_img_add,
+.prod_delete {
+  width: fit-content;
+  margin:10px;
+}
+.prod_img_add {
+	float:left;
+}
+
+.prod_delete,
+.prod_edit {
+	float:right;
+}
+.btn-block+.btn-block {
+    margin-top: 10px;
+}
 .btn_box {
-  margin: auto;
+  padding-bottom:15px;
+  width:90%;
+  margin:auto;
 }
 select#category2 {
   min-width: 140px;
@@ -113,4 +133,15 @@ select#category2 {
 }
 .img_delete_btn {
   margin: 0 60px;
+}
+
+.detailimg_wrap{
+	width: fit-content;
+    margin: 10px;
+    display: inline-block;
+}
+
+.detailimg_wrap .detail_delete{
+	margin: 20px 90px;
+	width: fit-content;
 }

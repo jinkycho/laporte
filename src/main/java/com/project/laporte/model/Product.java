@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Product {
 
+	// 1) 기본 컬럼
 	private int prodno;
 	private String name;
 	private int price;
@@ -20,4 +21,7 @@ public class Product {
 	private String group;
 	private String regdate;
 	private String editdate;
+	
+	// 2) JOIN절에 따른 추가 컬럼
+	private String catname;
 }

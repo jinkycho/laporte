@@ -196,7 +196,12 @@
                                             <tr>
                                                 <td class="info_table_color">상품 진열 *</td>
                                                 <td>
-                                                    ${output.display}
+                                                	<c:if test="${output.display =='Y'}">
+                                                	O
+                                                	</c:if>
+                                                    <c:if test="${output.display =='N'}">
+                                                	X
+                                                	</c:if>
                                                 </td>
                                             </tr>
                                         </table>
@@ -213,19 +218,22 @@
                                             <tr>
                                                 <td class="info_table_color">판매가 *</td>
                                                 <td>
-                                                   ${output.price}
+                                                   <fmt:formatNumber value="${output.price}" pattern="#,###" />원
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">할인가</td>
                                                 <td>
-                                                   ${output.saleprice}
+                                                <!-- 할인가가 0원이면 할인을 하지 않음(데이터베이스 상에서는 NULL로 입력되어있음) -->
+                                                	<c:if test="${output.saleprice != 0}">
+                                                	<fmt:formatNumber value="${output.saleprice}" pattern="#,###" />원
+                                                	</c:if>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">재고 *</td>
                                                 <td>
-                                                    ${output.stock}
+                                               		<fmt:formatNumber value="${output.stock}" pattern="#,###" />개
                                                 </td>
                                             </tr>
                                         </table>
@@ -269,19 +277,15 @@
                                             <tr>
                                                 <td class="info_table_color">대표 이미지 *</td>
                                                 <td>
-                                                    ${output.name}
-                                                </td>
-                                            </tr>
-                                            <tr id="product_detail_text">
-                                                <td class="info_table_color">상세 이미지 *</td>
-                                                <td>
-                                                   ${output.name}
+                                                   <img src="${imgoutput.fileUrl}" width="240" />
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
                                     <div class="btn_box">
-                                    	<a href="${pageContext.request.contextPath}/11_admin/product_edit.do?prodno=${output.prodno}"  class="btn btn-block btn-primary">수정</a>
+                                    	<a href="${pageContext.request.contextPath}/11_admin/product_img.do?prodno=${output.prodno}"  class="btn btn-block btn-success prod_img_add">상세 이미지 추가</a>
+                                    	<a href="#" id="deleteProduct" data-prodno="${output.prodno}" data-name="${output.name}" class="btn btn-block btn-danger prod_delete">삭제</a>
+                                    	<a href="${pageContext.request.contextPath}/11_admin/product_edit.do?prodno=${output.prodno}"  class="btn btn-block btn-primary prod_edit">수정</a>
                                     </div>
                                     
                                     <!--상품 이미지 끝-->
@@ -301,11 +305,40 @@
 	<!-- Handlebar CDN 참조 -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script type="text/javascript">
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
         });
+		
+		$(function() {
+	    	$("#deleteProduct").click(function(e) {
+	    		e.preventDefault();
+	    		
+	    		let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+	    		let prodno = current.data('prodno');    //data-profno 값을 가져옴
+	    		let name =current.data('name');         //data-name 값을 가져옴
+	    		let target = name + " 상품" ;       //이름+공백+직급 형식의 문자열
+	    		
+	    		//삭제확인
+	    		if(!confirm("정말 " + target + "을(를) 삭제하시겠습니까?")){
+	    			return false;
+	    		}
+	    		//delete 메서드로 Ajax 요청 --> <form>전송이 아니므로 직접 구현한다.
+	    		$.delete("${pageContext.request.contextPath}/11_admin/product_view", {
+	    			"prodno": prodno
+	    		}, function(json) {
+	    			if(json.rt=="OK"){
+	    				alert("삭제되었습니다.");
+	    				//삭제완료 후 목록 페이지로 이동
+	    				window.location = "${pageContext.request.contextPath}/11_admin/stock_management.do";
+	    			}
+	    		})
+	    	});
+	    });
 		
 	</script>
 </body>
