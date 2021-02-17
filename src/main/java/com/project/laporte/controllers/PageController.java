@@ -12,40 +12,10 @@ public class PageController {
     // -> import org.springframework.web.bind.annotation.RequestMapping;
     // -> import org.springframework.web.bind.annotation.RequestMethod;
 	
-	@RequestMapping(value="/home.do", method=RequestMethod.GET)
-    public String home() {
-        // "/src/main/webapp/WEB-INF/views/home.jsp" 파일을 View로 지정한다.
-        return "/home";
-    }
-	
-	@RequestMapping(value="/02_mypage/mypage.do", method=RequestMethod.GET)
-    public String mypage() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/mypage.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/mypage";
-    }
-	
 	@RequestMapping(value="/02_mypage/order.do", method=RequestMethod.GET)
     public String mypageOrder() {
         // "/src/main/webapp/WEB-INF/views/02_mypage/order.jsp" 파일을 View로 지정한다.
         return "/02_mypage/order";
-    }
-	
-	@RequestMapping(value="/02_mypage/login.do", method=RequestMethod.GET)
-    public String login() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/login.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/login";
-    }
-	
-	@RequestMapping(value="/02_mypage/pwfind.do", method=RequestMethod.GET)
-    public String loginPwFind() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/login_pwfind.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/pwfind";
-    }
-	
-	@RequestMapping(value="/02_mypage/pwrevise.do", method=RequestMethod.GET)
-    public String loginPwRevise() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/login_pwrevise.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/pwrevise";
     }
 	
 	@RequestMapping(value="/03_detail/detail.do", method=RequestMethod.GET)

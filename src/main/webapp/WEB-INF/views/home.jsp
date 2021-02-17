@@ -64,7 +64,7 @@
 	       			</div>
 	        </div>
 	        <!-- 검색 끝 -->
- 			<h1> 세션이름 : ${my_session}</h1>
+ 	
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
 				<!-- 배너 -->
