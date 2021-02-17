@@ -15,6 +15,8 @@
         <result property="ea" column="ea" />
         <result property="regdate" column="regdate" />
         <result property="editdate" column="editdate" />
+        <result property="uname" column="name AS 'uname'" />
+        <result property="pname" column="name AS 'pname'" />
     </resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -25,7 +27,7 @@
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
-        WHERE c.userno = u.userno AND c.prodno = p.prodno AND c.userno = #{c.userno}
+        WHERE c.userno = u.userno AND c.prodno = p.prodno AND c.userno = #{userno}
         ORDER BY cartno
     </select>
 	
@@ -37,7 +39,7 @@
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
-        WHERE c.userno = u.userno AND c.prodno = p.prodno AND c.userno = #{c.userno}
+        WHERE c.userno = u.userno AND c.prodno = p.prodno AND c.userno = #{userno}
         ORDER BY cartno
     </select>
 	
@@ -73,7 +75,7 @@
     <update id="updateCartList"
     	parameterType="com.project.laporte.model.Cart">
     	UPDATE cart SET
-    		ea = ea + #{ea}
+    		ea = ea + 1
     		WHERE userno = #{userno} AND prodno = #{prodno}
     </update>
 	

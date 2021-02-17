@@ -13,6 +13,7 @@ public class Cart {
 	private String editdate;	// 수정날짜
 	
 	/** 2) JOIN절에 따른 추가 컬럼 */
-	private String name;		// user table 유저이름, product table 상품이름
+	private String uname;		// user table 유저이름, product table 상품이름
+	private String pname;		// product table 유저이름, product table 상품이름
 
 }

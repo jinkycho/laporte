@@ -17,7 +17,7 @@
 	<!-- stylesheet -->
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-		<link rel="stylesheet" href="assets/plugins/sweetalert/sweetalert2.min.css"/>
+		<link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert2.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
 	    <link rel="stylesheet" type="text/css" href="../assets/css/cart.css">
 	
@@ -26,7 +26,7 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
 	<!-- ajax-helper -->
-	    <link rel="stylesheet" href="assets/plugins/ajax/ajax_helper.css" />
+	    <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
 	    <script src="assets/plugins/ajax/ajax_helper.js"></script>
 	</head>
 
@@ -64,26 +64,57 @@
 	        
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
-	        <%-- <c:choose>
-		        <c:when test="${output.ea == 0 }"> --%>
-		        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
-	        	<%-- </c:when>
-	        	<c:otherwise> --%>
-	        	
-		        	<!-- Ajax구현 - cart_form.html -->
-		         	<div class="cart_form"></div>
-	        	<%-- </c:otherwise>
-        	</c:choose> --%>
+		        <c:choose>
+			        <c:when test="${item.ea == 0 }">
+			        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
+		        	</c:when>
+		        	<c:otherwise>
+			         	<div class="cart_form">
+			         		<form class="cart_itemlist">
+								<input class="cart_checkbox" type="checkbox" checked>
+								<div class="cart_itembox">
+									<div class="cart_item clearfix">
+										<img class="cart_item_img">
+										<span>
+											<a class="cart_item_title" href="#"></a><br/>
+											<p class="cart_item_info"></p>
+										</span>
+										<div class="cart_item_price"></div><br/>
+										<div class="cart_item_1ea"></div>
+									</div>
+									<div class="cart_count">
+										<select id="cart_productcount">
+							      			<optgroup label="수량">
+							        			<option value="1">1</option>
+							        			<option value="2">2</option>
+							        			<option value="3">3</option>
+							        			<option value="4">4</option>
+							        			<option value="5">5</option>
+							        			<option value="6">6</option>
+							        			<option value="7">7</option>
+							        			<option value="8">8</option>
+							        			<option value="9">9</option>
+							        			<option value="10">10</option>
+							      			</optgroup>
+							       		</select>
+										<input type="submit" class="cart_delete" value="삭제"></a>
+									</div>
+								</div>
+							</form>
+			         	</div>
+		        	</c:otherwise>
+	        	</c:choose>
         	
 	            <!-- 비 로그인 상태 -->
-	            <div class="cart_none">
-	                <div class="cart_login">
-	                    <div><h4>로그인</h4>
-	                        <div class="cart_text"><a href="${pageContext.request.contextPath}/02_mypage/login.do">로그인 또는 회원가입</a>하시면 더 편리하게 이용하실 수 있어요</div>
-	                    </div><span id="hd_mypage_icon"></span>
-	                </div>
-	            </div>
-	            <!-- 비 로그인 끝 -->
+	            <c:if test = "${my_session != '' }">
+		            <div class="cart_none">
+		                <div class="cart_login">
+		                    <div><h4>로그인</h4>
+		                        <div class="cart_text"><a href="${pageContext.request.contextPath}/02_mypage/login.do">로그인 또는 회원가입</a>하시면 더 편리하게 이용하실 수 있어요</div>
+		                    </div><span id="hd_mypage_icon"></span>
+		                </div>
+		            </div>
+	            </c:if>
 	            
 	            <div class="cart_purchase">
 		            <div class="cart_info clearfix">
@@ -154,7 +185,7 @@
 		            						<span class="home_item_price">&#8361; 18,600</span></p>
 	            						</a>
 	           						</div>
-	            					<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
+	            					<a class="home_cartloc" href="${pageContext.request.contextPath}/06_cart/cart.do?"><span class="cart_icon"></span></a>
 	            				</div>
 	            			</li>
 	            			<!-- 항목(1) 끝 -->
@@ -295,8 +326,8 @@
 		<%@ include file="../01_home/footer.jsp" %>
 		
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-		<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
-	    <script src="../js/home.js"></script>
+		<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	    <script src="../assets/js/home.js"></script>
 	    <script type="text/javascript">
 			
 			$(function() {
@@ -333,7 +364,7 @@
 					$(".cart_form").load("../06_cart/cart_form.html");
 					var cart_itemlist = $(".cart_itemlist");
 				
-					$.get('../api/item_info/example.json', function(req) {
+					$.get('../assets/api/item_info/example.json', function(req) {
 						$(".cart_item_img").attr('src', req.img);
 						$(".cart_item_title").html(req.name);
 						$(".cart_item_info").html(req.type);
