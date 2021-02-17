@@ -42,7 +42,7 @@
 	</div>
 	
 	<div class="section">
-	<form id="pwfind-form" action="${pageContext.request.contextPath}/02_mypage/pwfind.do" >
+	<form id="pwfind-form" action="${pageContext.request.contextPath}/02_mypage/pwfind_ok.do" >
 	<input id="email_insert" name="email" placeholder="이메일" />
 	<span id="email_e_msg">올바른 주소 형식을 입력해주세요.</span>
 	<button id="login_pwfind_btn" type="submit">비밀번호 찾기</button>

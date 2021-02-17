@@ -10,7 +10,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>La porte</title>
+	<title>la porte</title>
 	
 	<!-- font stylesheet -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -26,11 +26,11 @@
     <script src="http://code.jquery.com/jquery.min.js"></script>
     
 	<!-- ajax-helper -->
-    <link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
-	<script src="../plugins/ajax/ajax_helper.js"></script>
+    <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
+	<script src="../assets/plugins/ajax/ajax_helper.js"></script>
 	
 	<!-- sweetalert -->
-    <link rel="stylesheet" href="../plugins/sweetalert/sweetalert2.min.css">
+    <link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert2.min.css">
    
 
 </head>
@@ -44,8 +44,9 @@
 	</div>
 	
 	<div class="section">
-	<form>
-	<input type="password" id="pw_insert" placeholder="새로운 비밀번호"></input>
+	<form id="pwrevise-form" action="${pageContext.request.contextPath}/02_mypage/pwrevise_ok.do">
+	<input type="hidden" name="userno" value= "${userno}" />
+	<input type="password" id="pw_insert" name="userpwd" placeholder="새로운 비밀번호"></input>
 	<a href="#" class= "showPassword">
 		<span class="pw_hide_icon">비밀번호숨기기</span>
 		<span class="pw_show_icon">비밀번호보이기</span>
@@ -59,9 +60,9 @@
 	<p id="pw_spe">✓ 특수 문자</p>
 	<p id="pw_correct">✓ 비밀번호 일치</p>
 
+	<button id="new_pw_save" type="submit">새로운 비밀번호 저장</button>
 	</form>
 	
-	<button id="new_pw_save" type="submit">새로운 비밀번호 저장</button>
 	</div>
 	
 	<div class="footer">
@@ -72,6 +73,14 @@
 <!-- swweetalert -->
 <script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 
+<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		  <!--Google CDN 서버로부터 jQuery 참조 -->
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    
 <script type="text/javascript">
 $(function(){
 	$(".pw_show_icon").hide()
@@ -146,10 +155,21 @@ $(function(){
 			$(".pw_hide_icon").show()
 		}
 	});
-
-	$('#new_pw_save').click(function(e){
-		swal('완료','비밀번호가 재설정되었습니다.','success');
-
+		 
+		 //#pwrevise-form에 대한 submit 이벤트를 가로채서 Ajax요청을 전송한다.
+	$('#pwrevise-form').ajaxForm({
+		//전송 메서드 지정
+		method : "POST",
+		//서버에서 200 응답을 전달한 경우 실행됨
+		success: function(json){
+			console.log(json);
+			
+			//json 결과가 OK 일 시 로그인 페이지로 이동한다.
+			if(json.rt == "OK"){
+			swal('완료','비밀번호가 재설정되었습니다.','success');
+				
+			}
+		}
 	});
 });
 </script>

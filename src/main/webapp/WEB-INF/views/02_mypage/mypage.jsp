@@ -9,7 +9,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>La porte</title>
+	<title>la porte</title>
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	
@@ -33,6 +33,7 @@
 
 <body>
 	<%@ include file="../01_home/header.jsp" %>
+		
 	<!-- 검색 -->
         <div class="hd_searchbox">
             <div class="hd_search">
@@ -69,7 +70,7 @@
 				</div>
 				<div class="profile_logout_box">
 					<span class="profile_logout_txt">로그아웃을 하고 싶으신가요?</span>
-					<a class="pofile_logout_link" href="#">로그아웃</a>
+					<a class="pofile_logout_link" href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
 				</div>
 			</div>
 			<div class="profile_body">

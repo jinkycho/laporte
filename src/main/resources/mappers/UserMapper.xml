@@ -50,7 +50,7 @@
 	
 	<!--  로그인 아이디 패스워드 확인 -->
 	<select id="idPwCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
-		SELECT userid, userpwd FROM user WHERE userid = #{userid} AND userpwd = #{userpwd}
+		SELECT userno, userid, userpwd FROM user WHERE userid = #{userid} AND userpwd = #{userpwd}
 	</select>
 	<select id="pwCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
 		SELECT userid, userpwd FROM user WHERE userid = #{userid}
@@ -60,5 +60,13 @@
 	<select id="emailCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
 		SELECT userno, email FROM user WHERE email = #{email}
 	</select>
+	
+	<!-- 비밀번호 수정하기  -->
+	<update id = "pwRevise"
+		parameterType = "com.project.laporte.model.User">
+		UPDATE user SET
+		userpwd = #{userpwd} 
+		WHERE userno = #{userno}
+	</update>
 	
 </mapper>

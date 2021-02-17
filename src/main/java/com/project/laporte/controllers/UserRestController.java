@@ -3,6 +3,9 @@ package com.project.laporte.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -151,16 +154,16 @@ public class UserRestController {
 	}
 		
 	 //로그인 아이디, 패스워드 확인
-	@RequestMapping(value="/02_mypage/login.do", method=RequestMethod.POST)
-	public Map<String, Object> login_post(Model model,
+	@RequestMapping(value="/02_mypage/login_ok.do", method=RequestMethod.POST)
+	public Map<String, Object> login_post(Model model, HttpServletRequest request,
 			@RequestParam(value="userid", defaultValue="") String userid,
 			@RequestParam(value="userpwd", defaultValue="") String userpwd) {
 		
-		/**1) 사용자가 입력한 파라미터 유효성 검사*/
+		/** 사용자가 입력한 파라미터 유효성 검사*/
 		if(!regexHelper.isValue(userid))				{return webHelper.getJsonWarning("아이디를 입력하세요.");}
 		if(!regexHelper.isValue(userpwd))				{return webHelper.getJsonWarning("비밀번호를 입력하세요.");}
 		
-		/**2) 입력값 일치 확인하기*/
+		/** 입력값 일치 확인하기*/
 		//저장할 값들을 Beans에 담는다.
 		User input = new User();
 		input.setUserid(userid);
@@ -172,6 +175,9 @@ public class UserRestController {
 		// 저장된 결과를 조회하기 위한 객체
 		User idCheck = null;
 		User output = null;
+		
+		/** request 객체를 사용해서 세션 객체 만들기 */
+		HttpSession session = request.getSession();
 
 		try {
 			// 아이디 존재여부 확인 및 존재할 경우 id&pw DB에서 가져온다.
@@ -181,24 +187,28 @@ public class UserRestController {
 			if(idCheck != null && pwdEncoder.matches(inputPwd, idCheck.getUserpwd())) {
 			//데이터 조회
 			output = userService.checkIdPw(idCheck);
+			// 세션 저장 처리
+			session.setAttribute("my_session", output.getUserid());
 			}else {
-				//조회에 실패한 경우(DB에 데이터가 존재하지 않는 경우)
+				/**조회에 실패한 경우(DB에 데이터가 존재하지 않는 경우) */
+				//세션 삭제
+				session.removeAttribute("my_session");
 				return webHelper.getJsonError("비밀번호가 잘못되었습니다.");
 			}
 			
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
+			
 		}
-
 		
 		/** 3)JSON 출력하기 */
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("item", output);		
+		data.put("item", output);
 		return webHelper.getJsonData(data);
 	}
 		//비밀번호 찾기
-	@RequestMapping(value="/02_mypage/pwfind.do", method=RequestMethod.POST)
-	public Map<String, Object> send_email(Model model,
+	@RequestMapping(value="/02_mypage/pwfind_ok.do", method=RequestMethod.POST)
+	public Map<String, Object> pw_find(Model model,
 			@RequestParam(value="email", defaultValue="") String email){
 		
 		if(!regexHelper.isValue(email)) 	{return webHelper.getJsonWarning("이메일을 입력하세요.");}
@@ -222,6 +232,12 @@ public class UserRestController {
 			if(output != null) {
 				try {
 					String subject = "la porte 비밀번호 재설정을 위한 메세지 입니다.";
+					String url = "http://localhost:8080/laporte/02_mypage/pwrevise.do";
+					int param_userno = output.getUserno();
+					
+					String pwrevise_url = url + "?" + "userno=" + param_userno;
+					
+							
 					String content = "<div style = 'width : 75%; background-color: #cebea7; margin:auto; padding:30px;'>" +
 									 "<h2> 안녕하세요. la porte 입니다 </h2>" + 
 									 "<br />" + 
@@ -231,7 +247,7 @@ public class UserRestController {
 									 "<br />" +
 									 "<p> 비밀번호 변경을 요청하셨다면 아래 버튼을 클릭하시면 비밀번호 변경이 가능한 페이지로 이동합니다.</p>" +
 									 "<br />" +
-									 "<a type= 'button' style ='display:block; width:10%; height: 28px; color:#fff; font-size: 12px; font-weight:bold; background-color: #172f50; margin:auto; margin-top: 20px; border-radius:25px;' href='http://localhost:8080/laporte/02_mypage/pwrevise.do'>비밀번호 변경하기</a>" +
+									 "<a type= 'button' style ='display:block; width:10%; height: 28px; color:#fff; font-size: 12px; font-weight:bold; background-color: #172f50; margin:auto; margin-top: 20px; border-radius:25px;' href='" + pwrevise_url + "'>비밀번호 변경하기</a>" +
 									 "</div>";
 					//sendMail() 메서드 선언시 throws 를 정의했기 때문에 예외처리가 요구된다.
 					mailHelper.sendMail(output.getEmail(), subject, content);
@@ -245,10 +261,52 @@ public class UserRestController {
 		/** 3)JSON 출력하기 */
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("item", output);		
-		return webHelper.getJsonData(data);
-		
+		return webHelper.getJsonData(data);		
 	}
 	
+	/** 비밀번호 수정하기 */
+	@RequestMapping(value="/02_mypage/pwrevise_ok.do", method = RequestMethod.POST)
+	public Map<String, Object> pw_revie(Model model,
+			@RequestParam(value = "userno", defaultValue="0") int userno,
+			@RequestParam(value="userpwd", defaultValue="") String userpwd){
+		
+		
+		/** 데이터 조회하기 */
+		User input = new User();
+		input.setUserno(userno);
+		
+		/** 사용자가 입력한 파라미터 유효성 검사 */
+		 if(!regexHelper.isValue(userpwd))				{return webHelper.getJsonWarning("비밀번호를 입력해주세요.");
+		 }
+		
+		 /** 데이터 수정하기 */
+		 
+		 input.setUserpwd(userpwd);
+		
+		 //비밀번호 암호화
+		 String inputPwd = input.getUserpwd();
+		 String pwdEnc = pwdEncoder.encode(inputPwd);
+		 input.setUserpwd(pwdEnc);
+		// 조회결과를 저장할 객체 선언
+		User output = null;
+		
+		try {
+			//데이터 수정
+			userService.pwRevise(input);
+			
+			//수정 결과 조회
+			output = userService.getUserItem(input);
+			
+		}catch(Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 결과를 확인하기 위한 JSON 출력 */
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item", output);
+		return webHelper.getJsonData(map);
+	}
+		
 	 /** 회원정보 상세 조회 */
     @RequestMapping(value = "/02_mypage/{userno}", method = RequestMethod.GET)
     public Map<String, Object> get_item(@PathVariable("userno") int userno) {

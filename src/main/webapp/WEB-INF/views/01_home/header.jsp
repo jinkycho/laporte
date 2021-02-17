@@ -1,24 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<header class="nav-down">
-        <div class="hd_container">
-            <div class="hd_iconbox">
-                <div class="hd_icon">
-                    <a href="${pageContext.request.contextPath}" id="hd_logo"><span id="hd_logo_icon"></span></a>
-                    <ul class="hd_list">
-                        <li><a href="${pageContext.request.contextPath}/02_mypage/login.do"><span id="hd_mypage_icon"></span></a></li>
-                        <li><a href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span id="hd_wishlist_icon"></span></a></li>
-                        <li><a href="${pageContext.request.contextPath}/06_cart/cart.do"><span id="hd_cart_icon"></span></a></li>
-                        <li><a href="#"><span id="hd_menu_icon"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-		<!-- 메뉴 모달창 -->
+	<div class="hd_container">
+		<div class="hd_iconbox">
+			<div class="hd_icon">
+				<a href="${pageContext.request.contextPath}" id="hd_logo"><span
+					id="hd_logo_icon"></span></a>
+				<ul class="hd_list">
+					<c:choose>
+					<c:when test="${my_session == null}">
+					<li><a
+						href="${pageContext.request.contextPath}/02_mypage/login.do"><span
+							id="hd_mypage_icon"></span></a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span
+							id="hd_wishlist_icon"></span></a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/06_cart/cart.do"><span
+							id="hd_cart_icon"></span></a></li>
+					<li><a href="#"><span id="hd_menu_icon"></span></a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a
+						href="${pageContext.request.contextPath}/02_mypage/mypage.do"><span
+							id="hd_mypage_icon"></span></a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span
+							id="hd_wishlist_icon"></span></a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/06_cart/cart.do"><span
+							id="hd_cart_icon"></span></a></li>
+					<li><a href="#"><span id="hd_menu_icon"></span></a></li>
+					</c:otherwise>
+					</c:choose>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- 메뉴 모달창 -->
         <!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태. -->
         <div class="hd_gray_layer" id="hd_menu_background"></div>
         <div class="hd_over_layer" id="hd_menu_front">

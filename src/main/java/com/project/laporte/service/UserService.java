@@ -20,4 +20,7 @@ public interface UserService {
 	
 	/** 이메일 존재 여부 검사 */
 	public User checkEmail(User input) throws Exception;
+	
+	/** 비밀번호 변경 */
+	public int pwRevise(User input) throws Exception;
 }

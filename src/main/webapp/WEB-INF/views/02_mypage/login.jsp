@@ -46,7 +46,7 @@
 	
 	<div class="section">
 	
-	<form id="login-form" action="${pageContext.request.contextPath}/02_mypage/login.do">
+	<form id="login-form" action="${pageContext.request.contextPath}/02_mypage/login_ok.do">
 		<input id="id_insert" name="userid" type="text" placeholder="이메일 또는 휴대폰 번호" />
 		
 		<div>
@@ -125,8 +125,8 @@ $(document).ready(function(){
 				
 				//json에 결과가 OK일 시 홈으로 이동
 				if(json.rt == "OK"){
-					alert("안녕하세요. " + json.item.userid + "님");
-					window.location = "${pageContext.request.contextPath}/home.do"
+					alert("안녕하세요. " + json.item.userid + "님");				
+					window.location = "${pageContext.request.contextPath}/home.do";
 				}
 			}			
 		});
