@@ -131,18 +131,6 @@ public class PageController {
 		return "/08_reserve/showroom_info";
 	}
     
-	 @RequestMapping(value="/08_reserve/reserve.do", method=RequestMethod.GET)
-	    public String reserve() {
-	        // "/src/main/webapp/WEB-INF/views/08_reserve/reserve.jsp" 파일을 View로 지정한다.
-	        return "/08_reserve/reserve";
-	    }
-	 
-	 @RequestMapping(value="/08_reserve/reserve_cfm.do", method=RequestMethod.GET)
-	    public String reserve_cfm() {
-	        // "/src/main/webapp/WEB-INF/views/08_reserve/reserve.jsp" 파일을 View로 지정한다.
-	        return "/08_reserve/reserve_cfm";
-	    }
-	 
 	 
 	 @RequestMapping(value="/09_cs/cs.do", method=RequestMethod.GET)
 	    public String cs() {

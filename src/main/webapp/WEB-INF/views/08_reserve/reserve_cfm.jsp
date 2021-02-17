@@ -267,10 +267,7 @@
 			});
 		});
     
-		$(document).ready(function() {
-			$("header").load("../01_home/header.html");
-			$("footer").load("../01_home/footer.html");
-		});
+		
         /* header fixed */
             // 스크롤 체크 변수 선언
             var didScroll;
@@ -368,7 +365,7 @@
 				}
 				
 				/** Ajax 요청 */
-				$.get('../api/dept_item.do', { reservNo: choice }, function(req) {
+				$.get('../assets/api/dept_item.do', { reservNo: choice }, function(req) {
 					// 미리 준비한 HTML틀을 읽어온다.
 					var template = Handlebars.compile($("#dept_item_tmpl").html());
 					// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.

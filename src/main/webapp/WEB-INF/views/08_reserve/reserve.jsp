@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8" />
+  	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>la porte</title>
@@ -28,19 +27,13 @@
 	 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
-	<!-- ajax-helper -->
-    <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
-    <script src="../assets/plugins/ajax/ajax_helper.js"></script>
-
+	
 	<!-- sweetalert -->
     <link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert2.min.css">
-   
-
-
 </head>
 
 <body>
-<%@ include file="../01_home/header.jsp" %>
+    <%@ include file="../01_home/header.jsp" %>
 <!-- 검색 -->
         <div class="hd_searchbox">
             <div class="hd_search">
@@ -69,8 +62,6 @@
                 </div>
         </div>
 <!-- 검색 끝-->
-
-
 <!-- 본문영역 -->
   <div class="reserve_top">
 	<ul class="reserve_ul">
@@ -89,100 +80,89 @@
 		</h4>
 	</div>
 </div>
-
+<!-- form 시작 -->
+<form id="addForm" class="reserve_input" action="${pageContext.request.contextPath}/08_reserve">
+	<!-- 매장 선택 -->
 	<div class="reserve_select">
-		<b><span>매장 선택</span></b>
+		<label for="showroom">매장 선택</label>
 		<select class="resvation_select-box">
-			<option class=reserve_select-box_option>강남점</option>
-			<option class=reserve_select-box_option>광명점</option>
-			<option class=reserve_select-box_option>대구점</option>
+			<option value="A" class=reserve_select-box_option>강남점</option>
+			<option value="B" class=reserve_select-box_option>광명점</option>
+			<option value="C" class=reserve_select-box_option>대구점</option>
 		</select>
 	</div>
-	<div class="reserve_cal-text">
-	<p>
-		상담을 원하는 날짜를 선택해주세요.<br>
-		오늘 일자부터 2주간의 예약이 가능합니다.
-	</p>
-    </div>
-<div class="reserve_bottom">
-<div class="reserve_calendar">
-<b><span>날짜선택</span></b>
-<div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
-<input id="datepicker-always-visible" type="text" class="form-control" data-zdp_readonly_element="false"
-placeholder="캘린더에서 날짜를 선택해주세요.">
+	<!-- 날짜 선택 -->
+	<div class="reserve_calendar">
+		<label for="date"> 날짜선택 </label>
+		<div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
+		<input name="date" id="datepicker-always-visible" type="text" class="form-control" data-zdp_readonly_element="false"
+			placeholder="캘린더에서 날짜를 선택해주세요.">
 </div>
-
-<div id="reserve_input">
+	<!-- 이름 입력  -->
 	<div class="reserve_input_name">
-		<b><span>이름</span></b>
-		<input class="name">
+		<label for="name">이름</label>
+		<input class="name" type="text" name="name" id="name" />
 	</div>
-
+	<!-- 이메일 입력 -->
 	<div class="reserve_input_email">
-		<b><span>E-mail</span></b>
-		<input type="text" class="email" id="email_id">
-		<span id="at_mark">@</span>
-		<input type="text" class="email" id="email_address">
-		<select class="email_select">
-			<option class="email_option" value="">직접 입력하세요.</option>
-			<option class="email_option" value="naver">네이버</option>
-			<option class="email_option" value="google">구글</option>
-			<option class="email_option" value="daum">다음</option>
-		</select>
+		<label for="email">E-mail</label>
+		<input class="email" type="email" name="email" id="email"/>
 	</div>
+	<!-- 휴대폰 번호 입력 -->
 	<div class="reserve_input_call">
-		<b><span>휴대폰번호</span></b>
-		<select class="call_select">
-			<option class="call_option">010</option>
-			<option class="call_option">011</option>
-			<option class="call_option">016</option>
-			<option class="call_option">018</option>
-		</select>
-		<span id="slash_mark">-</span>
-		<input type="text" class="call" id="call_md">
-		<span id="slash_mark">-</span>
-		<input type="text" class="call">
+		<label for="phoneno">휴대폰 번호</label>
+		<input class="phoneno" type="tel" name="phoneno" id="phoneno"/>
 	</div>
-	<div class="reserve_input_time">
-		<b><span>예약 시간</span></b>
-		<select class="input_default">
-			<option class="call_time">오전 9시</option>
-			<option class="call_time">오전 10시</option>
-			<option class="call_time">오전 11시</option>
-			<option class="call_time">오전 12시</option>
-			<option class="call_time">오후 1시</option>
-			<option class="call_time">오후 2시</option>
-			<option class="call_time">오후 3시</option>
-			<option class="call_time">오후 4시</option>
-			<option class="call_time">오후 5시</option>
+	<!-- 예약시간 -->
+	<div>
+		<label for="time">예약 시간</label>
+		<select class="input_default" name="time" id="time">	
+			<option value="9" class="call_time">오전 9시</option>
+			<option value="10" class="call_time">오전 10시</option>
+			<option value="11" class="call_time">오전 11시</option>
+			<option value="12" class="call_time">오전 12시</option>
+			<option value="1" class="call_time">오전 1시</option>
+			<option value="2" class="call_time">오전 2시</option>
+			<option value="3" class="call_time">오전 3시</option>
+			<option value="4" class="call_time">오전 4시</option>
+			<option value="5" class="call_time">오전 5시</option>
 		</select>
 	</div>
-	<div class="reserve_input_area">
-		<b><span>컨설팅영역</span></b>
-		<select class="input_default">
-			<option class="area_select">가구</option>
-			<option class="area_select">소파/암체어</option>
-			<option class="area_select">침대</option>
-			<option class="area_select">수납/정리</option>
-			<option class="area_select">주방가구/용품</option>
-			<option class="area_select">조명</option>
+	<!-- 컨설팅 영역 -->
+	<div>
+		<label for="area">컨설팅 영역</label>
+		<select name="area" class="input_default">
+			<option value="F" class="area_select">가구</option>
+			<option value="C" class="area_select">소파/암체어</option>
+			<option value="B" class="area_select">침대</option>
+			<option value="D" class="area_select">수납/정리</option>
+			<option value="K" class="area_select">주방가구/용품</option>
+			<option value="L" class="area_select">조명</option>
 		</select>
 	</div>
+	<!-- 요청사항 -->
 	<div class="reserve_input_req">
-		<b><span>요청사항</span></b>
-		<input type="text" placeholder="요청 사항이 있으시면 남겨주세요.">
+		<label for="request">요청사항</label>
+		<input class="request" name="request" type="text" placeholder="요청 사항이 있으시면 남겨주세요.">
 	</div>
+	<!-- 예약확인 동의  -->
 	<div class="reserve_chck">
 		<input type="checkbox" id="reserve_agr">
 		<p>예약확인 등을 위해 개인정보를 제3자에게 동의합니다.
 		<a href="#">(자세히보기)</a></p>
 	</div>
-</div>
-	<a href="#" id="reserve_submit">확인</a>
-</div>
+	
+	<button type="submit">저장하기</button>
+	<button type="reset">다시작성</button>
+</form>
+
 <%@ include file="../01_home/footer.jsp" %>
 
 <!-- swweetalert -->
+ <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+     <!-- jQuery Ajax Setup -->
+ <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 <script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="../assets/js/home.js"></script>
 <script type="text/javascript">
@@ -202,35 +182,21 @@ $(document).ready(function() {
 });
 
 $(function(){
-    $(document).on('change', '.email_select', function(e){
-        e.preventDefault();
-        var emailSelect = $('.email_select').val();
-
-        if( emailSelect == ""){
-            $('#email_address').val("").prop('disabled',false).css('background-color', '#fff').focus();
-        }
-
-
-        if( emailSelect == "naver"){
-            $('#email_address').val("naver.com").prop('disabled',true).css('background-color', '#e5e5e5');
-        }
-
-        if( emailSelect == "google"){
-            $('#email_address').val("google.com").prop('disabled',true).css('background-color', '#e5e5e5');
-        }
-
-        if( emailSelect == "daum"){
-            $('#email_address').val("daum.net").prop('disabled',true).css('background-color', '#e5e5e5');
-        }
-    });
-
+  	$("#addForm").ajaxForm({
+  		// 전송 메서드 지정
+  		method: "POST",
+  		// 서버에서 200 응답을 전달한 경우 실행됨
+  		success: function(json){
+  			console.log(json);
+  		}
+  	});
     $('#reserve_submit').click(function(e){
         e.preventDefault();
 
         var reserveDate = $('#datepicker-always-visible').val();
         var reserveName = $('.name').val();
         var reserveEmail = $('.email').val();
-        var reserveCall = $('.call').val();
+        var reserveCall = $('.phoneno').val();
         var reserveAgr =  $("#reserve_arg:checked");
 
         if(!reserveDate){
@@ -345,6 +311,7 @@ $(function(){
     });
     </script>
  <script src="../assets/dist/zebra_datepicker.src.js"></script>
-
+ 
 </body>
+
 </html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org./dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="ReserveMapper">
+	<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다.-->
+	<resultMap id="reserveMap"
+		type="com.project.laporte.model.Reserve">
+		<result property="reserveno" column="reserveno" />
+		<result property="showroom" column="showroom" />
+		<result property="date" column="date" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="phoneno" column="phoneno"/>
+		<result property="time" column="time" />
+		<result property="area" column="area" />
+		<result property="request" column="request" />
+		<result property="status" column="status" />
+		<result property="userno" column="userno" />
+		<result property="regdate" column="regdate" />
+		<result property="editdate" column="editdate" />
+	</resultMap>
+	
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem" parameterType="com.project.laporte.model.Reserve" useGeneratedKeys="true" keyProperty="reserveno">
+	INSERT INTO reserve (
+		showroom, date, name, email, phoneno, time, area, request,status , userno, regdate, editdate
+		)VALUES(
+	#{showroom}, #{date}, #{name}, #{email}, #{phoneno}, #{time}, #{area}, #{request}, 'W', #{userno}, now(), now()
+	 )
+	</insert>
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	
+	
+	
+	
+	
+	
+	</mapper>
