@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
-
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.service.CartService;
@@ -12,7 +11,7 @@ import com.project.laporte.service.ProductService;
 import com.project.laporte.service.UserService;
 
 @Controller
-public class CartAjaxController {
+public class CartController {
 
 	/** Webhelper 주입 */
 	// -> import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +36,6 @@ public class CartAjaxController {
 	// -> import org.springframework.beans.factory.annotation.Value;
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
+	
+	
 }

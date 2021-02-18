@@ -27,7 +27,7 @@
 	
 	<!-- ajax-helper -->
 	    <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
-	    <script src="assets/plugins/ajax/ajax_helper.js"></script>
+	    <script src="../assets/plugins/ajax/ajax_helper.js"></script>
 	</head>
 
 	<body>
@@ -64,46 +64,43 @@
 	        
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
-		        <c:choose>
-			        <c:when test="${item.ea == 0 }">
+		       <%--<c:choose> --%> 
+			        <%--<c:when test="${output == null || fn:length(output) == 0}">--%>
 			        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
-		        	</c:when>
-		        	<c:otherwise>
+		        	<%--</c:when> --%>
+		        	<%--<c:otherwise>--%>
 			         	<div class="cart_form">
-			         		<form class="cart_itemlist">
+			         		<%--<c:forEach var="item" items="${output }" varStatus="status"> --%>
+			         		<form id="cart_itemlist" name="cartform" method="post" action="${pageContext.request.contextPath}/06_cart/cart/prodno_check.do" enctype="multipart/form-data">
 								<input class="cart_checkbox" type="checkbox" checked>
 								<div class="cart_itembox">
 									<div class="cart_item clearfix">
 										<img class="cart_item_img">
 										<span>
-											<a class="cart_item_title" href="#"></a><br/>
-											<p class="cart_item_info"></p>
+											<a class="cart_item_title" href="#">${item.pname }</a><br/>
+											<p class="cart_item_info">${item.color }</p>
 										</span>
-										<div class="cart_item_price"></div><br/>
-										<div class="cart_item_1ea"></div>
+										<div class="cart_item_price">${item.totalprice }</div><br/>
+										<c:if test="${output.ea >= 1 }">
+											<div id="cart_item_1ea">${item.price }</div>
+										</c:if>
 									</div>
 									<div class="cart_count">
 										<select id="cart_productcount">
 							      			<optgroup label="수량">
-							        			<option value="1">1</option>
-							        			<option value="2">2</option>
-							        			<option value="3">3</option>
-							        			<option value="4">4</option>
-							        			<option value="5">5</option>
-							        			<option value="6">6</option>
-							        			<option value="7">7</option>
-							        			<option value="8">8</option>
-							        			<option value="9">9</option>
-							        			<option value="10">10</option>
+							        			<c:forEach begin="1" end="10" var="i">
+			                    				<option value="${i }">${i }</option>
+			                    				</c:forEach>	
 							      			</optgroup>
 							       		</select>
 										<input type="submit" class="cart_delete" value="삭제"></a>
 									</div>
 								</div>
 							</form>
+							<%--</c:forEach> --%>
 			         	</div>
-		        	</c:otherwise>
-	        	</c:choose>
+		        	<%--</c:otherwise> --%>
+	        	<%--</c:choose> --%>
         	
 	            <!-- 비 로그인 상태 -->
 	            <c:if test = "${my_session != '' }">
@@ -116,45 +113,42 @@
 		            </div>
 	            </c:if>
 	            
-	            <div class="cart_purchase">
-		            <div class="cart_info clearfix">
-		            	<p><strong>주문 내역</strong><br/>
-		            	이 금액에는 배송비가 포함되어 있지 않으며, 
-		            	배송지에 따라 구매가 불가할 수 있습니다.</p>
-		            	<hr>
-		            	<div>
-		            		<p class="cart_total"><b>총 주문금액</b></p>
-		            		<span class="cart_totalprice">&#8361; --</span>
-		           		</div>
+	            <!-- 장바구니 데이터가 있을때 출력 -->
+	            <c:if test = "${output != null }">
+		            <div id="cart_purchase">
+			            <div class="cart_info clearfix">
+			            	<p><strong>주문 내역</strong><br/>
+			            	이 금액에는 배송비가 포함되어 있지 않으며, 
+			            	배송지에 따라 구매가 불가할 수 있습니다.</p>
+			            	<hr>
+			            	<div>
+			            		<p class="cart_total"><b>총 주문금액</b></p>
+			            		<span class="cart_totalprice">&#8361; --</span>
+			           		</div>
+			            </div>
+			            <div>
+			            	<button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button>
+			            </div>
 		            </div>
-		            <div>
-		            	<button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button>
-		            </div>
-	            </div>
+	            </c:if>
+	            
 	            <div class="cart_footer">
 	                <div>
 	                    <div>
 	                    	<button id="cart_toggle">제품번호로 제품 추가하기</button>
-	                    	<form id="cart_hidden">
+	                    	<form id="cart_hidden" name="prodnoadd" method="post" action="${pageContext.request.contextPath }/06_cart/cart/prodno_check.do">
 	                    		<div id="cart_productbox">
-		                    		<input type="text" id="cart_productno" placeholder="예 : 90116553">
-		                    		<select id="cart_productcount">
+		                    		<input type="text" id="cart_productno" name="prodno" placeholder="예 : 20001">
+		                    		<select id="cart_productcount" name="ea">
 		                    			<optgroup label="수량">
-			                    			<option value="1">1</option>
-			                    			<option value="2">2</option>
-			                    			<option value="3">3</option>
-			                    			<option value="4">4</option>
-			                    			<option value="5">5</option>
-			                    			<option value="6">6</option>
-			                    			<option value="7">7</option>
-			                    			<option value="8">8</option>
-			                    			<option value="9">9</option>
-			                    			<option value="10">10</option>
+			                    			<c:forEach begin="1" end="10" var="i">
+			                    				<option value="${i }">${i }</option>
+			                    			</c:forEach>
 		                    			</optgroup>
 		                    		</select>
 	                    		</div>
 	                    		<div id="cart_addproductbox">
-	                    			<button id="cart_addproduct">제품 추가하기</button>
+	                    			<input type="submit" id="cart_addproduct" value="제품추가하기">
 	                   			</div>
 	                    	</form>
 	                    </div>
@@ -185,7 +179,7 @@
 		            						<span class="home_item_price">&#8361; 18,600</span></p>
 	            						</a>
 	           						</div>
-	            					<a class="home_cartloc" href="${pageContext.request.contextPath}/06_cart/cart.do?"><span class="cart_icon"></span></a>
+	            					<a id="carticon" class="home_cartloc" href="${pageContext.request.contextPath}/06_cart/cart.do?prodno=20001"><span class="cart_icon"></span></a>
 	            				</div>
 	            			</li>
 	            			<!-- 항목(1) 끝 -->
@@ -325,11 +319,15 @@
 		</section>
 		<%@ include file="../01_home/footer.jsp" %>
 		
+		<!--Google CDN 서버로부터 jQuery 참조 -->
+	    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	    <!-- jQuery Ajax Form plugin CDN -->
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	    <script src="../assets/js/home.js"></script>
 	    <script type="text/javascript">
-			
+	    	
 			$(function() {
 				/* 제품번호 버튼 toggle */
 				$("#cart_toggle").click(function() { $("#cart_hidden").slideToggle(200); });
@@ -340,6 +338,18 @@
 							$(this).html("제품번호로 제품 추가하기");
 						}
 				});
+				// 제품번호로 등록 submit 이벤트 Ajax요청
+				$("#cart_hidden").ajaxForm({
+					method:"POST",
+					seuccess:function(json) {
+						console.log(json);
+						
+						if(json.rt == "OK") {
+							aleart("장바구니등록","장바구니에 추가되었습니다.","success");
+							window.location = "${pageContext.request.contextPath}/06_cart/cart"
+						}
+					}
+				})
 				
 				/* 위시리스트 아이콘버튼 toggle */
 				$(".home_wishlist_icon").click(function(e) {
@@ -347,21 +357,25 @@
 					$(this).toggleClass("home_wishlist_icon_active")
 				});
 				
-				/* 장바구니 추가 */
-				$(document).ready(function() {
-					$(".cart_itemlist").hide();
-					$(".cart_purchase").hide();
-					$(".cart_item_1ea").hide();
+				/** 장바구니 추가 */ 
+				/* $(document).on("click",".carticon", function(e) {
+					e.preventDefault();
+					$get("${pageContext.request.contextPath}/06_cart/cart/add", {"prodno":prodno}, function(json) {
+						$(".cart_purchase").show();
+					});
+				}); */
+				
+				$(".cart_icon").click(function() {
+					location.href="${pageContext.request.contextPath}/06_cart/cart/list.do";
 				});
-
-				$(".cart_icon").click(function(e) {
+				/** $("#carticon").click(function(e) {
 					e.preventDefault();
 					$(".cart_title").html("장바구니");
 					swal("장바구니등록","장바구니에 추가되었습니다.","success");
 					
 					$(".cart_itemlist").show();
 					
-					$(".cart_form").load("../06_cart/cart_form.html");
+					// $(".cart_form").load("../06_cart/cart_form.html");
 					var cart_itemlist = $(".cart_itemlist");
 				
 					$.get('../assets/api/item_info/example.json', function(req) {
@@ -371,9 +385,9 @@
 						$(".cart_item_price").html("&#8361; "+ req.price);
 					
 					$(".cart_form").append(cart_itemlist);
-					$(".cart_purchase").show();
+					$("#cart_purchase").show();
 					});
-				});
+				}); */
 				
 				$(document).on("click",".cart_delete", function(e) {
 					e.preventDefault();
@@ -388,7 +402,7 @@
 						cancelButtonText:"취소"
 					});
 				});
-				// $(document).on("submit",".cart_itemlist", function(e) {
+				// $(document).on("submit","#cart_itemlist", function(e) {
 				// 	e.preventDefault();
 					
 				// 	var check_list = $(".cart_checkbox:checked");

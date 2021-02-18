@@ -3,7 +3,7 @@
 .cart_title {
   margin-top: 40px;
 }
-.cart_itemlist {
+#cart_itemlist {
   width: 100%;
   margin: 20px 0;
   display: inline-flex;
@@ -37,7 +37,7 @@ input[type="checkbox"] {
   float: right;
   margin-right: 10px;
 }
-.cart_item_1ea {
+#cart_item_1ea {
   font-size: 14px;
   float: right;
   margin-right: 10px;
