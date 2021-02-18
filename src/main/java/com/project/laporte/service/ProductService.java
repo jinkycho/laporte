@@ -16,6 +16,9 @@ public interface ProductService {
 	//카테고리 드롭다운 - 소분류
 	public List<Prod_category2> category2(Prod_category2 input) throws Exception;
 	
+	//카테고리 이름 출력
+	public Product getCategotyName(Product input) throws Exception;
+	
 	/**
 	 * 상품 데이터 상세 조회
 	 * @param Product 조회할 상품 일련번호를 담고 있는 Beans
@@ -70,6 +73,14 @@ public interface ProductService {
 	 * @throws Exception
 	 */
 	public Firstimg getProductFirstImg(Firstimg input) throws Exception;
+	
+	/**
+	 * 상품 데이터 대표 이미지 정보 수정하기
+	 * @param Product 대표 이미지를 수정할 파일의 정보를 담고있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int editProductFirstImg(Firstimg input) throws Exception;
 	
 	/**
 	 * 상품 상세이미지 데이터 목록 조회

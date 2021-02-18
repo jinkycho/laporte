@@ -17,7 +17,7 @@
         <!-- 메일발송 서버 비밀번호 -->
         <prop key="smtpPassword">cmgnmsuodolsyhuu</prop>
         <!-- 업로드 디렉토리 (server.xml의 docBase 값과 일치해야 함) -->
-        <prop key="uploadDir">C:/workspace/upload</prop>
+        <prop key="uploadDir">C:/workspace/ezen-android2020-1/src/main/webapp/WEB-INF/views/assets/upload</prop>
         <!-- 업로드 디렉토리에 대한 WebPath (server.xml의 path 값과 일치해야 함) -->
         <prop key="uploadPath">/upload</prop>
     </util:properties>

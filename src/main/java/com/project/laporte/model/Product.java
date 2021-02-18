@@ -23,5 +23,7 @@ public class Product {
 	private String editdate;
 	
 	// 2) JOIN절에 따른 추가 컬럼
-	private String catname;
+	private String catname1;
+	private String catname2;
+	private int catno1;
 }

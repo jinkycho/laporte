@@ -18,11 +18,11 @@ public class PageController {
         return "/02_mypage/order";
     }
 	
-	@RequestMapping(value="/03_detail/detail.do", method=RequestMethod.GET)
-    public String detail() {
+	//@RequestMapping(value="/03_detail/detail.do", method=RequestMethod.GET)
+    //public String detail() {
         // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
-        return "/03_detail/detail";
-    }
+    //    return "/03_detail/detail";
+    //}
 
 	@RequestMapping(value="/03_detail/allproduct1.do", method=RequestMethod.GET)
     public String allproduct1() {

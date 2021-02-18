@@ -47,6 +47,7 @@
 
 .detail_info_name {
 	width: 100%;
+	margin: 5px 0;
 }
 
 .detail_info_text {
@@ -179,7 +180,7 @@ input[type="checkbox"]:checked+label.heart {
 
 .product_num {
 	background: #f5f5f5;
-	width: 90px;
+	width: 65px;
 	height: 25px;
 	line-height: 25px;
 	margin: 30px 5px;
@@ -324,14 +325,45 @@ input[type="checkbox"]:checked+label.heart {
 	height: 100%;
 	padding: 20px;
 }
-    .review_close_button{
-        display: block;
-    	width: 20px;
-    	height: 20px;
-    	background: url(../img/laporte_clipping.png);
-    	background-size: 389px 230px;
-    	background-position: -182px -133px;
-    	position: absolute;
-    	top: 30px;
-    	right: 20px;
-    }
+
+.review_close_button {
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url(../img/laporte_clipping.png);
+	background-size: 389px 230px;
+	background-position: -182px -133px;
+	position: absolute;
+	top: 30px;
+	right: 20px;
+}
+
+.sale_before {
+	text-decoration: line-through;
+	font-size: 15px;
+}
+
+.sale_info {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.group_info {
+	color: #ff0000;
+	font-size: 17px;
+}
+
+.best_mark {
+	background-color: #ffdb00;
+	box-shadow: 2px 2px #e00751;
+	float: right;
+	padding: 0 5px;
+}
+.sale_price_box{
+	float:right;
+}
+
+.price_font{
+	font-size: 20px;
+    font-weight: bold;
+}

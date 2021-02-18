@@ -6,26 +6,26 @@
 	<resultMap id="CategoryMap"
 		type="com.project.laporte.model.Prod_category1">
 		<result property="catno1" column="catno1" />
-		<result property="catname" column="catname" />
+		<result property="catname1" column="catname1" />
 	</resultMap>
 
 	<resultMap id="Category2Map"
 		type="com.project.laporte.model.Prod_category2">
 		<result property="catno1" column="catno1" />
 		<result property="catno2" column="catno2" />
-		<result property="catname" column="catname" />
+		<result property="catname2" column="catname2" />
 	</resultMap>
-	<!-- 카테고리 호출 -->
+	<!-- 2차 카테고리 조회 기능 -->
 	<select id="selectList2"
 		resultType="com.project.laporte.model.Prod_category2">
-		SELECT catno2, catname FROM prod_category2 WHERE
+		SELECT catno2, catname2 FROM prod_category2 WHERE
 		catno1=#{catno1}
 	</select>
 
 	<!-- 카테고리 호출 -->
 	<select id="selectList"
 		resultType="com.project.laporte.model.Prod_category1">
-		SELECT catno1, catname FROM prod_category1
+		SELECT catno1, catname1 FROM prod_category1
 	</select>
-
+	
 </mapper>

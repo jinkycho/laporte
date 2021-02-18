@@ -133,14 +133,14 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h2 class="m-0">상품 등록</h2>
+								<h2 class="m-0">상품 수정</h2>
 							</div>
 							<!-- /.col -->
 							<div class="col-sm-6 clearfix">
 								<ol class="breadcrumb pull-right">
                                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/11_admin/admin_home.do">홈</a></li>
                                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/11_admin/stock_management.do">상품관리</a></li>
-									<li class="breadcrumb-item active">상품등록</li>
+									<li class="breadcrumb-item active">상품수정</li>
 								</ol>
 							</div>
 							<!-- /.col -->
@@ -156,7 +156,8 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card">
-									<form class="form-inline" action="${pageContext.request.contextPath}/11_admin/product_add" enctype="multipart/form-data">
+									<form class="form-inline" action="${pageContext.request.contextPath}/11_admin/product_edit" enctype="multipart/form-data" id="edit_form">
+                                    	<input type = "hidden" name="prodno" id= "prodno" value="${output.prodno}" />
                                     <div class="card-header">
                                         <h3 class="card-title">기본 정보</h3>
                                     </div>
@@ -172,7 +173,7 @@
                                                                 <option value="">--1차 분류--</option>
                                                                 <%-- 조회 결과에 따른 반복 처리 --%>
                 												<c:forEach var="item" items="${category1}" varStatus="status">
-                    												<option value="${item.catno1}">${item.catname1}</option>
+                    												<option value="${item.catno1}" <c:if test="${item.catno1 == output.catno1}">selected</c:if>>${item.catname1}</option>
                 												</c:forEach>
                                                             </select>
                                                         </div>
@@ -181,6 +182,9 @@
                                                         <div class="form-group">
                                                             <select id="category2" class="form-control prod_category2" name="catno2">
                                                                 <option value="">--2차 분류--</option>
+                                                                <c:forEach var="item" items="${category2}" varStatus="status">
+                    												<option value="${item.catno2}" <c:if test="${item.catno2 == output.catno2}">selected</c:if>>${item.catname2}</option>
+                												</c:forEach>
                                                             </select>
                                                         </div>
                                                         <!-- 2차 카테고리 끝 -->
@@ -190,10 +194,26 @@
                                                 <td class="info_table_color">상품 그룹</td>
                                                 <td>
                                                         <div class="input-group">
-                                                            <label><input type="checkbox" name="prd_group[]" value="세일"> 세일</label>
-                                                            <label><input type="checkbox" name="prd_group[]" value="신제품"> 신제품</label>
-                                                            <label><input type="checkbox" name="prd_group[]" value="인기"> 인기</label>
-                                                            <label><input type="checkbox" name="prd_group[]" value="이달의제품"> 이달의 제품</label>
+                                                        	<c:set var="group" value="${output.group }"/>
+                                                        	<c:choose>
+                                                        		<c:when test="${fn:contains(group, '세일') }"><label><input type="checkbox" name="prd_group[]" value="세일" checked> 세일</label></c:when>
+                                                        		<c:otherwise><label><input type="checkbox" name="prd_group[]" value="세일"> 세일</label></c:otherwise>
+                                                        	</c:choose>
+                                                        	
+                                                        	<c:choose>
+                                                        		<c:when test="${fn:contains(group, '신제품') }"><label><input type="checkbox" name="prd_group[]" value="신제품" checked> 신제품</label></c:when>
+                                                        		<c:otherwise><label><input type="checkbox" name="prd_group[]" value="신제품"> 신제품</label></c:otherwise>
+                                                        	</c:choose>
+                                                        	
+                                                        	<c:choose>
+                                                        		<c:when test="${fn:contains(group, '인기') }"><label><input type="checkbox" name="prd_group[]" value="인기" checked> 인기</label></c:when>
+                                                        		<c:otherwise><label><input type="checkbox" name="prd_group[]" value="인기"> 인기</label></c:otherwise>
+                                                        	</c:choose>
+                                                        	
+                                                        	<c:choose>
+                                                        		<c:when test="${fn:contains(group, '이달의제품') }"><label><input type="checkbox" name="prd_group[]" value="이달의제품" checked> 이달의 제품</label></c:when>
+                                                        		<c:otherwise><label><input type="checkbox" name="prd_group[]" value="이달의제품"> 이달의 제품</label></c:otherwise>
+                                                        	</c:choose>
                                                         </div>
                                                 </td>
                                             </tr>
@@ -201,7 +221,7 @@
                                                 <td class="info_table_color">상품명 *</td>
                                                 <td>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="상품명" id="product_name" name="name">
+                                                            <input type="text" class="form-control" placeholder="상품명" id="product_name" name="name" value="${output.name}">
                                                         </div>
                                                 </td>
                                             </tr>
@@ -209,7 +229,7 @@
                                                 <td class="info_table_color">상품 색상 *</td>
                                                 <td>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="상품 색상" id="product_color" name="color">
+                                                            <input type="text" class="form-control" placeholder="상품 색상" id="product_color" name="color" value="${output.color}">
                                                         </div>
                                                 </td>
                                             </tr>
@@ -217,17 +237,28 @@
                                                 <td class="info_table_color">상품 크기</td>
                                                 <td>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="상품 크기" id="product_size" name="size">
+                                                            <input type="text" class="form-control" placeholder="상품 크기" id="product_size" name="size" value="${output.size}">
                                                         </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color">상품 진열 *</td>
                                                 <td>
+                                                	<c:choose>
+                                                		<c:when test="${output.display == 'Y'}">
+                                                			<div class="input-group" id="product_display">
+                                                            	<label><input type="radio" name="display" value="Y" checked> 진열함</label>
+                                                            	<label><input type="radio" name="display" value="N"> 진열안함</label>
+                                                      	  	</div>
+                                                		</c:when>
+                                                        <c:otherwise>
                                                         <div class="input-group" id="product_display">
                                                             <label><input type="radio" name="display" value="Y"> 진열함</label>
-                                                            <label><input type="radio" name="display" value="N"> 진열안함</label>
+                                                            <label><input type="radio" name="display" value="N" checked> 진열안함</label>
                                                         </div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                        
                                                 </td>
                                             </tr>
                                         </table>
@@ -245,7 +276,7 @@
                                                 <td class="info_table_color">판매가 *</td>
                                                 <td>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="product_price" name="price">
+                                                            <input type="text" class="form-control" id="product_price" name="price" value="${output.price}">
                                                         </div>
                                                 </td>
                                             </tr>
@@ -253,7 +284,7 @@
                                                 <td class="info_table_color">할인가</td>
                                                 <td>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="product_sale_price" name="saleprice">
+                                                            <input type="text" class="form-control" id="product_sale_price" name="saleprice" value="${output.saleprice}">
                                                         </div>
                                                 </td>
                                             </tr>
@@ -261,9 +292,18 @@
                                                 <td class="info_table_color">재고 *</td>
                                                 <td>
                                                         <div class="input-group">
-                                                            <label><input type="radio" value="product_soldout" name="stock_status"> 품절</label>
-                                                            <label><input type="radio" value="product_quantity"  name="stock_status"> 수량</label> 
-                                                            <input type="text"  name="stock" class="form-control product_quantity_num" />개
+                                                        	<c:choose>
+                                                        		<c:when test="${output.stock == null || output.stock == 0}">
+                                                        			<label><input type="radio" value="product_soldout" name="stock_status" checked> 품절</label>
+                                                            		<label><input type="radio" value="product_quantity"  name="stock_status"> 수량</label> 
+                                                            		<input type="text"  name="stock" class="form-control product_quantity_num" />개
+                                                        		</c:when>
+                                                        		<c:otherwise>
+                                                        			<label><input type="radio" value="product_soldout" name="stock_status"> 품절</label>
+                                                            		<label><input type="radio" value="product_quantity"  name="stock_status" checked> 수량</label> 
+                                                            		<input type="text"  name="stock" class="form-control product_quantity_num"  value="${output.stock}"/>개
+                                                        		</c:otherwise>
+                                                        	</c:choose>
                                                         </div>
                                                 </td>
                                             </tr>
@@ -280,19 +320,19 @@
                                             <tr>
                                                 <td class="info_table_color" width="20%">관리자 주석</td>
                                                 <td width="80%">
-                                                        <textarea name="adminnote" id="admin_notes" class="form-control"></textarea>
+                                                        <textarea name="adminnote" id="admin_notes" class="form-control" >${output.adminnote}</textarea>
                                                 </td>
                                             </tr>
                                             <tr id="product_detail_text">
                                                 <td class="info_table_color">상세 설명 *</td>
                                                 <td>
-                                                        <textarea name="detailnote" id="product_notes" class="form-control"></textarea>
+                                                        <textarea name="detailnote" id="product_notes" class="form-control" >${output.detailnote}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="info_table_color" action="${pageContext.request.contextPath}/11_admin/product_add">상품 상세크기 *</td>
                                                 <td>
-                                                        <textarea name="detailsize" id="product_detail_size" class="form-control"></textarea>
+                                                        <textarea name="detailsize" id="product_detail_size" class="form-control">${output.detailsize}</textarea>
                                                 </td>
                                             </tr>
                                         </table>
@@ -318,6 +358,7 @@
                                                 </td>
                                                 <td class="img_box">
                                                     <div class="thumb_input_img_wrap">
+                                                    	<img src="${imgoutput.fileUrl}" width="240" />
                                                     </div>
                                                 </td>
                                             </tr>
@@ -341,7 +382,7 @@
                                         </table>
                                     </div>
                                     <div class="btn_box">
-                                        <button type="submit" class="btn btn-block btn-primary product_add_btn">등록</button>
+                                        <button type="submit" class="btn btn-block btn-primary product_add_btn">수정</button>
                                     </div>
                                     
                                     <!--상품 이미지 끝-->
@@ -360,7 +401,7 @@
 	 <!-- Handlebar 탬플릿 코드 -->
     <script id="cat2-list-tmpl" type="text/x-handlebars-template">
         {{#each item}}
-		<option value="{{catno2}}">{{catname2}}</option>
+		<option value="{{catno2}}">{{catname}}</option>
         {{/each}}
     </script>
 	<!-- Handlebar CDN 참조 -->
@@ -588,20 +629,20 @@
                     return false;
                 } */
                 
-                $(".form-inline").ajaxForm({
-                    // 전송 메서드 지정
-                    method: "POST",
-                    // 서버에서 200 응답을 전달한 경우 실행됨
-                    success: function(json) {
-                        console.log(json);
-                        
-                        // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
-                        if (json.rt == "OK") {
-                            window.location = "${pageContext.request.contextPath}/11_admin/product_view.do?prodno=" + json.item.prodno;
-                        }
+            });
+            
+            $("#edit_form").ajaxForm({
+                // 전송 메서드 지정
+                method: "POST",
+                // 서버에서 200 응답을 전달한 경우 실행됨
+                success: function(json) {
+                    console.log(json);
+                    
+                    // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+                    if (json.rt == "OK") {
+                        window.location = "${pageContext.request.contextPath}/11_admin/product_view.do?prodno=" + json.item.prodno;
                     }
-                });
-
+                }
             });
         });
         

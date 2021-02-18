@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +17,7 @@
 
 <!-- stylesheet -->
 <link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"/>
+	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" />
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <link rel="stylesheet"
@@ -24,7 +25,8 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/cart.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/detail.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/review_expand.css">
+<link rel="stylesheet" type="text/css"
+	href="../assets/css/review_expand.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/star.css">
 <link rel="stylesheet" type="text/css"
 	href="../assets/plugins/sweetalert/sweetalert2.min.js">
@@ -41,7 +43,7 @@
 </head>
 
 <body>
-	<%@ include file="../01_home/header.jsp" %>
+	<%@ include file="../01_home/header.jsp"%>
 	<section>
 		<!-- 검색 -->
 		<div class="hd_searchbox">
@@ -77,26 +79,17 @@
 		<div class="container">
 			<div class="page-header">
 				<ol class="breadcrumb">
-					<li><a href="#">조명</a></li>
+					<li><a href="#">${category.catname1}</a></li>
 					<!-- 여기가 현재 페이지를 의미합니다. - active클래스 적용됨 -->
-					<li class="active">실내조명</li>
+					<li class="active">${category.catname2}</li>
 				</ol>
 			</div>
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
-					<img alt="스트롤라 장식조명"
-						src="https://www.ikea.com/kr/ko/images/products/strala-led-table-
-	        				decoration-cabin-in-the-forest-red-white__0675789_PE719481_S5.JPG?f=g"
-						class="swiper-slide"> <img alt="스트롤라 장식조명"
-						src="https://www.ikea.com/kr/ko/images/products/strala-led-table-
-							decoration-cabin-in-the-forest-red-white__0713431_PE729522_S5.JPG?f=m"
-						class="swiper-slide"> <img alt="스트롤라 장식조명"
-						src="https://www.ikea.com/kr/ko/images/products/strala-led-table-
-							decoration-cabin-in-the-forest-red-white__0779809_PE764458_S5.JPG?f=s"
-						class="swiper-slide"> <img alt="스트롤라 장식조명"
-						src="https://www.ikea.com/kr/ko/images/products/strala-led-table-
-							decoration-cabin-in-the-forest-red-white__0884365_PE719480_S5.JPG?f=s"
-						class="swiper-slide">
+					<img src="${imgoutput.fileUrl}" class="swiper-slide">
+					<c:forEach var="item" items="${imgList}" varStatus="status">
+						<img src="${item.fileUrl}" class="swiper-slide" />
+					</c:forEach>
 
 				</div>
 				<div class="swiper-scrollbar"></div>
@@ -105,13 +98,35 @@
 				<div class="price_package_box">
 					<div class="price_package_wrapper">
 						<div class="price_package_left clearfix">
-							<h3 class="detail_info_name pull-left">
-								STRÅLA 스트롤라 <span class="price_package_right pull-right">₩
-									18,600</span>
-							</h3>
+							<c:set var="group" value="${output.group }" />
+							<c:if test="${fn:contains(group, '신제품') }">
+								<span class="group_info">new</span>
+							</c:if>
+							<c:if test="${fn:contains(group, '세일') }">
+								<span class="group_info">sale</span>
+							</c:if>
+							<h3 class="detail_info_name">${output.name }</h3>
+							
+							
+							<c:choose>
+								<c:when test="${fn:contains(group, '세일') }">
+									<div class="clearfix sale_price_box">
+										<div class="price_package_right sale_before"> ₩<fmt:formatNumber
+										value="${output.price}" pattern="#,###" />
+										</div>
+										<div class="sale_info <c:if test="${fn:contains(group, '인기') }">best_mark</c:if>">
+											₩<fmt:formatNumber value="${output.saleprice}" pattern="#,###" />
+										</div>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<span class="price_package_right pull-right price_font <c:if test="${fn:contains(group, '인기') }">best_mark</c:if>"> ₩<fmt:formatNumber
+									value="${output.price}" pattern="#,###" />
+									</span>
+								</c:otherwise>
+							</c:choose>
 
-							<span class="detail_info_text pull-left">LED테이블장식조명, 숲속의 집
-								레드/화이트</span>
+							<span class="detail_info_text pull-left">${output.color}</span>
 						</div>
 
 						<button class="btn btn-link review_btn clearfix">
@@ -326,7 +341,8 @@
 					<!-- 리뷰 모달 끝 -->
 				</div>
 				<div class="buy_module_btn_box clearfix">
-					<button class="btn btn-primary" onclick="location.href='../07_purchase/purchase.html'">구매하기</button>
+					<button class="btn btn-primary"
+						onclick="location.href='../07_purchase/purchase.html'">구매하기</button>
 					<div class="heart_box pull-right">
 						<input type="checkbox" id="chk_heart" class="chk_heart"
 							style="display: none;" /> <label class="heart" for="chk_heart"></label>
@@ -343,11 +359,8 @@
 					<p class="return_txt">마음이 바뀌어도 괜찮아요. 구입한 제품은 365일 이내에 반품할 수
 						있어요. 영수증을 잘 보관하면 반품이 한결 쉬워져요.</p>
 				</div>
-				<div class="product_num">50491595</div>
-				<div class="detail_text">
-					<p>배터리 구동식으로 전원을 연결하지 않아도 되어 원하는 곳에 놓고 사용할 수 있습니다.</p>
-					<p>LED제품은 백열전구보다 에너지 소비량이 최대 85%가 낮고 수명도 10배나 오래갑니다.</p>
-				</div>
+				<div class="product_num">${output.prodno}</div>
+				<div class="detail_text">${output.adminnote}</div>
 			</div>
 			<!-- 아코디언 영역 -->
 			<div class="panel-group  detail_accordion" id="accordion">
@@ -362,16 +375,7 @@
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse">
 						<div class="panel-body">
-							<p>
-								실내 사용 전용.<br /> <br /> 배터리는 같은 용량을 가진 같은 종류의 충전지로만 교체해야 합니다.<br>
-								<br> LED 수명 약 20,000 시간.<br> <br> 조명색:따뜻한
-								백색(2700K)<br> <br> 이 제품에는 CE 마크가 있습니다.<br> <br>
-								제품에 맞는 배터리만 사용하세요. 오래된 배터리와 새 배터리를 함께 사용하지 마세요.<br> <br>
-								1.2V AA NiMH 1000mAh 충전식 배터리 2개가 포함되어 있습니다.<br> <br>
-								제품에 포함된 충전식 배터리는 충전에 10시간 정도 걸리고 최대 18시간 지속됩니다.<br> <br>
-								어댑터/충전기 포함.<br> <br> 제품에 포함된 전선에 아이의 목이 졸릴수 있습니다. 전선이
-								포함된 제품은 유아용 침대, 놀이울 등에서 떨어뜨려 놓아 아이가 만지지 못하게 해 주세요.
-							</p>
+							<p>${output.detailnote}</p>
 						</div>
 					</div>
 				</div>
@@ -576,7 +580,7 @@
 
 		</div>
 	</section>
-	<%@ include file="../01_home/footer.jsp" %>
+	<%@ include file="../01_home/footer.jsp"%>
 	<script src="../assets/js/input_value_1.js"></script>
 	<script src="../assets/js/input_value_2.js"></script>
 	<script src="../assets/js/input_value_3.js"></script>

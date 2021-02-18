@@ -166,7 +166,7 @@
                                             <tr>
                                                 <td class="info_table_color">상품 분류 *</td>
                                                 <td>
-                                                   ${output.catname}
+                                                   ${output.catname2}
                                                 </td>
                                             </tr>
                                             <tr>
