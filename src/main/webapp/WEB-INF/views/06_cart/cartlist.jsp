@@ -71,36 +71,35 @@
 			        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
 		        	</c:when>
 		        	<c:otherwise>
-		        		<h4 class="cart_title">장바구니</h4>
 			         	<div class="cart_form">
+			         		<h4 class="cart_title">장바구니</h4>
+			         		<form id="cart_itemlist" name="cartform" method="post" action="${pageContext.request.contextPath}/06_cart/cartlist">
 			         		<c:forEach var="item" items="${output }" varStatus="status">
-			         		<form id="cart_itemlist" name="cartform" method="post" action="${pageContext.request.contextPath}/06_cart/cart" enctype="multipart/form-data">
-								<input class="cart_checkbox" type="checkbox" checked>
 								<div class="cart_itembox">
-									<div class="cart_item clearfix">
+									<input class="cart_checkbox" type="checkbox" checked>
+									<div class="cart_item">
 										<img class="cart_item_img">
 										<span>
-											<a class="cart_item_title" href="#">${item.p.name }</a><br/>
-											<p class="cart_item_info">${item.color }</p>
+											<a class="cart_item_title" href="#">제품이름</a>
+											<p class="cart_item_info">${item.color}, ${item.size }</p>
 										</span>
-										<div class="cart_item_price">${item.totalprice }</div><br/>
-										<c:if test="${output.ea >= 1 }">
-											<div id="cart_item_1ea">${item.price }</div>
-										</c:if>
-									</div>
-									<div class="cart_count">
-										<select id="cart_productcount">
-							      			<optgroup label="수량">
-							        			<c:forEach begin="1" end="10" var="i">
-			                    				<option value="${i }">${i }</option>
-			                    				</c:forEach>	
-							      			</optgroup>
-							       		</select>
-										<input type="submit" class="cart_delete" value="삭제"></a>
+										<div class="cart_item_price">가격 : ${item.price * item.ea }</div><br/>
+										<div id="cart_item_1ea">수량 : ${item.ea }</div>
 									</div>
 								</div>
-							</form>
+								<div class="cart_count">
+									<select id="cart_productcount">
+						      			<optgroup label="수량">
+						        			<c:forEach begin="1" end="10" var="i">
+		                    				<option value="${i }">${i }</option>
+		                    				</c:forEach>	
+						      			</optgroup>
+						       		</select>
+						       		<button class="cart_edit">변경</button>
+									<button class="cart_delete">삭제</button>
+								</div>
 							</c:forEach>
+							</form>
 			         	</div>
 		        	</c:otherwise>
 	        	</c:choose>
@@ -130,19 +129,21 @@
 			           		</div>
 			            </div>
 			            <div>
-			            	<button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button>
+			            	<%-- <button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button> --%>
+			            	<button type="submit" id="cart_payment">결제하기</button>
 			            </div>
 		            </div>
 	            </c:if>
+			</form>
 	            
 	            <div class="cart_footer">
 	                <div>
 	                    <div>
 	                    	<button id="cart_toggle">제품번호로 제품 추가하기</button>
-	                    	<form id="cart_hidden" name="prodno" method="post" action="${pageContext.request.contextPath }/06_cart/cart">
+	                    	<form id="cart_hidden" action="${pageContext.request.contextPath }/06_cart/cart">
 	                    		<div id="cart_productbox">
 		                    		<input type="text" id="cart_productno" name="prodno" placeholder="예 : 20001">
-		                    		<select id="cart_productcount" name="eaplus">
+		                    		<select id="cart_productcount" name="ea">
 		                    			<optgroup label="수량">
 			                    			<c:forEach begin="1" end="10" var="i">
 			                    				<option value="${i }">${i }</option>
@@ -151,7 +152,7 @@
 		                    		</select>
 	                    		</div>
 	                    		<div id="cart_addproductbox">
-	                    			<input type="submit" id="cart_addproduct" value="제품추가하기">
+	                    			<button type="submit" id="cart_addproduct">제품추가하기</button>
 	                   			</div>
 	                    	</form>
 	                    </div>
@@ -322,10 +323,10 @@
 		</section>
 		<%@ include file="../01_home/footer.jsp" %>
 		
-		<!--Google CDN 서버로부터 jQuery 참조 -->
-	    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	    <!-- jQuery Ajax Form plugin CDN -->
 	    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+	    <!-- jQuery Ajax Setup -->
+	    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	    <script src="../assets/js/home.js"></script>
@@ -350,8 +351,8 @@
 						console.log(json);
 						
 						if(json.rt == "OK") {
-							aleart("장바구니등록","장바구니에 추가되었습니다.","success");
-							location.href = "${pageContext.request.contextPath}/06_cart/cartlist.do?" + json.item.userno;
+							alert("장바구니에 추가되었습니다.");
+							window.href = "${pageContext.request.contextPath}/06_cart/cartlist.do?" + json.item.userno;
 						}
 					}
 				});

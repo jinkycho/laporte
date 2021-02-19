@@ -23,7 +23,8 @@
     <select id="selectCartItem"
         parameterType="com.project.laporte.model.Cart"
         resultMap="cartMap">
-        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name, p.name, p.price, (p.price*c.ea) AS totalprice
+        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS `uname`, p.name AS `pname`, p.price,
+        		p.saleprice, p.stock, p.color, p.size
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
@@ -35,7 +36,8 @@
     <select id="selectCartList"
         parameterType="com.project.laporte.model.Cart"
         resultMap="cartMap">
-        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name, p.name, p.price, (p.price*c.ea) AS totalprice
+        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS `uname`, p.name AS `pname`, p.price,
+        		p.saleprice, p.stock, p.color, p.size
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
@@ -75,7 +77,7 @@
     <update id="updateCartList"
     	parameterType="com.project.laporte.model.Cart">
     	UPDATE cart SET
-    		ea = ea + 1
+    		ea = ea + #{ea}
     		WHERE userno = #{userno} AND prodno = #{prodno}
     </update>
 	

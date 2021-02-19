@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,14 +47,12 @@ public class CartRestController {
 	String contextPath;
     
     /** 저장 */
-    @RequestMapping(value = "/06_cart/cart/add.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/06_cart/cart", method = RequestMethod.POST)
     public Map<String, Object> post(
     		@RequestParam(value="cartno", defaultValue="0") int cartno,
     		@RequestParam(value="userno", defaultValue="0") int userno,
     		@RequestParam(value="prodno", defaultValue="0") int prodno,
-    		@RequestParam(value="ea", defaultValue="1") int ea,
-    		@RequestParam(value="regdate", defaultValue="") String regdate,
-    		@RequestParam(value="editdate", defaultValue="") String editdate) {
+    		@RequestParam(value="ea", defaultValue="1") int ea) {
     	
     	/** 1) 데이터 저장하기 */
     	// 저장할 값들을 Beans에 담는다.
@@ -61,21 +60,37 @@ public class CartRestController {
     	input.setUserno(10002);		// session 객체가 주입예정
     	input.setProdno(prodno);
     	input.setEa(ea);
-    	input.setRegdate(regdate);
-    	input.setEditdate(editdate);
     	
     	// 저장된 결과를 조회하기 위한 객체
 		Cart output = null;
-    			
-    	try {
-			// 데이터 저장
-			// --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
-			cartService.addCart(input);
-			
-			// 데이터 조회
-			output = cartService.getCartItem(input);
-		} catch(Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
+		int count = 0;
+    	
+		// 중복검사
+		try {
+			count = cartService.countCart(input);
+		} catch (Exception e) {
+            return webHelper.getJsonError(e.getLocalizedMessage());
+        }
+		
+		// 갯수 추가 수정
+		if (count != 0) {
+			try {
+				ea = cartService.updateCart(input);
+			} catch (Exception e) {
+	            return webHelper.getJsonError(e.getLocalizedMessage());
+	        }
+		} else {
+		
+	    	try {
+				// 데이터 저장
+				// --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+				cartService.addCart(input);
+				
+				// 데이터 조회
+				output = cartService.getCartItem(input);
+			} catch(Exception e) {
+				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
 		}
     	
     	/** 2) 결과를 확인하기 위한 페이지 연동*/
@@ -85,71 +100,80 @@ public class CartRestController {
 		return webHelper.getJsonData(map);
     }
     
-    /** 중복 상품 검사 */
-    @RequestMapping(value="/06_cart/cart/prodno_check.do", method=RequestMethod.POST)
-    public Map<String, Object>post(
-    		@RequestParam(value = "userno", defaultValue="0") int userno,
-			@RequestParam(value = "prodno", defaultValue="0") int prodno){
-			
-		/** 1) 상품번호 조회를 위해 Bean에 담는다*/
-		Cart input = new Cart();
-		input.setUserno(10002);		// session 객체가 주입예정
-		input.setProdno(prodno);	// 사용자가 입력한 상품번호 주입
-			
-		// 조회된 결과를 확인하기 위한 객체
-		int output = 0;
-		
-		// 중복검사
-		try {
-			output = cartService.countCart(input);
-		} catch (Exception e) {
-            return webHelper.getJsonError(e.getLocalizedMessage());
-        }
-		
-		// 갯수 추가
-		try {
-			output = cartService.updateCart(input);
-		} catch (Exception e) {
-            return webHelper.getJsonError(e.getLocalizedMessage());
-        }
-		
-        /** 2) JSON 출력하기 */
-        Map<String, Object> data = new HashMap<String, Object>();
-        data.put("item", output);
-	        
-        return webHelper.getJsonData(data);
-    }
+//    /** 중복 상품 검사 */
+//    @RequestMapping(value="/06_cart/cart/prodno_check.do", method=RequestMethod.POST)
+//    public Map<String, Object>post(
+//    		@RequestParam(value = "userno", defaultValue="0") int userno,
+//			@RequestParam(value = "prodno", defaultValue="0") int prodno){
+//			
+//		/** 1) 상품번호 조회를 위해 Bean에 담는다*/
+//		Cart input = new Cart();
+//		input.setUserno(10002);		// session 객체가 주입예정
+//		input.setProdno(prodno);	// 사용자가 입력한 상품번호 주입
+//			
+//		// 조회된 결과를 확인하기 위한 객체
+//		int output = 0;
+//		
+//		// 중복검사
+//		try {
+//			output = cartService.countCart(input);
+//		} catch (Exception e) {
+//            return webHelper.getJsonError(e.getLocalizedMessage());
+//        }
+//		
+//		if (output != 0) {
+//			// 갯수 추가
+//			try {
+//				output = cartService.updateCart(input);
+//			} catch (Exception e) {
+//	            return webHelper.getJsonError(e.getLocalizedMessage());
+//	        }
+//		}
+//		
+//		// 저장
+//		
+//		
+//        /** 2) JSON 출력하기 */
+//        Map<String, Object> data = new HashMap<String, Object>();
+//        data.put("item", output);
+//	        
+//        return webHelper.getJsonData(data);
+//    }
     
-    /** 목록 페이지 */
-    @RequestMapping(value = "/06_cart/cart", method = RequestMethod.GET)
-    public Map<String, Object> get_list(
-    		@RequestParam(value="cartno", defaultValue="0") int cartno) {
-
-        /** 1) 데이터 조회하기 */
-        Cart input = new Cart();
-        input.setCartno(cartno);
-
-        List<Cart> output = null;   // 조회결과가 저장될 객체
-
-        try {
-            // 데이터 조회하기
-            output = cartService.getCartList(input);
-        } catch (Exception e) {
-            return webHelper.getJsonError(e.getLocalizedMessage());
-        }
-
-        /** 2) JSON 출력하기 */
-        Map<String, Object> data = new HashMap<String, Object>();
-        data.put("item", output);
-
-        return webHelper.getJsonData(data);
-    }
     
-    /** 상세 페이지 
+    
+//    /** 목록 페이지 */
+//    @RequestMapping(value = "/06_cart/cart", method = RequestMethod.GET)
+//    public Map<String, Object> get_list(
+//    		@RequestParam(value="cartno", defaultValue="0") int cartno,
+//    		@RequestParam(value="userno", defaultValue="0") int userno) {
+//
+//        /** 1) 데이터 조회하기 */
+//        Cart input = new Cart();
+//        input.setCartno(3036);
+//        input.setUserno(10004);
+//
+//        List<Cart> output = null;   // 조회결과가 저장될 객체
+//
+//        try {
+//            // 데이터 조회하기
+//            output = cartService.getCartList(input);
+//        } catch (Exception e) {
+//            return webHelper.getJsonError(e.getLocalizedMessage());
+//        }
+//
+//        /** 2) JSON 출력하기 */
+//        Map<String, Object> data = new HashMap<String, Object>();
+//        data.put("item", output);
+//
+//        return webHelper.getJsonData(data);
+//    }
+    
+    /** 상세 페이지 **/
     @RequestMapping(value = "/06_cart/cart/{prodno}", method = RequestMethod.GET)
     public Map<String, Object> get_item(@PathVariable("cartno") int cartno) {
 
-        /** 1) 데이터 조회하기
+        /** 1) 데이터 조회하기 */
         // 데이터 조회에 필요한 조건값을 Beans에 저장하기
         Cart input = new Cart();
         input.setCartno(cartno);
@@ -164,12 +188,12 @@ public class CartRestController {
             return webHelper.getJsonError(e.getLocalizedMessage());
         }
         
-        /** 2) JSON 출력하기 
+        /** 2) JSON 출력하기 */
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("item", output);
         
         return webHelper.getJsonData(data);
-    } */
+    }
     
     /** 수정 */
     @RequestMapping(value="/06_cart/cart", method = RequestMethod.PUT)
