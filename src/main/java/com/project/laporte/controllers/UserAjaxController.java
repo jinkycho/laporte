@@ -31,22 +31,26 @@ public class UserAjaxController {
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
+
+	@RequestMapping(value="/home.out", method=RequestMethod.GET)
+    public  ModelAndView home() {	
+        // "/src/main/webapp/WEB-INF/views/home.jsp" 파일을 View로 지정한다.
+		return new  ModelAndView("/home");
+    }
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.GET)
-    public String sessionWrite(Model model, HttpServletRequest request) {
+    public  ModelAndView sessionWrite(Model model, HttpServletRequest request) {
 		/** 컨트롤러에서 세션을 식별하기 위한 처리 */
 		// 세션값은 request 내장 객체를 통해서 HttpSession 객체를 생성해야 접근할 수 있다.
 		HttpSession session = request.getSession();
-		String mySession = (String) session.getAttribute("my_session");
-		if(mySession == null) {
-			session.invalidate();
-		}
 		
-		//추출한 값을 View에게 전달
+		int mySession = (int) session.getAttribute("my_session");
+
+			//추출한 값을 View에게 전달
 		model.addAttribute("my_session", mySession);
 		
         // "/src/main/webapp/WEB-INF/views/home.jsp" 파일을 View로 지정한다.
-		return "/home";
+		return new  ModelAndView("/home");
     }
 	
 	@RequestMapping(value="/02_mypage/join.do", method=RequestMethod.GET)

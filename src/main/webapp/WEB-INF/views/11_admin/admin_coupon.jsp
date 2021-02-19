@@ -77,13 +77,13 @@
 							data-toggle="dropdown"><i class="glyphicon glyphicon-tags"></i>
 								제품 관리 <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="stock_management.html"><i
+								<li><a href="${pageContext.request.contextPath}/11_admin/stock_management.do"><i
 										class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
 								<li><a href="product_add.html"><i
 										class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
-								<li><a href="review_management.html"><i
+								<li><a href="${pageContext.request.contextPath}/11_admin/review_management.do"><i
 										class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
-								<li><a href="admin_sales.html"><i
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_sales.do"><i
 										class="glyphicon glyphicon-usd"></i> 매출 관리</a></li>
 							</ul></li>
 						<li class="dropdown open"><a href="#" class="dropdown-toggle"
@@ -95,13 +95,13 @@
 									href="${pageContext.request.contextPath}/11_admin/admin_userlist.do">
 										<i class="glyphicon glyphicon-user"></i> 회원정보 관리
 								</a></li>
-								<li><a href="admin_order.html"> <i
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_order.do"> <i
 										class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리
 								</a></li>
-								<li><a href="admin_delivery.html"> <i
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_delivery.do"> <i
 										class="glyphicon glyphicon-transfer"></i> 배송정보 관리
 								</a></li>
-								<li><a href="admin_cancel.html"> <i
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_cancel.do"> <i
 										class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불
 								</a></li>
 								<li class="active"><a
@@ -112,7 +112,7 @@
 									href="${pageContext.request.contextPath}/11_admin/admin_point.do">
 										<i class="glyphicon glyphicon-usd"></i> 적립금
 								</a></li>
-								<li><a href="admin_visitors.html"> <i
+								<li><a href="${pageContext.request.contextPath}admin_visitors.do"> <i
 										class="glyphicon glyphicon-stats"></i> 방문자 수 관리
 								</a></li>
 							</ul></li>
@@ -121,10 +121,10 @@
 								문의 관리 <b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="admin_qanda.html"> <i
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_qanda.do"> <i
 										class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리
 								</a></li>
-								<li><a href="admin_fanda.html"> <i
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_fanda.do"> <i
 										class="glyphicon glyphicon-list-alt"></i> F&A 관리
 								</a></li>
 							</ul></li>

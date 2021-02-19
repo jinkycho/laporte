@@ -77,23 +77,12 @@ public class PageController {
         return "/05_wishlist/wishlist";
     }
 	
-	@RequestMapping(value="/06_cart/cart.do", method=RequestMethod.GET)
-    public String cart() {
-        // "/src/main/webapp/WEB-INF/views/06_cart/cart.jsp" 파일을 View로 지정한다.
-        return "/06_cart/cart";
-    }
+//	@RequestMapping(value="/06_cart/cart.do", method=RequestMethod.GET)
+//    public String cart() {
+//        // "/src/main/webapp/WEB-INF/views/06_cart/cart.jsp" 파일을 View로 지정한다.
+//        return "/06_cart/cart";
+//    }
 	
-	@RequestMapping(value="/07_purchase/purchase.do", method=RequestMethod.GET)
-    public String purchase() {
-        // "/src/main/webapp/WEB-INF/views/07purchase/purchase.jsp" 파일을 View로 지정한다.
-        return "/07_purchase/purchase";
-    }
-	
-	@RequestMapping(value="/07_purchase/daum_pc_find.do", method=RequestMethod.GET)
-    public String daum_pc_find() {
-        // "/src/main/webapp/WEB-INF/views/07purchase/daum_pc_find.jsp" 파일을 View로 지정한다.
-        return "/07_purchase/daum_pc_find";
-    }
 	
 	@RequestMapping(value="/08_reserve/showroom_info.do", method=RequestMethod.GET)
 	public String showroom() {
@@ -144,12 +133,6 @@ public class PageController {
 	        return "/11_admin/admin_cancel";
 	    }
 	 
-	 @RequestMapping(value="/11_admin/admin_coupon.do", method=RequestMethod.GET)
-	    public String adminCoupon() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_coupon.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_coupon";
-	    }
-	 
 	 @RequestMapping(value="/11_admin/admin_delivery.do", method=RequestMethod.GET)
 	    public String adminDelivery() {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_delivery.jsp" 파일을 View로 지정한다.
@@ -161,18 +144,8 @@ public class PageController {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_order.jsp" 파일을 View로 지정한다.
 	        return "/11_admin/admin_order";
 	    }
+
 	 
-	 @RequestMapping(value="/11_admin/admin_point.do", method=RequestMethod.GET)
-	    public String adminPoint() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_point.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_point";
-	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_resvappv.do", method=RequestMethod.GET)
-	    public String adminResvAppv() {
-	        // "/src/main/webapp/WEB-INF/views//11_admin/admin_resvappv.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_resvappv";
-	    }
 	 
 	 @RequestMapping(value="/11_admin/admin_home.do", method=RequestMethod.GET)
 	    public String adminHome() {
@@ -191,12 +164,7 @@ public class PageController {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_review.jsp" 파일을 View로 지정한다.
 	        return "/11_admin/admin_review";
 	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_userlist.do", method=RequestMethod.GET)
-	    public String adminUserlist() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_userlist.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_userlist";
-	    }
+	
 	 
 	 @RequestMapping(value="/11_admin/stock_management.do", method=RequestMethod.GET)
 	    public String StockManagament() {
@@ -204,15 +172,4 @@ public class PageController {
 	        return "/11_admin/stock_management";
 	    }
 	 
-	 @RequestMapping(value="/11_admin/admin_fanda.do", method=RequestMethod.GET)
-	    public String fanda() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_fanda.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_fanda";
-	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_qanda.do", method=RequestMethod.GET)
-	    public String qanda() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_qanda.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_qanda";
-	    }
 }

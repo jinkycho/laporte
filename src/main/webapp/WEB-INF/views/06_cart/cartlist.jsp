@@ -73,7 +73,7 @@
 		        	<c:otherwise>
 			         	<div class="cart_form">
 			         		<h4 class="cart_title">장바구니</h4>
-			         		<form id="cart_itemlist" name="cartform" method="post" action="${pageContext.request.contextPath}/06_cart/cartlist">
+			         		<form id="cart_itemlist" name="cartform">
 			         		<c:forEach var="item" items="${output }" varStatus="status">
 								<div class="cart_itembox">
 									<input class="cart_checkbox" type="checkbox" checked>
@@ -105,7 +105,7 @@
 	        	</c:choose>
         	
 	            <!-- 비 로그인 상태 -->
-	            <c:if test = "${my_session != '' }">
+	            <c:if test = "${my_session == null }">
 		            <div class="cart_none">
 		                <div class="cart_login">
 		                    <div><h4>로그인</h4>
@@ -130,19 +130,19 @@
 			            </div>
 			            <div>
 			            	<%-- <button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button> --%>
-			            	<button type="submit" id="cart_payment">결제하기</button>
+			            	<button id="cart_payment">결제하기</button>
 			            </div>
 		            </div>
 	            </c:if>
-			</form>
 	            
 	            <div class="cart_footer">
 	                <div>
 	                    <div>
 	                    	<button id="cart_toggle">제품번호로 제품 추가하기</button>
-	                    	<form id="cart_hidden" action="${pageContext.request.contextPath }/06_cart/cart">
+	                    	<form id="cart_hidden" action="${pageContext.request.contextPath}/06_cart/cart">
 	                    		<div id="cart_productbox">
-		                    		<input type="text" id="cart_productno" name="prodno" placeholder="예 : 20001">
+		                    		<input type="hidden" name="userno" placeholder="예 : 20001" value="<%out.print(session.getAttribute("my_session"));%>" />
+		                    		<input type="text" id="cart_productno" name="prodno" placeholder="예 : 20001" />
 		                    		<select id="cart_productcount" name="ea">
 		                    			<optgroup label="수량">
 			                    			<c:forEach begin="1" end="10" var="i">
@@ -327,7 +327,6 @@
 	    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 	    <!-- jQuery Ajax Setup -->
 	    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
-		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	    <script src="../assets/js/home.js"></script>
 	    <script type="text/javascript">
@@ -347,12 +346,12 @@
 				// 제품번호로 등록 submit 이벤트 Ajax요청
 				$("#cart_hidden").ajaxForm({
 					method:"POST",
-					seuccess:function(json) {
+					success:function(json) {
 						console.log(json);
 						
 						if(json.rt == "OK") {
 							alert("장바구니에 추가되었습니다.");
-							window.href = "${pageContext.request.contextPath}/06_cart/cartlist.do?" + json.item.userno;
+							window.location = "${pageContext.request.contextPath}/06_cart/cartlist.do?userno="+json.item.userno;
 						}
 					}
 				});

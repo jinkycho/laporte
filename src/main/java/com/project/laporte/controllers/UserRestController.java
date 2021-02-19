@@ -184,7 +184,7 @@ public class UserRestController {
 			//데이터 조회
 			output = userService.checkIdPw(idCheck);
 			// 세션 저장 처리
-			session.setAttribute("my_session", output.getUserid());
+			session.setAttribute("my_session", output.getUserno());
 			}else {
 				/**조회에 실패한 경우(DB에 데이터가 존재하지 않는 경우) */
 				//세션 삭제

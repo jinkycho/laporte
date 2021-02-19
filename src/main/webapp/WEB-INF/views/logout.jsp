@@ -21,7 +21,7 @@
 	alert("로그아웃 되셨습니다.");
 	</script>
 	<!--홈으로 강제 이동 -->
-	<meta http-equiv='refresh' content='0; url=home.do' />
+	<meta http-equiv='refresh' content='0; url=home.out' />
 </head>
 <body></body>
 </html>

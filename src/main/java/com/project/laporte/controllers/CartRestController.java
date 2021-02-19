@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +50,6 @@ public class CartRestController {
     /** 저장 */
     @RequestMapping(value = "/06_cart/cart", method = RequestMethod.POST)
     public Map<String, Object> post(
-    		@RequestParam(value="cartno", defaultValue="0") int cartno,
     		@RequestParam(value="userno", defaultValue="0") int userno,
     		@RequestParam(value="prodno", defaultValue="0") int prodno,
     		@RequestParam(value="ea", defaultValue="1") int ea) {
@@ -57,7 +57,7 @@ public class CartRestController {
     	/** 1) 데이터 저장하기 */
     	// 저장할 값들을 Beans에 담는다.
     	Cart input = new Cart();
-    	input.setUserno(10002);		// session 객체가 주입예정
+    	input.setUserno(userno);		// session 객체가 주입예정
     	input.setProdno(prodno);
     	input.setEa(ea);
     	
@@ -76,6 +76,10 @@ public class CartRestController {
 		if (count != 0) {
 			try {
 				ea = cartService.updateCart(input);
+				
+				// 데이터 조회
+				output = cartService.getCartItem(input);
+				
 			} catch (Exception e) {
 	            return webHelper.getJsonError(e.getLocalizedMessage());
 	        }
@@ -88,6 +92,7 @@ public class CartRestController {
 				
 				// 데이터 조회
 				output = cartService.getCartItem(input);
+				
 			} catch(Exception e) {
 				return webHelper.getJsonError(e.getLocalizedMessage());
 			}

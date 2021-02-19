@@ -41,7 +41,7 @@
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
-        WHERE c.userno = u.userno AND c.prodno = p.prodno AND c.userno = #{userno}
+        WHERE c.userno = #{userno}
         ORDER BY cartno
     </select>
 	
@@ -49,8 +49,8 @@
 	<insert id="insertCartItem"
 		parameterType = "com.project.laporte.model.Cart"
 		useGeneratedKeys="true" keyProperty="cartno">
-		INSERT INTO cart(userno, prodno, ea, regdate, editdate)
-		VALUES(#{userno}, #{prodno}, #{ea}, now(), now())
+		INSERT INTO cart(ea, userno, prodno, regdate, editdate)
+		VALUES(#{ea}, #{userno}, #{prodno}, now(), now())
 	</insert>
 
     <!-- 장바구니 수정을 위한 기능 정의 -->
