@@ -105,4 +105,12 @@ public interface ProductService {
 	 * @throws Exception
 	 */
 	public int deleteDetailImg(DetailImg input) throws Exception;
+	
+	/**
+	 * 유사한 상품 데이터 목록 조회
+	 * @param Product 검색조건과 페이지 구현 정보(아직 구현전)를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public List<Product> getSimilarList(Product input) throws Exception;
 }

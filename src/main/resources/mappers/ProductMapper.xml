@@ -24,6 +24,7 @@
         <result property="catname1"   column="catname1" />
         <result property="catname2"   column="catname2" />
         <result property="catno1"     column="catno1" />
+        <result property="fileUrl"    column="fileUrl" />
     </resultMap>
     
     <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
@@ -219,5 +220,15 @@
 		INNER JOIN prod_category2 c2 ON p.catno2=c2.catno2
 		INNER JOIN prod_category1 c1 ON c1.catno1=c2.catno1
 		WHERE prodno=#{prodno} AND p.catno2=#{catno2}
+	</select>
+	
+	<!-- 유사한 제품 목록 리스트 조회 기능 -->
+	<select id="selectSimilarList"
+		resultType="com.project.laporte.model.Product"
+		resultMap="productMap">
+		SELECT p.prodno, p.name, p.size, p.color, p.catno2, p.price, p.saleprice, `group`, f.fileUrl 
+		FROM product p
+		INNER JOIN firstimg f ON p.prodno=f.prodno
+		WHERE catno2=#{catno2}
 	</select>
 </mapper>

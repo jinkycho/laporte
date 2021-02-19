@@ -106,27 +106,32 @@
 								<span class="group_info">sale</span>
 							</c:if>
 							<h3 class="detail_info_name">${output.name }</h3>
-							
-							
+
+
 							<c:choose>
 								<c:when test="${fn:contains(group, '세일') }">
 									<div class="clearfix sale_price_box">
-										<div class="price_package_right sale_before"> ₩<fmt:formatNumber
-										value="${output.price}" pattern="#,###" />
+										<div class="price_package_right sale_before">
+											₩
+											<fmt:formatNumber value="${output.price}" pattern="#,###" />
 										</div>
-										<div class="sale_info <c:if test="${fn:contains(group, '인기') }">best_mark</c:if>">
-											₩<fmt:formatNumber value="${output.saleprice}" pattern="#,###" />
+										<div
+											class="sale_info <c:if test="${fn:contains(group, '인기') }">best_mark</c:if>">
+											₩
+											<fmt:formatNumber value="${output.saleprice}" pattern="#,###" />
 										</div>
 									</div>
 								</c:when>
 								<c:otherwise>
-									<span class="price_package_right pull-right price_font <c:if test="${fn:contains(group, '인기') }">best_mark</c:if>"> ₩<fmt:formatNumber
-									value="${output.price}" pattern="#,###" />
+									<span
+										class="price_package_right pull-right price_font <c:if test="${fn:contains(group, '인기') }">best_mark</c:if>">
+										₩<fmt:formatNumber value="${output.price}" pattern="#,###" />
 									</span>
 								</c:otherwise>
 							</c:choose>
 
-							<span class="detail_info_text pull-left">${output.color}</span>
+							<span class="detail_info_text pull-left">${output.color}</span><br />
+							<span class="detail_info_text pull-left"> ${output.size}</span>
 						</div>
 
 						<button class="btn btn-link review_btn clearfix">
@@ -359,7 +364,7 @@
 					<p class="return_txt">마음이 바뀌어도 괜찮아요. 구입한 제품은 365일 이내에 반품할 수
 						있어요. 영수증을 잘 보관하면 반품이 한결 쉬워져요.</p>
 				</div>
-				<div class="product_num">${output.prodno}</div>
+				<div class="product_num" data-prodno="${output.prodno}">${output.prodno}</div>
 				<div class="detail_text">${output.adminnote}</div>
 			</div>
 			<!-- 아코디언 영역 -->
@@ -390,7 +395,7 @@
 					</div>
 					<div id="collapseTwo" class="panel-collapse collapse">
 						<div class="panel-body">
-							광속: 2 루멘 <br> 높이: 17 cm<br> 지름: 11 cm
+							<p>${output.detailsize}</p>
 						</div>
 					</div>
 				</div>
@@ -401,166 +406,48 @@
 				<h4>유사한 제품</h4>
 				<div id="home_item_box">
 					<ul id="home_item_listbox">
-						<!-- 항목(1) 시작 -->
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
+						<c:forEach var="item" items="${similar}">
+							<li>
+								<div class="home_item">
+									<div class="home_wishlist_loc">
+										<a href="#"><span class="home_wishlist_icon"></span></a>
+									</div>
+									<div>
+										<a href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno}"> <img class="home_item_img" alt="${item.name}"
+											src="${item.fileUrl}">
+										</a> <a href="#"> <c:set var="group" value="${item.group }" />
+											<span class="home_item_title">${item.name}</span> <br />
+											<span class="home_item_info">${item.size} <br />${item.color}</span><br />
+											<c:choose>
+												<c:when test="${fn:contains(group, '세일') }">
+													<span class="home_item_info home_item_pricedown">&#8361;
+														<fmt:formatNumber value="${item.price}" pattern="#,###" />
+													</span>
+													<br />
+													<span
+														class="home_item_price <c:if test="${fn:contains(group, '인기') }">home_item_mark</c:if>">&#8361;
+														<fmt:formatNumber value="${item.saleprice}"
+															pattern="#,###" />
+													</span>
+												</c:when>
+												<c:otherwise>
+													<span
+														class="home_item_price <c:if test="${fn:contains(group, '인기') }">home_item_mark</c:if>">
+														₩ <fmt:formatNumber value="${item.price}" pattern="#,###" />
+													</span>
+												</c:otherwise>
+											</c:choose></a>
+									</div>
+									<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
+									<c:if test="${fn:contains(group, '세일') }">
+										<p class="home_item_down">할인가격</p>
+									</c:if>
+									<c:if test="${fn:contains(group, '신제품') }">
+										<p class="home_item_new">new</p>
+									</c:if>
 								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED테이블장식조명"
-										src="https://www.ikea.com/kr/ko/images/products/strala-led-table-decoration-battery-operated-star__0675781_PE719479_S5.JPG?f=s"></a>
-									<a href="#">
-										<p class="home_item_title">STRÅLA 스트롤라</p>
-										<p class="home_item_info">
-											LED테이블장식조명, 배터리식/별<br /> <span class="home_item_price">&#8361;
-												14,900</span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-								<p class="home_item_new">new</p>
-							</div>
-						</li>
-						<!-- 항목(1) 끝 -->
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
-								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED 탁상스탠드"
-										src="https://www.ikea.com/kr/ko/images/products/strala-led-table-lamp-landscape__0812151_PE773037_S5.JPG?f=m"></a>
-									<a href="#">
-										<p class="home_item_title">STRÅLA 스트롤라</p>
-										<p class="home_item_info">
-											LED 탁상스탠드, 30cm<br /> <span class="home_item_price">&#8361;
-												12,900</span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-							</div>
-						</li>
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
-								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED체인조명160등"
-										src="https://www.ikea.com/kr/ko/images/products/strala-led-lighting-chain-with-160-lights-battery-operated-mini-multicolour__0818276_PE774370_S5.JPG?f=l"></a>
-									<a href="#">
-										<p class="home_item_title">STRÅLA 스트롤라</p>
-										<p class="home_item_info">
-											LED체인조명160등<br /> <span class="home_item_price">&#8361;
-												19,900<span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-								<p class="home_item_new">new</p>
-							</div>
-						</li>
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
-								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED체인조명12등"
-										src="https://www.ikea.com/kr/ko/images/products/strala-led-lighting-chain-with-12-lights-battery-operated-snowflakes__0812192_PE771966_S5.JPG?f=m"></a>
-									<a href="#">
-										<p class="home_item_title">STRÅLA 스트롤라</p>
-										<p class="home_item_info">
-											LED체인조명12등<br /> <br /> <span class="home_item_price">&#8361;
-												9,900</span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-								<p class="home_item_new">new</p>
-							</div>
-						</li>
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
-								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED미니양초"
-										src="https://www.ikea.com/kr/ko/images/products/mognad-led-tealight-battery-operated-white__0636486_PE697891_S5.JPG?f=xs"></a>
-									<a href="#">
-										<p class="home_item_title">MOGNAD 몽나드</p>
-										<p class="home_item_info">
-											LED미니양초<br /> <span class="home_item_price home_item_mark">&#8361;
-												5,500 / 6개</span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-								<p class="home_item_new">new</p>
-							</div>
-						</li>
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
-								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED체인조명30"
-										src="https://www.ikea.com/kr/ko/images/products/strala-led-lighting-chain-with-30-lights-battery-operated-flower-white__0818292_PE774385_S5.JPG?f=m"></a>
-									<a href="#">
-										<p class="home_item_title">STRÅLA 스트롤라</p>
-										<p class="home_item_info">
-											LED체인조명30<br /> <span class="home_item_price">&#8361;
-												9,900</span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-							</div>
-						</li>
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
-								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED펜던트등"
-										src="https://www.ikea.com/kr/ko/images/products/strala-led-pendant-lamp-battery-operated-candy-cane__0700970_PE723864_S5.JPG?f=s"></a>
-									<a href="#">
-										<p class="home_item_title">STRÅLA 스트롤라</p>
-										<p class="home_item_info">
-											LED펜던트등<br /> <span class="home_item_price">&#8361;
-												9,900</span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-								<p class="home_item_new">new</p>
-							</div>
-						</li>
-						<li>
-							<div class="home_item">
-								<div class="home_wishlist_loc">
-									<a href="#"><span class="home_wishlist_icon"></span></a>
-								</div>
-								<div>
-									<a href="#"><img class="home_item_img" alt="LED양초"
-										src="https://www.ikea.com/kr/ko/images/products/mognad-led-block-candle-battery-operated-white__0640066_PE699629_S5.JPG?f=s"></a>
-									<a href="#">
-										<p class="home_item_title">MOGNAD 몽나드</p>
-										<p class="home_item_info">
-											LED양초, 10cm<br /> <span
-												class="home_item_price home_item_mark">&#8361; 3,000</span>
-										</p>
-									</a>
-								</div>
-								<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-								<p class="home_item_new">new</p>
-							</div>
-						</li>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -569,9 +456,22 @@
 			<div class="recently_view_page">
 				<h4>최근 본 제품</h4>
 				<div class="recently_img_box">
-					<img
-						src="https://www.ikea.com/kr/ko/images/products/strala-led-table-decoration-battery-operated-star__0675781_PE719479_S5.JPG?f=s"
-						class="recntly_img">
+					<c:choose>
+						<c:when test="${my_cookie == ''}">
+            		최근 본 제품이 없습니다.
+        		</c:when>
+						<c:otherwise>
+							<c:forEach var="item" items="${my_cookie}" varStatus="status">
+								<a
+									href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno}">
+									<img src="${item.fileUrl}" class="recntly_img" />
+								</a>
+							</c:forEach>
+							<%-- <c:forEach var ="item" items="${cookie_img_array}" varStatus="status">
+        				<img src="${item}" class="recntly_img" />
+        			</c:forEach> --%>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			<div class="totop_box">
@@ -643,7 +543,8 @@
 				}
 			});
 		});	
-
+		
+		
 	</script>
 </body>
 </html>

@@ -26,4 +26,5 @@ public class Product {
 	private String catname1;
 	private String catname2;
 	private int catno1;
+	private String FileUrl;
 }
