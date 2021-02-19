@@ -45,11 +45,7 @@ public class UserRestController {
     @Value("#{servletContext.contextPath}")
     String contextPath;
     
-	@RequestMapping(value="/02_mypage/join.do", method=RequestMethod.GET)
-    public ModelAndView join() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/join.jsp" 파일을 View로 지정한다.
-        return new ModelAndView("/02_mypage/join");
-    }
+	
 	
 	/**아이디 중복 검사*/
 	@RequestMapping(value="/02_mypage/id_check.do", method=RequestMethod.POST)
@@ -79,7 +75,7 @@ public class UserRestController {
 	}
 	/** 회원가입 작성 폼에 대한 action 페이지*/
 	@RequestMapping(value="/02_mypage", method=RequestMethod.POST)
-	public Map<String, Object> join_post(Model model,
+	public Map<String, Object> add_user(Model model,
 			@RequestParam(value="userid", defaultValue="") String userid,
 			@RequestParam(value="userpwd", defaultValue="") String userpwd,
 			@RequestParam(value="name", defaultValue="") String name,

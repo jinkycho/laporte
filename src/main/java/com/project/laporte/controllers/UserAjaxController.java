@@ -49,6 +49,12 @@ public class UserAjaxController {
 		return "/home";
     }
 	
+	@RequestMapping(value="/02_mypage/join.do", method=RequestMethod.GET)
+    public ModelAndView join() {
+        // "/src/main/webapp/WEB-INF/views/02_mypage/join.jsp" 파일을 View로 지정한다.
+        return new ModelAndView("/02_mypage/join");
+    }
+	
 	@RequestMapping(value="/02_mypage/join2.do", method=RequestMethod.GET)
 	public ModelAndView join2(Model model) {
 		// "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.

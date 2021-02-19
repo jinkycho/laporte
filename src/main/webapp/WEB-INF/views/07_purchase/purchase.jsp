@@ -423,7 +423,7 @@ $(document).ready(function() {
     $('#find_pc').click(function(e){
         e.preventDefault();
         //다음 API 불러오기
-        $.get("${pageContext.request.contextPath}/07_purchase/daum_pc_find.do", {}, function(req){
+        $.get("${pageContext.request.contextPath}/07_purchase/daum_pc_find.do", {html}, function(req){
         //이미 있는 요소는 비운다.
         $("#daum_pc_find").empty();
         // 준비된 요소에게 읽어온 내용을 출력한다.
@@ -452,6 +452,7 @@ $(document).ready(function() {
         var p1 = $("<p>");
         p1.html(estDelDate1);
         $('#date_input').html(p1);
+    });
     });
 
     //배송 선택 단계에서 수정 클릭 시
