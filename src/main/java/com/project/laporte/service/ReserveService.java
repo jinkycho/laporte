@@ -30,6 +30,8 @@ public interface ReserveService {
 	 */
 	public int deleteReserve(Reserve input) throws Exception;
 	
+	public int updateReservey(Reserve input) throws Exception;
+	
 	/**
 	 * 예약 상세 조회하기
 	 * @param Reserve 조회할 교수의 일련번호를 담고 있는 Beans
@@ -44,5 +46,32 @@ public interface ReserveService {
 	 * @return 조회 결과에 대한 컬렉션
 	 * @throws Exceptin
 	 */
-	public List<Reserve> getReservesList(Reserve input) throws Exception;
+	public List<Reserve> getReservesList(Reserve input) throws Exception ;
+	
+	
+	/**
+	 * 관리자 예약 목록 조회
+	 * @param Reserve 검색조건 페이지 구현 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬랙션
+	 * @throws Exception
+	 */
+	
+	public List<Reserve> getReserveListw(Reserve input) throws Exception;
+	
+	/**
+	 * 관리자 예약 목록 조회
+	 * @param Reserve 검색조건 페이지 구현 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬랙션
+	 * @throws Exception
+	 */
+	public List<Reserve> getReserveListcc(Reserve input) throws Exception;
+	
+	/**
+	 * 관리자 예약 목록 조회
+	 * @param Reserve 검색조건 페이지 구현 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬랙션
+	 * @throws Exception
+	 */
+	public List<Reserve> getReserveListcf(Reserve input) throws Exception;
+	
 }

@@ -1,9 +1,11 @@
 package com.project.laporte.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +31,50 @@ public class ReserveRestController {
 	// --> import com.project.laporte.service.ReserveService;
 	@Autowired ReserveService reserveService;
 	
+	
+	@RequestMapping(value="/11_admin",method = RequestMethod.GET)
+	public Map<String,Object>get_admin_list(){
+		
+		List<Reserve> output = null;
+		
+		try {
+			output = reserveService.getReserveListw(null);
+		}catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 3)JSON 출력하기 */
+		Map<String,Object>data = new HashMap<String, Object>();
+		data.put("list", output);
+		
+		return webHelper.getJsonData(data);
+	}
+	
+ 
+	/** 목록 페이지 */
+	
+	@RequestMapping(value = "/08_reserve", method = RequestMethod.GET)
+	public Map<String,Object>get_list(
+			@PathVariable("userno")int userno){
+		
+		Reserve input = new Reserve();
+		input.setUserno(userno);
+		
+		List<Reserve> output = null;
+		
+		try {
+			output = reserveService.getReservesList(input);
+		}catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 3) JSON 출력하기 */
+		Map<String,Object> data = new HashMap<String, Object>();
+		data.put("list", output);
+		
+		return webHelper.getJsonData(data);
+	}
+	
 	/** 작성 폼에 대한 action 페이지 */
 	@RequestMapping(value = "/08_reserve", method = RequestMethod.POST)
 	public Map<String,Object>post(
@@ -39,7 +85,7 @@ public class ReserveRestController {
 			@RequestParam(value = "phoneno",defaultValue = "")String phoneno,
 			@RequestParam(value = "time",defaultValue="")String time,
 			@RequestParam(value="area",defaultValue="")String area,
-			@RequestParam(value="request",defaultValue="")String request,
+			@RequestParam(value="request",defaultValue="false")String request,
 			@RequestParam(value="userno",defaultValue="0")int userno
 			
 			){
@@ -86,4 +132,35 @@ public class ReserveRestController {
 				map.put("item",output);
 				return webHelper.getJsonData(map);
 	}
+	
+	/** 예약승인 action 페이지 */
+	@RequestMapping(value = "/11_admin" ,method = RequestMethod.PUT)
+	public Map<String,Object>reserve_ok(
+			@RequestParam(value="reserveno",defaultValue = "0")int reserveno){
+		
+		/** 1) 파라미터 유효성 검사 */
+		// 이 값이 존재하지않는다면 데이터 수정이 불가능함.
+		if(reserveno == 0) {
+			return webHelper.getJsonWarning("예약번호가 없습니다.");
+			
+		}
+		
+		/** 2)데이터 수정하기 */
+		// 데이터 수정에 필요한 조건값을 Beans에 저장하기.
+		Reserve input = new Reserve();
+		input.setReserveno(reserveno);
+		
+		try {
+			reserveService.updateReservey(input); //데이터 수정하기
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 3)결과를 확인하기 위한 Json 출력 */
+		// 확인할 대상이 수정된 결과값만 Ok로 출력
+		return webHelper.getJsonData();
+	}
+	
+
+		
 }

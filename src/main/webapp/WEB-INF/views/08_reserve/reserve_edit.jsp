@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
-<html lang="ko">
+<html>
+
 <head>
-  	<meta charset="utf-8" />
+   <meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>la porte</title>
@@ -33,132 +34,68 @@
 </head>
 
 <body>
-    <%@ include file="../01_home/header.jsp" %>
-<!-- 검색 -->
-        <div class="hd_searchbox">
-            <div class="hd_search">
-                <input id="search_text" type="text" placeholder="검색어 입력">
-                    <span id="hd_search_icon"></span>
-            </div>
-            <div class="sc_gray_layer" id="hd_search_background"></div>
-                <div class="sc_over_layer" id="hd_search_front">
-                    <div id="modal_search_box_container">
-                        <form>
-                            <input id="modal_search_text" type="text" placeholder="검색어 입력">
-                            <span id="search_close_icon"></span>
-                            <input type="reset" id="search_remove_icon">
-                            <input type="submit" id="search_enter_icon">
-                        </form>
-                        <div id="search_result" >
-                            <h4>추천 검색어</h4>
-                            <a href="#"><span class="rec_reyword"></span>가구</a>
-                            <a href="#"><span class="rec_reyword"></span>침대</a>
-                            <a href="#"><span class="rec_reyword"></span>주방</a>
-                            <a href="#"><span class="rec_reyword"></span>소파</a>
-                            <a href="#"><span class="rec_reyword"></span>수납</a>
-                            <a href="#"><span class="rec_reyword"></span>조명</a>
-                        </div>
-                    </div>
-                </div>
-        </div>
-<!-- 검색 끝-->
-<!-- 본문영역 -->
-  <div class="reserve_top">
-	<ul class="reserve_ul">
-		<li class="reserve_li"><a href="#" class="reserve_li_a">서비스</a></li>
-		<li class="iconbox"></li>
-		<li class="reserve_li2"><a href="#" class="reserve_li_a">홈퍼니싱 컨설팅 서비스</a></li>
-	</ul>
-
-	<div class="reserve_text">
-		<h3 class="reserve_text_h2">홈퍼니싱 컨설팅 예약</h3>
-		<h4 class="reserve_text_h4">개인정보를 입력해주세요.
-			<br>
-			해당 정보는 상담 신청에 필요한 개인 식별을
-			<br>
-			위해서만 사용됩니다.
-		</h4>
+    <form id="editForm" method="post" action="${pageContext.request.contextPath}/08_reserve/reserve_edit_ok.do">
+    <input type="hidden" name="reserveno" value="${output.reserveno}"/>
+    
+    <div>
+    	<label for="reserveno">예약번호 </label>
+    	<h4>${output.reserveno}</h4>
+    </div>
+    
+    <div>
+    	<label for="name">예약자 </label>
+    	<h4>${output.name}</h4>	
+    </div>
+    
+    <div class="reserve_calendar">
+		<label for="date"> 예약일자 </label>
+		<div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
+		<input value="${output.date}" name="date" id="datepicker-always-visible" type="text" class="form-control" data-zdp_readonly_element="false"
+			placeholder="캘린더에서 날짜를 선택해주세요.">
 	</div>
-</div>
-<!-- form 시작 -->
-<form id="addForm" class="reserve_input" action="${pageContext.request.contextPath}/08_reserve">
-	<!-- 매장 선택 -->
-	<div class="reserve_select">
-		<label for="showroom">매장 선택</label>
+	
+    <div class="reserve_select">
+		<label for="showroom">매장선택</label>
 		<select name="showroom" class="resvation_select-box">
-			<option value="A" class=reserve_select-box_option>강남점</option>
-			<option value="B" class=reserve_select-box_option>광명점</option>
-			<option value="C" class=reserve_select-box_option>대구점</option>
+			<option value="A" class='reserve_select-box_option' <c:if test="${output.showroom == 'A'}">selected</c:if>>강남점</option>
+			<option value="B" class='reserve_select-box_option' <c:if test="${output.showroom == 'B'}">selected</c:if>>광명점</option>
+			<option value="C" class='reserve_select-box_option' <c:if test="${output.showroom == 'C'}">selected</c:if>>대구점</option>
 		</select>
 	</div>
-	<!-- 날짜 선택 -->
-	<div class="reserve_calendar">
-		<label for="date"> 날짜선택 </label>
-		<div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
-		<input name="date" id="datepicker-always-visible" type="text" class="form-control" data-zdp_readonly_element="false"
-			placeholder="캘린더에서 날짜를 선택해주세요.">
-</div>
-	<!-- 이름 입력  -->
-	<div class="reserve_input_name">
-		<label for="name">이름</label>
-		<input class="name" type="text" name="name" id="name" />
-	</div>
-	<!-- 이메일 입력 -->
-	<div class="reserve_input_email">
-		<label for="email">E-mail</label>
-		<input class="email" type="email" name="email" id="email"/>
-	</div>
-	<!-- 휴대폰 번호 입력 -->
-	<div class="reserve_input_call">
-		<label for="phoneno">휴대폰 번호</label>
-		<input class="phoneno" type="tel" name="phoneno" id="phoneno"/>
-	</div>
-	<!-- 예약시간 -->
+
 	<div>
 		<label for="time">예약 시간</label>
-		<select class="input_default" name="time" id="time">	
-			<option value="9" class="call_time">오전 9시</option>
-			<option value="10" class="call_time">오전 10시</option>
-			<option value="11" class="call_time">오전 11시</option>
-			<option value="12" class="call_time">오전 12시</option>
-			<option value="1" class="call_time">오전 1시</option>
-			<option value="2" class="call_time">오전 2시</option>
-			<option value="3" class="call_time">오전 3시</option>
-			<option value="4" class="call_time">오전 4시</option>
-			<option value="5" class="call_time">오전 5시</option>
-		</select>
+		   <select name="time" class="input_default">
+              <option value="9" class="call_time" <c:if test="${output.time == '9'}">selected</c:if> >오전 9시</option>
+              <option value="10" class="call_time" <c:if test="${output.time == '10'}">selected</c:if> >오전 10시</option>
+              <option value="11" class="call_time" <c:if test="${output.time == '11'}">selected</c:if> >오전 11시</option>
+              <option value="12" class="call_time" <c:if test="${output.time == '12'}">selected</c:if> >오전 12시</option>
+              <option value="1" class="call_time" <c:if test="${output.time == '1'}">selected</c:if> >오후 1시</option>
+              <option value="2" class="call_time" <c:if test="${output.time == '2'}">selected</c:if> >오후 2시</option>
+              <option value="3" class="call_time" <c:if test="${output.time == '3'}">selected</c:if> >오후 3시</option>
+              <option value="4" class="call_time" <c:if test="${output.time == '4'}">selected</c:if> >오후 4시</option>
+              <option value="5" class="call_time" <c:if test="${output.time == '5'}">selected</c:if> >오후 5시</option>
+           </select>
 	</div>
-	<!-- 컨설팅 영역 -->
 	<div>
 		<label for="area">컨설팅 영역</label>
 		<select name="area" class="input_default">
-			<option value="F" class="area_select">가구</option>
-			<option value="C" class="area_select">소파/암체어</option>
-			<option value="B" class="area_select">침대</option>
-			<option value="D" class="area_select">수납/정리</option>
-			<option value="K" class="area_select">주방가구/용품</option>
-			<option value="L" class="area_select">조명</option>
+			<option value="F" class="area_select" <c:if test="${output.area == 'F'}">selected</c:if>>가구</option>
+			<option value="C" class="area_select" <c:if test="${output.area == 'C'}">selected</c:if>>소파/암체어</option>
+			<option value="B" class="area_select" <c:if test="${output.area == 'B'}">selected</c:if>>침대</option>
+			<option value="D" class="area_select" <c:if test="${output.area == 'D'}">selected</c:if>>수납/정리</option>
+			<option value="K" class="area_select" <c:if test="${output.area == 'K'}">selected</c:if>>주방가구/용품</option>
+			<option value="L" class="area_select" <c:if test="${output.area == 'L'}">selected</c:if>>조명</option>
 		</select>
 	</div>
-	<!-- 요청사항 -->
 	<div class="reserve_input_req">
 		<label for="request">요청사항</label>
-		<input class="request" name="request" type="text" placeholder="요청 사항이 있으시면 남겨주세요."/>
+		<input value="${output.request}"class="request" name="request" type="text" placeholder="요청 사항이 있으시면 남겨주세요."/>
 	</div>
-	<!-- 예약확인 동의  -->
-	<div class="reserve_chck">
-		<input type="checkbox" id="reserve_agr">
-		<p>예약확인 등을 위해 개인정보를 제3자에게 동의합니다.
-		<a href="#">(자세히보기)</a></p>
-	</div>
-	
 	<button type="submit">저장하기</button>
 	<button type="reset">다시작성</button>
-</form>
-
-<%@ include file="../01_home/footer.jsp" %>
-
-<!-- swweetalert -->
+    </form>
+    <!-- swweetalert -->
  <!-- jQuery Ajax Form plugin CDN -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
      <!-- jQuery Ajax Setup -->

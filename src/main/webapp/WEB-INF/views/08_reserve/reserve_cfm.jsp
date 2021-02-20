@@ -91,7 +91,58 @@
 				<div role="tabpanel" class="tab-pane fade" id="dept"></div>
 				<h3 class="confirm_content_h3">예약정보확인</h3>
 				<!-- 결과가 출력될 DIV -->
-				<div id="result"></div>
+				<div>
+					<table class="confirm_table">
+			<thead>
+  				<tr>
+    				<th class="confirm_th"> 예약상태</th>
+    				<c:if test="${output.status=='W'}"><td class="confirm_td">예약대기중</td></c:if>
+    				<c:if test="${output.status=='CF'}"><td class="confirm_td">예약완료</td></c:if>
+    				<c:if test="${output.status=='CC'}"><td class="confirm_td">예약취소</td></c:if>
+    				
+  				</tr>
+			</thead>
+			<tbody>
+				<tr>
+    				<th class="confirm_th">예약번호</th>
+    				<td class="confirm_td">${output.reserveno}</td>
+  				</tr>
+	  			<tr>
+    				<th class="confirm_th">예약자</th>
+    				<td class="confirm_td">${output.name}</td>
+  				</tr>
+  				<tr>
+    				<th class="confirm_th">예약일자</th>
+    				<td class="confirm_td">${output.date}</td>
+  				</tr>
+  				<tr>
+    				<th class="confirm_th">예약 시간</th>
+    				<c:if test="${output.time==9}"><td class="confirm_td">오전 9시</td></c:if>
+    				<c:if test="${output.time==10}"><td class="confirm_td">오전 10시</td></c:if>
+    				<c:if test="${output.time==11}"><td class="confirm_td">오전 11시</td></c:if>
+    				<c:if test="${output.time==12}"><td class="confirm_td">오전 12시</td></c:if>
+    				<c:if test="${output.time==1}"><td class="confirm_td">오후 1시</td></c:if>
+    				<c:if test="${output.time==2}"><td class="confirm_td">오후 2시</td></c:if>
+    				<c:if test="${output.time==3}"><td class="confirm_td">오후 3시</td></c:if>
+    				<c:if test="${output.time==4}"><td class="confirm_td">오후 4시</td></c:if>
+    				<c:if test="${output.time==5}"><td class="confirm_td">오후 5시</td></c:if>
+ 	 			</tr>
+  				<tr>
+    				<th class="confirm_th">컨설팅 영역</th>
+    				<c:if test="${output.area=='F'}"><td class="confirm_td">가구</td></c:if>
+    				<c:if test="${output.area=='C'}"><td class="confirm_td">소파</td></c:if>
+    				<c:if test="${output.area=='B'}"><td class="confirm_td">침대</td></c:if>
+    				<c:if test="${output.area=='D'}"><td class="confirm_td">수납/정리</td></c:if>
+    				<c:if test="${output.area=='K'}"><td class="confirm_td">주방가구/용품</td></c:if>
+    				<c:if test="${output.area=='L'}"><td class="confirm_td">조명</td></c:if>
+  				</tr>
+  				<tr>
+    				<th class="confirm_th">요청 사항</th>
+    				<td class="confirm_td">${output.request}</td>
+  				</tr>
+			</tbody>
+		</table>
+				</div>
 			</div>
 			<div class="confirm_txt">
 				<span class="confirm_txt_icon"></span><p>컨설팅 서비스예약 취소는 예약24시간 전까지만 가능 합니다.</p>
@@ -99,7 +150,7 @@
 			</div>
 		
 			<div class="confirm_button">
-				<a href="#"id="ok1"class="confirm_button_a">취소</a>
+				<a href="${pageContext.request.contextPath}/08_reserve/reserve_delete_ok.do?reserveno=${output.reserveno}" id="ok3" class="confirm_button_a">예약 취소</a>
 				<a href="#"id="ok2"class="confirm_button_a2">예약</a>
 			</div>
 		</div>
@@ -159,7 +210,7 @@
 			</div>
 		
 			<div class="confirm_button">
-				<a href="#" id="ok3" class="confirm_button_a">예약 취소</a>
+				<a href="${pageContext.request.contextPath}/08_reserve/reserve_delete_ok.do?reserveno=${output.reserveno}" id="ok3" class="confirm_button_a">예약 취소</a>
 				<a href="#" id="ok4" class="confirm_button_a2">에약 수정</a>
 			</div>
 			</div>
@@ -171,36 +222,7 @@
 	<%@ include file="../01_home/footer.jsp" %>
 
   <script id="dept_item_tmpl" type="text/x-handlebars-template">
-		<table class="confirm_table">
-			<thead>
-  				<tr>
-    				<th class="confirm_th"> 예약번호</th>
-    				<td class="confirm_td">{{reservNo}}</td>
-  				</tr>
-			</thead>
-			<tbody>
-	  			<tr>
-    				<th class="confirm_th">예약자</th>
-    				<td class="confirm_td">{{reservName}}</td>
-  				</tr>
-  				<tr>
-    				<th class="confirm_th">예약일자</th>
-    				<td class="confirm_td">{{reservDate}}</td>
-  				</tr>
-  				<tr>
-    				<th class="confirm_th">예약 시간</th>
-    				<td class="confirm_td">{{reservTime}}</td>
- 	 			</tr>
-  				<tr>
-    				<th class="confirm_th">컨설팅 영역</th>
-    				<td class="confirm_td">{{reservLoc}}</td>
-  				</tr>
-  				<tr>
-    				<th class="confirm_th">요청 사항</th>
-    				<td class="confirm_td">{{reservQuest}}</td>
-  				</tr>
-			</tbody>
-		</table>
+	
 </script>
 <script id="editCancel_item_tmpl" type="text/x-handlebars-template">
 	       <div class="editbox">
@@ -215,58 +237,7 @@
           </div>
 	</script>
     <script type="text/javascript">
-	 $(document).on("click","#ok1", function(e) {
-			e.preventDefault();
-			swal({
-				title: "예약확인",
-				html:"취소하시겠습니까",
-				type:"error",
-				showCloseButton:true,
-				confirmButtonText:"확인",
-				showCancelButton:true,
-				cancelButtonText:"취소"
-			});
-		});
-    
-	 $(document).on("click","#ok2", function(e) {
-			e.preventDefault();
-			swal({
-				title: "예약확인",
-				html:"예약하시겠습니까?",
-				type:"success",
-				showCloseButton:true,
-				confirmButtonText:"확인",
-				showCancelButton:true,
-				cancelButtonText:"취소"
-			});
-		});
-    
-	 $(document).on("click","#ok3", function(e) {
-			e.preventDefault();
-			swal({
-				title: "예약수정",
-				html:"취소하시겠습니까",
-				type:"error",
-				showCloseButton:true,
-				confirmButtonText:"확인",
-				showCancelButton:true,
-				cancelButtonText:"취소"
-			});
-		});
-    
-	 $(document).on("click","#ok4", function(e) {
-			e.preventDefault();
-			swal({
-				title: "예약수정 확인",
-				html:"수정하시겠습니까?",
-				type:"success",
-				showCloseButton:true,
-				confirmButtonText:"확인",
-				showCancelButton:true,
-				cancelButtonText:"취소"
-			});
-		});
-    
+
 		
         /* header fixed */
             // 스크롤 체크 변수 선언
@@ -353,49 +324,8 @@
             // 하고 화면에서 숨긴다.
             $(".content").not($(target)).slideUp(100);
         });
-		/* ----------------- result ------------------ */
-		$(function() {
-			
-			$(window).load(function() {
-				$(".editCancel_wrap").hide();
-				$("#result").empty(); // 결과가 표시될 #result에 내용 지우기
-				var choice = 1234567;	// 사용자 선택값 가져오기
-				if (!choice) { // 선택값이 없다면 처리 중단
-					return false;
-				}
-				
-				/** Ajax 요청 */
-				$.get('../assets/api/dept_item.do', { reservNo: choice }, function(req) {
-					// 미리 준비한 HTML틀을 읽어온다.
-					var template = Handlebars.compile($("#dept_item_tmpl").html());
-					// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-					var html = template(req);
-					// #result에 읽어온 내용을 추가한다.
-					$("#result").append(html);
-				}); // end $.get
-			}); // end change
-		});
-		/* ------------reseult2-------------- */
-				$(function() {
-			
-			$(".confirm_tab_ul li").click(function(){
-				$("#result2").empty(); // 결과가 표시될 #result에 내용 지우기
-				var choice = 1234567;	// 사용자 선택값 가져오기
-				if (!choice) { // 선택값이 없다면 처리 중단
-					return false;
-				}
-				
-				/** Ajax 요청 */
-				$.get('../api/dept_item.do', { reservNo: choice }, function(req) {
-					// 미리 준비한 HTML틀을 읽어온다.
-					var template = Handlebars.compile($("#editCancel_item_tmpl").html());
-					// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-					var html = template(req);
-					// #result에 읽어온 내용을 추가한다.
-					$("#result2").append(html);
-				}); // end $.get
-			}); // end change
-		});
+		
+
     	// 탭 
 		$(function(){
 			$(".confirm_tab_ul li").click(function(){

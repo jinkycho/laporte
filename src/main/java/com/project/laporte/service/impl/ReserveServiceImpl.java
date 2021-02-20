@@ -50,26 +50,177 @@ public class ReserveServiceImpl implements ReserveService{
 
 	@Override
 	public int editReserve(Reserve input) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		try {
+			result = sqlSession.update("ReserveMapper.updateItem",input);
+			
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("수정된 데이터가 없습니다.");
+		}catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+		return result;
 	}
 
 	@Override
 	public int deleteReserve(Reserve input) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		try {
+			result = sqlSession.update("ReserveMapper.deleteItem",input);
+			
+			if(result ==0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch(NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("삭제된 데이터가 없습니다.");
+		}catch(Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 삭제에 실패했습니다.");
+		}
+		return result;
 	}
-
+	
+	/**
+	 * 예약 상세 조회하기
+	 * @param Reserve 조회할 교수의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	
 	@Override
 	public Reserve getReserveItem(Reserve input) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Reserve result = null;
+		
+		try {
+			result = sqlSession.selectOne("ReserveMapper.selectItem", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		}catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
 	}
 
 	@Override
 	public List<Reserve> getReservesList(Reserve input) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reserve> result = null;
+		
+		
+		try {
+			result = sqlSession.selectList("ReserveMapper.selectList", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	/**
+	 * 
+	 */
+	
+	@Override
+	public int updateReservey(Reserve input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.update("ReserveMapper.okitem",input);
+			
+			if(result ==0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch(NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("수정된 데이터가 없습니다.");
+		}catch(Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reserve> getReserveListw(Reserve input) throws Exception {
+		List<Reserve> result = null;
+		
+		
+		try {
+			result = sqlSession.selectList("ReserveMapper.reserveListW", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reserve> getReserveListcc(Reserve input) throws Exception {
+		List<Reserve> result = null;
+		
+		
+		try {
+			result = sqlSession.selectList("ReserveMapper.reserveListCC", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reserve> getReserveListcf(Reserve input) throws Exception {
+		List<Reserve> result = null;
+		
+		
+		try {
+			result = sqlSession.selectList("ReserveMapper.reserveListCF", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
 	}
 
 }

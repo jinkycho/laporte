@@ -22,13 +22,12 @@
 
 
 	<!-- javascript -->
-	<script src="http://code.jquery.com/jquery.min.js"></script>
+	
 	<script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 	<!-- ajax-helper -->
-	<link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
-	<script src="../assets/plugins/ajax/ajax_helper.js"></script>
+	
 
 
   
@@ -159,7 +158,7 @@
                   <h3 class="card-title">예약 승인 대기
                   </h3>
                   <br>
-              
+             
                       <li class="appv_before_head">
                         <span>예약매장</span>
                         <span>예약자</span>
@@ -171,120 +170,63 @@
                       </li>
                       
                     
-                    <div id="no_res_mssg">
-                      <p>승인 대기 중인 예약이 없습니다.</p>
-                    </div>
+
 
                     <div id="appv_before_top">
-                     <li class="appv_before_li">
-                        <span>강남점</span>
-                        <span>홍길동</span>
-                        <span>010-1234-5678</span>
-                        <span>오전9시</span>
-                        <span>침대</span>
-                        <span>퀸베드구매</span>
-                        <a href="#" class="appv btn-success btn-xs">예약승인</a>
-                        <a href="#" class="cancel btn-danger btn-xs">예약취소</a>   
-                      </li>
+                    	<c:choose>
+                    		<%-- 조회결과가 없는경우 --%>
+                    		<c:when test="${output==null || fn:length(output)==0 }">
+                    		 	<div id="no_res_mssg">
+                      				<p>승인 대기 중인 예약이 없습니다.</p>
+                    			</div>
+                    		</c:when>
+                    		<%-- 조회결과가 있는 경우 --%>
+                    		<c:otherwise>
+                    			<%-- 조회 결과에 따른 반복 처리 --%>
+                    			<c:forEach var="item" items="${output}" varStatus="status">
+                    				<li class="appv_before_li">
+                    					<span class="reserveno">${item.reserveno}</span>
+                       					<c:if test="${item.showroom=='A'}"><span>강남점</span></c:if>
+                       					<c:if test="${item.showroom=='B'}"><span>광명점</span></c:if>
+                       					<c:if test="${item.showroom=='C'}"><span>대구점</span></c:if>
+                        				<span>${item.name}</span>
+                       					<span>${item.phoneno}</span>
+                        				<c:if test="${item.time=='9'}"><span>오전 9시</span></c:if>
+                        				<c:if test="${item.time=='10'}"><span>오전 10시</span></c:if>
+                        				<c:if test="${item.time=='11'}"><span>오전 11시</span></c:if>
+                        				<c:if test="${item.time=='12'}"><span>오전 12시</span></c:if>
+                        				<c:if test="${item.time=='1'}"><span>오후 1시</span></c:if>
+                        				<c:if test="${item.time=='2'}"><span>오후 2시</span></c:if>
+                        				<c:if test="${item.time=='3'}"><span>오후 3시</span></c:if>
+                        				<c:if test="${item.time=='4'}"><span>오후 4시</span></c:if>
+                        				<c:if test="${item.time=='5'}"><span>오후 5시</span></c:if>
+                        				
+                        				<c:if test="${item.area=='F'}"><span>가구</span></c:if>
+                        				<c:if test="${item.area=='C'}"><span>소파/암체어</span></c:if>
+                        				<c:if test="${item.area=='B'}"><span>침대</span></c:if>
+                        				<c:if test="${item.area=='D'}"><span>수납/정리</span></c:if>
+                        				<c:if test="${item.area=='K'}"><span>주방가구/용품</span></c:if>
+                        				<c:if test="${item.area=='L'}"><span>조명</span></c:if>
+                        				<span>${item.request}</span>
+                        				<a href="${pageContext.request.contextPath}/08_reserve/reserve_update_ok.do?reserveno=${item.reserveno}" class="appv btn-success btn-xs" >예약승인</a>
+                        				<a href="${pageContext.request.contextPath}/08_reserve/reserve_delete_ok.do?reserveno=${item.reserveno}" class="cancel btn-danger btn-xs">예약취소</a>   
+                      				  </li>
+                    			</c:forEach>
+                    		</c:otherwise>
+                    	</c:choose>
+              
                       
 
-                
+               
                   </div>
                 </div> 
               </div>
             </div>
 
-            <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header border-0">
-                      <h3 class="card-title">승인 완료
-                      </h3>
-                      <br>
-
-                      <li class="appv_done_head">
-                        <span>예약매장</span>
-                        <span>예약자</span>
-                        <span>예약자연락처</span>
-                        <span>예약시간</span>
-                        <span>컨설팅영역</span>
-                        <span>요청사항</span>
-                      </li>
-
-                      <li class="new_appv_done_li"></li>
-
-                        <li class="appv_done_li">
-                            <span>광명점</span>
-                            <span>김연우</span>
-                            <span>010-1234-5679</span>
-                            <span>오전11시</span>
-                            <span>침대</span>
-                            <span>퀸베드구매</span>
-                        </li>
-    
-                        <li class="appv_done_li">
-                            <span>광명점</span>
-                            <span>김혜지</span>
-                            <span>010-1234-5671</span>
-                            <span>오후5시</span>
-                            <span>조명</span>
-                            <span>거실 조명 구매</span>
-                        </li>
-                        
-                           
-                  </div>
-                </div>
-            </div>
+         	<%@ include file="../11_admin/admin_resvappvcf.jsp" %>
             <!-- /.card -->
             
-            <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header border-0">
-                      <h3 class="card-title">예약 취소
-                      </h3>
-                      <br>
-
-                      <li class="appv_cancel_head">
-                        <span>예약매장</span>
-                        <span>예약자</span>
-                        <span>예약자연락처</span>
-                        <span>예약시간</span>
-                        <span>컨설팅영역</span>
-                        <span>요청사항</span>
-                      </li>
-
-                      <li class="new_appv_cancel_li"></li>
-
-                        <li class="appv_cancel_li">
-                            <span>광명점</span>
-                            <span>장명승</span>
-                            <span>010-1234-6789</span>
-                            <span>오전11시</span>
-                            <span>침대</span>
-                            <span>퀸베드구매</span>
-                        </li>
-    
-                        <li class="appv_cancel_li">
-                            <span>대구점</span>
-                            <span>곽현지</span>
-                            <span>010-2345-5671</span>
-                            <span>오후1시</span>
-                            <span>수납/정리</span>
-                            <span>거실 수납함 구매</span>
-                        </li>
-
-                        <li class="appv_before_li">
-                            <span>강남점</span>
-                            <span>박민규</span>
-                            <span>010-4567-5671</span>
-                            <span>오후3시</span>
-                            <span>주방가구/용품</span>
-                            <span>싱크대 구매</span>
-                        </li>
-                        
-                           
-                  </div>
-                </div>
-            </div>
+			<%@ include file="../11_admin/admin_resvappvcc.jsp" %>            
 
               </div>
             </div>
@@ -305,54 +247,43 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
 
+
+   <!--Google CDN 서버로부터 jQuery 참조 -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Handlebar CDN 참조 -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>    
+    <!-- User code -->
 <script type="text/javascript">
+	
   $(function(){
-    $(document).ready(function(){
-      $('#no_res_mssg').hide()
-    });
+	  
+	  $('.reserveno').hide();
+	  
+		
+	  $('#appv').click(function() {
+		  location.reload();
+		  });
 
-    $(document).on('click','.appv',function(e){
-      e.preventDefault();
-      $(this).parents('.appv_before_li').insertAfter('.new_appv_done_li');
-      $(this).parents('.appv_before_li').find('a').remove();
-
-      var appvBeforeCount = $('#appv_before_top').length;
-
-      if(appvBeforeCount == 1){
-        $('#no_res_mssg').show()
-      }
-
-    });
-
-    $('.cancel').click(function(e){
-      e.preventDefault();
-      $(this).parents('.appv_before_li').insertBefore('.new_appv_cancel_li');
-      $(this).parents('.appv_before_li').find('a').remove();
-
-      var appvBeforeCount = $('#appv_before_top').length;
-
-      if(appvBeforeCount == 1){
-        $('#no_res_mssg').show()
-      }
-    });
-
-  
+	  $('#cancel').click(function() {
+		  location.reload();
+		  });
 
   });
 
+  
 </script>
 
-<!-- Bootstrap -->
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- AdminLTE -->
-<script src="../dist/js/adminlte.min.js"></script>
+<script src="../assets/dist/js/adminlte.min.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="../plugins/chart.js/Chart.min.js"></script>
+<script src="../assets/plugins/chart.js/Chart.min.js"></script>
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="../dist/js/pages/dashboard3.js"></script>
+<script src="../assets/dist/js/pages/dashboard3.js"></script>
 </body>
 </html>
