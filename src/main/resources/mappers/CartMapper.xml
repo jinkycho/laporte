@@ -15,20 +15,25 @@
         <result property="ea" column="ea" />
         <result property="regdate" column="regdate" />
         <result property="editdate" column="editdate" />
-        <result property="uname" column="name AS 'uname'" />
-        <result property="pname" column="name AS 'pname'" />
+        <result property="uname" column="uname" />
+        <result property="pname" column="pname" />
+        <result property="price" column="price" />
+        <result property="saleprice" column="saleprice" />
+        <result property="stock" column="stock" />
+        <result property="color" column="color" />
+        <result property="size" column="size" />
     </resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
     <select id="selectCartItem"
         parameterType="com.project.laporte.model.Cart"
         resultMap="cartMap">
-        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS `uname`, p.name AS `pname`, p.price,
+        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS 'uname', p.name AS 'pname', p.price,
         		p.saleprice, p.stock, p.color, p.size
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
-        WHERE c.userno = u.userno AND c.prodno = p.prodno AND c.userno = #{userno}
+        WHERE c.userno = #{userno}
         ORDER BY cartno
     </select>
 	
@@ -36,7 +41,7 @@
     <select id="selectCartList"
         parameterType="com.project.laporte.model.Cart"
         resultMap="cartMap">
-        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS `uname`, p.name AS `pname`, p.price,
+        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS 'uname', p.name AS 'pname', p.price,
         		p.saleprice, p.stock, p.color, p.size
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
@@ -49,8 +54,8 @@
 	<insert id="insertCartItem"
 		parameterType = "com.project.laporte.model.Cart"
 		useGeneratedKeys="true" keyProperty="cartno">
-		INSERT INTO cart(ea, userno, prodno, regdate, editdate)
-		VALUES(#{ea}, #{userno}, #{prodno}, now(), now())
+		INSERT INTO cart(userno, prodno, ea, regdate, editdate)
+		VALUES(#{userno}, #{prodno}, #{ea}, now(), now())
 	</insert>
 
     <!-- 장바구니 수정을 위한 기능 정의 -->

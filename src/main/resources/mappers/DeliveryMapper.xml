@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DeliveryMapper">
+
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="deliveryMap"
+        type="com.project.laporte.model.Delivery">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="deliveryno" column="deliveryno" />
+        <result property="deliverydate" column="deliverydate" />
+        <result property="deliverystatus" column="deliverystatus" />
+        <result property="trackingnum" column="trackingnum" />
+        <result property="userno" column="userno" />
+        <result property="orderno" column="orderno" />
+        <result property="regdate" column="regdate" />
+        <result property="editdate" column="editdate" />
+    </resultMap>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectDeliveryItem"
+        parameterType="com.project.laporte.model.Delivery"
+        resultMap="deliveryMap">
+        SELECT c.Deliveryno, c.userno, c.prodno, c.ea, u.name AS 'uname', p.name AS 'pname', p.price,
+        		p.saleprice, p.stock, p.color, p.size
+        FROM Delivery c
+        INNER JOIN user u ON u.userno = c.userno
+        INNER JOIN product p ON p.prodno = c.prodno
+        WHERE c.userno = #{userno}
+        ORDER BY Deliveryno
+    </select>
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+    <select id="selectDeliveryList"
+        parameterType="com.project.laporte.model.Delivery"
+        resultMap="deliveryMap">
+        SELECT c.Deliveryno, c.userno, c.prodno, c.ea, u.name AS 'uname', p.name AS 'pname', p.price,
+        		p.saleprice, p.stock, p.color, p.size
+        FROM Delivery c
+        INNER JOIN user u ON u.userno = c.userno
+        INNER JOIN product p ON p.prodno = c.prodno
+        WHERE c.userno = #{userno}
+        ORDER BY Deliveryno
+    </select>
+	
+    <!-- 장바구니 저장을 위한 기능 정의 -->
+	<insert id="insertDeliveryItem"
+		parameterType = "com.project.laporte.model.Delivery"
+		useGeneratedKeys="true" keyProperty="Deliveryno">
+		INSERT INTO Delivery(userno, prodno, ea, regdate, editdate)
+		VALUES(#{userno}, #{prodno}, #{ea}, now(), now())
+	</insert>
+
+    <!-- 장바구니 수정을 위한 기능 정의 -->
+    <update id="updateDeliveryItem"
+        parameterType="com.project.laporte.model.Delivery">
+        UPDATE Delivery SET
+            Deliveryno=#{Deliveryno}, ea=#{ea}, editdate=#{editdate}
+        WHERE userno=#{userno} AND prodno=#{prodno}
+    </update>
+    
+    <!-- 장바구니 삭제를 위한 기능 정의 -->
+    <delete id="deleteDeliveryItem"
+        parameterType="com.project.laporte.model.Delivery">
+        DELETE FROM Delivery WHERE Deliveryno=#{Deliveryno}
+    </delete>
+    
+    <!--  장바구니 중복 확인을 위한 기능 정의 -->
+	<select id="countDelivery"
+		parameterType = "com.project.laporte.model.Delivery" resultType="int">
+		SELECT COUNT(*) FROM Delivery WHERE userno = #{userno} AND prodno = #{prodno}
+	</select>
+    
+    <!-- 장바구니 동일상품 추가시 수량증가 기능 정의 -->
+    <update id="updateDeliveryList"
+    	parameterType="com.project.laporte.model.Delivery">
+    	UPDATE Delivery SET
+    		ea = ea + #{ea}
+    		WHERE userno = #{userno} AND prodno = #{prodno}
+    </update>
+	
+</mapper>

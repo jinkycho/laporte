@@ -155,7 +155,7 @@
                                             <li id="tab_nopay" class="tab selected">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_deposit"></span>
-                                                    <strong class="tab_title">입금 전</strong><br/>
+                                                    <strong class="tab_title">결제 전</strong><br/>
                                                     <span class="count" id="order_nopay">0</span>
                                                 </a>
                                             </li>
@@ -192,7 +192,7 @@
                                 </div>
                             </div>
 
-                            <!-- 입금 전 -->
+                            <!-- 결제 전 -->
                             <div class="col-md-12 search_nopay">
                                 <div class="card">
                                     <div class="card-header border-0">
@@ -230,16 +230,15 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="search_title">입금상태</td>
+                                                    <td class="search_title">결제상태</td>
                                                     <td class="search_data">
                                                         <input type="radio" name="select_pay"><span> 전체</span>
-                                                        <input type="radio" name="select_pay"><span> 입금전</span>
-                                                        <input type="radio" name="select_pay"><span> 추가입금대기</span>
-                                                        <input type="radio" name="select_pay"><span> 입금완료</span>
+                                                        <input type="radio" name="select_pay"><span> 결제전</span>
+                                                        <input type="radio" name="select_pay"><span> 결제완료</span>
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" id="search_submit" class="submit_nopay">검색</a>
+                                            <a href="#" class="search_submit" id="submit_nopay">검색</a>
                                         </div>
                                     </div>
                                 </div>
@@ -260,7 +259,6 @@
                                                             <option>운송장번호</option>
                                                             <option>주문자명</option>
                                                             <option>주문자연락처</option>
-                                                            <option>배송지</option>
                                                         </select>
                                                         <input id="order_name" type="text">
                                                     </td>
@@ -290,7 +288,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" id="search_submit" class="submit_ready">검색</a>
+                                            <a href="#" class="search_submit" id="submit_ready">검색</a>
                                         </div>
                                     </div>
                                 </div>
@@ -340,7 +338,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" id="search_submit" class="submit_stanby">검색</a>
+                                            <a href="#" class="search_submit" id="submit_stanby">검색</a>
                                         </div>
                                     </div>
                                 </div>
@@ -390,7 +388,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" id="search_submit" class="submit_delivery">검색</a>
+                                            <a href="#" class="search_submit" id="submit_delivery">검색</a>
                                         </div>
                                     </div>
                                 </div>
@@ -440,17 +438,17 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" id="search_submit" class="submit_complete">검색</a>
+                                            <a href="#" class="search_submit" id="submit_complete">검색</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- 입금 전 -->
+                            <!-- 결제 전 -->
                             <div class="col-md-12 content_nopay">
                                 <div class="card">
                                     <div class="card-header border-0">
-                                        <h3 class="card-title">입금 전</h3>
+                                        <h3 class="card-title">결제 전</h3>
                                         <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
@@ -464,8 +462,7 @@
                                                     <th>상품정보</th>
                                                     <th>수량</th>
                                                     <th>총 금액</th>
-                                                    <th>입금액</th>
-                                                    <th>처리여부</th>
+                                                    <th>결제상태</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
@@ -480,8 +477,7 @@
                                                     <td>STUVA 스투바 / FRITIDS 프리티스</td>
                                                     <td>1</td>
                                                     <td>90,000</td>
-                                                    <td>0</td>
-                                                    <td>입금전</td>
+                                                    <td>결제전</td>
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
@@ -494,7 +490,7 @@
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-info btn-sm select_complete">입금완료</button>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -557,7 +553,7 @@
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-info btn-sm select_complete">입금완료</button>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -620,7 +616,7 @@
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-info btn-sm select_complete">입금완료</button>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -683,7 +679,7 @@
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-info btn-sm select_complete">입금완료</button>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -746,7 +742,7 @@
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-info btn-sm select_complete">입금완료</button>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>

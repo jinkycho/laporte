@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-	
-%>
+
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -66,45 +64,8 @@
 	        
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
-		       <c:choose>
-			        <c:when test="${output == null || fn:length(output) == 0}">
-			        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
-		        	</c:when>
-		        	<c:otherwise>
-			         	<div class="cart_form">
-			         		<h4 class="cart_title">장바구니</h4>
-			         		<form id="cart_itemlist" name="cartform">
-			         		<c:forEach var="item" items="${output }" varStatus="status">
-								<div class="cart_itembox">
-									<input class="cart_checkbox" type="checkbox" checked>
-									<div class="cart_item">
-										<img class="cart_item_img">
-										<span>
-											<a class="cart_item_title" href="#">제품이름</a>
-											<p class="cart_item_info">${item.color}, ${item.size }</p>
-										</span>
-										<div class="cart_item_price">가격 : ${item.price * item.ea }</div><br/>
-										<div id="cart_item_1ea">수량 : ${item.ea }</div>
-									</div>
-								</div>
-								<div class="cart_count">
-									<select id="cart_productcount">
-						      			<optgroup label="수량">
-						        			<c:forEach begin="1" end="10" var="i">
-		                    				<option value="${i }">${i }</option>
-		                    				</c:forEach>	
-						      			</optgroup>
-						       		</select>
-						       		<button class="cart_edit">변경</button>
-									<button class="cart_delete">삭제</button>
-								</div>
-							</c:forEach>
-							</form>
-			         	</div>
-		        	</c:otherwise>
-	        	</c:choose>
-        	
-	            <!-- 비 로그인 상태 -->
+	        
+	        <!-- 비 로그인 상태 -->
 	            <c:if test = "${my_session == null }">
 		            <div class="cart_none">
 		                <div class="cart_login">
@@ -114,36 +75,77 @@
 		                </div>
 		            </div>
 	            </c:if>
-	            
-	            <!-- 장바구니 데이터가 있을때 출력 -->
-	            <c:if test = "${output != null }">
-		            <div id="cart_purchase">
-			            <div class="cart_info clearfix">
-			            	<p><strong>주문 내역</strong><br/>
-			            	이 금액에는 배송비가 포함되어 있지 않으며, 
-			            	배송지에 따라 구매가 불가할 수 있습니다.</p>
-			            	<hr>
-			            	<div>
-			            		<p class="cart_total"><b>총 주문금액</b></p>
-			            		<span class="cart_totalprice">&#8361; --</span>
-			           		</div>
-			            </div>
-			            <div>
-			            	<%-- <button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button> --%>
-			            	<button id="cart_payment">결제하기</button>
-			            </div>
-		            </div>
-	            </c:if>
-	            
+	        
+		       <c:choose>
+			        <c:when test="${output == null || fn:length(output) == 0}">
+			        	<h4 class="cart_title">장바구니가 비어있습니다.</h4>
+		        	</c:when>
+		        	<c:otherwise>
+			         	<div class="cart_form">
+			         		<h4 class="cart_title">장바구니</h4>
+			         		<form id="cart_itemlist" name="cartform">
+			         			<c:set var="sum" value="0" />
+			         			<c:forEach var="item" items="${output }" varStatus="status">
+									<div class="cart_itembox">
+										<input type="checkbox" class="cart_checkbox" name="chk[]" data-cartno="${item.cartno }" checked>
+										<div class="cart_item">
+											<img class="cart_item_img">
+											<span>
+												<a class="cart_item_title" href="#">${item.pname }</a>
+												<p class="cart_item_info">${item.color}, ${item.size }</p>
+											</span>
+											<div class="cart_item_1ea">${item.ea } 개</div><br/>
+											<div class="countt"></div>
+											<div class="cart_item_price">
+												<fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }' ></fmt:formatNumber>
+											</div>
+										</div>
+									</div>
+									<div class="cart_count">
+										<select class="cart_productcount" name="ea">
+						      				<optgroup label="수량">
+						        				<c:forEach begin="1" end="10" var="i">
+		                    						<option value="${i }">${i }</option>
+		                    					</c:forEach>	
+						      				</optgroup>
+						       			</select>
+							       		<a href="#" class="cart_edit" data-cartno="${item.cartno }" data-ea="${item.ea }">변경</a>
+										<a href="#" class="cart_delete" data-cartno="${item.cartno }">삭제</a>
+									</div>
+									<c:set var="sum" value="${sum + (item.price * item.ea)}" />
+								</c:forEach>
+								<div id="cart_purchase">
+					            	<div class="cart_info clearfix">
+					            		<p><strong>주문 내역</strong><br/>
+					           		 	이 금액에는 배송비가 포함되어 있지 않으며, 
+					            		배송지에 따라 구매가 불가할 수 있습니다.</p>
+					            		<hr>
+					            		<div>
+					            			<p class="cart_total"><b>총 주문금액</b></p>
+					            			<span class="cart_totalprice">
+					            				&#8361; <fmt:formatNumber pattern="###,###,###" value='${sum }' ></fmt:formatNumber>
+				            				</span>
+					           			</div>
+					           	 	</div>
+					            	<div>
+					            		<%-- <button id="cart_payment" onclick="location.href='${pageContext.request.contextPath}/07_purchase/purchase.html'">결제하기</button> --%>
+					            		<a href="${pageContext.request.contextPath}/07_purchase/purchase.do" id="cart_payment">결제하기</a>
+					          	 	</div>
+				            	</div>
+							</form>
+			         	</div>
+		        	</c:otherwise>
+	        	</c:choose>
+        	
 	            <div class="cart_footer">
 	                <div>
 	                    <div>
 	                    	<button id="cart_toggle">제품번호로 제품 추가하기</button>
 	                    	<form id="cart_hidden" action="${pageContext.request.contextPath}/06_cart/cart">
 	                    		<div id="cart_productbox">
-		                    		<input type="hidden" name="userno" placeholder="예 : 20001" value="<%out.print(session.getAttribute("my_session"));%>" />
+		                    		<input type="hidden" name="userno" value="<%out.print(session.getAttribute("my_session"));%>" />
 		                    		<input type="text" id="cart_productno" name="prodno" placeholder="예 : 20001" />
-		                    		<select id="cart_productcount" name="ea">
+		                    		<select class="cart_productcount" name="ea">
 		                    			<optgroup label="수량">
 			                    			<c:forEach begin="1" end="10" var="i">
 			                    				<option value="${i }">${i }</option>
@@ -323,15 +325,25 @@
 		</section>
 		<%@ include file="../01_home/footer.jsp" %>
 		
-	    <!-- jQuery Ajax Form plugin CDN -->
-	    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-	    <!-- jQuery Ajax Setup -->
-	    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+	    <!-- Handlebar CDN 참조 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 		<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	    <script src="../assets/js/home.js"></script>
 	    <script type="text/javascript">
 	    	
 			$(function() {
+				
+				/* 위시리스트 아이콘버튼 toggle */
+				$(".home_wishlist_icon").click(function(e) {
+					e.preventDefault();
+					$(this).toggleClass("home_wishlist_icon_active")
+				});
+				
+				
 				/* 제품번호 버튼 toggle */
 				$("#cart_toggle").click(function() { $("#cart_hidden").slideToggle(200); });
 				$("#cart_toggle").click(function() { 
@@ -355,87 +367,179 @@
 						}
 					}
 				});
+			});
 				
-				/* 위시리스트 아이콘버튼 toggle */
-				$(".home_wishlist_icon").click(function(e) {
+			/* 삭제 버튼 v1 
+			$(function() {
+				$(".cart_delete").click(function(e) {
 					e.preventDefault();
-					$(this).toggleClass("home_wishlist_icon_active")
-				});
-				
-				/** 장바구니 추가 */ 
-				/* $(document).on("click",".carticon", function(e) {
-					e.preventDefault();
-					$get("${pageContext.request.contextPath}/06_cart/cart/add", {"prodno":prodno}, function(json) {
-						$(".cart_purchase").show();
-					});
-				}); */
-				
-				$(".cart_icon").click(function() {
-					location.href="${pageContext.request.contextPath}/06_cart/cart";
-				});
-				/** $("#carticon").click(function(e) {
-					e.preventDefault();
-					$(".cart_title").html("장바구니");
-					swal("장바구니등록","장바구니에 추가되었습니다.","success");
 					
-					$(".cart_itemlist").show();
+					var current = $(this);					// 이벤트가 발생한 버튼
+					var cartno = current.data('cartno');	// data-cartno 값을 가져옴
 					
-					// $(".cart_form").load("../06_cart/cart_form.html");
-					var cart_itemlist = $(".cart_itemlist");
-				
-					$.get('../assets/api/item_info/example.json', function(req) {
-						$(".cart_item_img").attr('src', req.img);
-						$(".cart_item_title").html(req.name);
-						$(".cart_item_info").html(req.type);
-						$(".cart_item_price").html("&#8361; "+ req.price);
+					// 삭제확인
+					if (!confirm("정말 장바구니를 삭제하시겠습니까?")) {
+						return false;
+					}
 					
-					$(".cart_form").append(cart_itemlist);
-					$("#cart_purchase").show();
-					});
-				}); */
-				
-				$(document).on("click",".cart_delete", function(e) {
-					e.preventDefault();
-					swal({
-						title: "장바구니삭제",
-						html:"삭제하시겠습니까?",
-						type:"warning",
-						showCloseButton:true,
-						confirmButtonText:"확인",
-						confirmButtonColor:"#a00",
-						showCancelButton:true,
-						cancelButtonText:"취소"
+					// delete 메서드로 ajax 요청
+					$.delete("${pageContext.request.contextPath}/06_cart/cart", {
+						"cartno":cartno
+					}, function(json) {
+						if(json.rt == "OK") {
+							alert("삭제되었습니다");
+							// 삭제 완료 후 목록 페이지 이동
+							window.location = "${pageContext.request.contextPath}/06_cart/cartlist.do";
+						}
 					});
 				});
-				// $(document).on("submit","#cart_itemlist", function(e) {
-				// 	e.preventDefault();
-					
-				// 	var check_list = $(".cart_checkbox:checked");
-				// 	if(check_list.length == 0) {
-				// 		alert("선택된 항목이 없습니다.");
-				// 		return false;
-				// 	}
-					
-				// });
-				$(document).on("change","#cart_productcount", function() {
-					var count = $(this).val();
-					var change_price = $(this).parents(".cart_itembox").find(".cart_item_price");
-					var item_1ea = $(this).parents(".cart_itembox").find(".cart_item_1ea");
-					var item_price = count * 18600;
-					var item_total_price = $(this).parents(".container").find(".cart_totalprice");
-					
-					$(change_price).html("&#8361; " + item_price);
-					$(item_total_price).html("&#8361; " + item_price);
-					
-					if ( count > 1) {
-        				$(item_1ea).show();
-        			} else {
-        				$(item_1ea).hide();
-        			}
+			});
+			
+			/* 삭제버튼 v2 */
+			$(document).on("click", ".cart_delete", function(e) {
+				e.preventDefault();
+				
+				var current = $(this);					// 이벤트가 발생한 버튼
+				var cartno = current.data('cartno');	// data-cartno 값을 가져옴
+				
+				// 삭제확인
+				if (!confirm("정말 장바구니를 삭제하시겠습니까?")) {
+					return false;
+				}
+				
+				// delete 메서드로 ajax 요청
+				$.delete("${pageContext.request.contextPath}/06_cart/cart", {
+					"cartno":cartno
+				}, function(json) {
+					if(json.rt == "OK") {
+						alert("삭제되었습니다");
+						// 삭제 완료 후 목록 페이지 이동
+						window.location = "${pageContext.request.contextPath}/06_cart/cartlist.do";
+					}
 				});
-    		});
+			});
+			
+			/* $(function() {
+			var count = $(".cart_edit").parent().find("input:checkbox[class='cart_productcount']:checked").val();
+			
+			$(".cart_edit").change(function() {
+				$(".countt").html(count);
+			});
+			}); */
+			
+			/* 수정 버튼 v1
+			$(function) {
+				$(".cart_edit").click(function(e) {
+					e.preventDefault();
+					
+					let item = $(this);					// 이벤트가 발생한 버튼
+					let cartno = item.data('cartno');	// data-cartno 값을 가져옴
+					// let ea = 밸류값 가져오기
+					if (!confirm("정말 수정하시겠습니까?")) {
+						return false;
+					}
+					
+					// delete 메서드로 ajax 요청
+					$.put("${pageContext.request.contextPath}/06_cart/cart", {
+						"cartno":cartno,
+						"ea":ea
+					}, function(json) {
+						if(json.rt == "OK") {
+							alert("변경되었습니다");
+							// 변경 완료 후 목록 페이지 이동
+							window.location = "${pageContext.request.contextPath}/06_cart/cartlist.do";
+						}
+					});
+				});
+			});
+			
+			/* 수정버튼 v2 */
+			$(document).on("click",".cart_edit", function(e) {
+				e.preventDefault();
+				
+				let item = $(this);					// 이벤트가 발생한 버튼
+				let cartno = item.data('cartno');	// data-cartno 값을 가져옴
+				// let ea = 밸류값 가져오기
+				if (!confirm("정말 수정하시겠습니까?")) {
+					return false;
+				}
+				
+				// delete 메서드로 ajax 요청
+				$.put("${pageContext.request.contextPath}/06_cart/cart", {
+					"cartno":cartno,
+					"ea":ea
+				}, function(json) {
+					if(json.rt == "OK") {
+						alert("변경되었습니다");
+						// 변경 완료 후 목록 페이지 이동
+						window.location = "${pageContext.request.contextPath}/06_cart/cartlist.do";
+					}
+				});
+			});
+			
+			
+				
+				
+				
+				
+				
+				
+			/** 장바구니 추가 */ 
+			/* $(document).on("click",".carticon", function(e) {
+				e.preventDefault();
+				$get("${pageContext.request.contextPath}/06_cart/cart/add", {"prodno":prodno}, function(json) {
+					$(".cart_purchase").show();
+				});
+			}); */
+			
+			/** $("#carticon").click(function(e) {
+				e.preventDefault();
+				$(".cart_title").html("장바구니");
+				swal("장바구니등록","장바구니에 추가되었습니다.","success");
+				
+				$(".cart_itemlist").show();
+				
+				// $(".cart_form").load("../06_cart/cart_form.html");
+				var cart_itemlist = $(".cart_itemlist");
+			
+				$.get('../assets/api/item_info/example.json', function(req) {
+					$(".cart_item_img").attr('src', req.img);
+					$(".cart_item_title").html(req.name);
+					$(".cart_item_info").html(req.type);
+					$(".cart_item_price").html("&#8361; "+ req.price);
+				
+				$(".cart_form").append(cart_itemlist);
+				$("#cart_purchase").show();
+				});
+			}); */
+			
+			// $(document).on("submit","#cart_itemlist", function(e) {
+			// 	e.preventDefault();
+				
+			// 	var check_list = $(".cart_checkbox:checked");
+			// 	if(check_list.length == 0) {
+			// 		alert("선택된 항목이 없습니다.");
+			// 		return false;
+			// 	}
+				
+			// });
+			/* $(document).on("change","#cart_productcount", function() {
+				var count = $(this).val();
+				var change_price = $(this).parents(".cart_itembox").find(".cart_item_price");
+				var item_1ea = $(this).parents(".cart_itembox").find(".cart_item_1ea");
+				var item_price = count * 18600;
+				var item_total_price = $(this).parents(".container").find(".cart_totalprice");
+				
+				$(change_price).html("&#8361; " + item_price);
+				$(item_total_price).html("&#8361; " + item_price);
+				
+				if ( count > 1) {
+       				$(item_1ea).show();
+       			} else {
+       				$(item_1ea).hide();
+       			}
+			}); */
+    		
 		</script>
-		<!-- 미션2/ 총 결제금액 1개 선택해도 맞춰서 진행 -->
-		<!-- 미션3/ 체크박스 선택시 금액 변동 -->
 	</body>
 </html>

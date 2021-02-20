@@ -22,7 +22,7 @@ import com.project.laporte.service.ProductService;
 import com.project.laporte.service.UserService;
 
 @Controller
-public class CartController {
+public class DeliveryAjaxController {
 
 	/** Webhelper 주입 */
 	// -> import org.springframework.beans.factory.annotation.Autowired;
@@ -47,38 +47,5 @@ public class CartController {
 	// -> import org.springframework.beans.factory.annotation.Value;
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
-	
-	/** 목록 페이지 */
-    @RequestMapping(value = "/06_cart/cartlist.do", method = RequestMethod.GET)
-    public ModelAndView list(Model model, HttpServletRequest request,
-            @RequestParam(value="userno", defaultValue="0") int userno) {
-        
-        /** 1) 데이터 조회하기 */
-        // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-        Cart input = new Cart();
-        
-        List<Cart> output = null;   // 조회결과가 저장될 객체
-
-        try {
-        	HttpSession session = request.getSession();
-        	userno = (int) session.getAttribute("my_session");
-        	
-        	if(userno == 0) {       		
-        		output = cartService.getCartList(input);
-        		
-        	// 데이터 조회하기
-        	} else { 
-        		input.setUserno(userno);
-        		output = cartService.getCartList(input);
-    		}
-        } catch (Exception e) {
-            return webHelper.redirect(null, e.getLocalizedMessage());
-        }
-
-        /** 3) View 처리 */
-        model.addAttribute("output", output);
-
-        return new ModelAndView("06_cart/cartlist");
-    }
     
 }

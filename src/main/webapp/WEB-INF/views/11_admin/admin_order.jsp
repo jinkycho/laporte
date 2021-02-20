@@ -162,7 +162,6 @@
                                                             <option>운송장번호</option>
                                                             <option>주문자명</option>
                                                             <option>주문자연락처</option>
-                                                            <option>배송지</option>
                                                         </select>
                                                         <input id="order_name" type="text">
                                                     </td>
@@ -185,7 +184,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="search_title">주문상태</td>
+                                                    <td class="search_title">배송상태</td>
                                                     <td class="search_data">
                                                         <input type="checkbox" class="order_allcheck"><span> 전체</span>
                                                         <input type="checkbox" class="order_check"><span> 배송준비중</span>
@@ -195,9 +194,10 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="search_title">CS주문상태</td>
+                                                    <td class="search_title">주문상태</td>
                                                     <td class="search_data">
                                                         <input type="checkbox" class="csorder_allcheck"><span> 전체</span>
+                                                        <input type="checkbox" class="csorder_check"><span> 주문</span>
                                                         <input type="checkbox" class="csorder_check"><span> 취소</span>
                                                         <input type="checkbox" class="csorder_check"><span> 교환</span>
                                                         <input type="checkbox" class="csorder_check"><span> 반품</span>
@@ -205,12 +205,11 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="search_title">입금상태</td>
+                                                    <td class="search_title">결제상태</td>
                                                     <td class="search_data">
                                                         <input type="radio" name="select_pay"><span> 전체</span>
-                                                        <input type="radio" name="select_pay"><span> 입금전</span>
-                                                        <input type="radio" name="select_pay"><span> 추가입금대기</span>
-                                                        <input type="radio" name="select_pay"><span> 중복사용불가</span>
+                                                        <input type="radio" name="select_pay"><span> 결제전</span>
+                                                        <input type="radio" name="select_pay"><span> 결제완료</span>
                                                     </td>
                                                 </tr>
                                             </table>

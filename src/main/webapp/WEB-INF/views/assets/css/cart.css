@@ -39,7 +39,7 @@ input[type="checkbox"] {
   float: right;
   margin-right: 10px;
 }
-#cart_item_1ea {
+.cart_item_1ea {
   font-size: 14px;
   float: right;
   margin-right: 10px;
@@ -49,7 +49,7 @@ input[type="checkbox"] {
   float: right;
   font-size: 14px;
 }
-#cart_productcount {
+.cart_productcount {
   border-color: #dfdfdf;
   border-radius: 50px;
   outline: 0;
@@ -156,12 +156,15 @@ input[type="checkbox"] {
 }
 #cart_payment {
   width: 100%;
-  height: 56px;
+  height: 45px;
   background-color: #172f50;
   outline: 0;
   border: 0;
   border-radius: 50px;
   color: #fff;
+  display:block;
+  text-align:center;
+  padding:10px 0;
 }
 
 /* 모든 제품 */
