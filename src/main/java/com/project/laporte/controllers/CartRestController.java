@@ -116,7 +116,7 @@ public class CartRestController {
     	
     	/** 1) 사용자가 입력한 파라미터 유효성 검사 */
     	if (cartno == 0) {
-    		return webHelper.getJsonWarning("장바구니번호가 없습니다.");
+    		return webHelper.getJsonWarning("장바구니에 담긴 상품이 없습니다.");
     	}
     	
     	if (ea == 0) {
@@ -239,32 +239,6 @@ public class CartRestController {
 //        Map<String, Object> data = new HashMap<String, Object>();
 //        data.put("item", output);
 //
-//        return webHelper.getJsonData(data);
-//    }
-    
-//    /** 상세 페이지 **/
-//    @RequestMapping(value = "/06_cart/cart/{prodno}", method = RequestMethod.GET)
-//    public Map<String, Object> get_item(@PathVariable("cartno") int cartno) {
-//
-//        /** 1) 데이터 조회하기 */
-//        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
-//        Cart input = new Cart();
-//        input.setCartno(cartno);
-//
-//        // 조회결과를 저장할 객체 선언
-//        Cart output = null;
-//
-//        try {
-//            // 데이터 조회
-//            output = cartService.getCartItem(input);
-//        } catch (Exception e) {
-//            return webHelper.getJsonError(e.getLocalizedMessage());
-//        }
-//        
-//        /** 2) JSON 출력하기 */
-//        Map<String, Object> data = new HashMap<String, Object>();
-//        data.put("item", output);
-//        
 //        return webHelper.getJsonData(data);
 //    }
 }
