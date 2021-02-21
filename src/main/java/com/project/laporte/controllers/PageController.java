@@ -77,13 +77,6 @@ public class PageController {
 //        return "/05_wishlist/wishlist";
 //    }
 	
-//	@RequestMapping(value="/06_cart/cart.do", method=RequestMethod.GET)
-//    public String cart() {
-//        // "/src/main/webapp/WEB-INF/views/06_cart/cart.jsp" 파일을 View로 지정한다.
-//        return "/06_cart/cart";
-//    }
-	
-	
 	@RequestMapping(value="/08_reserve/showroom_info.do", method=RequestMethod.GET)
 	public String showroom() {
 		// "/src/main/webapp/WEB-INF/views/08_reserve/showroom_info.jsp" 파일을 View로 지정한다.
@@ -131,12 +124,6 @@ public class PageController {
 	    public String adminCancel() {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_cancel.jsp" 파일을 View로 지정한다.
 	        return "/11_admin/admin_cancel";
-	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_delivery.do", method=RequestMethod.GET)
-	    public String adminDelivery() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_delivery.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_delivery";
 	    }
 	 
 	 @RequestMapping(value="/11_admin/admin_order.do", method=RequestMethod.GET)

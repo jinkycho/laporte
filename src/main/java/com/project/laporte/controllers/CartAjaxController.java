@@ -22,7 +22,7 @@ import com.project.laporte.service.ProductService;
 import com.project.laporte.service.UserService;
 
 @Controller
-public class CartController {
+public class CartAjaxController {
 
 	/** Webhelper 주입 */
 	// -> import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class CartController {
 	String contextPath;
 	
 	/** 목록 페이지 */
-    @RequestMapping(value = "/06_cart/cartlist.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/06_cart/cart.do", method = RequestMethod.GET)
     public ModelAndView list(Model model, HttpServletRequest request,
             @RequestParam(value="userno", defaultValue="0") int userno) {
         
@@ -78,7 +78,7 @@ public class CartController {
         /** 3) View 처리 */
         model.addAttribute("output", output);
 
-        return new ModelAndView("06_cart/cartlist");
+        return new ModelAndView("06_cart/cart");
     }
     
 }

@@ -19,7 +19,7 @@
 						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span
 							id="hd_wishlist_icon"></span></a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/06_cart/cartlist.do"><span
+						href="${pageContext.request.contextPath}/06_cart/cart.do"><span
 							id="hd_cart_icon"></span></a></li>
 					<li><a href="#"><span id="hd_menu_icon"></span></a></li>
 					</c:when>
@@ -31,7 +31,7 @@
 						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span
 							id="hd_wishlist_icon"></span></a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/06_cart/cartlist.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span
+						href="${pageContext.request.contextPath}/06_cart/cart.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span
 							id="hd_cart_icon"></span></a></li>
 					<li><a href="#"><span id="hd_menu_icon"></span></a></li>
 					</c:otherwise>

@@ -467,22 +467,27 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>서울시 용산구 어딘가</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>90,000</td>
-                                                    <td>결제전</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                            	<c:choose>
+                                            		<%-- 조회결과가 있는 경우 --%>
+	                                            	<c:forEach var="item" items="${output }" varStatus="status">
+	                                                <tr>
+	                                                    <td><input type='checkbox' class="check"></td>
+	                                                    <td>${item.deliveryno }</td>
+	                                                    <td>주문 날짜</td>
+	                                                    <td>${item.uname }</td>
+	                                                    <td>${item.phoneno }</td>
+	                                                    <td>${item.addr1 } ${item.addr2 }</td>
+	                                                    <td>상품 이름</td>
+	                                                    <td>${item.ea }</td>
+	                                                    <td>${item.totalprice }</td>
+	                                                    <td>결제 상태</td>
+	                                                    <td class="clear">
+	                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+	                                                        <p class="user_memo">${item.request }</p>
+	                                                    </td>
+	                                                </tr>
+	                                                </c:forEach>
+                                               	</c:choose>
                                             </tbody>
                                         </table>
                                         <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>

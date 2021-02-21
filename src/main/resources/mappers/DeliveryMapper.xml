@@ -97,4 +97,18 @@
         DELETE FROM delivery WHERE deliveryno=#{deliveryno}
     </delete>
     
+    <!-- 데이터 수 조회를 위한 기능 정의 -->
+    <select id="selectCountPageAll"
+        parameterType="com.project.laporte.model.Delivery" resultType="int">
+        SELECT COUNT(*)
+        FROM professor p
+        INNER JOIN department d ON p.deptno=d.deptno
+        
+        <where>
+            <if test="name != null and name != ''">
+                name LIKE concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+    
 </mapper>
