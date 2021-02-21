@@ -16,14 +16,19 @@ li {
 
 #purchase button {
   display: block;
-  width: 90%;
-  height: 37px;
-  background-color: #172f50;
+  width: 70%;
+  height: 45px;
   border: none;
-  border-radius: 5px;
-  color: #ffffff;
+  border-radius: 25px;
+  background-color: #e5e5e5;
+  color: #000;
   margin: auto;
   margin-top: 20px;
+}
+
+#purchase .purchase_btn{
+  background-color: #172f50;
+  color: #fff;	
 }
 
 #purchase .purchase_detail {

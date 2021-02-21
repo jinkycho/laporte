@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrderlistMapper">
+
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="orderlistMap"
+        type="com.project.laporte.model.Orderlist">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="orderno" column="orderno" />
+        <result property="addr1" column="addr1" />
+        <result property="addr2" column="addr2" />
+        <result property="postcode" column="postcode" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phoneno" column="phoneno" />
+        <result property="loctype" column="loctype" />
+        <result property="servicetype" column="servicetype" />
+        <result property="request" column="request" />
+        <result property="sizelimit" column="sizelimit" />
+        <result property="deldate" column="deldate" />
+        <result property="totalprice" column="totalprice" />
+        <result property="usrcouponno" column="usrcouponno" />
+        <result property="userno" column="userno" />
+        <result property="deltypeno" column="deltypeno" />
+        <result property="orderstatus" column="orderstatus" />
+        <result property="paystatus" column="paystatus" />
+        <result property="regdate" column="regdate" />
+        <result property="editdate" column="editdate" />
+        
+        <!--deltype(배송 유형) 테이블과 조인  -->
+        <result property="d_name" column="d_name" />
+        <result property="d_price" column="d_price" />
+        
+        <!-- coupon(쿠폰) 테이블과 조인 -->
+        <result property="c_name" column="c_name" />
+        <result property="discount" column="discount" />
+        <result property="distype" column="ditype" />
+       
+    </resultMap>
+	
+	<!-- 새로운 오더 저장을 위한 기능 정의  -->
+	<insert id="insertPurchase"
+	parameterType="com.project.laporte.model.Orderlist"
+	useGeneratedKeys="true" keyProperty="orderno">
+			
+		INSERT INTO orderlist(addr1, addr2, postcode, name, email, phoneno, loctype, servcietype,
+        request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
+        regdate, editdate) VALUES(#{addr1}, #{addr2}, #{postcode}, #{name}, #{email}, #{phoneno}, #{loctype}, #{servcietype},
+        #{request}, #{sizelimit}, #{deldate}, #{paytype}, #{totalprice}, #{usrcouponno}, #{userno}, #{deltypeno}, 'N', 
+        
+      	<if test="paytype == 'C' OR paytype == 'M', paytype == 'D2'">
+        	'Y',
+        </if>
+        
+         <if test="paytype == 'D'" >
+        	'N',
+        </if>
+          
+        now(), now())
+	</insert>
+        
+	<!-- 단일 오더 조회를 위한 기능 정의 -->
+    <select id="selectPurchase"
+        parameterType="com.project.laporte.model.Orderlist"
+        resultMap="orderlistMap">
+        SELECT orderno, addr1, addr2, postcode, name, email, phoneno, loctype, servcietype,
+        request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
+        regdate, editdate 
+        FROM order
+        WHERE orderno = #{orderno}
+        
+    </select>
+	
+	
+	
+</mapper>

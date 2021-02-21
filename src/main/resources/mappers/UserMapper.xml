@@ -39,7 +39,7 @@
 
 	<!--  회원정보 조회를  위한 기능 정의 -->
 	<select id="selectItem" parameterType = "com.project.laporte.model.User" resultMap="userMap">
-		SELECT userid, userpwd, name, DATE_FORMAT(birthdate, '%Y-%m-%d') AS birthdate, phoneno, gender, addr1, addr2,
+		SELECT userid, userpwd, name, DATE_FORMAT(birthdate, '%Y-%m-%d') AS birthdate, phoneno, gender, email, addr1, addr2,
 		postcode, editdate, point FROM user WHERE userno = #{userno}
 	</select>
 

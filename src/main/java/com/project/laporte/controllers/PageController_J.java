@@ -9,20 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PageController_J {
 	/** 페이지 링크 이동을 위한 임시 controller */
-   
-	@RequestMapping(value="/07_purchase/purchase.do", method=RequestMethod.GET)
-    public String purchase() {
-        // "/src/main/webapp/WEB-INF/views/07purchase/purchase.jsp" 파일을 View로 지정한다.
-        return "/07_purchase/purchase";
-    }
-	
-	@RequestMapping(value="/07_purchase/daum_pc_find.do", method=RequestMethod.GET)
-    public String daum_pc_find() {
-        // "/src/main/webapp/WEB-INF/views/07purchase/daum_pc_find.jsp" 파일을 View로 지정한다.
-        return "/07_purchase/daum_pc_find";
-    }
-	
-	
+   	
 	 @RequestMapping(value="/11_admin/admin_point.do", method=RequestMethod.GET)
 	    public String adminPoint() {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_point.jsp" 파일을 View로 지정한다.

@@ -62,4 +62,12 @@ public interface CartService {
 	 * @throws Exception
 	 */
 	public int updateCart(Cart input) throws Exception;
+	
+	/**
+	 * 장바구니 카트 번호로 카트 목록 조회
+	 * @param Cart 조회할 장바구니의 카트번호를 담고 있는 Beans
+	 * @return Cart
+	 * @throws Exception
+	 */
+	public Cart getCartByCartno(Cart input) throws Exception;
 }

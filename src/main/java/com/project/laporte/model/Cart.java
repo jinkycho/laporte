@@ -20,5 +20,11 @@ public class Cart {
 	private int stock;			// product table 제품 재고
 	private String color;		// product table 제품 색상
 	private String size;		// product table 제품 사이즈
+	
+	/** 3) firstimg 테이블과 조인 */
+	private String thumbnailUrl;
+	
 
+	
+	
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserscouponMapper">
+
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="userscouponMap"
+        type="com.project.laporte.model.Userscoupon">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="usrcouponno" column="usrcouponno" />
+        <result property="userno" column="userno" />
+        <result property="couponno" column="couponno" />
+        <result property="usestatus" column="usestatus" />
+        
+        <!-- user 테이블과 조인 -->
+        <result property="usestatus" column="usestatus" />
+        
+        <!-- coupon 테이블과 조인  -->
+        <result property="name" column="name" />
+        <result property="startdate" column="startdate" />
+        <result property="enddate" column="enddate" />
+        <result property="enddate" column="enddate" />
+        <result property="discount" column="discount" />
+        <result property="distype" column="distype" />
+        <result property="dupliuse" column="dupliuse" />
+        <result property="link" column="link" />
+        <result property="expire" column="expire" />
+   
+    </resultMap>
+	
+	
+	<!-- 회원 쿠폰 목록 조회를 위한 기능 정의 -->
+    <select id="selectUsersCouponList"
+        parameterType="com.project.laporte.model.Userscoupon"
+        resultMap="userscouponMap">
+        SELECT usrcouponno, u.userno, u.couponno, usestatus, name, startdate, enddate, discount, distype, dupliuse, link, expire
+        FROM userscoupon u
+        INNER JOIN coupon c ON u.couponno = c.couponno
+        WHERE u.userno = #{userno} AND usestatus = 'N' AND expire = 'N'
+        ORDER BY usrcouponno
+    </select>
+	
+    <!-- 회원 쿠폰 추가 위한 기능 정의 -->
+	<insert id="inserUsersCoupon"
+		parameterType = "com.project.laporte.model.Userscoupon"
+		useGeneratedKeys="true" keyProperty="usrcouponno">
+		INSERT INTO userscoupon(userno, couponno, usestatus)
+		VALUES(#{userno}, #{couponno}, #{usestatus})
+	</insert>
+	
+</mapper>

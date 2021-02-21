@@ -22,6 +22,10 @@
         <result property="stock" column="stock" />
         <result property="color" column="color" />
         <result property="size" column="size" />
+        
+        <!-- firstimg 테이블과 조인 -->
+        <result property="thumbnailUrl" column="thumbnailUrl" />
+        
     </resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -37,6 +41,21 @@
         ORDER BY cartno
     </select>
 	
+	<!-- 카트 번호로 카트 조회를 위한 기능 정의 -->
+    <select id="selectCartByCartno"
+        parameterType="com.project.laporte.model.Cart"
+        resultMap="cartMap">
+        SELECT c.cartno, c.userno, c.prodno, thumbnailurl, c.ea, u.name AS `uname`, p.name AS `pname`, p.price,
+        		p.price, p.stock, p.color, p.size
+        FROM cart c
+        INNER JOIN user u ON u.userno = c.userno
+        INNER JOIN product p ON p.prodno = c.prodno
+        INNER JOIN firstimg f ON c.prodno = f.prodno
+        WHERE cartno=#{cartno}
+        ORDER BY prodno
+    </select>
+   
+    
 	<!-- 다중행 조회를 위한 기능 정의 -->
     <select id="selectCartList"
         parameterType="com.project.laporte.model.Cart"

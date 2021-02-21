@@ -167,6 +167,7 @@
         SELECT * FROM firstimg WHERE prodno=#{prodno};
     </select>
     
+    
     <!-- 대표 이미지 데이터 수정을 위한 기능 정의 -->
      <update id="updateImgItem"
         parameterType="com.project.laporte.model.Firstimg">

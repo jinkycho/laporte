@@ -17,4 +17,5 @@ public class Firstimg {
 	private String fileUrl;        //서버상의 원본 이미지 URL
 	private String thumbnailPath;  //썸네일 이미지 경로
 	private String thumbnailUrl;   //썸네일 이미지 URL
+
 }

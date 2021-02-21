@@ -57,20 +57,22 @@ public class CartController {
         // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
         Cart input = new Cart();
         
+
         List<Cart> output = null;   // 조회결과가 저장될 객체
 
         try {
-        	HttpSession session = request.getSession();
-        	userno = (int) session.getAttribute("my_session");
         	
         	if(userno == 0) {       		
         		output = cartService.getCartList(input);
+        	}
+            // 데이터 조회하기
+        	else { 
+        		HttpSession session = request.getSession();
+        		int sessionno = (int) session.getAttribute("my_session");
         		
-        	// 데이터 조회하기
-        	} else { 
-        		input.setUserno(userno);
+        		input.setUserno(sessionno);
         		output = cartService.getCartList(input);
-    		}
+        		}
         } catch (Exception e) {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }

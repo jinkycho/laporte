@@ -73,8 +73,6 @@ margin-bottom: 10px;
 <div id="wrap" style="display:none;border:1px solid;width:90%;height:300px;margin:5px 20px;position:relative">
 <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 </div>
-
-<button id="find_pc_save" class="purchase_btn">저장</button>
 </div>
 
 <!-- swweetalert -->
@@ -155,36 +153,7 @@ margin-bottom: 10px;
         // iframe을 넣은 element를 보이게 한다.
         element_wrap.style.display = 'block';
     }
-    
-  //불러온 우편번호 및 주소 저장
-  $(function(){  
-    $('#find_pc_save').click(function(e){
-        e.preventDefault();
-     
-        var pcAddr= $("#sample3_address").val();
-        var p = $("<p>");
-        p.html(pcAddr);
 
-        var pcAddr1= $("#sample3_address").val();
-        var p1 = $("<p>");
-        p1.html(pcAddr1);
-
-        var pcAddrDetail = $("#sample3_detailAddress").val();
-  
-        if(!pcAddr || !pcAddrDetail){
-        	swal('확인','주소를 입력해주세요.','warning');
-        	return false;
-        }else{
-        $("#pc_address_input").html(p);
-        $("#pc_address_input1").html(p1);
-        $("#delivery_address01").val(pcAddr);
-        $("#delivery_address02").val(pcAddrDetail);
-        }
-        $('.purchase_postcode').hide();
-        $('#purchase_del_type').show();
-
-    });
-  });
 
 </script>
 </body>
