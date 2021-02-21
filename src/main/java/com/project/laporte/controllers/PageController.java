@@ -71,11 +71,11 @@ public class PageController {
         return "/04_review/review_write";
     }
 	
-	@RequestMapping(value="/05_wishlist/wishlist.do", method=RequestMethod.GET)
-    public String wishlist() {
-        // "/src/main/webapp/WEB-INF/views/05_wishlist/wishlist.jsp" 파일을 View로 지정한다.
-        return "/05_wishlist/wishlist";
-    }
+//	@RequestMapping(value="/05_wishlist/wishlist.do", method=RequestMethod.GET)
+//    public String wishlist() {
+//        // "/src/main/webapp/WEB-INF/views/05_wishlist/wishlist.jsp" 파일을 View로 지정한다.
+//        return "/05_wishlist/wishlist";
+//    }
 	
 //	@RequestMapping(value="/06_cart/cart.do", method=RequestMethod.GET)
 //    public String cart() {

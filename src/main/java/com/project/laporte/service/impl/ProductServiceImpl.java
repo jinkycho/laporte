@@ -85,7 +85,7 @@ public class ProductServiceImpl implements ProductService{
 	 * @throws Exception
 	 */
 		@Override
-		public Product getCategotyName(Product input) throws Exception {
+		public Product getCategotyName(Product input) throws Exception { 
 			Product result = null;
 
 			try {

@@ -66,7 +66,14 @@
 		</div>
 		<!-- 검색제외 본문영역 -->
 		<div id="wishlist_container">
-			<a href="#" id="wish_title_box"><span id="wish_title">위시리스트</span>
+			<c:if test="${basicwishprod == null }">
+				<a href="#" id="wish_title_box"><span id="wish_title">위시리스트</span>
+				<img class="wish_arrow_icon"
+				src="https://www.ikea.com/kr/ko/shoppinglist/static/media/chevron-down-thin-24.1667eab2.svg"
+				alt="아래 방향 화살표"></a>
+			</c:if>
+			<c:if test="${basicwishprod != null }">
+			<a href="#" id="wish_title_box"><span id="wish_title">${nowwilist.title}</span>
 				<img class="wish_arrow_icon"
 				src="https://www.ikea.com/kr/ko/shoppinglist/static/media/chevron-down-thin-24.1667eab2.svg"
 				alt="아래 방향 화살표"></a>
@@ -83,27 +90,57 @@
 						</div>
 						<div id="alert_basic_wishlist"></div>
 						<div class="rename_edit_box"></div>
+						
+						<!-- forEach 돌아가 곳 -->
+						<div id="wishlist_foreach">
+						<c:forEach var="item" items="#{wishlist}">
+						<div class="new_wishlist_list clear">
+							<hr class="wish_hr" />
+							<div class="wishlist_hide_box">
+								<a href="#" data-wishno="${item.wishno}">
+									<span class="wishlist_select pull-left <c:if test="${item.wishno == nowwilist.wishno}">bold_class</c:if>">${item.title}</span>
+								</a>
+								<span class="wishlist_delete_icon pull-right"></span>
+								<span class="wishlist_rename_icon"></span>
+							</div>
+							<div class="wishlist_edit_hide">
+								<input type='text' value="${item.title}" class='editname'/>
+								<button type='reset' class='wish_edit_cancel btn btn-default'>취소</button>
+								<button type='button' class='wish_edit_save btn btn-primary' data-wishno='${item.wishno}'>저장</button>
+							</div>
+							<div class="wishlist_delete_hide">
+								<p>리스트를 삭제하시겠습니까?</p>
+								<button type='button' class='not_remove btn btn-default'>취소</button>
+								<button type='button' class='real_remove btn btn-danger' data-wishno='${item.wishno}'>삭제</button>
+							</div>
+						</div>
+						</c:forEach>
+						</div>
+						 <!-- forEach 끝-->
 					</div>
 					<div class="add_wishlist_box clear">
 						<span class="add_wish_icon"></span><span class="add_wish_text">새로운
 							리스트 만들기</span>
 					</div>
 					<div id="add_wishlist_container">
-						<form class="add_wishlist_form" role="form">
-							<label for="wishlist_name">이름:</label> <input
-								name="wishlist_name" id="wishlist_name" type="text">
+						<form class="add_wishlist_form" action="${pageContext.request.contextPath}/05_wishlist/wishlist">
+							<label for="title">이름:</label> 
+							<input type="text" name="title" id="title" />
 							<div id="alert_none_name"></div>
+							<div class="wish_add_btn_box clear">
+								<button type="button" id="wishlist_add_reset"
+									class="btn btn-default pull-left">취소</button>
+								<button type="submit" id="wishlist_name_add"
+									class="btn btn-primary pull-right">리스트 만들기</button>
+							</div>
+							<input type="hidden" name="userno" value="${userno}" />
 						</form>
-						<div class="wish_add_btn_box clear">
-							<button type="button" id="wishlist_add_reset"
-								class="btn btn-default pull-left">취소</button>
-							<button type="submit" id="wishlist_name_add"
-								class="btn btn-primary pull-right">리스트 만들기</button>
-						</div>
 					</div>
 				</div>
 			</div>
+			</c:if>
 			<!-- 위시리스트에 상품이 추가 되었을때 바뀐는 부분 -->
+			<c:if test="${basicwishprod == null}">
 			<div class="change_add_wishitem">
 				<img class="wish_img"
 					src="https://www.ikea.com/kr/ko/shoppinglist/static/media/ill-alien.cb42647f.svg"
@@ -112,20 +149,155 @@
 					<p>
 						시간이 더 필요하신가요?<br>저장한 후 나중에 구매해보세요.
 					</p>
+					<c:if test="${userno==0}">
 					<!-- <a href="../02_mypage/join.html" class="link"> --><a href="${pageContext.request.contextPath}/02_mypage/join.do" class="link">계정 만들기</a>
 					<div class="wish_btn_box_container clear">
-						<a href="../01_home/home.html" class="wish_btn pull-left">제품검색</a>
+						<a href="#" class="wish_btn pull-left">제품검색</a>
 						<a href="${pageContext.request.contextPath}/02_mypage/login.do" class="wish_btn pull-right">로그인</a>
+					</div>
+					</c:if>
+				</div>
+			</div>
+			</c:if>
+			<!-- 위시리스트에 상품이 추가 되었을때 바뀐는 부분 끝 -->
+			<c:if test="${basicwishprod != null }">
+			<div class="change_add_wishlist">
+			<div class="wish_contour"></div>
+			<c:forEach var="item" items="${basicwishprod}">
+				<div class="wish_item_contents clear">
+				<div class="wish_img_box">
+					<a href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno}">
+						<img src="${item.thumbnailurl}" alt="${item.name}" class="wish_prod_thumb"/>
+					</a>
+				</div>
+				<div class="wish_item_desc clear">
+					<h4 class="wish_item_name"><a href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno}">STRÅLA 스트롤라</a></h4>
+					<ul class="wish_item_desc_list">
+						<%-- <li class="wish_desc_type">${item.catname2}</li> --%>
+						<li class="wish_desc_color">${item.color} </li>
+						<li class="wish_desc_num">상품번호 : ${item.prodno}</li>
+					</ul>
+				</div>
+				<div class="wish_item_price">
+					<c:if test="${item.saleprice!=0}">
+						<div class="wish_item_total_price">₩ <fmt:formatNumber value="${item.saleprice * item.ea}" pattern="#,###" /></div>
+					</c:if>
+					<div class="wish_item_total_price">₩ <fmt:formatNumber value="${item.price * item.ea}" pattern="#,###" /></div>
+					<c:if test="${item.ea>1}" >
+						<div class="wish_item_1ea_price">₩ <fmt:formatNumber value="${item.price}" pattern="#,###" /> / 개 </div>
+					</c:if>
+				</div>
+				<div class="wish_item_control">
+					<div class="wish_movetolist_box">
+						<div class="wish_movetolist clear">
+							<button type="button" class="btn-blue-color">다른 리스트로 이동</button>
+						</div>
+					</div>
+					<div class="wish_control_btn_box clearfix">
+						<div class="wish_item_remove">
+							<button type="button" class="btn btn-default clear prod_delete_btn">
+								<span class="wish_item_remove_img"></span>
+							</button>
+						</div>
+						<div class="wish_item_quantity_box">
+							<div class="form-group">
+								<select name = "wish_item_count" class='wish_item_count' title="제품 수량 선택" class="form-control wish_item_quantity"
+								data-wishno="${item.wishno}" data-prodno="${item.prodno}">
+									<c:forEach begin="1" end="10" var="i">
+                    					<option value="${i}" <c:if test="${i == item.ea}">selected</c:if>>${i}</option>
+                					</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="wish_item_addtobag">
+							<button type="button" class="btn btn-primary addtobag_btn">
+								<span class="addtobag_img"></span>장바구니에 추가
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="wish_item_delete_box">
+					<span class="wish_item_delete_text">이 제품을 삭제하시겠어요?</span>
+					<div class="wish_delte_btn_box clear">
+						<button type="button" class="btn wish_item_btn wish_item_delete_cancel">취소</button>
+						<button type="button" class="btn wish_item_btn wish_item_delete_real pull-right" data-wishno="#{item.wishon }" data-prodno="#{item.prodno}">삭제</button>
 					</div>
 				</div>
 			</div>
-			<!-- 위시리스트에 상품이 추가 되었을때 바뀐는 부분 끝 -->
+			</c:forEach>
+			
+			<div class="wish_order_total">
+				<div class="wish_order_total_row clear">
+					<span class="wish_order_total_text">총 주문 금액</span>
+					<span class="wish_order_total_price">₩ 18600</span>
+				</div>
+			</div>
+			<div class="add_alltobag">
+				<button type="button" class="btn btn-primary all_addtobag_btn">
+					<span class="addtobag_img"></span>모두 장바구니에 추가
+				</button>
+			</div>
+		</div>
+		<!-- // 위시리스트에 상품을 추가 했을때 바뀌는 부분 끝 -->
+		</c:if>
 		</div>
 	</section>
 	<%@ include file="../01_home/footer.jsp"%>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!-- Handlebar 탬플릿 코드 -->
+    <script id="prof-list-tmpl" type="text/x-handlebars-template">
+		<div class="new_wishlist_list clear">
+			<hr class="wish_hr" />
+			<div class="wishlist_hide_box">
+			<a href='#' data-wishno='{{item.wishno}}'>
+				<span class="wishlist_select pull-left">{{item.title}}</span>
+			</a>
+			<span class="wishlist_delete_icon pull-right"></span>
+			<span class="wishlist_rename_icon"></span>
+			</div>
+			<div class="wishlist_edit_hide">
+				<input type='text' value="{{item.title}}" class='editname'/>
+				<button type='reset' class='wish_edit_cancel btn btn-default'>취소</button>
+				<button type='button' class='wish_edit_save btn btn-primary' data-wishno='{{item.wishno}}'>저장</button>
+			</div>
+			<div class="wishlist_delete_hide">
+				<p>리스트를 삭제하시겠습니까?</p>
+					<button type='button' class='not_remove btn btn-default'>취소</button>
+					<button type='button' class='real_remove btn btn-danger' data-wishno='{{item.wishno}}'>삭제</button>
+			</div>
+		</div>
+    </script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- Handlebar CDN 참조 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+	<!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="../assets/js/home.js"></script>
 	<script type="text/javascript">
+	$(document).ready(function(){
+		$(".wish_item_delete_box").hide(); // 휴지통 아이콘을 클릭했을 때만 나타나게 함
+    	$(".wishlist_edit_hide").hide();
+    	$(".wishlist_delete_hide").hide();
+		
+		//$(".add_alltobag").hide(); // 상품이 리스트가 2개이상 일때 나타나게 함
+	});
+	$(function() {
+ 		//위시리스트 휴지통 버튼 클릭시
+    	$(document).on('click','.wish_item_remove',function(e){
+    		e.preventDefault();
+			$(this).parents(".wish_item_control").hide();
+			$(this).parents(".wish_item_contents").find(".wish_item_delete_box").show();
+      	});
+    	// 휴지통 버튼 > 취소 클릭시
+    	$(document).on('click','.wish_item_delete_cancel',function(e){
+    		e.preventDefault();
+    		$(this).parents(".wish_item_contents").find(".wish_item_control").show();
+			$(this).parents(".wish_item_delete_box").hide();
+      	}); 
+    	
+    });  
+	
 		$(function() {
 			/* --------------------wish modalwindow-------------------*/
 			$("#wish_title").click(function(e) {
@@ -162,59 +334,7 @@
 				$("#alert_none_name").html("");
 			});
 			// 새로운 리스트 만들기 리스트 만들기 버튼 클릭시
-			$("#wishlist_name_add")
-					.click(
-							function(e) {
-								e.preventDefault();
-								var wishlist_new_name = $("#wishlist_name")
-										.val();
-								if (!wishlist_new_name) {
-									var wishlist_new_name = $("<p>");
-									wishlist_new_name.html("위시리스트 이름을 입력해주세요.");
-									wishlist_new_name.css("color", "#f74b4b");
-									wishlist_new_name.css("font-size", "14px");
-									$("#alert_none_name").html(
-											wishlist_new_name);
-									$("#wishlist_name").focus();
-									return false; //처리 중단을 위한 리턴
-								} //입력값이 없을떄
-
-								//입력값을 화면에 표시하기
-								$(".wishlist_list_container")
-										.append(
-												"<div class='new_wishlist_list clear'>",
-												{});
-								$(".new_wishlist_list:last-child").append(
-										"<hr class='wish_hr'>");
-								$(".new_wishlist_list:last-child").append(
-										"<div class='wishlist_hide_box'>");
-								$(
-										".new_wishlist_list:last-child>.wishlist_hide_box")
-										.append(
-												"<span class='wishlist_select pull-left'>"
-														+ wishlist_new_name
-														+ "</span>");
-								$(
-										".new_wishlist_list:last-child>.wishlist_hide_box")
-										.append(
-												"<span class='wishlist_delete_icon pull-right'>"
-														+ '</span>');
-								$(
-										".new_wishlist_list:last-child>.wishlist_hide_box")
-										.append(
-												"<span class='wishlist_rename_icon'>"
-														+ '</span>');
-								$(".new_wishlist_list:last-child").append(
-										"<div class='wishlist_edit_hide'>");
-								$(".new_wishlist_list:last-child").append(
-										"<div class='wishlist_delete_hide'>");
-
-								//리스트 만들기 박스 숨기기
-								$("#wishlist_name").val("");
-								$("#add_wishlist_container").hide();
-								$(".add_wishlist_box").show();
-
-							});
+			
 			//리스트 삭제 버튼 클릭시
 			$(document)
 					.on(
@@ -244,11 +364,6 @@
 										$("#alert_basic_wishlist").html("");
 									}, 2000); // 기본 위시리스트 삭제 클릭시 2초간 삭제불가 메시지 띄움
 								} else {
-									$(delete_wishlist_box)
-											.html(
-													"<p>리스트를 삭제하시겠습니까?</p>"
-															+ "<button type='button' class='not_remove btn btn-default'>취소</button>"
-															+ "<button type='button' class='real_remove btn btn-danger'>삭제</button>");
 									$(delete_wishlist_box).show();
 								}
 								//새로추가한 위시리스트일 경우에만 삭제 , 삭제 확인 박스 생성
@@ -256,12 +371,7 @@
 
 			//삭제 아이콘 > 취소 버튼 클릭시
 			$(document).on('click', '.not_remove', function(e) {
-				$(this).parent().hide();
-			});
-
-			//삭제아이콘 > 삭제 버튼 클릭시 
-			$(document).on('click', '.real_remove', function(e) {
-				$(this).parents(".new_wishlist_list").remove();
+				$(this).parents(".wishlist_delete_hide").hide();
 			});
 
 			//수정 버튼 클릭시
@@ -297,11 +407,7 @@
 									$(rename_wishlist_box).hide();
 									rename_wishlist_box3.css('height', '100px');
 									var text = $(rename_text).text();
-									$(rename_wishlist_box3)
-											.html(
-													"<input type='text' value="+text+" class='editname'>"
-															+ "<button type='reset' class='wish_edit_cancel btn btn-default'>취소</button>"
-															+ "<button type='button' class='wish_edit_save btn btn-primary'>저장</button>");
+									
 									$(rename_wishlist_box3).show();
 								}//기본 위시리스트가 아닐 경우에만 수정 가능
 							});
@@ -335,7 +441,7 @@
 						var wish_rename_cancel = $(this).parents(
 								".new_wishlist_list")
 								.find(".wishlist_hide_box")
-						var wish_rename_cancel_parent = $(this).parent();
+						var wish_rename_cancel_parent = $(this).parents(".wishlist_edit_hide");
 
 						$(wish_rename_cancel).show();
 						$(wish_rename_cancel_parent).hide();
@@ -352,6 +458,79 @@
 				$("#wish_title").html(new_wish_title);
 			});
 		});
+		
+		$(function() {
+	    	$(".wish_item_count").change(function(e) {
+	    		e.preventDefault();
+	    		
+	    		let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+	    		let prodno = current.data('prodno');    //data-prodno 값을 가져옴
+	    		let wishno =current.data('wishno');         //data-wishno 값을 가져옴
+	    		let ea = current.val();   //선택된 드롭다운의 값을 가져옴
+	    		
+	    		//delete 메서드로 Ajax 요청 --> <form>전송이 아니므로 직접 구현한다.
+	    		$.put("${pageContext.request.contextPath}/05_wishlist/wishlist", {
+	    			"prodno": prodno,
+	    			"wishno": wishno,
+	    			"ea": ea
+	    		}, function(json) {
+	    			if(json.rt=="OK"){
+	    				alert("수정되었습니다.");
+	    				//삭제완료 후 목록 페이지로 이동
+	    				location.reload();
+	    			}
+	    		})
+	    	});
+	    });
+		
+		 $(function() {
+		    	//.add_wishlist_form에 대한 submit이벤트를 가로채서 Ajax 요청을 전송한다.
+		    	$(".add_wishlist_form").ajaxForm({
+		    		//전송 메서드 지정
+		    		method: "POST",
+		    		//서버에서 200 응답을 전달한 경우 실행됨
+		    		success: function(json){
+		    			//json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+		    			if(json.rt == "OK"){
+		    				console.log(json);
+		    				var source = $("#prof-list-tmpl").html();   // 템플릿 코드 가져오기
+		                    var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
+		                    var result = template(json);    // 템플릿 컴파일 결과물에 json 전달
+		                    $("#wishlist_foreach").append(result);      // 최종 결과물을 #list 요소에 추가한다.
+		                    
+		    			}
+		    		}
+		    	});
+		    });
+		 
+		 $(document).on("click",".real_remove",function(){
+			 let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+	    		let wishno = current.data('wishno');    //data-wishno 값을 가져옴
+	    		
+	    		//delete 메서드로 Ajax 요청 --> <form>전송이 아니므로 직접 구현한다.
+	    		$.delete("${pageContext.request.contextPath}/05_wishlist/wishlist", {
+	    			"wishno": wishno
+	    		}, function(json) {
+	    			if(json.rt=="OK")
+	    				console.log("위시리스트 삭제완료");
+	    		})
+	    		$(this).parents(".new_wishlist_list").remove();
+		 }); 
+		 
+		 $(document).on("click",".wish_edit_save",function(){
+			 let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+	    		let wishno = current.data('wishno');    //data-wishno 값을 가져옴
+	    		let title = current.parent().find(".editname").val();
+	    		
+	    		//delete 메서드로 Ajax 요청 --> <form>전송이 아니므로 직접 구현한다.
+	    		$.put("${pageContext.request.contextPath}/05_wishlist/wishlist/rename", {
+	    			"wishno": wishno,
+	    			"title": title
+	    		}, function(json) {
+	    			if(json.rt=="OK")
+	    				console.log("위시리스트 수정 완료");
+	    		})
+		 }); 
 	</script>
 </body>
 </html>

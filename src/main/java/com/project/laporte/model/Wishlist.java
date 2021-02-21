@@ -9,4 +9,5 @@ public class Wishlist {
 	private String title;
 	private String regdate;
 	private String editdate;
+	private String basic;
 }
