@@ -178,5 +178,35 @@ public class WishlistRestController {
 		map.put("item", output);
 		return webHelper.getJsonData(map);
 	}
+	
+	/** 위시리스트 아이템 삭제하는 페이지 */
+	@RequestMapping(value = "/05_wishlist/wishlist/item", method = RequestMethod.DELETE)
+	public Map<String, Object> delete_wishitem(@RequestParam(value = "wishno") int wishno,
+			@RequestParam(value = "prodno") int prodno) {
+		/** 1) 파라미터 유효성 검사 */
+		// 이 값이 존재하지 않는다면 데이터 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		if (wishno == 0) {
+			return webHelper.getJsonWarning("위시리스트 번호가 없습니다.");
+		}
+		if (prodno == 0) {
+			return webHelper.getJsonWarning("상품 번호가 없습니다.");
+		}
+
+		/** 2) 데이터 삭제하기 */
+		// 데이터 삭제에 필요한 조건 값을 Beans에 저장하기
+		Wish_prod wishprodinput = new Wish_prod();
+		wishprodinput.setWishno(wishno);
+		wishprodinput.setProdno(prodno);
+
+		try {
+			wishlistService.deleteWishlistItem(wishprodinput); //위시리스트 삭제
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+
+		/** 3) 결과를 확인하기 위한 JSON 출력 */
+		// 확인할 대상이 삭제된 결과값만 OK로 전달
+		return webHelper.getJsonData();
+	}
 
 }

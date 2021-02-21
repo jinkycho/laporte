@@ -140,7 +140,7 @@
 			</div>
 			</c:if>
 			<!-- 위시리스트에 상품이 추가 되었을때 바뀐는 부분 -->
-			<c:if test="${basicwishprod == null}">
+			<c:if test="${basicwishprod == NULL || basicwishprod.size()==0}">
 			<div class="change_add_wishitem">
 				<img class="wish_img"
 					src="https://www.ikea.com/kr/ko/shoppinglist/static/media/ill-alien.cb42647f.svg"
@@ -160,7 +160,7 @@
 			</div>
 			</c:if>
 			<!-- 위시리스트에 상품이 추가 되었을때 바뀐는 부분 끝 -->
-			<c:if test="${basicwishprod != null }">
+			<c:if test="${basicwishprod!=NULL && basicwishprod.size()!=0}">
 			<div class="change_add_wishlist">
 			<div class="wish_contour"></div>
 			<c:forEach var="item" items="${basicwishprod}">
@@ -220,7 +220,7 @@
 					<span class="wish_item_delete_text">이 제품을 삭제하시겠어요?</span>
 					<div class="wish_delte_btn_box clear">
 						<button type="button" class="btn wish_item_btn wish_item_delete_cancel">취소</button>
-						<button type="button" class="btn wish_item_btn wish_item_delete_real pull-right" data-wishno="#{item.wishon }" data-prodno="#{item.prodno}">삭제</button>
+						<button type="button" class="btn wish_item_btn wish_item_delete_real pull-right" data-wishno="${item.wishno }" data-prodno="${item.prodno}">삭제</button>
 					</div>
 				</div>
 			</div>
@@ -529,6 +529,21 @@
 	    		}, function(json) {
 	    			if(json.rt=="OK")
 	    				console.log("위시리스트 수정 완료");
+	    		})
+		 }); 
+		 
+		 $(document).on("click",".wish_item_delete_real",function(){
+			 let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+	    		let wishno = current.data('wishno');    //data-wishno 값을 가져옴
+	    		let prodno = current.data('prodno');
+	    		
+	    		//delete 메서드로 Ajax 요청 --> <form>전송이 아니므로 직접 구현한다.
+	    		$.delete("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+	    			"wishno": wishno,
+	    			"prodno": prodno
+	    		}, function(json) {
+	    			if(json.rt=="OK")
+	    			location.reload();
 	    		})
 		 }); 
 	</script>
