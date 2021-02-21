@@ -153,28 +153,5 @@ public class DeliveryServiceImpl implements DeliveryService {
 		return result;
 	}
 	
-	/**
-	 * 배송 데이터 중복검사하기
-	 * @param Delivery 중복검사할 배송의 상품번호를 담고 있는 Beans
-	 * @return int
-	 * @throws Exception
-	 */
-	@Override
-	public int countDelivery(Delivery input) throws Exception {
-		int result = 0;
-		
-		try {
-			result = sqlSession.selectOne("DeliveryMapper.countDelivery", input);
-			
-			if (result > 0) {
-				result = 1;
-			}
-		} catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("조회된 데이터가 없습니다.");
-		}
-		return result;
-	}
-
 }
 

@@ -15,7 +15,9 @@
         <result property="ea" column="ea" />
         <result property="regdate" column="regdate" />
         <result property="editdate" column="editdate" />
+        
         <result property="uname" column="uname" />
+        
         <result property="pname" column="pname" />
         <result property="price" column="price" />
         <result property="saleprice" column="saleprice" />
@@ -23,7 +25,6 @@
         <result property="color" column="color" />
         <result property="size" column="size" />
         
-        <!-- firstimg 테이블과 조인 -->
         <result property="thumbnailUrl" column="thumbnailUrl" />
         
     </resultMap>
@@ -54,7 +55,6 @@
         WHERE cartno=#{cartno}
         ORDER BY prodno
     </select>
-   
     
 	<!-- 다중행 조회를 위한 기능 정의 -->
     <select id="selectCartList"
@@ -81,8 +81,8 @@
     <update id="updateCartItem"
         parameterType="com.project.laporte.model.Cart">
         UPDATE cart SET
-            cartno=#{cartno}, ea=#{ea}, editdate=#{editdate}
-        WHERE userno=#{userno} AND prodno=#{prodno}
+            cartno=#{cartno}, ea=#{ea}, editdate=now()
+        WHERE cartno=#{cartno}
     </update>
     
     <!-- 장바구니 삭제를 위한 기능 정의 -->
@@ -91,7 +91,7 @@
         DELETE FROM cart WHERE cartno=#{cartno}
     </delete>
     
-    <!--  장바구니 중복 확인을 위한 기능 정의 -->
+    <!-- 장바구니 중복 확인을 위한 기능 정의 -->
 	<select id="countCart"
 		parameterType = "com.project.laporte.model.Cart" resultType="int">
 		SELECT COUNT(*) FROM cart WHERE userno = #{userno} AND prodno = #{prodno}

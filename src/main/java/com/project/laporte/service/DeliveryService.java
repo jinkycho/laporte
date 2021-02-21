@@ -47,12 +47,4 @@ public interface DeliveryService {
 	 */
 	public int deleteDelivery(Delivery input) throws Exception;
 	
-	/**
-	 * 배송 데이터 중복검사하기
-	 * @param Delivery 중복검사할 배송의 상품번호를 담고 있는 Beans
-	 * @return int
-	 * @throws Exception
-	 */
-	public int countDelivery(Delivery input) throws Exception;
-	
 }

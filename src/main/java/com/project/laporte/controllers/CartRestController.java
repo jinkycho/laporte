@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
@@ -49,7 +52,7 @@ public class CartRestController {
     
     /** 저장 */
     @RequestMapping(value = "/06_cart/cart", method = RequestMethod.POST)
-    public Map<String, Object> post(
+    public Map<String, Object> post(HttpServletRequest request,
     		@RequestParam(value="userno", defaultValue="0") int userno,
     		@RequestParam(value="prodno", defaultValue="0") int prodno,
     		@RequestParam(value="ea", defaultValue="1") int ea) {
@@ -57,15 +60,18 @@ public class CartRestController {
     	if (prodno == 0)                       	{ return webHelper.getJsonWarning("제품번호를 입력하세요."); }
     	if (prodno <= 20001 && prodno >= 29999)	{ return webHelper.getJsonWarning("제품번호는 20001번부터 29999까지 입니다."); }
     	
+    	HttpSession session = request.getSession();
+    	userno = (int) session.getAttribute("my_session");
+    	
     	/** 1) 데이터 저장하기 */
     	// 저장할 값들을 Beans에 담는다.
     	Cart input = new Cart();
-    	input.setUserno(userno);		// 로그인한 session 정보가 주입
     	input.setProdno(prodno);
     	input.setEa(ea);
+    	input.setUserno(userno);
     	
     	// 저장된 결과를 조회하기 위한 객체
-		Cart output = null;
+		List<Cart> output = null;
 		int count = 0;
     	
 		// 중복검사
@@ -81,7 +87,7 @@ public class CartRestController {
 				ea = cartService.updateCart(input);
 				
 				// 데이터 조회
-				output = cartService.getCartItem(input);
+				output = cartService.getCartList(input);
 				
 			} catch (Exception e) {
 	            return webHelper.getJsonError(e.getLocalizedMessage());
@@ -91,10 +97,11 @@ public class CartRestController {
 	    	try {
 				// 데이터 저장
 				// --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+	    		input.setUserno(userno);
 				cartService.addCart(input);
 				
 				// 데이터 조회
-				output = cartService.getCartItem(input);
+				output = cartService.getCartList(input);
 				
 			} catch(Exception e) {
 				return webHelper.getJsonError(e.getLocalizedMessage());
@@ -110,7 +117,7 @@ public class CartRestController {
     
     /** 수정 */
     @RequestMapping(value="/06_cart/cart", method = RequestMethod.PUT)
-    public Map<String, Object> put(
+    public Map<String, Object> put(HttpServletRequest request,
     		@RequestParam(value="cartno", defaultValue="0") int cartno,
     		@RequestParam(value="ea", defaultValue="0") int ea) {
     	
@@ -125,17 +132,23 @@ public class CartRestController {
     	
     	/** 2) 데이터 수정하기 */
     	// 수정할 값들을 Beans에 담는다.
+    	
+    	HttpSession session = request.getSession();
+    	int userno = (int) session.getAttribute("my_session");
+    	
     	Cart input = new Cart();
     	input.setEa(ea);
+    	input.setCartno(cartno);
     	
     	// 수정된 결과를 조회하기 위한 객체
-    	Cart output = null;
+    	List<Cart> output = null;
     	
     	try {
     		// 데이터 수정
     		cartService.editCart(input);
     		// 수정 결과 조회
-    		output = cartService.getCartItem(input);
+    		input.setUserno(userno);
+    		output = cartService.getCartList(input);
     	} catch (Exception e) {
     		return webHelper.getJsonError(e.getLocalizedMessage());
     	}
@@ -210,35 +223,6 @@ public class CartRestController {
 //        Map<String, Object> data = new HashMap<String, Object>();
 //        data.put("item", output);
 //	        
-//        return webHelper.getJsonData(data);
-//    }
-    
-    
-    
-//    /** 목록 페이지 */
-//    @RequestMapping(value = "/06_cart/cart", method = RequestMethod.GET)
-//    public Map<String, Object> get_list(
-//    		@RequestParam(value="cartno", defaultValue="0") int cartno,
-//    		@RequestParam(value="userno", defaultValue="0") int userno) {
-//
-//        /** 1) 데이터 조회하기 */
-//        Cart input = new Cart();
-//        input.setCartno(3036);
-//        input.setUserno(10004);
-//
-//        List<Cart> output = null;   // 조회결과가 저장될 객체
-//
-//        try {
-//            // 데이터 조회하기
-//            output = cartService.getCartList(input);
-//        } catch (Exception e) {
-//            return webHelper.getJsonError(e.getLocalizedMessage());
-//        }
-//
-//        /** 2) JSON 출력하기 */
-//        Map<String, Object> data = new HashMap<String, Object>();
-//        data.put("item", output);
-//
 //        return webHelper.getJsonData(data);
 //    }
 }

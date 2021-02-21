@@ -238,7 +238,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" class="search_submit" id="submit_nopay">검색</a>
+                                            <button href="#" class="search_submit btn-primary" id="submit_nopay">검색</button>
                                         </div>
                                     </div>
                                 </div>
@@ -288,7 +288,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" class="search_submit" id="submit_ready">검색</a>
+                                            <button href="#" class="search_submit btn-primary" id="submit_ready">검색</button>
                                         </div>
                                     </div>
                                 </div>
@@ -338,7 +338,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" class="search_submit" id="submit_stanby">검색</a>
+                                            <button href="#" class="search_submit btn-primary" id="submit_stanby">검색</button>
                                         </div>
                                     </div>
                                 </div>
@@ -388,7 +388,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" class="search_submit" id="submit_delivery">검색</a>
+                                            <button href="#" class="search_submit btn-primary" id="submit_delivery">검색</button>
                                         </div>
                                     </div>
                                 </div>
@@ -438,7 +438,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" class="search_submit" id="submit_complete">검색</a>
+                                            <button href="#" class="search_submit btn-primary" id="submit_complete">검색</a>
                                         </div>
                                     </div>
                                 </div>
@@ -481,16 +481,14 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -544,16 +542,14 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo">admin</button>
-                                                        <p class="admin_memo"></p>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">발송준비</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -607,16 +603,14 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">출고</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -670,16 +664,14 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-sm select_complete">배송완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -733,8 +725,6 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -742,7 +732,6 @@
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
-                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
                                         <div class="pagination_box">
                                             <ul class="pagination pagination-sm m-0">
                                                 <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>

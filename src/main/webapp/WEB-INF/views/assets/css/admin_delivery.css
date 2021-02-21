@@ -156,10 +156,8 @@ input[type="radio"] {
   display: block;
   width: 200px;
   height: 40px;
-  background-color: #437fb3;
   color: #fff;
   margin: 10px auto;
-  padding-top: 10px;
   text-align: center;
   border-radius: 5px;
   font-size: 14px;
@@ -197,16 +195,12 @@ select#child {
   border-color: #fff;
   color: #fff;
 }
-.admin_selected {
-  background: #D9534F;
-  border-color: #fff;
-  color: #fff;
-}
 .user_memo {
   display: none;
   position: absolute;
-  right: 80px;
-  width: 150px;
+  right: -5px;
+  bottom: 30px;
+  width: 300px;
   padding: 8px;
   background: #717b86;
   border-radius: 8px;
@@ -218,33 +212,7 @@ select#child {
 .user_memo:after {
   position: absolute;
   bottom: 100%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -10px;
-  border: solid transparent;
-  border-color: rgba(51, 51, 51, 0);
-  border-bottom-color: #717b86;
-  border-width: 10px;
-  pointer-events: none;
-  content: "";
-}
-.admin_memo {
-  display: none;
-  position: absolute;
-  width: 150px;
-  padding: 8px;
-  background: #717b86;
-  border-radius: 8px;
-  color: #fff;
-  font-size: 12px;
-  text-align: center;
-  z-index: 800;
-}
-.admin_memo:after {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
+  left: 75%;
   width: 0;
   height: 0;
   margin-left: -10px;
@@ -256,9 +224,6 @@ select#child {
   content: "";
 }
 .memo:hover + p.user_memo {
-  display: block;
-}
-.memo:hover + p.admin_memo {
   display: block;
 }
 .content_footer {
