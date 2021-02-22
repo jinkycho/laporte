@@ -28,8 +28,6 @@
 <link rel="stylesheet" type="text/css"
 	href="../assets/css/review_expand.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/star.css">
-<link rel="stylesheet" type="text/css"
-	href="../assets/plugins/sweetalert/sweetalert2.min.js">
 
 
 <!-- javascript -->
@@ -339,7 +337,7 @@
 											class="text" style="color: navy;"> 상품평 작성하기 </span>
 										</a>
 									</div>
-								</div>
+								</div>s
 							</div>
 						</div>
 					</div>
@@ -350,7 +348,8 @@
 						onclick="location.href='../07_purchase/purchase.html'">구매하기</button>
 					<div class="heart_box pull-right">
 						<input type="checkbox" id="chk_heart" class="chk_heart"
-							style="display: none;" /> <label class="heart" for="chk_heart"></label>
+							style="display: none;" <c:if test="${wishoutput!=null }">checked</c:if> data-wishno="${my_wish}" data-prodno="${output.prodno }" data-userno="${userno}"/> 
+							<label class="heart" for="chk_heart"></label>
 					</div>
 				</div>
 			</div>
@@ -496,6 +495,13 @@
 	<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="../assets/js/review_common.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- Handlebar CDN 참조 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+	<!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script src="../assets/plugins/toTop/totop.min.js"></script>
 	<script src="../assets/js/home.js"></script>
@@ -526,23 +532,48 @@
 		
 		<!-- 버튼 누를 시 삭제 알림기능 -->
 		$(function() {
-			$(".delete_text").click(function(e) {
+			/* $(".delete_text").click(function(e) {
 				$('.review1').remove( );
 				swal('삭제', '성공적으로 삭제되었습니다.', 'success');
 			});
 			
 			$(".modify_text").click(function(e) {
 				window.location.href = "../04_review/review_modify.html";
-    		}); // end click
+    		}); // end click */
     		
 			$("#chk_heart").change(function(e) {
 				if($("#chk_heart").is(":checked") == true){
-					swal('성공', '위시리스트에 추가 되었습니다.', 'success');
+					let current = $(this); 
+		    		let userno = current.data('userno');
+		    		let prodno = current.data('prodno');
+		    		let wishno = current.data('wishno');
+		    		
+		    		$.post("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+		    			"userno": userno,
+		    			"prodno": prodno,
+		    			"wishno": wishno
+		    		}, function(json) {
+		    			if(json.rt=="OK")
+		    				alert("상품이 위시리스트에 추가 되었습니다.");
+		    				location.reload();
+		    		})
 				}else{
-					swal('취소', '위시리스트에서 삭제 되었습니다.', 'error');
-				}
+					let current = $(this); 
+		    		let prodno = current.data('prodno');
+		    		let wishno = current.data('wishno');
+		    		
+		    		$.delete("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+		    			"prodno": prodno,
+		    			"wishno": wishno
+		    		}, function(json) {
+		    			if(json.rt=="OK")
+		    				alert("상품이 위시리스트에서 삭제 되었습니다.");
+		    				location.reload();
+		    		})
+				}	
+				});
+			
 			});
-		});	
 		
 		
 	</script>

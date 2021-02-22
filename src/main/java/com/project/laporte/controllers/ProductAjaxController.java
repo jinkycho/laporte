@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,10 @@ import com.project.laporte.model.Firstimg;
 import com.project.laporte.model.Prod_category1;
 import com.project.laporte.model.Prod_category2;
 import com.project.laporte.model.Product;
+import com.project.laporte.model.Wish_prod;
+import com.project.laporte.model.Wishlist;
 import com.project.laporte.service.ProductService;
+import com.project.laporte.service.WishlistService;
 
 @Controller
 public class ProductAjaxController {
@@ -42,6 +46,9 @@ public class ProductAjaxController {
 	/** Service 패턴 구현체 주입 */
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	WishlistService wishlistService;
 
 	/** "/프로젝트이름"에 해당하는 ContextPath 변수 주입 */
 	// --> import org.springframework.beans.factory.annotation.Value;
@@ -215,7 +222,8 @@ public class ProductAjaxController {
 	public ModelAndView detail(Model model, @RequestParam(value = "prodno", defaultValue = "0") int prodno,
 											HttpServletResponse response,
 											HttpServletRequest request,
-											@CookieValue(value="my_cookie", defaultValue="") String myCookie) {
+											@CookieValue(value="my_cookie", defaultValue="") String myCookie,
+											@CookieValue(value="my_wish", defaultValue="0", required=false)int my_wish) {
 		/** 1) 유효성 검사 */
 		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
 		if (prodno == 0) {
@@ -304,17 +312,53 @@ public class ProductAjaxController {
 			}
 			model.addAttribute("my_cookie", cookie_img_output);
 		}
+		//현재 상품이 위시리스트에 담겨있는지 확인
+		Wish_prod wishValue = new Wish_prod();
+		
+		//로그인 여부 확인 -> 로그인 중 일때 - userno!=0 / 로그인 하지 않았을때 - userno ==0
+		int userno= 0;
+		HttpSession session = request.getSession();
+    	if(session.getAttribute("my_session")!=null) {
+    		userno = (int) session.getAttribute("my_session");
+    	}
+    	
+    	Wishlist basicoutput = new Wishlist();
+		if(my_wish==0 && userno !=0) {	//로그인은 했으나 쿠키에 위시리스트가 저장되어있지 않을때 기본 위시리스트에 저장
+			//사용자의 기본위시리스트번호 조회
+			Wishlist basicinput = new Wishlist();
+			basicinput.setUserno(userno);
+			
+			
+			try {
+				// 데이터 조회
+				basicoutput = wishlistService.selectBasicWish(basicinput);
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+		}
+		
+		wishValue.setWishno(my_wish);
+		wishValue.setProdno(prodno);
+		Wish_prod wishoutput = new Wish_prod();
+		try {
+			wishoutput = wishlistService.getWishitem(wishValue);
+		}catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
 		
 		
 		/** 3) View 처리하기 */
+		model.addAttribute("wishoutput", wishoutput);
 		model.addAttribute("imgoutput", imgoutput);
 		model.addAttribute("similar", similar);
 		model.addAttribute("imgList", imgList);
 		model.addAttribute("category", category);
 		model.addAttribute("output", output);
+		model.addAttribute("my_wish", my_wish);
+		model.addAttribute("userno", userno);
+		model.addAttribute("basicoutput", basicoutput);
 		return new ModelAndView("03_detail/detail");
+	
 	}
-	
-	
 
 }

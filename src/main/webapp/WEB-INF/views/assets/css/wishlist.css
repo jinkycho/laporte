@@ -296,7 +296,6 @@ input:focus {
 /*---------------위시리스트에 아이템 추가시 ( wishlist_add.html ) ---------------------- */
 /* 구분선 */
 .wish_contour {
-	border-bottom: 1px solid #d6d6d6;
 	width: 90%;
 	margin: auto;
 	padding: 5px;
@@ -304,6 +303,7 @@ input:focus {
 /* -------위시리스트 컨텐츠 박스 -------*/
 .wish_item_contents {
 	padding: 20px 10px;
+	border-top:dashed 1px #d6d6d6;
 }
 
 .wish_img_box {
@@ -445,6 +445,7 @@ input:focus {
 	height: 40px;
     border-radius: 4px;
     cursor: pointer;
+    width: 55px;
 }
 .prod_delete_btn{
 	height: 40px;
@@ -458,4 +459,23 @@ input:focus {
 .wishlist_delete_hide,
 .wishlist_edit_hide{
 	display:none;
+}
+.wish_item_total_price_sale{
+	font-size: 11px;
+    text-decoration: line-through;
+}
+.wish_item_1ea_price_sale_after{
+	font-size:10px;
+	text-decoration: line-through;
+}
+.wish_item_sale_price{
+	font-size: 15px;
+}
+.wish_item_1ea_saleprice{
+    font-size: 12px;
+}
+.move_wish_title{
+	width: fit-content;
+    height: fit-content;
+    display: block;
 }

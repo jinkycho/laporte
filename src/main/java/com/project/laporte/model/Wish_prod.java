@@ -20,5 +20,6 @@ public class Wish_prod {
 	private int saleprice;
 	private String thumbnailurl;
 	private String basic;
+	private int newwishno;
 	
 }

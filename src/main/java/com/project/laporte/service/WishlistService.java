@@ -47,6 +47,14 @@ public interface WishlistService {
 	public int editWishlistItem(Wish_prod input) throws Exception;
 	
 	/**
+	 * 위시리스트에 있는 상품 다른 리스트로 이동
+	 * @param Wishlist 조회할 장바구니의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	public int editWishlistItemMove(Wish_prod input) throws Exception;
+	
+	/**
 	 * 위시리스트에 상품 추가
 	 * @param Wishlist 조회할 장바구니의 일련번호를 담고 있는 Beans
 	 * @return 조회된 데이터가 저장된 Beans

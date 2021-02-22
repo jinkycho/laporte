@@ -34,13 +34,6 @@ public class WishlistServiceImpl implements WishlistService {
 
 		try {
 			result = sqlSession.selectList("WishlistMapper.selectWishList", input);
-
-			if (result == null) {
-				throw new NullPointerException("result=null");
-			}
-		} catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("조회된 데이터가 없습니다.");
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
@@ -147,13 +140,7 @@ public class WishlistServiceImpl implements WishlistService {
 		try {
 			result = sqlSession.selectList("WishlistMapper.selectallwishlist", input);
 
-			if (result == null) {
-				throw new NullPointerException("result=null");
-			}
-		} catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("조회된 데이터가 없습니다.");
-		} catch (Exception e) {
+			} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
 		}
@@ -292,12 +279,6 @@ public class WishlistServiceImpl implements WishlistService {
 		try {
 			result = sqlSession.selectOne("WishlistMapper.selectWishItem", input);
 
-			if (result == null) {
-				throw new NullPointerException("result=null");
-			}
-		} catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("조회된 데이터가 없습니다.");
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
@@ -320,13 +301,7 @@ public class WishlistServiceImpl implements WishlistService {
 		try {
 			result = sqlSession.selectOne("WishlistMapper.selectonewishlist", input);
 
-			if (result == null) {
-				throw new NullPointerException("result=null");
-			}
-		} catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("조회된 데이터가 없습니다.");
-		} catch (Exception e) {
+			} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
 		}
@@ -361,5 +336,34 @@ public class WishlistServiceImpl implements WishlistService {
 
 		return result;
 	}
+
+	/**
+	 * 위시리스트에 있는 상품 다른 리스트로 이동
+	 * @param Wishlist 조회할 장바구니의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	@Override
+	public int editWishlistItemMove(Wish_prod input) throws Exception {
+		int result = 0;
+
+		try {
+			result = sqlSession.update("WishlistMapper.updateWishItemMove", input);
+
+			if (result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("수정된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+
+		return result;
+	}
+	
+	
 
 }

@@ -66,13 +66,13 @@
 		</div>
 		<!-- 검색제외 본문영역 -->
 		<div id="wishlist_container">
-			<c:if test="${basicwishprod == null }">
+			<c:if test="${userno == 0 }">
 				<a href="#" id="wish_title_box"><span id="wish_title">위시리스트</span>
 				<img class="wish_arrow_icon"
 				src="https://www.ikea.com/kr/ko/shoppinglist/static/media/chevron-down-thin-24.1667eab2.svg"
 				alt="아래 방향 화살표"></a>
 			</c:if>
-			<c:if test="${basicwishprod != null }">
+			<c:if test="${userno != 0 }">
 			<a href="#" id="wish_title_box"><span id="wish_title">${nowwilist.title}</span>
 				<img class="wish_arrow_icon"
 				src="https://www.ikea.com/kr/ko/shoppinglist/static/media/chevron-down-thin-24.1667eab2.svg"
@@ -84,20 +84,22 @@
 				<div class="wishlist_list_box">
 					<div class="wishlist_list_container">
 						<div class="wishlist_list clear">
-							<span class="wishlist_select pull-left">위시리스트</span> <span
-								class="wishlist_delete_icon pull-right"></span> <span
-								class="wishlist_rename_icon"></span>
+							<a href="#" data-wishno="${basicoutput.wishno }" class="move_wish_title">
+								<span class="wishlist_select pull-left <c:if test="${nowwilist.wishno==basicoutput.wishno}">bold_class</c:if>">위시리스트</span>
+							</a>
+							 <span class="wishlist_delete_icon pull-right"></span> 
+							 <span class="wishlist_rename_icon"></span>
 						</div>
 						<div id="alert_basic_wishlist"></div>
 						<div class="rename_edit_box"></div>
 						
 						<!-- forEach 돌아가 곳 -->
 						<div id="wishlist_foreach">
-						<c:forEach var="item" items="#{wishlist}">
+						<c:forEach var="item" items="${wishlist}">
 						<div class="new_wishlist_list clear">
 							<hr class="wish_hr" />
 							<div class="wishlist_hide_box">
-								<a href="#" data-wishno="${item.wishno}">
+								<a href="#" data-wishno="${item.wishno}" class="move_wish_title">
 									<span class="wishlist_select pull-left <c:if test="${item.wishno == nowwilist.wishno}">bold_class</c:if>">${item.title}</span>
 								</a>
 								<span class="wishlist_delete_icon pull-right"></span>
@@ -139,8 +141,8 @@
 				</div>
 			</div>
 			</c:if>
-			<!-- 위시리스트에 상품이 추가 되었을때 바뀐는 부분 -->
-			<c:if test="${basicwishprod == NULL || basicwishprod.size()==0}">
+			<!-- 위시리스트에 상품이 없는경우 -->
+			<c:if test="${basicwishprod.size()==0||(basicwishprod==null&&userno==0)}">
 			<div class="change_add_wishitem">
 				<img class="wish_img"
 					src="https://www.ikea.com/kr/ko/shoppinglist/static/media/ill-alien.cb42647f.svg"
@@ -149,6 +151,7 @@
 					<p>
 						시간이 더 필요하신가요?<br>저장한 후 나중에 구매해보세요.
 					</p>
+					<!-- 로그인을 안한경우 -->
 					<c:if test="${userno==0}">
 					<!-- <a href="../02_mypage/join.html" class="link"> --><a href="${pageContext.request.contextPath}/02_mypage/join.do" class="link">계정 만들기</a>
 					<div class="wish_btn_box_container clear">
@@ -160,7 +163,7 @@
 			</div>
 			</c:if>
 			<!-- 위시리스트에 상품이 추가 되었을때 바뀐는 부분 끝 -->
-			<c:if test="${basicwishprod!=NULL && basicwishprod.size()!=0}">
+			<c:if test="${basicwishprod.size()!=0 && userno!=0}">
 			<div class="change_add_wishlist">
 			<div class="wish_contour"></div>
 			<c:forEach var="item" items="${basicwishprod}">
@@ -180,17 +183,26 @@
 				</div>
 				<div class="wish_item_price">
 					<c:if test="${item.saleprice!=0}">
-						<div class="wish_item_total_price">₩ <fmt:formatNumber value="${item.saleprice * item.ea}" pattern="#,###" /></div>
+						<div class="wish_item_total_price_sale">₩ <fmt:formatNumber value="${item.price * item.ea}" pattern="#,###" /></div>
+						<div class="wish_item_sale_price">₩ <fmt:formatNumber value="${item.saleprice * item.ea}" pattern="#,###" /></div>
 					</c:if>
-					<div class="wish_item_total_price">₩ <fmt:formatNumber value="${item.price * item.ea}" pattern="#,###" /></div>
+					<c:if test="${item.saleprice==0}">
+						<div class="wish_item_total_price">₩ <fmt:formatNumber value="${item.price * item.ea}" pattern="#,###" /></div>
+					</c:if>
 					<c:if test="${item.ea>1}" >
-						<div class="wish_item_1ea_price">₩ <fmt:formatNumber value="${item.price}" pattern="#,###" /> / 개 </div>
+						<c:if test="${item.saleprice==0}">
+							<div class="wish_item_1ea_price">₩ <fmt:formatNumber value="${item.price}" pattern="#,###" /> / 개 </div>
+						</c:if>
+						<c:if test="${item.saleprice!=0}">
+							<div class="wish_item_1ea_price_sale_after">₩ <fmt:formatNumber value="${item.price}" pattern="#,###" /> / 개 </div>
+							<div class="wish_item_1ea_saleprice">₩ <fmt:formatNumber value="${item.saleprice}" pattern="#,###" /> / 개 </div>
+						</c:if>
 					</c:if>
 				</div>
 				<div class="wish_item_control">
 					<div class="wish_movetolist_box">
 						<div class="wish_movetolist clear">
-							<button type="button" class="btn-blue-color">다른 리스트로 이동</button>
+							<button type="button" class="btn-blue-color movewishbutton">다른 리스트로 이동</button>
 						</div>
 					</div>
 					<div class="wish_control_btn_box clearfix">
@@ -210,7 +222,7 @@
 							</div>
 						</div>
 						<div class="wish_item_addtobag">
-							<button type="button" class="btn btn-primary addtobag_btn">
+							<button type="button" class="btn btn-primary addtobag_btn" data-prodno="${item.prodno}" data-ea="${item.ea}" data-userno="${userno }">
 								<span class="addtobag_img"></span>장바구니에 추가
 							</button>
 						</div>
@@ -223,32 +235,72 @@
 						<button type="button" class="btn wish_item_btn wish_item_delete_real pull-right" data-wishno="${item.wishno }" data-prodno="${item.prodno}">삭제</button>
 					</div>
 				</div>
+				<!-- 다른 위시리스트로 이동 모달 -->
+			<div class="wish_over_layer wishmove_front">
+				<h4>나의 리스트</h4>
+				<span class="wish_close_button"></span>
+				<div class="wishlist_list_box">
+					<div class="wishlist_list_container">
+						<div class="wishlist_list clear">
+							<a href="#" data-newwishno="${basicoutput.wishno }" class="move_wish_item" data-prodno="${item.prodno }" data-wishno="${nowwilist.wishno }">
+								<span class="wishlist_select pull-left <c:if test="${nowwilist.wishno==basicoutput.wishno}">bold_class</c:if>">위시리스트</span>
+							</a>
+						</div>
+						<!-- forEach 돌아가 곳 -->
+						<c:forEach var="list" items="${wishlist}">
+						<div class="new_wishlist_list clear">
+							<hr class="wish_hr" />
+							<div class="wishlist_hide_box">
+								<a href="#" data-newwishno="${list.wishno}" class="move_wish_item" data-prodno="${item.prodno}" data-wishno="${nowwilist.wishno }">
+									<span class="wishlist_select pull-left <c:if test="${list.wishno == nowwilist.wishno}">bold_class</c:if>">${list.title}</span>
+								</a>
+							</div>
+							</div>
+						</c:forEach>
+						</div>
+						 <!-- forEach 끝-->
+					</div>
+				</div>
 			</div>
+			<!-- 다른 위시리스트로 이동 모달  -->
 			</c:forEach>
 			
 			<div class="wish_order_total">
 				<div class="wish_order_total_row clear">
 					<span class="wish_order_total_text">총 주문 금액</span>
-					<span class="wish_order_total_price">₩ 18600</span>
+					<c:set var="total" value="0" />
+					<c:forEach var="result" items="${basicwishprod }" varStatus="status">
+						<c:if test="${result.saleprice!=0 }">
+							<c:set var="total" value="${total+result.saleprice*result.ea}" />
+						</c:if>
+						<c:if test="${result.saleprice==0 }">
+							<c:set var="total" value="${total+result.price*result.ea}" />
+						</c:if>
+					</c:forEach>
+					<span class="wish_order_total_price">₩ <fmt:formatNumber value="${total}" pattern="#,###" /></span>
 				</div>
 			</div>
-			<div class="add_alltobag">
-				<button type="button" class="btn btn-primary all_addtobag_btn">
-					<span class="addtobag_img"></span>모두 장바구니에 추가
-				</button>
-			</div>
+			<c:if test="${basicwishprod.size()>1 }">
+				<div class="add_alltobag">
+					<button type="button" class="btn btn-primary all_addtobag_btn"data-wishno="${nowwilist.wishno}" data-userno="${userno }">
+						<span class="addtobag_img"></span>모두 장바구니에 추가
+					</button>
+				</div>
+			</c:if>
+			
 		</div>
 		<!-- // 위시리스트에 상품을 추가 했을때 바뀌는 부분 끝 -->
 		</c:if>
 		</div>
 	</section>
+	
 	<%@ include file="../01_home/footer.jsp"%>
 	<!-- Handlebar 탬플릿 코드 -->
     <script id="prof-list-tmpl" type="text/x-handlebars-template">
 		<div class="new_wishlist_list clear">
 			<hr class="wish_hr" />
 			<div class="wishlist_hide_box">
-			<a href='#' data-wishno='{{item.wishno}}'>
+			<a href='#' data-wishno='{{item.wishno}}' class="move_wish_title">
 				<span class="wishlist_select pull-left">{{item.title}}</span>
 			</a>
 			<span class="wishlist_delete_icon pull-right"></span>
@@ -334,6 +386,32 @@
 				$("#alert_none_name").html("");
 			});
 			// 새로운 리스트 만들기 리스트 만들기 버튼 클릭시
+			
+		});
+		
+		/** 다른 리스트로 이동 모달 */
+		$(function() {
+			/* --------------------wish modalwindow-------------------*/
+			$(".movewishbutton").click(function(e) {
+				e.preventDefault();
+				$("#wish_background").fadeIn(300);
+				$(".wishmove_front").fadeIn(200);
+				$("#add_wishlist_container").hide();
+				$(".add_wishlist_box").show();
+			});
+			// 배경을 클릭한 경우
+			$("#wish_background").click(function(e) {
+				e.preventDefault();
+				$(this).fadeOut(300);
+				$("#wish_front").fadeOut(200);
+			});
+			// 오른쪽 x버튼 (self.close << 쓰는게 깔끔)
+			$(".wish_close_button").click(function(e) {
+				e.preventDefault();
+				$(".wishmove_front").fadeOut(200);
+				$("#wish_background").fadeOut(100);
+			});
+		});
 			
 			//리스트 삭제 버튼 클릭시
 			$(document)
@@ -448,16 +526,14 @@
 
 					});
 			//위시리스트 이름 클릭시 wishlist.html의 wish_title 변경
-			$(document).on('click', '.wishlist_select', function(e) {
+			$(document).on('click', '.move_wish_title', function(e) {
 				e.preventDefault();
-				$(this).css('font-weight', 'bold');
-				$(".wishlist_select").not(this).css('font-weight', 'normal');
-				$("#wish_front").fadeOut(200);
-				$("#wish_background").fadeOut(100);
-				var new_wish_title = $(this).text();
-				$("#wish_title").html(new_wish_title);
+				
+				let current = $(this);
+				let wishno = current.data('wishno');
+				window.location = "${pageContext.request.contextPath}/05_wishlist/wishlist.do?wishno="+wishno;
+				
 			});
-		});
 		
 		$(function() {
 	    	$(".wish_item_count").change(function(e) {
@@ -468,7 +544,6 @@
 	    		let wishno =current.data('wishno');         //data-wishno 값을 가져옴
 	    		let ea = current.val();   //선택된 드롭다운의 값을 가져옴
 	    		
-	    		//delete 메서드로 Ajax 요청 --> <form>전송이 아니므로 직접 구현한다.
 	    		$.put("${pageContext.request.contextPath}/05_wishlist/wishlist", {
 	    			"prodno": prodno,
 	    			"wishno": wishno,
@@ -518,7 +593,7 @@
 		 }); 
 		 
 		 $(document).on("click",".wish_edit_save",function(){
-			 let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+			 let current = $(this); 
 	    		let wishno = current.data('wishno');    //data-wishno 값을 가져옴
 	    		let title = current.parent().find(".editname").val();
 	    		
@@ -533,7 +608,7 @@
 		 }); 
 		 
 		 $(document).on("click",".wish_item_delete_real",function(){
-			 let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+			 let current = $(this); 
 	    		let wishno = current.data('wishno');    //data-wishno 값을 가져옴
 	    		let prodno = current.data('prodno');
 	    		
@@ -546,6 +621,61 @@
 	    			location.reload();
 	    		})
 		 }); 
+		 
+		 //위시리스트에 있는 상품 다른 리스트로 옮기기
+		 $(document).on("click",".move_wish_item",function(){
+			    let current = $(this); 
+	    		let newwishno = current.data('newwishno');
+	    		let prodno = current.data('prodno');
+	    		let wishno = current.data('wishno');
+	    		
+	    		$.put("${pageContext.request.contextPath}/05_wishlist/wishlist/moveitem", {
+	    			"newwishno": newwishno,
+	    			"prodno": prodno,
+	    			"wishno": wishno
+	    		}, function(json) {
+	    			if(json.rt=="OK")
+	    				alert("상품이 이동되었습니다.");
+	    				location.reload();
+	    		})
+		 }); 
+		 
+		 // 1개 상품만 장바구니로 옮기기
+		 $(document).on("click",".addtobag_btn",function(){
+			    let current = $(this); 
+	    		let userno = current.data('userno');
+	    		let prodno = current.data('prodno');
+	    		let ea = current.data('ea');
+	    		
+	    		$.post("${pageContext.request.contextPath}/06_cart/cart", {
+	    			"userno": userno,
+	    			"prodno": prodno,
+	    			"ea": ea
+	    		}, function(json) {
+	    			if(json.rt=="OK")
+	    				alert("상품이 장바구니에 추가 되었습니다.");
+	    				location.reload();
+	    		})
+		 });
+		 
+		 
+		 // 모두 장바구니로 옮기기 
+		 $(document).on("click",".all_addtobag_btn",function(){
+			    let current = $(this); 
+	    		let userno = current.data('userno');
+	    		let wishno = current.data('wishno');
+	    		
+	    		$.delete("${pageContext.request.contextPath}/05_wishlist/wishlist/moveitem", {
+	    			"userno": userno,
+	    			"wishno": wishno,
+	    		}, function(json) {
+	    			if(json.rt=="OK")
+	    				alert("상품이 장바구니에 추가 되었습니다.");
+	    				location.reload();
+	    		})
+		 });
+		 
+		 
 	</script>
 </body>
 </html>

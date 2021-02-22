@@ -17,6 +17,7 @@
 		type="com.project.laporte.model.Wish_prod">
 		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="wishno"        column="wishno" />
+		<result property="newwishno"     column="wishno" />
 		<result property="prodno"        column="prodno" />
 		<result property="ea"            column="ea" />
 		<result property="title"         column="title" />
@@ -42,10 +43,16 @@
 		WHERE w.wishno=#{wishno}
 	</select>
 	
-	<!-- 위시리스트에 담겨있는 상품 수정 -->
+	<!-- 위시리스트에 담겨있는 상품 개수 수정 -->
      <update id="updateWishItem"
         parameterType="com.project.laporte.model.Wish_prod">
         UPDATE wish_prod SET ea=#{ea} WHERE wishno=#{wishno} AND prodno=#{prodno}
+    </update>
+    
+    <!-- 위시리스트에 담겨있는 상품 다른 위시리스트로 이동 -->
+     <update id="updateWishItemMove"
+        parameterType="com.project.laporte.model.Wish_prod">
+        UPDATE wish_prod SET wishno=#{newwishno} WHERE wishno=#{wishno} AND prodno=#{prodno}
     </update>
     
     <!-- 위시리스트에 담겨있는 상품 조회 -->
@@ -71,9 +78,9 @@
 	<insert id="inserWishItem"
         parameterType="com.project.laporte.model.Wish_prod">
         INSERT INTO wish_prod(
-        userno, prodno, ea
+        wishno, prodno, ea
         )VALUES(
-        #{userno}, #{prodno}, #{ea})
+        #{wishno}, #{prodno}, 1)
     </insert>
 	
 	<!-- 기본 위시리스트 생성 기능 -->
@@ -122,7 +129,7 @@
     <!-- 위시리스트 수정 기능 -->
 	<update id="updatewish"
         parameterType="com.project.laporte.model.Wishlist">
-        UPDATE wishlist SET title=#{title} WHERE wishno=#{wishno}
+        UPDATE wishlist SET title=#{title}, editdate=now() WHERE wishno=#{wishno}
     </update>
     
     <!-- 위시리스트 삭제 기능 -->
