@@ -584,7 +584,7 @@ li {
   margin: auto;
 }
 
-#purchase .purchase_payment button {
+#purchase .purchase_payment input {
   display: inline-block;
   width: 40%;
   height: 45px;
@@ -597,7 +597,7 @@ li {
   border: 1px solid #e5e5e5;
 }
 
-#purchase .purchase_payment button:focus {
+#purchase .purchase_payment input:focus {
   outline: none;
   background-color: #333333;
   color: #fff;

@@ -66,14 +66,6 @@ public class OrderlistAjaxController {
 		// 여러 개의 카트 정보를 담을 List 객체 생성
 		List<Cart> result = new ArrayList<Cart>();
 		
-		/** 2) 상품 이미지 불러오기 */
-		//Firstimg f_input  = new Firstimg();
-		
-		//Firstimg f_output  = null;
-		
-		//List<Firstimg> f_result = new ArrayList<Firstimg>();
-		
-		
 		
 		/** 3) 회원 정보 불러오기 */
 		// 회원 정보를 불러올 객체 생성

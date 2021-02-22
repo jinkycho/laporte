@@ -88,6 +88,7 @@
 				<c:forEach var="item" items="${output}" varStatus= "status">
 				<c:set var="sum" value="0" />
 				<div>
+				<input type="hidden" name="purchase" value="${item.cartno}" />
 				<br /> <img class="cart_item_img" src="${pageContext.request.contextPath}/assets/${item.thumbnailUrl}"></img>
 					<span class="cart_item_title">${item.pname}</span> <br /> <span
 						class="cart_item_info">${item.color}</span> <span
@@ -113,6 +114,7 @@
 				&#8361;
 				<fmt:formatNumber
 							value="${sum}" pattern="#,###" /> 
+				<input type="hidden" name="totalprice" value="${sum}">
 				</span>
 			</div>
 
@@ -138,8 +140,9 @@
 		<!-- 우편번호 조회 끝 -->
 
 		<!-- 배송방법 선택 시작 -->
-		<form id='delivery-form'
-			action='${pageContext.request.contextPath}/07_pruchase/'>
+		<form id='purchase-form'
+			action='${pageContext.request.contextPath}/07_purchase'>
+			<input type="hidden" name="userno" value="${u_output.userno}"/>
 			<div id="purchase_del_type" class="step_line">
 				<div class="delivery_pc_add">
 					<span class="loc_icon">위치표시</span>
@@ -335,7 +338,7 @@
 						<li class="purchase_total_cost">
 							<hr> <span>쿠폰 / 적립금</span> <label
 							class="purchase_summary_coupon">보너스 쿠폰</label> 
-							<select id="coupon_select">
+							<select id="coupon_select" name="usrcouponno">
 								<option value="">쿠폰을 선택 해주세요.</option>
 								<c:forEach var = "coupon" items="${uc_output}" varStatus="status">
 								<option id="join_coupon" value="${coupon.usrcouponno}">${coupon.name}</option>
@@ -384,10 +387,10 @@
 				<p class="step_text">어떤 방법으로 결제하시겠어요?</p>
 
 				<div class="payment_type_btn">
-					<button>신용/체크카드</button>
-					<button>무통장입금(가상계좌)</button>
-					<button>휴대폰결제</button>
-					<button>실시간계좌이체</button>
+					<input type="button" value="신용카드 및 체크카드">
+					<input type="button" value="무통장입금(가상계좌)">
+					<input type="button" value="휴대폰결제">
+					<input type="button" value="실시간계좌이체">
 				</div>
 			</div>
 
@@ -400,8 +403,15 @@
 
 	<!-- swweetalert -->
 	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	
 	<script src="${pageContext.request.contextPath}/assets/js/home.js"></script>
 
+	<!--Google CDN 서버로부터 jQuery 참조 -->
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    
 	<script type="text/javascript">
 $(document).ready(function() {
                     
@@ -690,7 +700,21 @@ $(document).ready(function() {
         });
 	
      //#purchase-form에 대한 submit 이벤트를 가로채서 Ajax요청을 전송한다.
-     $("#")
+     $("#purchase-form").ajaxForm({
+    	 //전송 메서드 지정
+    	 method : "POST",
+    	 //서버에서 200 응답을 전달한 경우 실행됨
+    	 success: function(json) {
+    		 console.log(json);
+    		 
+    		 //json 결과가 OK 일 시 마이페이지로 이동한다.
+    		 if(json.rt == "OK"){
+    			 alert("구매가 완료되었습니다.");
+    			 window.location = "${pageContext.request.contextPath}/home.do";
+    		 }
+    	 }
+    });
+    	
 
 
         /* header fixed */

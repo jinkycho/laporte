@@ -46,19 +46,10 @@
 	parameterType="com.project.laporte.model.Orderlist"
 	useGeneratedKeys="true" keyProperty="orderno">
 			
-		INSERT INTO orderlist(addr1, addr2, postcode, name, email, phoneno, loctype, servcietype,
+		INSERT INTO orderlist(addr1, addr2, postcode, name, email, phoneno, loctype, servicetype,
         request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
-        regdate, editdate) VALUES(#{addr1}, #{addr2}, #{postcode}, #{name}, #{email}, #{phoneno}, #{loctype}, #{servcietype},
-        #{request}, #{sizelimit}, #{deldate}, #{paytype}, #{totalprice}, #{usrcouponno}, #{userno}, #{deltypeno}, 'N', 
-        
-      	<if test="paytype == 'C' OR paytype == 'M', paytype == 'D2'">
-        	'Y',
-        </if>
-        
-         <if test="paytype == 'D'" >
-        	'N',
-        </if>
-          
+        regdate, editdate) VALUES(#{addr1}, #{addr2}, #{postcode}, #{name}, #{email}, #{phoneno}, #{loctype}, #{servicetype},
+        #{request}, #{sizelimit}, #{deldate}, #{paytype}, #{totalprice}, #{usrcouponno}, #{userno}, #{deltypeno}, 'N', #{paystatus},
         now(), now())
 	</insert>
         
@@ -66,10 +57,10 @@
     <select id="selectPurchase"
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
-        SELECT orderno, addr1, addr2, postcode, name, email, phoneno, loctype, servcietype,
+        SELECT orderno, addr1, addr2, postcode, name, email, phoneno, loctype, servicetype,
         request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
         regdate, editdate 
-        FROM order
+        FROM orderlist
         WHERE orderno = #{orderno}
         
     </select>

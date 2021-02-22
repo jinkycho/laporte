@@ -49,7 +49,7 @@ public class OrderlistServiceImpl implements OrderlistService {
 		Orderlist result = null;
 		
 		try {
-			result = sqlSession.selectOne("OrderlistMapper.selectPurchase", result);
+			result = sqlSession.selectOne("OrderlistMapper.selectPurchase", input);
 			
 			if(result == null) {
 				throw new NullPointerException("result == null");

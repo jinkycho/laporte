@@ -1,6 +1,7 @@
 package com.project.laporte.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.User;
 import com.project.laporte.service.UserService;
 
 @Controller
@@ -89,9 +91,22 @@ public class UserAjaxController {
 	}
 	
 	@RequestMapping(value="/02_mypage/mypage.do", method=RequestMethod.GET)
-    public String mypage() {
+    public ModelAndView mypage(Model model, HttpServletResponse response,
+    		@RequestParam(value="userno") int userno) {
         // "/src/main/webapp/WEB-INF/views/02_mypage/mypage.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/mypage";
+		User input = new User();
+		input.setUserno(userno);
+		
+		User output = null;
+		
+		
+		try {
+			output = userService.getUserItem(input);
+		}catch(Exception e) {e.printStackTrace();}
+		
+		//View 처리
+		 model.addAttribute("output", output);
+        return new ModelAndView("/02_mypage/mypage");
     }
 	
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)

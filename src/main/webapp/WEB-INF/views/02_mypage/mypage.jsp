@@ -151,14 +151,14 @@
 									<form role="form">
 										<div class="form-group">
 											<label for="edit_user_name">이름</label>
-											<input type="text" id="edit_user_name" name="edit_user_name" class="form-control">
+											<input type="text" id="edit_user_name" name="name" class="form-control" value="${output.name}">
 											
 											<label for="edit_user_bd">생일</label>
 											<!--숫자만 입력가능하게-->
-											<input type="text" id="edit_user_bd" name="edit_user_bd" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+											<input type="text" id="edit_user_bd" name="birthdate" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" value="${output.birthdate}"/>
 											
 											<label for="user_gender" id="select_gender_label">성별 (선택사항)</label>
-											<select id="user_gender" name="user_gender">
+											<select id="user_gender" name="gender">
 												<option></option>
 												<option value="M">남자</option>
 												<option value="F">여자</option>
@@ -362,14 +362,15 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript">
 		$(document).ready(function(){
-			$("#user_gender").on('change', function(){
+			/* $("#user_gender").on('change', function(){
 				var select = $("#user_gender").val();
 				if(!select){
 				$("#select_gender_label").addClass("select_label_ani");
 			}else{
 				$("#select_gender_label").removeClass("select_label_ani");
 			}
-			});
+			}); */
+			
 			$("#info_alter").hide();
 			$("#contact_alter_box").hide();
 			$("#pwd_alter_box").hide();

@@ -1,7 +1,11 @@
 package com.project.laporte.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.Cart;
 import com.project.laporte.model.Coupon;
 import com.project.laporte.model.Orderlist;
+import com.project.laporte.service.CartService;
 import com.project.laporte.service.CouponService;
 import com.project.laporte.service.OrderlistService;
 
@@ -30,6 +36,7 @@ public class OrderlistRestController {
     /** Service 패턴 구현체 주입 */
     @Autowired  CouponService couponService;
     @Autowired 	OrderlistService orderlistService;
+    @Autowired 	CartService cartService;
 
     /** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
     @Value("#{servletContext.contextPath}")
@@ -37,7 +44,7 @@ public class OrderlistRestController {
     
     /** 새로운 구매 생성 */
     @RequestMapping(value="/07_purchase", method=RequestMethod.POST)
-    public Map<String, Object>add_coupon(Model model,
+    public Map<String, Object>add_coupon(Model model, HttpServletRequest request,
     		@RequestParam(value="addr1", defaultValue="") String addr1,
     		@RequestParam(value="addr2", defaultValue="") String addr2,
     		@RequestParam(value="postcode", defaultValue="") String postcode,
@@ -46,11 +53,11 @@ public class OrderlistRestController {
     		@RequestParam(value="phoneno", defaultValue="") String phoneno,
     		@RequestParam(value="loctype", defaultValue="") String loctype,
     		@RequestParam(value="servicetype", defaultValue="") String servicetype,
-    		@RequestParam(value="request", defaultValue="") String request,
+    		@RequestParam(value="request", defaultValue="") String p_request,
     		@RequestParam(value="sizelimit", defaultValue="") String sizelimit,
     		@RequestParam(value="deldate", defaultValue="") String deldate,
     		@RequestParam(value="paytype", defaultValue="") String paytype,
-    		@RequestParam(value="totalprice", defaultValue="") String totalprice,
+    		@RequestParam(value="totalprice", defaultValue="0") int totalprice,
     		@RequestParam(value="usrcouponno", defaultValue="0") int usrcouponno,
     		@RequestParam(value="userno", defaultValue="0") int userno,
     		@RequestParam(value="deltypeno", defaultValue="0") int deltypeno
@@ -70,24 +77,63 @@ public class OrderlistRestController {
 		input.setPhoneno(phoneno);
 		input.setLoctype(loctype);
 		input.setServicetype(servicetype);
-		input.setRequest(request);
+		input.setRequest(p_request);
 		input.setSizelimit(sizelimit);
 		input.setDeldate(deldate);
-		input.setPaytype(paytype);
+		
+		if(paytype == "신용카드 및 체크카드") {
+			input.setPaytype("C");
+			input.setPaystatus("Y");
+		}else if(paytype == "무통장입금(가상계좌)") {
+			input.setPaytype("D");
+			input.setPaystatus("N");
+		}else if(paytype == "휴대폰결제") {
+			input.setPaytype("M");
+			input.setPaystatus("Y");
+		}else {
+			input.setPaytype("D2");
+			input.setPaystatus("Y");
+		}
 		input.setTotalprice(totalprice);
-		input.setUsrcouponno(usrcouponno);;
+		input.setUsrcouponno(usrcouponno);
 		input.setUserno(userno);
 		input.setDeltypeno(deltypeno);
 		
 		//저장된 결과를 조회하기 위한 객체
 		Orderlist output = null;
 		
+		
+		/** 2) 구매한 장바구니 삭제하기 */
+		//체크된 카트 배열을 불러온다.
+				String[] selectedCart = request.getParameterValues("chk[]");
+				// 체크된 카트 번호 변수 선언 및 초기화
+				int selectedCartno = 0;
+				
+				// 카트 정보를 불러올 객체 생성
+				Cart c_input = new Cart();
+				// 조회한 카트 정보를 담을 객체 초기화
+				int c_output = 0;
+				
+				// 여러 개의 카트 정보를 담을 List 객체 생성
+				List<Cart> result = new ArrayList<Cart>();
+				
 		try {
 			//데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
 			orderlistService.addPurchase(input);
 			
 			//데이터 조회
 			output = orderlistService.getPurchase(input);
+			
+			for(int i= 0; i < selectedCart.length; i++) {
+				c_input.setCartno(selectedCartno);
+				c_output = cartService.deleteCart(c_input);// 체크된 카트 번호 int로 parse
+				selectedCartno = Integer.parseInt(selectedCart[i]);
+				
+				c_input.setCartno(selectedCartno);
+				c_output = cartService.deleteCart(c_input);
+			
+			}
+			
 		}catch(Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}

@@ -19,7 +19,7 @@ public class Orderlist {
 	private String sizelimit;
 	private String deldate;
 	private String paytype;
-	private String totalprice;
+	private int totalprice;
 	private int usrcouponno;
 	private int userno;
 	private int deltypeno;
