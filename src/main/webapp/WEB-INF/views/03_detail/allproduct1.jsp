@@ -63,11 +63,11 @@
 	  		<h3>가구</h3>
 		<div class="allproduct_slide">
 			<ul class="allproduct_slide_ul">
-				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do"><img src="https://shop.static.ingka.ikea.com/category-images/Category_sofas-and-armchairs.jpg?imwidth=300"/></a>소파/암체어</li>
-				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct3.do"><img src="https://shop.static.ingka.ikea.com/revamp/beds_bm003.jpg?imwidth=300"/></a>침대</li>
-				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct4.do"><img src="https://shop.static.ingka.ikea.com/category-images/Category_cabinets-and-cupboards.jpg?imwidth=300"/></a>수납/정리</li>
-				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct5.do"><img src="https://shop.static.ingka.ikea.com/revamp/metod-kitchen_ka005.jpg?imwidth=400"/></a>주방가구/용품</li>
-				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct6.do"><img src="https://shop.static.ingka.ikea.com/category-images/Category_childrens-lighting.jpg?imwidth=300"/></a>조명</li>
+				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=101"><img src="https://shop.static.ingka.ikea.com/category-images/Category_sofas-and-armchairs.jpg?imwidth=300"/></a>소파/암체어</li>
+				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=102"><img src="https://shop.static.ingka.ikea.com/revamp/beds_bm003.jpg?imwidth=300"/></a>침대</li>
+				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=103"><img src="https://shop.static.ingka.ikea.com/category-images/Category_cabinets-and-cupboards.jpg?imwidth=300"/></a>수납/정리</li>
+				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=104"><img src="https://shop.static.ingka.ikea.com/revamp/metod-kitchen_ka005.jpg?imwidth=400"/></a>주방가구/용품</li>
+				<li class="allproduct_slide_ul_li"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=105"><img src="https://shop.static.ingka.ikea.com/category-images/Category_childrens-lighting.jpg?imwidth=300"/></a>조명</li>
 			</ul>
 		</div>
 		</div>

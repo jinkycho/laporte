@@ -17,15 +17,18 @@
 	</resultMap>
 	<!-- 2차 카테고리 조회 기능 -->
 	<select id="selectList2"
-		resultType="com.project.laporte.model.Prod_category2">
-		SELECT catno2, catname2 FROM prod_category2 WHERE
+		resultType="com.project.laporte.model.Prod_category2"
+		resultMap="Category2Map">
+		SELECT catno2, catname2, catno1 FROM prod_category2 WHERE
 		catno1=#{catno1}
 	</select>
 
 	<!-- 카테고리 호출 -->
 	<select id="selectList"
-		resultType="com.project.laporte.model.Prod_category1">
+		resultType="com.project.laporte.model.Prod_category1"
+		resultMap="CategoryMap">
 		SELECT catno1, catname1 FROM prod_category1
 	</select>
+	
 	
 </mapper>

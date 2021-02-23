@@ -30,35 +30,7 @@ public class PageController {
         return "/03_detail/allproduct1";
     }
 	
-	@RequestMapping(value="/03_detail/allproduct2.do", method=RequestMethod.GET)
-    public String allproduct2() {
-        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
-        return "/03_detail/allproduct2";
-    }
 	
-	@RequestMapping(value="/03_detail/allproduct3.do", method=RequestMethod.GET)
-    public String allproduct3() {
-        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
-        return "/03_detail/allproduct3";
-    }
-	
-	@RequestMapping(value="/03_detail/allproduct4.do", method=RequestMethod.GET)
-    public String allproduct4() {
-        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
-        return "/03_detail/allproduct4";
-    }
-	
-	@RequestMapping(value="/03_detail/allproduct5.do", method=RequestMethod.GET)
-    public String allproduct5() {
-        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
-        return "/03_detail/allproduct5";
-    }
-	
-	@RequestMapping(value="/03_detail/allproduct6.do", method=RequestMethod.GET)
-    public String allproduct6() {
-        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
-        return "/03_detail/allproduct6";
-    }
 	@RequestMapping(value="/04_review/review_modify.do", method=RequestMethod.GET)
     public String review_modify() {
         // "/src/main/webapp/WEB-INF/views/04_review/review_modify.jsp" 파일을 View로 지정한다.

@@ -17,7 +17,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   
   	<link rel="stylesheet" type="text/css" href="../assets/css/common.css">
-  	<link rel="stylesheet" type="text/css" href=".../assets/css/home.css">
+  	<link rel="stylesheet" type="text/css" href="../assets/css/home.css">
   	<link rel="stylesheet" type="text/css" href="../assets/css/allproduct.css">
 
 <!-- javascript -->
@@ -25,7 +25,7 @@
 	
 
 <!-- ajax-helper -->
-    <link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
+    <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
     <script src="../assets/plugins/ajax/ajax_helper.js"></script>
 
 
@@ -63,176 +63,70 @@
 	<div class="allproduct">
 	  	<div class="ul_wrap">
 			<ul class="allproduct_category">
-				<li class="category sofa active">소파</li>
-				<li class="category bed">침대</li>
-				<li class="category acceptance">수납</li>
-				<li class="category kitchen">주방</li>
-				<li class="category light">조명</li>			
+				<c:forEach var="item" items="${category1}" varStatus="status">
+					<li class="category <c:if test="${item.catno1==input.catno1}">active</c:if>">
+						<a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=${item.catno1}">${item.catname1}</a></li>
+				</c:forEach>
 			</ul>
 	  	</div>
 	  	
 	  	<div id="result">
 	  	<div class="result_content">
 	  	<div class="allproduct_top">
-	  		<h3>소파</h3>
+	  	<c:if test="${input.catno1==101}"><h3>소파/암체어</h3></c:if>
+	  	<c:if test="${input.catno1==102}"><h3>침대</h3></c:if>
+	  	<c:if test="${input.catno1==103}"><h3>수납/정리</h3></c:if>
+	  	<c:if test="${input.catno1==104}"><h3>주방가/용품</h3></c:if>
+	  	<c:if test="${input.catno1==105}"><h3>조명</h3></c:if>
 		<div class="allproduct_slide">
 			
-			<ul class="allproduct_slide_ul">
-				<li class="allproduct_slide_ul_li"><a href="#"><img src="https://shop.static.ingka.ikea.com/category-images/Category_all-sofas.jpg?imwidth=300"/></a>모든 소파</li>
-				<li class="allproduct_slide_ul_li"><a href="#"><img src="https://shop.static.ingka.ikea.com/category-images/Category_fabric-sofas.jpg?imwidth=300"/></a>패브릭 소파</li>
-				<li class="allproduct_slide_ul_li"><a href="#"><img src="https://shop.static.ingka.ikea.com/category-images/Category_leather-and-coated-fabric-sofas.jpg?imwidth=300"/></a>천연/인조가죽 소파</li>
-				<li class="allproduct_slide_ul_li"><a href="#"><img src="https://shop.static.ingka.ikea.com/category-images/Category_modular-sofas.jpg?imwidth=300"/></a>모듈식소파</li>
-				<li class="allproduct_slide_ul_li"><a href="#"><img src="https://shop.static.ingka.ikea.com/category-images/Category_Footstools-and-pouffes.jpg?imwidth=300"/></a>풋스툴/쿠션형스툴</li>
-				<li class="allproduct_slide_ul_li"><a href="#"><img src="https://shop.static.ingka.ikea.com/category-images/Category_extra-covers.jpg?imwidth=300"/></a>커버</li>
-				<li class="allproduct_slide_ul_li"><a href="#"><img src="https://shop.static.ingka.ikea.com/revamp/sofa-beds_10663.jpg?imwidth=300"/></a>소파베드</li>
+			<ul class="allproduct_slide_ul category2" >
+				<c:forEach var="item2" items="${category2}" varStatus="status">
+					<c:if test="${item2.catno1==input.catno1}">
+					<li class="category"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=${item2.catno1}&catno2=${item2.catno2}">${item2.catname2}</a></li>
+					</c:if>
+				</c:forEach>
 			</ul>
 		</div>
 		</div>
 			<div class="allproduct_product">
 				<ul class="allproduct_product_ul">
+				<c:forEach var="proditem" items="${output}" varStatus="status">
+					<c:url  value="/03_detail/detail.do" var="viewUrl">
+						<c:param name="prodno" value="${proditem.prodno}"/>
+					</c:url>
+					
+					<c:set var="prodno" value="${proditem.prodno}"/>
 					<li class="allproduct_product_ul_li">
-						<input type="checkbox" id="chk_heart1" class="chk_heart" style="display: none;"/>
-						<label class="heart" for="chk_heart1"></label>
-						<a href="#">
-							<img  class="product_img" src="https://www.ikea.com/kr/ko/images/products/angersby-2-seat-sofa-knisa-light-grey__0944427_PE797252_S5.JPG?f=xxs" />
+						<input type="checkbox" id="${proditem.prodno}" class="chk_heart" style="display: none;"/>
+						<label class="heart" for="${proditem.prodno}"></label>
+						<a href="${viewUrl}">
+							<img  class="product_img" src="${proditem.fileUrl}" />
+							
+							
+							<c:if test="${fn:contains(proditem,'세일')}">
 							<span class="sail">더낮은 새로운가격</span>
-							<strong class="product_a">ANGERSBY 앙에르스붜</strong>
-							<span class="product_txt">2인용 소파</span>
-							<span class="sail_money">₩ 169,000</span>
-							<span class="money">
+							</c:if>
+							<c:if test="${fn:contains(proditem,'신제품')}">
+							<span class="new">NEW</span>
+							</c:if>
+							<strong class="product_a">${proditem.name}</strong>
+							<c:if test="${proditem.saleprice!=0}">
+							<span class="sail_money">${proditem.saleprice}</span>
+							</c:if>
+							
+							<span class="money <c:if test="${fn:contains(proditem,'인기')}">home_item_mark</c:if>">
 								<span class="money_won">₩</span>
-								<span class="money_won2">149,000</span>
+								<span class="money_won2 ">${proditem.price}</span>
 						    </span>
-							<span class="starbox">
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="hrefstar"></span>
-							</span>
-						</a>			
-						<a class="addcart"></a>
-					</li>
-					
-					<li class="allproduct_product_ul_li">
-						<input type="checkbox" id="chk_heart2" class="chk_heart" style="display: none;"/>
-						<label class="heart" for="chk_heart2"></label>
-						<a href="#">
-							<img  class="product_img" src="https://www.ikea.com/kr/ko/images/products/ektorp-3-seat-sofa-hallarp-beige__0818568_PE774490_S5.JPG?f=xxs" />
 						
-							<strong class="product_a">EKTORP엑토르프</strong>
-							<span class="product_txt">3인용 소파</span>
 							
 							
-							<span class="money">
-								<span class="money_won">₩</span>
-								<span class="money_won2">449,000</span>
-						    </span>
-							<span class="starbox">
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="hrefstar"></span>
-							</span>
 						</a>			
 						<a class="addcart"></a>
 					</li>
-					
-					<li class="allproduct_product_ul_li">
-						<input type="checkbox" id="chk_heart3" class="chk_heart" style="display: none;"/>
-						<label class="heart" for="chk_heart3"></label>
-						<a href="#">
-							<img  class="product_img" src="https://www.ikea.com/kr/ko/images/products/soederhamn-3-seat-section-finnsta-white__0827353_PE713404_S5.JPG?f=xxs" />
-							
-							<strong class="product_a">SODERHAMN 쇠데르함</strong>
-							<span class="product_txt">3인용섹션</span>
-							<span class="money">
-								<span class="money_won">₩</span>
-								<span class="money_won2">630,000</span>
-						    </span>
-							<span class="starbox">
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="hrefstar"></span>
-							</span>
-						</a>			
-						<a class="addcart"></a>
-					</li>
-					
-					<li class="allproduct_product_ul_li">
-						<input type="checkbox" id="chk_heart4" class="chk_heart" style="display: none;"/>
-						<label class="heart" for="chk_heart4"></label>
-						<a href="#">
-							<img  class="product_img" src="https://www.ikea.com/kr/ko/images/products/kivik-two-seat-sofa-orrsta-light-grey__0788728_PE763704_S5.JPG?f=xxs" />
-							
-							<strong class="product_a">KIVIK 쉬비크</strong>
-							<span class="product_txt">3인용소파</span>
-							
-							<span class="money">
-								<span class="money_won">₩</span>
-								<span class="money_won2">499,000</span>
-						    </span>
-							<span class="starbox">
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="hrefstar"></span>
-							</span>
-						</a>			
-						<a class="addcart"></a>
-					</li>
-					
-					<li class="allproduct_product_ul_li">
-						<input type="checkbox" id="chk_heart5" class="chk_heart" style="display: none;"/>
-						<label class="heart" for="chk_heart5"></label>
-						<a href="#">
-							<img  class="product_img" src="https://www.ikea.com/kr/ko/images/products/poaeng-armchair-cushion-knisa-light-beige__0561144_PE662709_S5.JPG?f=xxs" />
-						
-							<strong class="product_a">POANG 포엥</strong>
-							<span class="product_txt">암체어 쿠션</span>
-							
-							<span class="money">
-								<span class="money_won">₩</span>
-								<span class="money_won2">29,900</span>
-						    </span>
-							<span class="starbox">
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="hrefstar"></span>
-							</span>
-						</a>			
-						<a class="addcart"></a>
-					</li>
-					
-					<li class="allproduct_product_ul_li">
-						<input type="checkbox" id="chk_heart6" class="chk_heart" style="display: none;"/>
-						<label class="heart" for="chk_heart6"></label>
-						<a href="#">
-							<img  class="product_img" src="https://www.ikea.com/kr/ko/images/products/stocksund-3-seat-sofa-nolhaga-dark-green-black-wood__0825514_PE688267_S5.JPG?f=xxs" />
-							
-							<strong class="product_a">STOCKSUND 스톡순드</strong>
-							<span class="product_txt">3인용 소파</span>
-		
-							<span class="money">
-								<span class="money_won">₩</span>
-								<span class="money_won2">699,000</span>
-						    </span>
-							<span class="starbox">
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="star"></span>
-								<span class="nullstar"></span>
-							</span>
-						</a>			
-						<a class="addcart"></a>
-					</li>
+				</c:forEach>
+
 					<!-- 구분선  -->
 				</ul>
 			</div> <!-- //allproduct_product -->
@@ -242,9 +136,9 @@
 		<a href="#"class="moveup">맨 위로 이동</a>
 	</div>
 	<%@ include file="../01_home/footer.jsp" %>
-	<script src="../js/home.js"></script>
-	<script src="../plugins/toTop/totop.min.js"></script>
-	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="../assets/js/home.js"></script>
+	<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="../assets/plugins/toTop/totop.min.js"></script>
 	 <script type="text/javascript">
 	 
 	 $('.moveup').tottTop({
@@ -254,6 +148,7 @@
 			
 
 			$(".chk_heart").change(function(e) {
+				
 				if($(".chk_heart").is(":checked") == true){
 					swal('성공', '위시리스트에 추가 되었습니다.', 'success');
 				}else{
@@ -275,121 +170,9 @@
 					});
 				});
 			 
-			 
-				$(".category ").click(function(){
-					var list = $(this).index();
-					$(".category ").removeClass("active");
-					$(this).addClass("active");
-					
-				});
+			 $(document).on()
 				
-				$(".sofa").click(function(e) {
-	    			$.ajax({
-	    				/** ajax 기본 옵션 */
-	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../assets/api/sofpt.html',// 읽어들일 파일의 경로
-	    				method: 'get',			 // 통신방법 (get(기본값), post)
-	    				data: {},				 // 접속대상에게 전달할 파라미터
-	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-	    				timeout: 30000,			 // 타임아웃 (30초)
-
-	    				// 읽어온 내용을 처리하기 위한 함수
-	    				success: function(req) {
-	    					//result에 이미 존재 하는 갤러리 삭제
-	    					$("#result").empty();
-	    					// 준비된 요소에게 읽어온 내용을 출력한다.
-	    					$("#result").append(req);
-	    				}
-	    			}); //end $.ajax
-	    		}); // end click
 	    		
-
-				$(".bed").click(function(e) {
-	    			$.ajax({
-	    				/** ajax 기본 옵션 */
-	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../assets/api/bedpt.html',// 읽어들일 파일의 경로
-	    				method: 'get',			 // 통신방법 (get(기본값), post)
-	    				data: {},				 // 접속대상에게 전달할 파라미터
-	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-	    				timeout: 30000,			 // 타임아웃 (30초)
-
-	    				// 읽어온 내용을 처리하기 위한 함수
-	    				success: function(req) {
-	    					//result에 이미 존재 하는 갤러리 삭제
-	    					$("#result").empty();
-	    					// 준비된 요소에게 읽어온 내용을 출력한다.
-	    					$("#result").append(req);
-	    				}
-	    			}); //end $.ajax
-	    		}); // end click
-	    		
-
-				$(".acceptance").click(function(e) {
-	    			$.ajax({
-	    				/** ajax 기본 옵션 */
-	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../assets/api/accpt.html',// 읽어들일 파일의 경로
-	    				method: 'get',			 // 통신방법 (get(기본값), post)
-	    				data: {},				 // 접속대상에게 전달할 파라미터
-	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-	    				timeout: 30000,			 // 타임아웃 (30초)
-
-	    				// 읽어온 내용을 처리하기 위한 함수
-	    				success: function(req) {
-	    					//result에 이미 존재 하는 갤러리 삭제
-	    					$("#result").empty();
-	    					// 준비된 요소에게 읽어온 내용을 출력한다.
-	    					$("#result").append(req);
-	    				}
-	    			}); //end $.ajax
-	    		}); // end click
-	    		
-
-		
-
-				$(".kitchen").click(function(e) {
-	    			$.ajax({
-	    				/** ajax 기본 옵션 */
-	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../assets/api/kitpt.html',// 읽어들일 파일의 경로
-	    				method: 'get',			 // 통신방법 (get(기본값), post)
-	    				data: {},				 // 접속대상에게 전달할 파라미터
-	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-	    				timeout: 30000,			 // 타임아웃 (30초)
-
-	    				// 읽어온 내용을 처리하기 위한 함수
-	    				success: function(req) {
-	    					//result에 이미 존재 하는 갤러리 삭제
-	    					$("#result").empty();
-	    					// 준비된 요소에게 읽어온 내용을 출력한다.
-	    					$("#result").append(req);
-	    				}
-	    			}); //end $.ajax
-	    		}); // end click
-	    		
-
-				$(".light").click(function(e) {
-	    			$.ajax({
-	    				/** ajax 기본 옵션 */
-	    				cache: false,			 // 캐쉬 사용 금지 처리
-	    				url: '../assets/api/ligpt.html',// 읽어들일 파일의 경로
-	    				method: 'get',			 // 통신방법 (get(기본값), post)
-	    				data: {},				 // 접속대상에게 전달할 파라미터
-	    				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-	    				timeout: 30000,			 // 타임아웃 (30초)
-
-	    				// 읽어온 내용을 처리하기 위한 함수
-	    				success: function(req) {
-	    					//result에 이미 존재 하는 갤러리 삭제
-	    					$("#result").empty();
-	    					// 준비된 요소에게 읽어온 내용을 출력한다.
-	    					$("#result").append(req);
-	    				}
-	    			}); //end $.ajax
-	    		}); // end click
-	    		
-
 	
 	</script>
 </body>

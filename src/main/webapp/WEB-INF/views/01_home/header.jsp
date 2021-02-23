@@ -25,13 +25,13 @@
 					</c:when>
 					<c:otherwise>
 						<li><a
-						href="${pageContext.request.contextPath}/02_mypage/mypage.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span
+						href="${pageContext.request.contextPath}/02_mypage/mypage.do"><span
 							id="hd_mypage_icon"></span></a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span
+						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span
 							id="hd_wishlist_icon"></span></a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/06_cart/cart.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span
+						href="${pageContext.request.contextPath}/06_cart/cart.do"><span
 							id="hd_cart_icon"></span></a></li>
 					<li><a href="#"><span id="hd_menu_icon"></span></a></li>
 					</c:otherwise>
@@ -60,11 +60,11 @@
                 <ul id="hd_menu_ul1" class="hd_menu_ul">
                     <li id="hd_menu_product"><a href="#"><h2>모든제품</h2></a></li>
                     <li><a href="${pageContext.request.contextPath}/03_detail/allproduct1.do">가구</a></li>
-                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do">소파 / 암체어</a></li>
-                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct3.do">침대</a></li>
-                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct4.do">수납 / 정리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct5.do">주방가구 / 용품</a></li>
-                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct6.do">조명</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=101">소파 / 암체어</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=102">침대</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=103">수납 / 정리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=104">주방가구 / 용품</a></li>
+                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=105">조명</a></li>
                 </ul>
                 <ul id="hd_menu_ul2" class="hd_menu_ul">
                     <li><a href="${pageContext.request.contextPath}/10_event/event.do">이달의 혜택</a></li>
