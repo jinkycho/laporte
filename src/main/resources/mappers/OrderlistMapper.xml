@@ -69,7 +69,7 @@
     <select id="selectOrderList"
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
-        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype,
+        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
         	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate,
         	d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum
         FROM orderlist o
@@ -90,19 +90,11 @@
         ORDER BY o.orderno
     </select>
 
-    <!-- 결제상태 수정을 위한 기능 정의 -->
-    <update id="updatePayItem"
-        parameterType="com.project.laporte.model.Orderlist">
-        UPDATE orderlist SET
-            paystatus=#{paystatus}, editdate=now()
-        WHERE orderno=#{orderno}
-    </update>
-
     <!-- 주문상태 수정을 위한 기능 정의 -->
     <update id="updateOrderItem"
         parameterType="com.project.laporte.model.Orderlist">
         UPDATE orderlist SET
-            orderstatus=#{orderstatus}, editdate=now()
+            paystatus=#{paystatus}, orderstatus=#{orderstatus}, editdate=now()
         WHERE orderno=#{orderno}
     </update>
 

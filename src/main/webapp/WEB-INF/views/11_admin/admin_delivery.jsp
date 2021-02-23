@@ -41,7 +41,7 @@
 			<div class="navbar-header pull-left">
 				<button class="slidebar-toggle" id="menu-toggle">
 					<span class="sr-only">Toggle sidebar</span> <span class="icon-bar"></span>
-					<span class="icon-bar"></span> <span class="icon-bar"></span>
+					<span class="icon-bar"></span><span class="icon-bar"></span>
 				</button>
 				<span><a class="navbar-brand" href="#">HOME</a></span>
 			</div>
@@ -73,49 +73,51 @@
 							data-toggle="dropdown"><i class="glyphicon glyphicon-tags"></i>
 								제품 관리 <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="stock_management.html"><i
-                    class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
-                <li><a href="product_add.html"><i
-                      class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
-								<li><a href="review_management.html"><i
-										class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
-								<li><a href="/"><i class="glyphicon glyphicon-usd"></i>
+								<li><a href="stock_management.html">
+										<i class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
+               					<li><a href="product_add.html">
+               					 		<i class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
+								<li><a href="review_management.html">
+										<i class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
+								<li><a href="#">
+										<i class="glyphicon glyphicon-usd"></i>
 										매출 관리</a></li>
-							</ul></li>
-                            <li class="dropdown open">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                    고객 관리 <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="admin_userlist.html">
-                                        <i class="glyphicon glyphicon-user"></i> 회원정보 관리</a></li>
-                                    <li><a href="admin_order.html">
-                                        <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
-                                    <li class="active"><a href="admin_delivery.html">
-                                        <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리</a></li>
-                                    <li><a href="admin_cancel.html">
-                                        <i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
-                                    <li><a href="admin_coupon.html">
-                                        <i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>
-                                    <li><a href="admin_point.html" >
-                                        <i class="glyphicon glyphicon-usd"></i> 적립금</a></li>
-                                    <li><a href="admin_visitors.html">
-                                        <i class="glyphicon glyphicon-stats"></i> 방문자 수 관리</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                    문의 관리 <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="admin_qanda.html">
-                                        <i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a></li>
-                                    <li><a href="admin_fanda.html">
-                                        <i class="glyphicon glyphicon-list-alt"></i> F&A 관리</a></li>
-                                </ul>
-                            </li>
+							</ul>
+						</li>
+                        <li class="dropdown open">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                고객 관리 <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="admin_userlist.html">
+                                    <i class="glyphicon glyphicon-user"></i> 회원정보 관리</a></li>
+                                <li><a href="admin_order.html">
+                                    <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
+                                <li class="active"><a href="admin_delivery.html">
+                                    <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리</a></li>
+                                <li><a href="admin_cancel.html">
+                                    <i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
+                                <li><a href="admin_coupon.html">
+                                    <i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>
+                                <li><a href="admin_point.html" >
+                                    <i class="glyphicon glyphicon-usd"></i> 적립금</a></li>
+                                <li><a href="admin_visitors.html">
+                                    <i class="glyphicon glyphicon-stats"></i> 방문자 수 관리</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                                문의 관리 <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="admin_qanda.html">
+                                    <i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a></li>
+                                <li><a href="admin_fanda.html">
+                                    <i class="glyphicon glyphicon-list-alt"></i> F&A 관리</a></li>
+                            </ul>
+                        </li>
 					</ul>
 				</nav>
 				<!--/.navbar -->
@@ -156,35 +158,35 @@
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_deposit"></span>
                                                     <strong class="tab_title">결제확인</strong><br/>
-                                                    <span class="count" id="order_nopay">0</span>
+                                                    <span class="count" id="N"></span>
                                                 </a>
                                             </li>
                                             <li id="tab_ready" class="tab">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_ready"></span>
                                                     <strong class="tab_title">배송 준비 중</strong><br/>
-                                                    <span class="count order_nopay">0</span>
+                                                    <span class="count" id="R"></span>
                                                 </a>
                                             </li>
                                             <li id="tab_stanby" class="tab">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_stanby"></span>
                                                     <strong class="tab_title">배송 대기</strong><br/>
-                                                    <span class="count order_stanby">0</span>
+                                                    <span class="count" id="S"></span>
                                                 </a>
                                             </li>
                                             <li id="tab_delivery" class="tab">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_delivery"></span>
                                                     <strong class="tab_title">배송 중</strong><br/>
-                                                    <span class="count order_delivery">0</span>
+                                                    <span class="count" id="D"></span>
                                                 </a>
                                             </li>
                                             <li id="tab_complete" class="tab">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_complete"></span>
                                                     <strong class="tab_title">배송 완료</strong><br/>
-                                                    <span class="count order_complete">0</span>
+                                                    <span class="count" id="C"></span>
                                                 </a>
                                             </li>
                                         </ol>
@@ -197,7 +199,7 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h3 class="card-title">결제확인</h3>
-                                        <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
+                                        <button type="button" class="btn btn-block btn-danger btn-sm pull-right" id="select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
@@ -224,9 +226,12 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="orderitem" items="${orderlistOutput }" varStatus="status">
-								                    		<c:if test="${orderitem.paystatus=='N' || orderitem.paytype=='C' || orderitem.paytype=='M' || orderitem.paytype=='D2' }">
+								                    		<c:if test="${orderitem.orderstatus=='N' }">
 				                                                <tr>
-				                                                    <td><input type='checkbox' class="check" name='chkn[]' value="${orderitem.orderno }" data-orderno="${orderitem.orderno }"></td>
+				                                                    <td>
+				                                                    	<input type='checkbox' class="check" name='chkn[]' value="${orderitem.orderno }">
+				                                                    	<input type="hidden" data-deldate="${orderitem.deldate }"/>
+			                                                    	</td>
 				                                                    <td>${orderitem.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${orderitem.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -260,7 +265,7 @@
 				                                                    		실시간계좌이체
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td>
+				                                                    <td data-paystatus="${orderitem.paystatus }">
 				                                                    	<c:if test="${orderitem.paystatus=='N' }">
 				                                                    		결제전
 				                                                    	</c:if>
@@ -312,7 +317,6 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h3 class="card-title">배송 준비 중</h3>
-                                        <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
@@ -340,7 +344,7 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='R' }">
 				                                                <tr>
-				                                                    <td><input type='checkbox' class="check" name="chk[]" data-orderno='${item.orderno }'></td>
+				                                                    <td><input type='checkbox' class="check" name='chkr[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -381,7 +385,7 @@
                                                 </c:choose>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete">발송준비</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete" id="delivery_stay">배송대기</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -404,7 +408,6 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h3 class="card-title">배송 대기</h3>
-                                        <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
@@ -432,7 +435,7 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='S' }">
 				                                                <tr>
-				                                                    <td><input type='checkbox' class="check"></td>
+				                                                    <td><input type='checkbox' class="check" name='chks[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -473,7 +476,7 @@
                                                 </c:choose>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete">출고</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete" id="delivery_delivery">출고</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -496,8 +499,7 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h3 class="card-title">배송 중</h3>
-                                        <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
                                                     <th style="width: 10px"><input type='checkbox' id="all_check"></th>
@@ -524,7 +526,7 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='D' }">
 				                                                <tr>
-				                                                    <td><input type='checkbox' class="check"></td>
+				                                                    <td><input type='checkbox' class="check" name='chkd[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -565,7 +567,7 @@
                                                 </c:choose>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete">배송완료</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete" id="delivery_complete">배송완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -588,7 +590,6 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h3 class="card-title">배송 완료</h3>
-                                        <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
@@ -616,7 +617,7 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='C' }">
 				                                                <tr>
-				                                                    <td><input type='checkbox' class="check"></td>
+				                                                    <td><input type='checkbox' class="check" name='chkc[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -670,9 +671,47 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!--페이지네이션 끝-->
+                                    <!--페이지네이션 끝
+                                    var orderno = $(current).val();
+									var userno = "10005";			// userno 취득해야함
+									var deliverystatus = "R";
+									var trackingnum = 12345678;		// 운송장번호 취득해야함
+									var deliverydate = $(current).next().data();-->
                                 </div>
                             </div>
+                            <div class="col-md-12" id="form_hidden">
+                            	<div class="card">
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title">배송 정보 입력</h3>
+                            				<form id="delivery_form" action="${pageContext.request.contextPath}/11_admin/admin_delivery">
+                            					<div>
+										    		<label for="orderno">주문번호 : </label>
+										    		<input type="number" name="orderno" id="orderno" placeholder="50,000 번대를 입력해주세요."/>
+										    	</div>
+                            					<div>
+										    		<label for="userno">회원번호 : </label>
+										    		<input type="number" name="userno" id="userno" placeholder="10,000 번대를 입력해주세요."/>
+										    	</div>
+										    	<div>
+										    		<label for="deliverydate">배송일자 : </label>
+										    		<input type="date" name="deliverydate" id="deliverydate"/>
+										    	</div>
+										    	<div>
+										    		<label for="trackingnum">운송장 번호 : </label>
+										    		<input type="number" name="trackingnum" id="trackingnum" placeholder="6자리의 숫자를 입력해주세요"/>
+										    	</div>
+										    	<div>
+										    		<label for="deliverystatus1">배송 상태 : </label>
+										    		<label><input type="radio" name="deliverystatus" id="deliverystatus1" value="R"/>배송 준비중</label>
+										    		<label><input type="radio" name="deliverystatus" id="deliverystatus2" value="S"/>배송 대기</label>
+										    		<label><input type="radio" name="deliverystatus" id="deliverystatus3" value="D"/>배송 중</label>
+										    		<label><input type="radio" name="deliverystatus" id="deliverystatus4" value="D"/>배송 완료</label>
+										    	</div>
+										    	<button type="submit">작성완료</button>
+                            				</form>
+                       				</div>
+                   				</div>
+               				</div>
                         </div>
                     </div>
 				</div>
@@ -682,7 +721,14 @@
 	</section>
 	<footer></footer>
 
-    <script type="text/javascript">
+    <!-- Handlebar CDN 참조 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+	<script type="text/javascript">
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
@@ -695,6 +741,24 @@
 	            $(".content_stanby").hide();
 	            $(".content_delivery").hide();
 	            $(".content_complete").hide();
+	            $("#form_hidden").hide();
+	            
+	            /* 상단 탭 수량표시 */
+	            var countn = $("input:checkbox[name='chkn[]']").length;
+	            $("#N").html(countn);
+	            
+	            var countr = $("input:checkbox[name='chkr[]']").length;
+	            $("#R").html(countr);
+	            
+	            var counts = $("input:checkbox[name='chks[]']").length;
+	            $("#S").html(counts);
+	            
+	            var countd = $("input:checkbox[name='chkd[]']").length;
+	            $("#D").html(countd);
+	            
+	            var countc = $("input:checkbox[name='chkc[]']").length;
+	            $("#C").html(countc);
+	            
             });
 
             // 탭 아이콘 클릭시 색 변화
@@ -724,6 +788,7 @@
 	            $(".content_stanby").hide();
 	            $(".content_delivery").hide();
 	            $(".content_complete").hide();
+	            $("#form_hidden").hide();
             });
 
             $(document).on("click", "#tab_stanby", function(e) {
@@ -734,6 +799,7 @@
 	            $(".content_stanby").show();
 	            $(".content_delivery").hide();
 	            $(".content_complete").hide();
+	            $("#form_hidden").hide();
             });
 
             $(document).on("click", "#tab_delivery", function(e) {
@@ -744,6 +810,7 @@
 	            $(".content_stanby").hide();
 	            $(".content_delivery").show();
 	            $(".content_complete").hide();
+	            $("#form_hidden").hide();
             });
 
             $(document).on("click", "#tab_complete", function(e) {
@@ -754,6 +821,7 @@
 	            $(".content_stanby").hide();
 	            $(".content_delivery").hide();
 	            $(".content_complete").show();
+	            $("#form_hidden").hide();
             });
         });
 
@@ -762,32 +830,52 @@
             $(".check").prop('checked', $(this).prop('checked'));
         });
         
-        /* 결제완료 버튼 */
-		$(document).on("click","#paytypechange", function() {
+        /* 배송준비 버튼 toggle */
+        $("#delivery_ready").click(function() {
+        	$("#form_hidden").slideToggle(200);
+        });
+		
+        /* 작성완료 버튼 */
+        $(function() {
+    		$("#delivery_form").ajaxForm({
+    			method:"POST",
+    			success: function(json) {
+    				console.log(json);
+    				
+    				if (json.rt == "OK") {
+    					alert("해당 주문은 배송준비 상태가 됩니다.")
+    					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do?";
+    				}
+    			}
+    		});
+    	});
+        
+        /* 주문취소 버튼 */
+		$(document).on("click","#select_delete", function() {
 			
-			var current = null;										// 체크된 요소 담을 객체
-			var count = $("input:checkbox[name='chkn[]']").length;	// 총 갯수
-			var ckcount = $("input:checkbox[name='chkn[]']:checked").length
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkn[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkn[]']:checked").length;		// 체크된 요소 갯수
 				
-			console.log(count);
-			for (var i=1; i<count; i++) {
+			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
-					alert("주문정보 한가지씩 선택해 주세요.");
+					alert("주문정보 한개씩 선택해 주세요.");
 				} else {
-					current = $("input:checkbox[name='chkn[]']:checked").val();				// 체크된 주문정보
+					current = $("input:checkbox[name='chkn[]']:checked").val();		// 체크된 주문정보
 				}
 			}
 			
-			var orderno = current;
-			var paytype = "Y";
-			if (!confirm("정말 주문번호 : " + orderno + "을 결제완료처리 하시겠습니까?")) {
+			// var paystatus = current.parent().eq(10).data();
+			var orderno = current.val();
+			var orderstatus = "CC";
+			if (!confirm("해당 주문건은 관리자에 의해 취소 됩니다.")) {
 				return false;
 			}
 			
 			// put 메서드로 ajax 요청
 			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
 				"orderno":orderno,
-				"paytype":paytype
+				"orderstatus":orderstatus
 			}, function(json) {
 				if(json.rt == "OK") {
 					alert("변경되었습니다");
@@ -797,27 +885,141 @@
 			});
 		});
         
-		// 주문취소 버튼
-        $(".select_delete").click(function () {
-            var delete_check_list = $(".check:checked");
-            if(delete_check_list.length == 0){
-                alert("선택된 항목이 없습니다.");
-                return false;
-            }
-            //배열의 길이만큼 반복한다.
-            for (var i=0; i<delete_check_list.length; i++) {
-                // i번째 HTML요소를 jQuery객체로 변환하여 입력값을 취한다.
-                var ckeck_product = $(delete_check_list[i]);
-                // 체크된 항목 삭제
-                $(ckeck_product).parents('tr').remove();
-            };
-            
-            //상품 목록이 하나도 없을시 
-            if(product_list_num == 0) {
-                console.log(product_list_num);
-                $('#product_list').html('<tr><td colspan="12">주문 내역이 없습니다.</td></tr>');
-            }
-        });
+        /* 결제완료 버튼 */
+		$(document).on("click","#paytypechange", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkn[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkn[]']:checked").length;		// 체크된 요소 갯수
+				
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkn[]']:checked").val();		// 체크된 주문정보
+				}
+			}
+			
+			var orderno = current;
+			var paystatus = "Y";
+			if (!confirm("주문번호 " + orderno + "을 결제완료처리 하시겠습니까?")) {
+				return false;
+			}
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
+				"orderno":orderno,
+				"paystatus":paystatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+				}
+			});
+		});
+        
+		/* 배송대기 버튼 */
+		$(document).on("click","#delivery_stay", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkr[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkr[]']:checked").length;		// 체크된 요소 갯수
+				
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkr[]']:checked").val();		// 체크된 주문정보
+				}
+			}
+			
+			var deliveryno = current;
+			var deliverystatus = "S";
+			if (!confirm("해당 주문은 배송대기 상태가 됩니다.")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
+				"deliveryno":deliveryno,
+				"deliverystatus":deliverystatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+				}
+			});
+		});
+		
+		/* 배송중 버튼 */
+		$(document).on("click","#delivery_delivery", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chks[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chks[]']:checked").length;		// 체크된 요소 갯수
+
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chks[]']:checked").val();		// 체크된 주문정보
+				}
+			}
+			
+			var deliveryno = current;
+			var deliverystatus = "D";
+			if (!confirm("해당 주문은 배송중 상태가 됩니다.")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
+				"deliveryno":deliveryno,
+				"deliverystatus":deliverystatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+				}
+			});
+		});
+		
+		/* 배송완료 버튼 */
+		$(document).on("click","#delivery_complete", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkd[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkd[]']:checked").length;		// 체크된 요소 갯수
+				
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkd[]']:checked").val();		// 체크된 주문정보
+				}
+			}
+			
+			var deliveryno = current;
+			var deliverystatus = "C";
+			if (!confirm("해당 주문은 배송완료 상태가 됩니다.")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
+				"deliveryno":deliveryno,
+				"deliverystatus":deliverystatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+				}
+			});
+		});
+        
     </script>
 </body>
 </html>

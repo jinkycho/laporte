@@ -127,44 +127,11 @@ input[type="radio"] {
   font-weight: bold;
 }
 
-/* 검색 */
-.search_box {
-  width: 90%;
-  margin: auto;
-  margin-top: 20px;
-  border: 2px solid #717b86;
-  padding-bottom: 5px;
-}
-.search_table {
-  width: 99%;
-  margin: auto;
-  margin-top: 7px;
-  padding-bottom: 5px;
-  min-height: 50px;
-}
-.search_title {
-  width: 20%;
-  height: 50px;
-  background-color: #f1f1f1;
-  text-indent: 10px;
-}
-.search_data {
-  width: 80%;
-  border-right: 1px solid #bbbbbb;
-}
-.search_submit {
-  display: block;
-  width: 200px;
-  height: 40px;
-  color: #fff;
-  margin: 10px auto;
-  text-align: center;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
 /* 본문 */
-.select_delete {
+.delivery_table {
+	margin-top: 20px;
+}
+#select_delete {
   width: inherit;
   float: right;
   margin-bottom: 5px;

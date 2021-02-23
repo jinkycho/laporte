@@ -76,16 +76,15 @@
 		parameterType = "com.project.laporte.model.Delivery"
 		useGeneratedKeys="true" keyProperty="deliveryno">
 		INSERT INTO delivery(deliveryno, deliverydate, deliverystatus, trackingnum, userno, orderno, regdate, editdate)
-		VALUES(#{deliveryno}, #{deliverydate}, #{deliverystatus}, #{trackingnum}, #{userno}, #{oderno}, now(), now())
+		VALUES(#{deliveryno}, #{deliverydate}, #{deliverystatus}, #{trackingnum}, #{userno}, #{orderno}, now(), now())
 	</insert>
 
     <!-- 배송정보 수정을 위한 기능 정의 -->
     <update id="updateDeliveryItem"
         parameterType="com.project.laporte.model.Delivery">
         UPDATE delivery SET
-            deliveryno=#{deliveryno}, deliverydate=#{deliverydate}, deliverystatus=#{deliverystatus}, 
-            trackingnum=#{trackingnum}, ea=#{ea}, editdate=now(), 
-			paystatus=#{paystatus}, orderstatus=#{orderstatus}
+            deliveryno=#{deliveryno}, deliverydate=now(), deliverystatus=#{deliverystatus}, 
+            trackingnum=#{trackingnum}, editdate=now()
         WHERE deliveryno=#{deliveryno}
     </update>
     

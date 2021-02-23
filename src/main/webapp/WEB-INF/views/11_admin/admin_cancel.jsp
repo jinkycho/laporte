@@ -156,28 +156,28 @@
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_cancel"></span>
                                                     <strong class="tab_title">취소</strong>
-                                                    <span class="count">0</span>
+                                                    <span class="count" id="CC"></span>
                                                 </a>
                                             </li>
                                             <li id="tab_change" class="tab">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_change"></span>
                                                     <strong class="tab_title">교환</strong>
-                                                    <span class="count">0</span>
+                                                    <span class="count" id="CH"></span>
                                                 </a>
                                             </li>
                                             <li id="tab_return" class="tab">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_return"></span>
                                                     <strong class="tab_title">반품</strong>
-                                                    <span class="count">0</span>
+                                                    <span class="count" id="RT"></span>
                                                 </a>
                                             </li>
                                             <li id="tab_refund" class="tab">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_refund"></span>
                                                     <strong class="tab_title">환불</strong>
-                                                    <span class="count">0</span>
+                                                    <span class="count" id="RF"></span>
                                                 </a>
                                             </li>
                                         </ol>
@@ -193,36 +193,91 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
-                                                    <th>취소신청일</th>
+                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
                                                     <th>주문번호</th>
+                                                    <th>취소신청일</th>
+                                                    <th>주문일자</th>
                                                     <th>주문자</th>
+                                                    <th>연락처</th>
                                                     <th>상품정보</th>
-                                                    <th>수량</th>
                                                     <th>취소 금액</th>
                                                     <th>결제수단</th>
-                                                    <th>주문상태</th>
+                                                    <th>결제상태</th>
                                                     <th>취소처리</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>2012-01-02</td>
-                                                    <td>1234567</td>
-                                                    <td>홍 길동</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>90,000</td>
-                                                    <td>카드</td>
-                                                    <td>입금전</td>
-                                                    <td>처리중</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                            	<c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="12" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.orderstatus=='CC' && item.paystatus=='N' }">
+				                                                <tr>
+				                                                	<td><input type='checkbox' class="check" name='chkcc[]' value="${item.orderno }"></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+			                                                    	<td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.name }</td>
+				                                                    <td>
+				                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
+				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
+			                                                    	</td>
+				                                                    <td>상품이름-----</td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+				                                                    </td>
+				                                                    <td>
+				                                                    	<c:if test="${item.paytype=='C' }">
+				                                                    		신용카드
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paytype=='D' }">
+				                                                    		무통장입금
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paytype=='M' }">
+				                                                    		휴대폰결제
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paytype=='D2' }">
+				                                                    		실시간계좌이체
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td>
+				                                                    	<c:if test="${item.paystatus=='N' }">
+				                                                    		결제전
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paystatus=='Y' }">
+				                                                    		결제완료
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td>진행중 -----</td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+					                                                    	<c:when test="${item.request != null }">
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+						                                                        <p class="user_memo">
+						                                                        	${item.request }
+					                                                        	</p>
+				                                                        	</c:when>
+				                                                        	<c:otherwise>
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+				                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+                                                			</c:if>
+                                              			</c:forEach>
+                                               		</c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
                                     </div>
@@ -250,32 +305,69 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
-                                                    <th>교환신청일</th>
+                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
                                                     <th>주문번호</th>
+                                                    <th>교환신청일</th>
+                                                    <th>주문일자</th>
                                                     <th>주문자</th>
                                                     <th>상품정보</th>
                                                     <th>수량</th>
-                                                    <th>주문상태</th>
+                                                    <th>결제상태</th>
                                                     <th>교환처리</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>2012-01-02</td>
-                                                    <td>1234567</td>
-                                                    <td>홍 길동</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>입금전</td>
-                                                    <td>처리중</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                            	<c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="10" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.orderstatus=='CH' && item.paystatus=='Y' }">
+				                                                <tr>
+				                                                	<td><input type='checkbox' class="check" name='chkch[]' value="${item.orderno }"></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.editdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+			                                                    	<td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.name }</td>
+				                                                    <td>상품이름-----</td>
+				                                                    <td>1-----</td>
+				                                                    <td>
+				                                                    	<c:if test="${item.paystatus=='N' }">
+				                                                    		결제전
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paystatus=='Y' }">
+				                                                    		결제완료
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td>진행중-----</td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+					                                                    	<c:when test="${orderitem.request != null }">
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+						                                                        <p class="user_memo">
+						                                                        	${orderitem.request }
+					                                                        	</p>
+				                                                        	</c:when>
+				                                                        	<c:otherwise>
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+				                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+                                                			</c:if>
+                                                		</c:forEach>
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
                                     </div>
@@ -303,34 +395,69 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
-                                                    <th>반품신청일</th>
+                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
                                                     <th>주문번호</th>
+                                                    <th>반품신청일</th>
+                                                    <th>주문일자</th>
                                                     <th>주문자</th>
                                                     <th>상품정보</th>
                                                     <th>수량</th>
-                                                    <th>운송장번호</th>
-                                                    <th>주문상태</th>
+                                                    <th>결제상태</th>
                                                     <th>반품처리</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>2012-01-02</td>
-                                                    <td>1234567</td>
-                                                    <td>홍 길동</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>12345678</td>
-                                                    <td>입금전</td>
-                                                    <td>처리중</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                            	<c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="10" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.orderstatus=='RT' && item.paystatus=='Y' }">
+				                                                <tr>
+				                                                	<td><input type='checkbox' class="check" name='chkrt[]' value="${item.orderno }"></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.editdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+			                                                    	<td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.name }</td>
+				                                                    <td>상품이름-----</td>
+				                                                    <td>1-----</td>
+				                                                    <td>
+				                                                    	<c:if test="${item.paystatus=='N' }">
+				                                                    		결제전
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paystatus=='Y' }">
+				                                                    		결제완료
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td>진행중-----</td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+					                                                    	<c:when test="${orderitem.request != null }">
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+						                                                        <p class="user_memo">
+						                                                        	${orderitem.request }
+					                                                        	</p>
+				                                                        	</c:when>
+				                                                        	<c:otherwise>
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+				                                                        	</c:otherwise>
+		                                                        		</c:choose>
+		                                                        	</td>
+				                                                </tr>
+                                                			</c:if>
+                                                		</c:forEach>
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
                                     </div>
@@ -358,10 +485,10 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
-                                                    <th>주문일</th>
-                                                    <th>환불신청일</th>
+                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
                                                     <th>주문번호</th>
+                                                    <th>환불신청일</th>
+                                                    <th>주문일자</th>
                                                     <th>주문자</th>
                                                     <th>총 수량</th>
                                                     <th>총 환불액</th>
@@ -370,30 +497,71 @@
                                                     <th>적립금</th>
                                                     <th>환불수단</th>
                                                     <th>처리상태</th>
-                                                    <th>취소처리</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>2020-12-31</td>
-                                                    <td>2021-01-02</td>
-                                                    <td>1234567</td>
-                                                    <td>홍 길동</td>
-                                                    <td>1</td>
-                                                    <td>90,000</td>
-                                                    <td>80,000</td>
-                                                    <td>0</td>
-                                                    <td>10,000</td>
-                                                    <td>카드</td>
-                                                    <td>처리중</td>
-                                                    <td>처리중</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                            	<c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="13" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.orderstatus=='RF' && item.paystatus=='Y' }">
+				                                                <tr>
+				                                                	<td><input type='checkbox' class="check" name='chkrf[]' value="${item.orderno }"></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.editdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                	<td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.name }</td>
+				                                                    <td>1---</td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+				                                                    </td>
+				                                                    <td>80,000---</td>
+				                                                    <td>0</td>
+				                                                    <td>10,000---</td>
+				                                                    <td>
+				                                                    	<c:if test="${item.paytype=='C' }">
+				                                                    		신용카드
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paytype=='D' }">
+				                                                    		무통장입금
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paytype=='M' }">
+				                                                    		휴대폰결제
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.paytype=='D2' }">
+				                                                    		실시간계좌이체
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td>처리중---</td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+					                                                    	<c:when test="${orderitem.request != null }">
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+						                                                        <p class="user_memo">
+						                                                        	${orderitem.request }
+					                                                        	</p>
+				                                                        	</c:when>
+				                                                        	<c:otherwise>
+						                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+				                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+			                                                </c:if>
+		                                                </c:forEach>
+	                                                </c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
                                     </div>
@@ -427,11 +595,25 @@
 			$("#wrapper").toggleClass("toggled");
         });
         
+		/* 상단 메뉴 탭 관리 */
         $(function() {
             $(document).ready(function() {
 	            $(".content_change").hide();
 	            $(".content_return").hide();
 	            $(".content_refund").hide();
+	            
+	            /* 상단 탭 수량표시 */
+	            var countcc = $("input:checkbox[name='chkcc[]']").length;
+	            $("#CC").html(countcc);
+	            
+	            var countch = $("input:checkbox[name='chkch[]']").length;
+	            $("#CH").html(countch);
+	            
+	            var countrt = $("input:checkbox[name='chkrt[]']").length;
+	            $("#RT").html(countrt);
+	            
+	            var countrf = $("input:checkbox[name='chkrf[]']").length;
+	            $("#RF").html(countrf);
             });
 
             // 탭 아이콘 클릭시 색 변화
@@ -488,6 +670,9 @@
         $("#all_check").change(function() {
             $(".check").prop('checked', $(this).prop('checked'));
         });
+        
+        
+        
 	</script>
 </body>
 </html>

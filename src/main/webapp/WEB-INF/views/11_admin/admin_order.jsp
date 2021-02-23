@@ -231,7 +231,6 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
                                                     <th>주문번호</th>
                                                     <th>주문일</th>
                                                     <th>주문자</th>
@@ -250,7 +249,7 @@
                                             	<c:choose>
                                             		<c:when test="${output == null || fn:length(output) == 0}">
 									                    <tr>
-									                        <td colspan="12" align="center">조회결과가 없습니다.</td>
+									                        <td colspan="11" align="center">조회결과가 없습니다.</td>
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
@@ -266,7 +265,6 @@
 									                            <c:set var="name" value="${fn:replace(name, keyword, mark)}" />
 									                        </c:if>
 			                                                <tr>
-			                                                    <td><input type='checkbox' class="check"></td>
 			                                                    <td>${item.orderno }</td>
 			                                                    <td>
 			                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />

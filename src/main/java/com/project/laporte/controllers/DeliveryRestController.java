@@ -4,13 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,11 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
-import com.project.laporte.model.Cart;
+import com.project.laporte.model.Delivery;
 import com.project.laporte.model.Orderlist;
+import com.project.laporte.service.DeliveryService;
 import com.project.laporte.service.OrderlistService;
-import com.project.laporte.service.ProductService;
-import com.project.laporte.service.UserService;
 
 @RestController
 public class DeliveryRestController {
@@ -38,49 +32,108 @@ public class DeliveryRestController {
 	
 	/** Service 패턴 구현체 주입 */
 	// -> import com.project.laporte.service.OrderlistService;
-	@Autowired OrderlistService orderService;
+	@Autowired OrderlistService orderlistService;
 	
-	// -> import study.spring.springhelper.service.UserService;
-	@Autowired UserService userService;
-	
-	// -> import study.spring.springhelper.service.ProductService;
-	@Autowired ProductService productService;
-	
+	// -> import com.project.laporte.service.DeliveryService;
+	@Autowired DeliveryService deliveryService;
+
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	// -> import org.springframework.beans.factory.annotation.Value;
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
     
     /** 저장 */
+	@RequestMapping(value = "/11_admin/admin_delivery", method = RequestMethod.POST)
+    public Map<String, Object> post(
+            @RequestParam(value="deliverydate", defaultValue="") String deliverydate,
+            @RequestParam(value="deliverystatus", defaultValue="") String deliverystatus,
+            @RequestParam(value="trackingnum", defaultValue="0") int trackingnum,
+            @RequestParam(value="userno", defaultValue="0") int userno,
+            @RequestParam(value="orderno", defaultValue="0") int orderno) {
+        
+        /** 1) 사용자가 입력한 파라미터에 대한 유효성 검사 */
+        // 숫자형으로 선언된 파라미터()
+        if (trackingnum == 0)                 { return webHelper.getJsonWarning("운송장번호를 입력하세요."); }
+        if (trackingnum > 999999)             { return webHelper.getJsonWarning("운송장번호는 999,999보다 클 수 없습니다."); }
+        if (trackingnum < 100000)             { return webHelper.getJsonWarning("운송장번호는 100,000보다 작을 수 없습니다."); }
+
+        /** 2) 데이터 저장하기 */
+        // 저장할 값들을 Beans에 담는다.
+        Delivery input = new Delivery();
+        input.setDeliverydate(deliverydate);
+        input.setDeliverystatus(deliverystatus);
+        input.setTrackingnum(trackingnum);
+        input.setUserno(userno);
+        input.setOrderno(orderno);
+
+        // 저장된 결과를 조회하기 위한 객체
+        List<Delivery> output = null;
+
+        try {
+            // 데이터 저장
+            // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+            deliveryService.addDelivery(input);
+            
+            // 데이터 조회
+            output = deliveryService.getDeliveryList(input);
+        } catch (Exception e) {
+            return webHelper.getJsonError(e.getLocalizedMessage());
+        }
+
+        /** 3) 결과를 확인하기 위한 JSON 출력 */
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("item", output);
+        return webHelper.getJsonData(map);
+    }
 	
 	/** 수정 */
     @RequestMapping(value="/11_admin/admin_delivery", method = RequestMethod.PUT)
     public Map<String, Object> put(
     		@RequestParam(value="orderno", defaultValue="0") int orderno,
-    		@RequestParam(value="paytype", defaultValue="") String paytype) {
+    		@RequestParam(value="paystatus", defaultValue="N") String paystatus,
+    		@RequestParam(value="orderstatus", defaultValue="N") String orderstatus,
+    		@RequestParam(value="deliveryno", defaultValue="0") int deliveryno,
+    		@RequestParam(value="deliverystatus", defaultValue="N") String deliverystatus) {
     	
     	/** 1) 데이터 수정하기 */
     	// 수정할 값들을 Beans에 담는다.
     	Orderlist input = new Orderlist();
     	input.setOrderno(orderno);
-    	input.setPaytype(paytype);
+    	input.setPaystatus(paystatus);
+    	input.setOrderstatus(orderstatus);
+    	
+    	Delivery deliveryInput = new Delivery();
+    	deliveryInput.setDeliveryno(deliveryno);
+    	deliveryInput.setDeliverystatus(deliverystatus);
     	
     	// 수정된 결과를 조회하기 위한 객체
     	List<Orderlist> output = null;
+    	List<Delivery> deliveryOutput = null;
     	
-    	try {
-    		// 데이터 수정
-    		OrderlistService.updateOrderlistPay(input);
-    		// 수정 결과 조회
-    		input.setOrderno(orderno);
-    		output = OrderlistService.getOrderList(input);
-    	} catch (Exception e) {
-    		return webHelper.getJsonError(e.getLocalizedMessage());
+    	if (deliveryno != 0) {
+    		try {
+    			deliveryService.editDelivery(deliveryInput);
+    			deliveryInput.setDeliveryno(deliveryno);
+    			deliveryOutput = deliveryService.getDeliveryList(deliveryInput);
+    		} catch (Exception e) {
+        		return webHelper.getJsonError(e.getLocalizedMessage());
+        	}
+    	} else {
+    		try {
+        		// 데이터 수정
+        		orderlistService.updateOrderlist(input);
+        		// 수정 결과 조회
+        		input.setOrderno(orderno);
+        		output = orderlistService.getOrderList(input);
+        	} catch (Exception e) {
+        		return webHelper.getJsonError(e.getLocalizedMessage());
+        	}
     	}
     	
     	/** 3) 결과를 확인하기 위한 JSON 출력 */
     	Map<String, Object> map = new HashMap<String, Object>();
-    	map.put("item", output);    	
+    	map.put("item", output);
+    	map.put("ditem", deliveryOutput);
     	return webHelper.getJsonData(map);
     }
 }

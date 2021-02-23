@@ -18,9 +18,7 @@ public interface OrderlistService {
 	/** 주문 데이터가 저장되어 있는 갯수 조회 */
 	public int getOrderlistCount(Orderlist input) throws Exception;
 
-	/** 결제수단 수정 */
-	public int updateOrderlistPay(Orderlist input) throws Exception;
-
 	/** 주문정보 수정 */
 	public int updateOrderlist(Orderlist input) throws Exception;
+
 }

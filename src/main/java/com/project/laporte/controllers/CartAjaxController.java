@@ -60,14 +60,14 @@ public class CartAjaxController {
         List<Cart> output = null;   // 조회결과가 저장될 객체
 
         try {
-        	HttpSession session = request.getSession();
-        	userno = (int) session.getAttribute("my_session");
-        	
         	if(userno == 0) {       		
         		output = cartService.getCartList(input);
         		
         	// 데이터 조회하기
         	} else { 
+        		HttpSession session = request.getSession();
+        		userno = (int) session.getAttribute("my_session");
+        		
         		input.setUserno(userno);
         		output = cartService.getCartList(input);
     		}
