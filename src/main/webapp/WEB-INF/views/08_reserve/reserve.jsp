@@ -188,6 +188,11 @@ $(function(){
   		// 서버에서 200 응답을 전달한 경우 실행됨
   		success: function(json){
   			console.log(json);
+  			
+  			if(json.rt =="OK"){
+  				alert(json.item.name+"님 예약요청이 완료되었습니다.");
+  				window.location = "${pageContext.request.contextPath}/08_reserve/reserve_list.do?userno="+json.item.userno;
+  			}
   		}
   	});
     $('#reserve_submit').click(function(e){

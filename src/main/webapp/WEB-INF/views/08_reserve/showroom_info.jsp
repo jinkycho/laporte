@@ -107,7 +107,14 @@
                                     <li>월~토 09:00 ~ 18:00</li>
                                     <li>일요일에는 서비스가 제공되지 않습니다.</li>
                                     <br />
-									<a href="${pageContext.request.contextPath}/08_reserve/reserve.do" class="service_res">la porte 플래닝 서비스 예약하기</a>
+									 <c:choose>
+                                    <c:when test="${my_session == null}">
+                                    <a href="${pageContext.request.contextPath}/02_mypage/login.do" class="service_res login">la porte 플래닝 서비스 예약하기</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/08_reserve/reserve.do?userno=<%out.print(session.getAttribute("my_session"));%>" class="service_res">la porte 플래닝 서비스 예약하기</a>
+                                    </c:otherwise>
+                                    </c:choose>
 									<a href="https://map.kakao.com/link/search/이젠아카데미컴퓨터학원 강남" class="showroom_loc">강남점 위치 확인하기</a>
                             </div>
                             <!-- 강남점 쇼룸 안내 -->
@@ -126,7 +133,14 @@
                                     <li>월~토 09:00 ~ 18:00</li>
                                     <li>일요일에는 서비스가 제공되지 않습니다.</li>
                                     <br />
-									<a href="${pageContext.request.contextPath}/08_reserve/reserve.do" class="service_res">la porte 플래닝 서비스 예약하기</a>
+									 <c:choose>
+                                    <c:when test="${my_session == null}">
+                                    <a href="${pageContext.request.contextPath}/02_mypage/login.do" class="service_res login" >la porte 플래닝 서비스 예약하기</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/08_reserve/reserve.do?userno=<%out.print(session.getAttribute("my_session"));%>" class="service_res">la porte 플래닝 서비스 예약하기</a>
+                                    </c:otherwise>
+                                    </c:choose>
 									<a href="https://map.kakao.com/link/search/이젠아카데미컴퓨터학원 강남" class="showroom_loc">광명점 위치 확인하기</a>
                             </div>
                             <!-- 강남점 쇼룸 안내 -->
@@ -145,7 +159,14 @@
                                     <li>월~토 09:00 ~ 18:00</li>
                                     <li>일요일에는 서비스가 제공되지 않습니다.</li>
                                     <br />
-									<a href="${pageContext.request.contextPath}/08_reserve/reserve.do" class="service_res">la porte 플래닝 서비스 예약하기</a>
+                                    <c:choose>
+                                    <c:when test="${my_session == null}">
+                                    <a href="${pageContext.request.contextPath}/02_mypage/login.do" class="service_res login" >la porte 플래닝 서비스 예약하기</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/08_reserve/reserve.do?userno=<%out.print(session.getAttribute("my_session"));%>" class="service_res">la porte 플래닝 서비스 예약하기</a>
+                                    </c:otherwise>
+                                    </c:choose>
 									<a href="https://map.kakao.com/link/search/이젠아카데미컴퓨터학원 강남" class="showroom_loc">대구점 위치 확인하기</a>
 							</div>
 						</div>
@@ -160,6 +181,13 @@
 		
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="../assets/js/home.js"></script>
-     
+        <script type="text/javascript">
+        $(".login").click(function(){
+         	alert("로그인을 해주세요.");
+     	});
+        
+        </script>
+      
+     	
 	</body>
 </html>

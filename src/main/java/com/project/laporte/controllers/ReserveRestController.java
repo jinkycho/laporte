@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,15 +80,15 @@ public class ReserveRestController {
 	
 	/** 작성 폼에 대한 action 페이지 */
 	@RequestMapping(value = "/08_reserve", method = RequestMethod.POST)
-	public Map<String,Object>post(
-			@RequestParam(value = "showroom", defaultValue="A")String showroom,
+	public Map<String,Object>post(HttpServletRequest requestsession,
+			@RequestParam(value = "showroom", defaultValue="")String showroom,
 			@RequestParam(value = "date", defaultValue = "")String date,
 			@RequestParam(value = "name",defaultValue = "")String name,
 			@RequestParam(value = "email", defaultValue = "")String email,
 			@RequestParam(value = "phoneno",defaultValue = "")String phoneno,
 			@RequestParam(value = "time",defaultValue="")String time,
 			@RequestParam(value="area",defaultValue="")String area,
-			@RequestParam(value="request",defaultValue="false")String request,
+			@RequestParam(value="request",defaultValue="")String request,
 			@RequestParam(value="userno",defaultValue="0")int userno
 			
 			){
@@ -101,6 +104,8 @@ public class ReserveRestController {
 				if(!regexHelper.isValue(time)) {return webHelper.getJsonWarning("예약 시간을 선택해주세요.");}
 				if(!regexHelper.isValue(area))	{return webHelper.getJsonWarning("컨설팅 영역을 선택해주세요.");}
 				
+				HttpSession session = requestsession.getSession();
+				userno = (int) session.getAttribute("my_session");
 				/** 2) 데이터 저장하기 */
 				Reserve input = new Reserve();
 				
@@ -112,7 +117,7 @@ public class ReserveRestController {
 				input.setTime(time);
 				input.setArea(area);
 				input.setRequest(request);
-				input.setUserno(10001);
+				input.setUserno(userno);
 				
 				// 저장된 결과를 조회하기 위한 객체
 				Reserve output = null;
