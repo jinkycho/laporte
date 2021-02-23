@@ -6,7 +6,7 @@ import lombok.Data;
 public class Delivery {
 	private int deliveryno;					// 배송 번호(PK)
 	private String deliverydate;			// 배송 날짜
-	private String deliverystatus;			// 배송 상태
+	private String deliverystatus;			// 배송 상태 ( 결제전 N, 준비중 R, 배송대기 S, 배송중 D, 배송완료 C)
 	private int trackingnum;				// 운송장 번호
 	private int userno;						// 유저 번호 (FK)
 	private int orderno;					// 주문 번호 (FK)

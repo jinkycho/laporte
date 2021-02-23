@@ -87,9 +87,9 @@
 			         			<c:set var="sum" value="0" />
 			         			<c:forEach var="item" items="${output }" varStatus="status">
 									<div class="cart_itembox">
-										<input type="checkbox" class="cart_checkbox" name="chk[]" data-cartno="${item.cartno }" value="${item.cartno}" checked>
+										<input type="checkbox" class="cart_checkbox" name="chk[]" value="${item.cartno }" data-cartno="${item.cartno }" checked>
 										<div class="cart_item">
-											<img class="cart_item_img">
+											<img class="cart_item_img" src="${pageContext.request.contextPath}/assets/${item.thumbnailUrl}">
 											<span>
 												<a class="cart_item_title" href="#">${item.pname }</a>
 												<p class="cart_item_info">${item.color}, ${item.size }</p>

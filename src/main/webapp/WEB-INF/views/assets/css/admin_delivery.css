@@ -192,15 +192,13 @@ select#child {
 }
 .user_selected {
   background: #437fb3;
-  border-color: #fff;
   color: #fff;
 }
 .user_memo {
   display: none;
   position: absolute;
-  right: -5px;
-  bottom: 30px;
-  width: 300px;
+  right: 40px;
+  width: 150px;
   padding: 8px;
   background: #717b86;
   border-radius: 8px;
@@ -212,7 +210,7 @@ select#child {
 .user_memo:after {
   position: absolute;
   bottom: 100%;
-  left: 75%;
+  right: 10%;
   width: 0;
   height: 0;
   margin-left: -10px;
@@ -233,8 +231,14 @@ select#child {
 .select_complete {
   width: inherit;
   float: left;
-  background-color:#437fb3;
   color: #eee;
+}
+.select_complete:hover {
+	color:#eee;
+}
+#delivery_ready {
+	float:inherit;
+	margin-left:80px;
 }
 .pagination_box {
   margin: auto;

@@ -20,8 +20,8 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../assets/css/admin_common.css">
-<link rel="stylesheet" href="../assets/css/admin_order.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_order.css">
 
 <!-- javascript -->
 <script src="http://code.jquery.com/jquery.min.js"></script>
@@ -29,8 +29,8 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!-- ajax-helper -->
-<link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
-<script src="../plugins/ajax/ajax_helper.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 </head>
 
 <body>
@@ -213,7 +213,11 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a href="#" id="search_submit">검색</a>
+                                            <%-- <form method="get" action="${pageContext.request.contextPath}/11_admin/admin_order.do">
+										        <label for="keyword">검색어: </label>
+										        <input type="search" name="keyword" id="keyword" placeholder="주문자 검색" value="${keyword}" /> --%>
+                                            <button type="submit" class="btn btn-primary" id="search_submit">검색</button>
+										    <!-- </form> -->
                                         </div>
                                     </div>
                                 </div>
@@ -236,127 +240,185 @@
                                                     <th>총 금액</th>
                                                     <th>결제수단</th>
                                                     <th>결제상태</th>
+                                                    <th>배송희망날짜</th>
                                                     <th>배송상태</th>
                                                     <th>주문상태</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="order_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>90,000</td>
-                                                    <td>카드결제</td>
-                                                    <td>입금전</td>
-                                                    <td>배송준비</td>
-                                                    <td>주문</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody id="order_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>90,000</td>
-                                                    <td>카드결제</td>
-                                                    <td>입금전</td>
-                                                    <td>배송준비</td>
-                                                    <td>주문</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody id="order_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>90,000</td>
-                                                    <td>카드결제</td>
-                                                    <td>입금전</td>
-                                                    <td>배송준비</td>
-                                                    <td>주문</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody id="order_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>90,000</td>
-                                                    <td>카드결제</td>
-                                                    <td>입금전</td>
-                                                    <td>배송준비</td>
-                                                    <td>주문</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
-                                                        <p class="user_memo"></p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo">admin</button>
-                                                        <p class="admin_memo"></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody id="order_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>90,000</td>
-                                                    <td>카드결제</td>
-                                                    <td>입금전</td>
-                                                    <td>배송준비</td>
-                                                    <td>주문</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo">admin</button>
-                                                        <p class="admin_memo"></p>
-                                                    </td>
-                                                </tr>
+                                            	<c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="12" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+	                                            		<c:forEach var="item" items="${output }" varStatus="status">
+	                                            		<%-- 출력을 위해 준비한 교수이름 변수 --%>
+									                        <c:set var="name" value="${item.name}" />
+									                        
+									                        <%-- 검색어가 있다면? --%>
+									                        <c:if test="${keyword != ''}">
+									                            <%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
+									                            <c:set var="mark" value="<mark>${keyword}</mark>" />
+									                            <%-- 출력을 위해 준비한 교수이름에서 검색어와 일치하는 단어를 형광팬 효과로 변경 --%>
+									                            <c:set var="name" value="${fn:replace(name, keyword, mark)}" />
+									                        </c:if>
+			                                                <tr>
+			                                                    <td><input type='checkbox' class="check"></td>
+			                                                    <td>${item.orderno }</td>
+			                                                    <td>
+			                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+			                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    </td>
+			                                                    <td>${item.name }</td>
+			                                                    <td>
+			                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
+			                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
+		                                                    	</td>
+			                                                    <td>상품 이름 자리------------------</td>
+			                                                    <td>
+			                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+		                                                    	</td>
+			                                                    <td>
+			                                                    	<c:if test="${item.paytype=='C'}">
+			                                                    		신용카드
+			                                                    	</c:if>
+			                                                    	<c:if test="${item.paytype=='D'}">
+			                                                    		무통장입금
+		                                                    		</c:if>
+		                                                    		<c:if test="${item.paytype=='M'}">
+			                                                    		휴대폰결제
+		                                                    		</c:if>
+		                                                    		<c:if test="${item.paytype=='D2'}">
+			                                                    		실시간계좌이체
+		                                                    		</c:if>
+		                                                    	</td>
+			                                                    <td>
+			                                                    	<c:if test="${item.paystatus=='N' }">
+			                                                    		결제전
+			                                                    	</c:if>
+			                                                    	<c:if test="${item.paystatus=='Y' }">
+			                                                    		결제완료
+			                                                    	</c:if>
+		                                                    	</td>
+		                                                    	<td>
+			                                                    	<fmt:parseDate value="${item.deldate}" var="deldate" pattern="yyyy-MM-dd" />
+			                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
+			                                                    </td>
+			                                                    <td>
+			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='N' }">
+			                                                    		입금전
+			                                                    	</c:if>
+			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='R' }">
+			                                                    		준비중
+			                                                    	</c:if>
+			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='S' }">
+			                                                    		배송대기
+			                                                    	</c:if>
+			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='D' }">
+			                                                    		배송중
+			                                                    	</c:if>
+			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='C' }">
+			                                                    		배송완료
+			                                                    	</c:if>
+		                                                    	</td>
+			                                                    <td>
+			                                                    	<c:if test="${item.orderstatus=='N' }">
+			                                                    		주문
+			                                                    	</c:if>
+			                                                    	<c:if test="${item.orderstatus=='CC' }">
+			                                                    		취소
+			                                                    	</c:if>
+			                                                    	<c:if test="${item.orderstatus=='CH' }">
+			                                                    		교환
+			                                                    	</c:if>
+			                                                    	<c:if test="${item.orderstatus=='RT' }">
+			                                                    		반품
+			                                                    	</c:if>
+			                                                    	<c:if test="${item.orderstatus=='RF' }">
+			                                                    		환불
+			                                                    	</c:if>
+			                                                    </td>
+			                                                    <td width='54' align='center' class="clear">
+			                                                    	<c:choose>
+			                                                    	<c:when test="${item.request != null }">
+				                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+				                                                        <p class="user_memo">
+				                                                        	${item.request }
+			                                                        	</p>
+		                                                        	</c:when>
+		                                                        	<c:otherwise>
+				                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+		                                                        	</c:otherwise>
+		                                                        	</c:choose>
+			                                                    </td>
+			                                                </tr>
+		                                                </c:forEach>
+	                                                </c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
                                     </div>
+                                    
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
                                         <div class="pagination_box">
+                                        
                                             <ul class="pagination pagination-sm m-0">
-                                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                                <li class="page-item"><a class="page-link seleted" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                            	<%-- 이전 그룹에 대한 링크 --%>
+												<c:choose>
+													<%-- 이전 그룹으로 이동 가능하다면? --%>
+													<c:when test="${pageData.prevPage > 0 }">
+														<%-- 이동할 URL 생성 --%>
+														<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="prevPageUrl">
+															<c:param name="page" value="${pageData.prevPage}" />
+															<c:param name="keyword" value="${keyword }" />
+														</c:url>
+                                           				<li class="page-item"><a class="page-link" href="${pageData.prevPage}">&laquo;</a></li>
+                                                	</c:when>
+                                                	<c:otherwise>
+                                                		<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                                	</c:otherwise>
+                                                </c:choose>
+                                                
+                                                <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
+                                                <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
+                                                	<%-- 이동할 URL 생성 --%>
+                                                	<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="pageUrl">
+											            <c:param name="page" value="${i}" />
+											            <%-- <c:param name="keyword" value="${keyword}" /> --%>
+											        </c:url>
+											        
+											        <%-- 페이지 번호 출력 --%>
+        											<c:choose>
+        												<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+            											<c:when test="${pageData.nowPage == i}">
+                                                			<li class="page-item"><a class="page-link" href="#">${i }</a></li>
+                                               			</c:when>
+                                               			<%-- 나머지 페이지의 경우 링크 적용함 --%>
+											            <c:otherwise>
+											                <li class="page-item"><a class="page-link" href="${pageUrl}">${i }</a></li>
+										            	</c:otherwise>
+										            </c:choose>
+                                                </c:forEach>
+                                                
+	                                          	<%-- 다음 그룹에 대한 링크 --%>
+												<c:choose>
+	                                            	<%-- 다음 그룹으로 이동 가능하다면? --%>
+													<c:when test="${pageData.nextPage > 0 }">
+														<%-- 이동할 URL 생성 --%>
+														<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="nextPageUrl">
+															<c:param name="page" value="${pageData.nextPage}" />
+															<%-- <c:param name="keyword" value="${keyword }" /> --%>
+														</c:url>
+                                         					<li class="page-item"><a class="page-link" href="${pageData.nextPage}">&raquo;</a></li>
+                                          	    	</c:when>
+                                            	  	<c:otherwise>
+                                           	   			<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                              		</c:otherwise>
+                                           		</c:choose>
                                             </ul>
                                         </div>
                                     </div>

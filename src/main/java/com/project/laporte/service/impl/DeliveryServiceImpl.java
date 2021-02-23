@@ -158,8 +158,8 @@ public class DeliveryServiceImpl implements DeliveryService {
      * @return int
      * @throws Exception
      */
-    /*@Override
-    public int getDeliveryPageCount(Delivery input) throws Exception {
+    @Override
+    public int getDeliveryCount(Delivery input) throws Exception {
         int result = 0;
         
         try {
@@ -170,7 +170,8 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
         
         return result;
-    }*/
+    }
+
 	
 }
 

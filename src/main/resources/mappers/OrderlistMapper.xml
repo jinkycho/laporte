@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="OrderlistMapper">
@@ -29,42 +29,81 @@
         <result property="paystatus" column="paystatus" />
         <result property="regdate" column="regdate" />
         <result property="editdate" column="editdate" />
-        
+
         <!--deltype(배송 유형) 테이블과 조인  -->
         <result property="d_name" column="d_name" />
         <result property="d_price" column="d_price" />
-        
+
         <!-- coupon(쿠폰) 테이블과 조인 -->
         <result property="c_name" column="c_name" />
         <result property="discount" column="discount" />
         <result property="distype" column="ditype" />
-       
+
     </resultMap>
-	
+
 	<!-- 새로운 오더 저장을 위한 기능 정의  -->
 	<insert id="insertPurchase"
 	parameterType="com.project.laporte.model.Orderlist"
 	useGeneratedKeys="true" keyProperty="orderno">
-			
+
 		INSERT INTO orderlist(addr1, addr2, postcode, name, email, phoneno, loctype, servicetype,
         request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
         regdate, editdate) VALUES(#{addr1}, #{addr2}, #{postcode}, #{name}, #{email}, #{phoneno}, #{loctype}, #{servicetype},
         #{request}, #{sizelimit}, #{deldate}, #{paytype}, #{totalprice}, #{usrcouponno}, #{userno}, #{deltypeno}, 'N', #{paystatus},
         now(), now())
 	</insert>
-        
+
 	<!-- 단일 오더 조회를 위한 기능 정의 -->
     <select id="selectPurchase"
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
         SELECT orderno, addr1, addr2, postcode, name, email, phoneno, loctype, servicetype,
         request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
-        regdate, editdate 
+        regdate, editdate
         FROM orderlist
         WHERE orderno = #{orderno}
-        
+
     </select>
-	
-	
-	
+
+	<!-- 다중행 조회를 위한 기능 정의 -->
+    <select id="selectOrderList"
+        parameterType="com.project.laporte.model.Orderlist"
+        resultMap="orderlistMap">
+        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype,
+        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate,
+        	d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum
+        FROM orderlist o
+        INNER JOIN delivery d ON d.orderno = o.orderno
+    </select>
+
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+    <select id="selectCountAll"
+        parameterType="com.project.laporte.model.Orderlist" resultType="int">
+        SELECT COUNT(*)
+        FROM orderlist o
+        INNER JOIN delivery d ON d.orderno = o.orderno
+        <where>
+            <if test="orderno != 0">
+                o.name LIKE concat('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY o.orderno
+    </select>
+
+    <!-- 결제상태 수정을 위한 기능 정의 -->
+    <update id="updatePayItem"
+        parameterType="com.project.laporte.model.Orderlist">
+        UPDATE orderlist SET
+            paystatus=#{paystatus}, editdate=now()
+        WHERE orderno=#{orderno}
+    </update>
+
+    <!-- 주문상태 수정을 위한 기능 정의 -->
+    <update id="updateOrderItem"
+        parameterType="com.project.laporte.model.Orderlist">
+        UPDATE orderlist SET
+            orderstatus=#{orderstatus}, editdate=now()
+        WHERE orderno=#{orderno}
+    </update>
+
 </mapper>

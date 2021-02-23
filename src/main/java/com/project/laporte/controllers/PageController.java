@@ -119,20 +119,7 @@ public class PageController {
 	        // "/src/main/webapp/WEB-INF/views/10_event/event.jsp" 파일을 View로 지정한다.
 	        return "/10_event/event";
 	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_cancle.do", method=RequestMethod.GET)
-	    public String adminCancel() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_cancel.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_cancel";
-	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_order.do", method=RequestMethod.GET)
-	    public String adminOrder() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_order.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_order";
-	    }
 
-	 
 	 
 	 @RequestMapping(value="/11_admin/admin_home.do", method=RequestMethod.GET)
 	    public String adminHome() {

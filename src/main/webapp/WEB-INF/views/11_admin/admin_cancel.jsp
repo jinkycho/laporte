@@ -185,256 +185,6 @@
                                 </div>
                             </div>
 
-                            <!-- 취소 검색 -->
-                            <div class="col-md-12 search_cancel">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">주문상태</td>
-                                                    <td class="search_data">
-                                                        <input type="checkbox" class="order_allcheck"><span> 전체</span>
-                                                        <input type="checkbox" class="order_check"><span> 취소신청</span>
-                                                        <input type="checkbox" class="order_check"><span> 취소처리중</span>
-                                                        <input type="checkbox" class="order_check"><span> 취소완료</span>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <a href="#" id="search_submit" class="submit_cancel">검색</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 교환 검색 -->
-                            <div class="col-md-12 search_change">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">주문상태</td>
-                                                    <td class="search_data">
-                                                        <input type="checkbox" class="order_allcheck"><span> 전체</span>
-                                                        <input type="checkbox" class="order_check"><span> 교환신청</span>
-                                                        <input type="checkbox" class="order_check"><span> 교환처리중</span>
-                                                        <input type="checkbox" class="order_check"><span> 교환완료</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">수거신청상태</td>
-                                                    <td class="search_data">
-                                                    <input type="text" value="자사운송서비스" disabled>
-                                                    <select>
-                                                        <optgroup label="-수거신청상태-"></optgroup>
-                                                            <option>수거미신청</option>
-                                                            <option>수거접수 전</option>
-                                                            <option>수거접수실패</option>
-                                                            <option>수거접수 완료</option>
-                                                    </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <a href="#" id="search_submit" class="submit_change">검색</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 반품 검색 -->
-                            <div class="col-md-12 search_return">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">주문상태</td>
-                                                    <td class="search_data">
-                                                        <input type="checkbox" class="order_allcheck"><span> 전체</span>
-                                                        <input type="checkbox" class="order_check"><span> 반품신청</span>
-                                                        <input type="checkbox" class="order_check"><span> 반품처리중</span>
-                                                        <input type="checkbox" class="order_check"><span> 반품완료</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">수거신청상태</td>
-                                                    <td class="search_data">
-                                                    <input type="text" value="자사배송서비스" disabled>
-                                                    <select>
-                                                        <optgroup label="-수거신청상태-"></optgroup>
-                                                            <option>수거미신청</option>
-                                                            <option>수거접수 전</option>
-                                                            <option>수거접수실패</option>
-                                                            <option>수거접수 완료</option>
-                                                    </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <a href="#" id="search_submit" class="submit_return">검색</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 환불 검색 -->
-                            <div class="col-md-12 search_refund">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">주문상태</td>
-                                                    <td class="search_data">
-                                                        <input type="checkbox" class="order_allcheck"><span> 전체</span>
-                                                        <input type="checkbox" class="order_check"><span> 환불신청</span>
-                                                        <input type="checkbox" class="order_check"><span> 환불완료</span>
-                                                        <input type="checkbox" class="order_check"><span> 환불보류</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">환불수단</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <option>전체</option>
-                                                            <option>카드</option>
-                                                            <option>무통장입금</option>
-                                                            <option>실시간계좌이체</option>
-                                                            <option>휴대폰결제</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">취소상태</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <option>전체</option>
-                                                            <option>취소전</option>
-                                                            <option>취소완료</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <a href="#" id="search_submit" class="submit_refund">검색</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- 취소 -->
                             <div class="col-md-12 content_cancel">
                                 <div class="card">
@@ -471,8 +221,6 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -526,8 +274,6 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -583,8 +329,6 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -648,8 +392,6 @@
                                                     <td class="clear">
                                                         <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
                                                         <p class="user_memo">출발전 미리 연락주세요</p>
-                                                        <button type="button" class="btn btn-danger btn-xs memo admin_selected">admin</button>
-                                                        <p class="admin_memo">화물운송</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -687,73 +429,54 @@
         
         $(function() {
             $(document).ready(function() {
-            $(".content_change").hide();
-            $(".content_return").hide();
-            $(".content_refund").hide();
-            $(".search_change").hide();
-            $(".search_return").hide();
-            $(".search_refund").hide();
+	            $(".content_change").hide();
+	            $(".content_return").hide();
+	            $(".content_refund").hide();
             });
 
             // 탭 아이콘 클릭시 색 변화
             $(document).on("click", ".tab", function(e) {
-            e.preventDefault();
+            	e.preventDefault();
 
             $(this).addClass("selected");
-            $(".tab").not(this).removeClass("selected");
+            	$(".tab").not(this).removeClass("selected");
             });
 
             // 탭 아이콘 클릭시 내용 전환
             $(document).on("click", "#tab_cancel", function(e) {
-            e.preventDefault();
+            	e.preventDefault();
 
-            $(".content_cancel").show();
-            $(".content_change").hide();
-            $(".content_return").hide();
-            $(".content_refund").hide();
-            $(".search_cancel").show();
-            $(".search_change").hide();
-            $(".search_return").hide();
-            $(".search_refund").hide();
+            	$(".content_cancel").show();
+            	$(".content_change").hide();
+            	$(".content_return").hide();
+	            $(".content_refund").hide();
             });
 
             $(document).on("click", "#tab_change", function(e) {
-            e.preventDefault();
-
-            $(".content_cancel").hide();
-            $(".content_change").show();
-            $(".content_return").hide();
-            $(".content_refund").hide();
-            $(".search_cancel").hide();
-            $(".search_change").show();
-            $(".search_return").hide();
-            $(".search_refund").hide();
+    	        e.preventDefault();
+	
+    	        $(".content_cancel").hide();
+        	    $(".content_change").show();
+            	$(".content_return").hide();
+            	$(".content_refund").hide();
             });
 
             $(document).on("click", "#tab_return", function(e) {
-            e.preventDefault();
+            	e.preventDefault();
 
-            $(".content_cancel").hide();
-            $(".content_change").hide();
-            $(".content_return").show();
-            $(".content_refund").hide();
-            $(".search_cancel").hide();
-            $(".search_change").hide();
-            $(".search_return").show();
-            $(".search_refund").hide();
+	            $(".content_cancel").hide();
+    	        $(".content_change").hide();
+        	    $(".content_return").show();
+            	$(".content_refund").hide();
             });
 
             $(document).on("click", "#tab_refund", function(e) {
-            e.preventDefault();
-
-            $(".content_cancel").hide();
-            $(".content_change").hide();
-            $(".content_return").hide();
-            $(".content_refund").show();
-            $(".search_cancel").hide();
-            $(".search_change").hide();
-            $(".search_return").hide();
-            $(".search_refund").show();
+	            e.preventDefault();
+	
+    	        $(".content_cancel").hide();
+        	    $(".content_change").hide();
+            	$(".content_return").hide();
+            	$(".content_refund").show();
             });
         });
 

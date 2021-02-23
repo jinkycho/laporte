@@ -23,6 +23,14 @@ public interface DeliveryService {
 	 */
 	public List<Delivery> getDeliveryList(Delivery input) throws Exception;
 	
+	/**
+	 * 배송 데이터가 저장되어 있는 갯수 조회
+	 * @param Delivery 검색조건을 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getDeliveryCount(Delivery input) throws Exception;
+	
 	/** 
 	 * 배송 데이터 등록하기
 	 * @param Delivery 저장할 정보를 담고 있는 Beans

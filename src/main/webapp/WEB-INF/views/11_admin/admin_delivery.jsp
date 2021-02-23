@@ -155,7 +155,7 @@
                                             <li id="tab_nopay" class="tab selected">
                                                 <a href="#" class="tab_button">
                                                     <span class="tab_thum thum_deposit"></span>
-                                                    <strong class="tab_title">결제 전</strong><br/>
+                                                    <strong class="tab_title">결제확인</strong><br/>
                                                     <span class="count" id="order_nopay">0</span>
                                                 </a>
                                             </li>
@@ -192,263 +192,11 @@
                                 </div>
                             </div>
 
-                            <!-- 결제 전 -->
-                            <div class="col-md-12 search_nopay">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">결제상태</td>
-                                                    <td class="search_data">
-                                                        <input type="radio" name="select_pay"><span> 전체</span>
-                                                        <input type="radio" name="select_pay"><span> 결제전</span>
-                                                        <input type="radio" name="select_pay"><span> 결제완료</span>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <button href="#" class="search_submit btn-primary" id="submit_nopay">검색</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 배송 준비 중 -->
-                            <div class="col-md-12 search_ready">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">금액조건</td>
-                                                    <td class="search_data">
-                                                        <input type="text" id="order_price01">&emsp;~ 
-                                                        <input type="text" id="order_price02">
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <button href="#" class="search_submit btn-primary" id="submit_ready">검색</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 배송 대기 -->
-                            <div class="col-md-12 search_stanby">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">배송업체</td>
-                                                    <td class="search_data">
-                                                    <input type="text" value="자사배송서비스" disabled>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <button href="#" class="search_submit btn-primary" id="submit_stanby">검색</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 배송 중 -->
-                            <div class="col-md-12 search_delivery">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">배송업체</td>
-                                                    <td class="search_data">
-                                                    <input type="text" value="자사배송서비스" disabled>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <button href="#" class="search_submit btn-primary" id="submit_delivery">검색</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 배송 완료 -->
-                            <div class="col-md-12 search_complete">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="search_box">
-                                            <table class="search_table">
-                                                <tr>
-                                                    <td class="search_title">검색어</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                            <option>배송지</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                    <select>
-                                                        <option>제품명</option>
-                                                        <option>제품번호</option>
-                                                    </select>
-                                                    <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">배송업체</td>
-                                                    <td class="search_data">
-                                                    <input type="text" value="자사배송서비스" disabled>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <button href="#" class="search_submit btn-primary" id="submit_complete">검색</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 결제 전 -->
+                            <!-- 결제확인 -->
                             <div class="col-md-12 content_nopay">
                                 <div class="card">
                                     <div class="card-header border-0">
-                                        <h3 class="card-title">결제 전</h3>
+                                        <h3 class="card-title">결제확인</h3>
                                         <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
@@ -458,39 +206,90 @@
                                                     <th>주문일</th>
                                                     <th>주문자</th>
                                                     <th>연락처</th>
-                                                    <th>주문자정보</th>
+                                                    <th>주소</th>
                                                     <th>상품정보</th>
-                                                    <th>수량</th>
                                                     <th>총 금액</th>
+                                                    <th>배송희망날짜</th>
+                                                    <th>결제수단</th>
                                                     <th>결제상태</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
                                             	<c:choose>
-                                            		<%-- 조회결과가 있는 경우 --%>
-	                                            	<c:forEach var="item" items="${output }" varStatus="status">
-	                                                <tr>
-	                                                    <td><input type='checkbox' class="check"></td>
-	                                                    <td>${item.deliveryno }</td>
-	                                                    <td>주문 날짜</td>
-	                                                    <td>${item.uname }</td>
-	                                                    <td>${item.phoneno }</td>
-	                                                    <td>${item.addr1 } ${item.addr2 }</td>
-	                                                    <td>상품 이름</td>
-	                                                    <td>${item.ea }</td>
-	                                                    <td>${item.totalprice }</td>
-	                                                    <td>결제 상태</td>
-	                                                    <td class="clear">
-	                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-	                                                        <p class="user_memo">${item.request }</p>
-	                                                    </td>
-	                                                </tr>
-	                                                </c:forEach>
-                                               	</c:choose>
+                                            		<c:when test="${orderlistOutput == null || fn:length(orderlistOutput) == 0}">
+									                    <tr>
+									                        <td colspan="12" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="orderitem" items="${orderlistOutput }" varStatus="status">
+								                    		<c:if test="${orderitem.paystatus=='N' || orderitem.paytype=='C' || orderitem.paytype=='M' || orderitem.paytype=='D2' }">
+				                                                <tr>
+				                                                    <td><input type='checkbox' class="check" name='chkn[]' value="${orderitem.orderno }" data-orderno="${orderitem.orderno }"></td>
+				                                                    <td>${orderitem.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${orderitem.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${orderitem.name }</td>
+				                                                    <td>
+				                                                    	0<fmt:formatNumber var="phoneno" value="${orderitem.phoneno }" pattern="###,####,####" />
+				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
+			                                                    	</td>
+				                                                    <td>${orderitem.addr1 }, ${orderitem.addr2 }</td>
+				                                                    <td>상품 이름----------</td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${orderitem.totalprice }'/>
+				                                                    </td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${orderitem.deldate}" var="deldate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
+				                                                    </td>
+				                                                    <td>
+				                                                    	<c:if test="${orderitem.paytype=='C' }">
+				                                                    		신용카드
+				                                                    	</c:if>
+				                                                    	<c:if test="${orderitem.paytype=='D' }">
+				                                                    		무통장입금
+				                                                    	</c:if>
+				                                                    	<c:if test="${orderitem.paytype=='M' }">
+				                                                    		휴대폰결제
+				                                                    	</c:if>
+				                                                    	<c:if test="${orderitem.paytype=='D2' }">
+				                                                    		실시간계좌이체
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td>
+				                                                    	<c:if test="${orderitem.paystatus=='N' }">
+				                                                    		결제전
+				                                                    	</c:if>
+				                                                    	<c:if test="${orderitem.paystatus=='Y' }">
+				                                                    		결제완료
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+				                                                    	<c:when test="${orderitem.request != null }">
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+					                                                        <p class="user_memo">
+					                                                        	${orderitem.request }
+				                                                        	</p>
+			                                                        	</c:when>
+			                                                        	<c:otherwise>
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+			                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+			                                                </c:if>
+		                                                </c:forEach>
+	                                                </c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-block btn-sm select_complete">결제완료</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete" id="paytypechange">결제완료</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete" id="delivery_ready">배송준비</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -526,32 +325,63 @@
                                                     <th>배송일</th>
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
-                                                    <th>수량</th>
                                                     <th>총 금액</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>서울시 용산구 어딘가</td>
-                                                    <td>2020-12-31</td>
-                                                    <td>12345678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>90,000</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+	                                            <c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="10" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='R' }">
+				                                                <tr>
+				                                                    <td><input type='checkbox' class="check" name="chk[]" data-orderno='${item.orderno }'></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.oname }</td>
+				                                                    <td>
+				                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
+				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
+			                                                    	</td>
+				                                                    <td>${item.addr1 }, ${item.addr2 }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.deldate}" var="deldate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.trackingnum }</td>
+				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+				                                                    </td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+				                                                    	<c:when test="${item.request != null }">
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+					                                                        <p class="user_memo">
+					                                                        	${item.request }
+				                                                        	</p>
+			                                                        	</c:when>
+			                                                        	<c:otherwise>
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+			                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+                                                			</c:if>
+                                                		</c:forEach>
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-block btn-sm select_complete">발송준비</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete">발송준비</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -573,7 +403,7 @@
                             <div class="col-md-12 content_stanby">
                                 <div class="card">
                                     <div class="card-header border-0">
-                                        <h3 class="card-title">배송 준비 중</h3>
+                                        <h3 class="card-title">배송 대기</h3>
                                         <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
@@ -587,32 +417,63 @@
                                                     <th>배송일</th>
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
-                                                    <th>수량</th>
                                                     <th>총 금액</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>서울시 용산구 어딘가</td>
-                                                    <td>2020-12-31</td>
-                                                    <td>12345678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>90,000</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                            	<c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="10" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='S' }">
+				                                                <tr>
+				                                                    <td><input type='checkbox' class="check"></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.oname }</td>
+				                                                    <td>
+				                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
+				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
+			                                                    	</td>
+				                                                    <td>${item.addr1 }, ${item.addr2 }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.deldate}" var="deldate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.trackingnum }</td>
+				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+				                                                    </td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+				                                                    	<c:when test="${item.request != null }">
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+					                                                        <p class="user_memo">
+					                                                        	${item.request }
+				                                                        	</p>
+			                                                        	</c:when>
+			                                                        	<c:otherwise>
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+			                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+                                                			</c:if>
+                                                		</c:forEach>
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-block btn-sm select_complete">출고</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete">출고</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -634,7 +495,7 @@
                             <div class="col-md-12 content_delivery">
                                 <div class="card">
                                     <div class="card-header border-0">
-                                        <h3 class="card-title">배송 준비 중</h3>
+                                        <h3 class="card-title">배송 중</h3>
                                         <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered">
                                             <thead>
@@ -648,32 +509,63 @@
                                                     <th>배송일</th>
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
-                                                    <th>수량</th>
                                                     <th>총 금액</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>서울시 용산구 어딘가</td>
-                                                    <td>2020-12-31</td>
-                                                    <td>12345678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>90,000</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                                <c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="10" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='D' }">
+				                                                <tr>
+				                                                    <td><input type='checkbox' class="check"></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.oname }</td>
+				                                                    <td>
+				                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
+				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
+			                                                    	</td>
+				                                                    <td>${item.addr1 }, ${item.addr2 }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.deldate}" var="deldate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.trackingnum }</td>
+				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+				                                                    </td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+				                                                    	<c:when test="${item.request != null }">
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+					                                                        <p class="user_memo">
+					                                                        	${item.request }
+				                                                        	</p>
+			                                                        	</c:when>
+			                                                        	<c:otherwise>
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+			                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+                                                			</c:if>
+                                                		</c:forEach>
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-block btn-sm select_complete">배송완료</button>
+                                        <button type="button" class="btn btn-block btn-primary btn-sm select_complete">배송완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -695,7 +587,7 @@
                             <div class="col-md-12 content_complete">
                                 <div class="card">
                                     <div class="card-header border-0">
-                                        <h3 class="card-title">배송 준비 중</h3>
+                                        <h3 class="card-title">배송 완료</h3>
                                         <button type="button" class="btn btn-block btn-danger btn-sm pull-right select_delete">주문취소</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
@@ -709,29 +601,60 @@
                                                     <th>배송일</th>
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
-                                                    <th>수량</th>
                                                     <th>총 금액</th>
                                                     <th>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
-                                                <tr>
-                                                    <td><input type='checkbox' class="check"></td>
-                                                    <td>1234567</td>
-                                                    <td>2020-12-30</td>
-                                                    <td>홍 길동</td>
-                                                    <td>010-1234-5678</td>
-                                                    <td>서울시 용산구 어딘가</td>
-                                                    <td>2020-12-31</td>
-                                                    <td>12345678</td>
-                                                    <td>STUVA 스투바 / FRITIDS 프리티스</td>
-                                                    <td>1</td>
-                                                    <td>90,000</td>
-                                                    <td class="clear">
-                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
-                                                        <p class="user_memo">출발전 미리 연락주세요</p>
-                                                    </td>
-                                                </tr>
+                                                <c:choose>
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
+									                    <tr>
+									                        <td colspan="10" align="center">조회결과가 없습니다.</td>
+									                    </tr>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='C' }">
+				                                                <tr>
+				                                                    <td><input type='checkbox' class="check"></td>
+				                                                    <td>${item.orderno }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.oname }</td>
+				                                                    <td>
+				                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
+				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
+			                                                    	</td>
+				                                                    <td>${item.addr1 }, ${item.addr2 }</td>
+				                                                    <td>
+				                                                    	<fmt:parseDate value="${item.deldate}" var="deldate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
+			                                                    	</td>
+				                                                    <td>${item.trackingnum }</td>
+				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+				                                                    </td>
+				                                                    <td width='54' align='center' class="clear">
+				                                                    	<c:choose>
+				                                                    	<c:when test="${item.request != null }">
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
+					                                                        <p class="user_memo">
+					                                                        	${item.request }
+				                                                        	</p>
+			                                                        	</c:when>
+			                                                        	<c:otherwise>
+					                                                        <button type="button" class="btn btn-secondary btn-xs memo">user</button>
+			                                                        	</c:otherwise>
+			                                                        	</c:choose>
+				                                                    </td>
+				                                                </tr>
+                                                			</c:if>
+                                                		</c:forEach>
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
                                     </div>
@@ -759,116 +682,122 @@
 	</section>
 	<footer></footer>
 
-    <script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
         
+        /* 상단 메뉴 탭 관리 */
         $(function() {
             $(document).ready(function() {
-            $(".content_ready").hide();
-            $(".content_stanby").hide();
-            $(".content_delivery").hide();
-            $(".content_complete").hide();
-            $(".search_ready").hide();
-            $(".search_stanby").hide();
-            $(".search_delivery").hide();
-            $(".search_complete").hide();
+	            $(".content_ready").hide();
+	            $(".content_stanby").hide();
+	            $(".content_delivery").hide();
+	            $(".content_complete").hide();
             });
 
             // 탭 아이콘 클릭시 색 변화
             $(document).on("click", ".tab", function(e) {
-            e.preventDefault();
+            	e.preventDefault();
 
-            $(this).addClass("selected");
-            $(".tab").not(this).removeClass("selected");
-            });
+            	$(this).addClass("selected");
+            	$(".tab").not(this).removeClass("selected");
+           	});
 
             // 탭 아이콘 클릭시 내용 전환
             $(document).on("click", "#tab_nopay", function(e) {
-            e.preventDefault();
+            	e.preventDefault();
 
-            $(".content_nopay").show();
-            $(".content_ready").hide();
-            $(".content_stanby").hide();
-            $(".content_delivery").hide();
-            $(".content_complete").hide();
-            $(".search_nopay").show();
-            $(".search_ready").hide();
-            $(".search_stanby").hide();
-            $(".search_delivery").hide();
-            $(".search_complete").hide();
+	            $(".content_nopay").show();
+	            $(".content_ready").hide();
+	            $(".content_stanby").hide();
+	            $(".content_delivery").hide();
+	            $(".content_complete").hide();
             });
 
             $(document).on("click", "#tab_ready", function(e) {
             e.preventDefault();
 
-            $(".content_nopay").hide();
-            $(".content_ready").show();
-            $(".content_stanby").hide();
-            $(".content_delivery").hide();
-            $(".content_complete").hide();
-            $(".search_nopay").hide();
-            $(".search_ready").show();
-            $(".search_stanby").hide();
-            $(".search_delivery").hide();
-            $(".search_complete").hide();
+	            $(".content_nopay").hide();
+	            $(".content_ready").show();
+	            $(".content_stanby").hide();
+	            $(".content_delivery").hide();
+	            $(".content_complete").hide();
             });
 
             $(document).on("click", "#tab_stanby", function(e) {
             e.preventDefault();
 
-            $(".content_nopay").hide();
-            $(".content_ready").hide();
-            $(".content_stanby").show();
-            $(".content_delivery").hide();
-            $(".content_complete").hide();
-            $(".search_nopay").hide();
-            $(".search_ready").hide();
-            $(".search_stanby").show();
-            $(".search_delivery").hide();
-            $(".search_complete").hide();
+	            $(".content_nopay").hide();
+	            $(".content_ready").hide();
+	            $(".content_stanby").show();
+	            $(".content_delivery").hide();
+	            $(".content_complete").hide();
             });
 
             $(document).on("click", "#tab_delivery", function(e) {
             e.preventDefault();
 
-            $(".content_nopay").hide();
-            $(".content_ready").hide();
-            $(".content_stanby").hide();
-            $(".content_delivery").show();
-            $(".content_complete").hide();
-            $(".search_nopay").hide();
-            $(".search_ready").hide();
-            $(".search_stanby").hide();
-            $(".search_delivery").show();
-            $(".search_complete").hide();
+	            $(".content_nopay").hide();
+	            $(".content_ready").hide();
+	            $(".content_stanby").hide();
+	            $(".content_delivery").show();
+	            $(".content_complete").hide();
             });
 
             $(document).on("click", "#tab_complete", function(e) {
             e.preventDefault();
 
-            $(".content_nopay").hide();
-            $(".content_ready").hide();
-            $(".content_stanby").hide();
-            $(".content_delivery").hide();
-            $(".content_complete").show();
-            $(".search_nopay").hide();
-            $(".search_ready").hide();
-            $(".search_stanby").hide();
-            $(".search_delivery").hide();
-            $(".search_complete").show();
+	            $(".content_nopay").hide();
+	            $(".content_ready").hide();
+	            $(".content_stanby").hide();
+	            $(".content_delivery").hide();
+	            $(".content_complete").show();
             });
         });
 
-        // 전체 체크
+        /* 체크박스 일괄 선택 */
         $("#all_check").change(function() {
             $(".check").prop('checked', $(this).prop('checked'));
         });
-
-        // 주문취소 버튼
+        
+        /* 결제완료 버튼 */
+		$(document).on("click","#paytypechange", function() {
+			
+			var current = null;										// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkn[]']").length;	// 총 갯수
+			var ckcount = $("input:checkbox[name='chkn[]']:checked").length
+				
+			console.log(count);
+			for (var i=1; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한가지씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkn[]']:checked").val();				// 체크된 주문정보
+				}
+			}
+			
+			var orderno = current;
+			var paytype = "Y";
+			if (!confirm("정말 주문번호 : " + orderno + "을 결제완료처리 하시겠습니까?")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
+				"orderno":orderno,
+				"paytype":paytype
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+				}
+			});
+		});
+        
+		// 주문취소 버튼
         $(".select_delete").click(function () {
             var delete_check_list = $(".check:checked");
             if(delete_check_list.length == 0){

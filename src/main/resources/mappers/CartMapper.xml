@@ -33,13 +33,13 @@
     <select id="selectCartItem"
         parameterType="com.project.laporte.model.Cart"
         resultMap="cartMap">
-        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS 'uname', p.name AS 'pname', p.price,
+        SELECT c.cartno, c.userno, c.prodno, thumbnailurl, c.ea, u.name AS 'uname', p.name AS 'pname', p.price,
         		p.saleprice, p.stock, p.color, p.size
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
-        WHERE c.userno = #{userno}
-        ORDER BY cartno
+        INNER JOIN firstimg f ON c.prodno = f.prodno
+        WHERE cartno=#{cartno}
     </select>
 	
 	<!-- 카트 번호로 카트 조회를 위한 기능 정의 -->
@@ -60,11 +60,12 @@
     <select id="selectCartList"
         parameterType="com.project.laporte.model.Cart"
         resultMap="cartMap">
-        SELECT c.cartno, c.userno, c.prodno, c.ea, u.name AS 'uname', p.name AS 'pname', p.price,
+        SELECT c.cartno, c.userno, c.prodno, c.ea, thumbnailurl, u.name AS 'uname', p.name AS 'pname', p.price,
         		p.saleprice, p.stock, p.color, p.size
         FROM cart c
         INNER JOIN user u ON u.userno = c.userno
         INNER JOIN product p ON p.prodno = c.prodno
+        INNER JOIN firstimg f ON c.prodno = f.prodno
         WHERE c.userno = #{userno}
         ORDER BY cartno
     </select>

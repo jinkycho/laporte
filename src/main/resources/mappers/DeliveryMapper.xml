@@ -55,8 +55,7 @@
         FROM delivery d
         INNER JOIN user u ON u.userno = d.userno
         INNER JOIN order o ON o.orderno = d.orderno
-        WHERE d.userno = #{userno} AND d.deliveryno = #{deliveryno}
-        ORDER BY deliveryno
+        WHERE d.deliveryno = #{deliveryno}
     </select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
@@ -64,15 +63,14 @@
         parameterType="com.project.laporte.model.Delivery"
         resultMap="deliveryMap">
         SELECT d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum, d.userno, d.orderno,
-        	o.addr1, o.addr2, o.name AS 'oname', o.email, o.phoneno, o.servicetype,
-        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus,
+        	o.addr1, o.addr2, o.name AS 'oname', o.email, o.phoneno, o.servicetype, o.regdate,
+        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus
         FROM delivery d
         INNER JOIN user u ON u.userno = d.userno
-        INNER JOIN order o ON o.orderno = d.orderno
-        WHERE d.userno = #{userno}
-        ORDER BY deliveryno
+        INNER JOIN orderlist o ON o.orderno = d.orderno
+        ORDER BY d.deliveryno
     </select>
-	
+    
     <!-- 배송정보 저장을 위한 기능 정의 -->
 	<insert id="insertDeliveryItem"
 		parameterType = "com.project.laporte.model.Delivery"
@@ -98,15 +96,15 @@
     </delete>
     
     <!-- 데이터 수 조회를 위한 기능 정의 -->
-    <select id="selectCountPageAll"
+    <select id="selectCountAll"
         parameterType="com.project.laporte.model.Delivery" resultType="int">
         SELECT COUNT(*)
-        FROM professor p
-        INNER JOIN department d ON p.deptno=d.deptno
-        
+        FROM delivery d
+        INNER JOIN user u ON u.userno = d.userno
+        INNER JOIN orderlist o ON o.orderno = d.orderno
         <where>
-            <if test="name != null and name != ''">
-                name LIKE concat('%', #{name}, '%')
+            <if test="orderno != null and orderno != ''">
+                o.orderno LIKE concat('%', #{orderno}, '%')
             </if>
         </where>
     </select>
