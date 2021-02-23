@@ -21,6 +21,18 @@ public interface UserService {
 	/** 이메일 존재 여부 검사 */
 	public User checkEmail(User input) throws Exception;
 	
-	/** 비밀번호 변경 */
+	/** 개인 정보 수정 */
+	public int userInfoRevise(User input) throws Exception;
+	
+	/** 연락처 수정 */
+	public int userConRevise(User input) throws Exception;
+	
+	/** 비밀번호 수정 */
 	public int pwRevise(User input) throws Exception;
+	
+	/** 주소 수정*/
+	public int userAddrRevise(User input) throws Exception;
+	
+	
+	
 }

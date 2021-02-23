@@ -27,8 +27,10 @@
 <!-- ajax-helper -->
     <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
     <script src="../assets/plugins/ajax/ajax_helper.js"></script>
-    <style type="text/css">
-    </style>
+    
+    	<!-- sweetalert -->
+    <link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert2.min.css">
+   
 </head>
 
 <body>
@@ -66,7 +68,7 @@
 		<div class="container">
 			<div class="profile_header">
 				<div>
-					<h3 id="profile_hi_msg"></h3>
+					<h3 id="profile_hi_msg">안녕하세요, ${output.name}</h3>
 				</div>
 				<div class="profile_logout_box">
 					<span class="profile_logout_txt">로그아웃을 하고 싶으신가요?</span>
@@ -75,7 +77,7 @@
 			</div>
 			<div class="profile_body">
 				<div class="row">
-					<div class="col-sm-4 col-xs-12 profile_link_box">
+					<div class="col-sm-3 col-md-3 col-xs-12 profile_link_box">
 						<div class="profile_bolder">
 						<a class="profile_link_a" href="order.html">
 						<div class="profile_link clearfix">
@@ -92,9 +94,9 @@
 						</a>
 						</div>
 					</div>
-					<div class="col-sm-4 col-xs-12 profile_link_box">
+					<div class="col-sm-3 col-md-3 col-xs-12 profile_link_box">
 						<div class="profile_bolder">
-						<a class="profile_link_a" href="../05_wishlist/wishlist.html">
+						<a class="profile_link_a" href="${pageContext.request.contextPath}/05_wishlist/wishlist.do?userno=${output.userno}">
 						<div class="profile_link clearfix">
 							<div class="profile_link_txt pull-left">
 								<span class="profile_link_title">
@@ -106,25 +108,45 @@
 							</div>
 							<span class="profile_arrow_icon pull-right"></span>
 						</div>
-						</a></div>
+						</a>
 					</div>
-					<div class="col-sm-4 col-xs-12 profile_link_box">
+					</div>
+						
+					<div class="col-sm-3 col-md-3 col-xs-12 profile_link_box">
 						<div class="profile_bolder">
-						<a class="profile_link_a" href="${pageContext.request.contextPath}/08_reserve/reserve_cfm.do">
+						<a class="profile_link_a" href="${pageContext.request.contextPath}/08_reserve/reserve_cfm.do?userno=${userno}">
 						<div class="profile_link clearfix">
 							<div class="profile_link_txt pull-left">
 								<span class="profile_link_title">
 									홈퍼니싱 컨설팅 서비스
 								</span>
 								<span class="profile_link_status">
-									예약된 서비스 1개
+									예약된 서비스 ${r_output}개
 								</span>
 							</div>
 							<span class="profile_arrow_icon pull-right"></span>
 						</div>
 						</a></div>
 					</div>
-				</div> <!--row 끝-->
+					
+					<div class="col-sm-3 col-md-3 col-xs-12 profile_link_box">
+						<div class="profile_bolder">
+							<div class="profile_link clearfix">
+								<div class="profile_link_txt pull-left">
+									<span class="profile_link_title">
+										포인트
+									</span>
+									<span class="profile_link_status">
+										${output.point}원
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+				
+				
+				<!--row 끝-->
 				<div class="profile_tab_box">
 					<!-- 탭 버튼 구성 -->
 					<ul class="nav nav-tabs" id="profile_tab">
@@ -148,25 +170,26 @@
 								</div>
 								<!--수정 버튼 클릭시 나오는 수정 박스-->
 								<div id="info_alter">
-									<form role="form">
+									<form id="userinfo-form" action="${pageContext.request.contextPath}/02_mypage/pwrevise_ok">
 										<div class="form-group">
+
 											<label for="edit_user_name">이름</label>
 											<input type="text" id="edit_user_name" name="name" class="form-control" value="${output.name}">
 											
 											<label for="edit_user_bd">생일</label>
 											<!--숫자만 입력가능하게-->
-											<input type="text" id="edit_user_bd" name="birthdate" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" value="${output.birthdate}"/>
+											<input type="date" id="edit_user_bd" name="birthdate" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" value="${output.birthdate}"/>
 											
 											<label for="user_gender" id="select_gender_label">성별 (선택사항)</label>
 											<select id="user_gender" name="gender">
-												<option></option>
-												<option value="M">남자</option>
-												<option value="F">여자</option>
-												<option value="N">응답 거부</option>
+												<option value=""></option>
+												<option <c:if test="${output.gender == 'M'}" > selected </c:if> value="M">남자</option>
+												<option <c:if test="${output.gender == 'F'}" > selected </c:if> value="F">여자</option>
+												<option <c:if test="${output.gender == 'N'}" > selected </c:if> value="N">응답 거부</option>
 											</select>
 
 											<button type="reset" class="btn btn-default edit_btn_cancel">취소</button>
-											<button type="submit" class="btn btn-primary edit_btn_save info_alter_save">저장</button>
+											<a id="edit_userinfo" href="#" data-userno="${output.userno}" class="btn btn-primary edit_btn_save info_alter_save">저장</a>
 										</div>
 									</form>
 								</div>
@@ -183,16 +206,16 @@
 								</div>
 								<!--수정 버튼 클릭시 나오는 수정 박스-->
 								<div id="contact_alter_box">
-									<form role="form">
+									<form id="usercon-form" action="${pageContext.request.contextPath}/02_mypage/userConRevise_ok">
 										<div class="form-group">
 											<label for="edit_tel">휴대폰</label>
-											<input type="text" id="edit_tel" name="edit_tel" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+											<input type="text" id="edit_tel" name="phoneno" value="${output.phoneno}" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 											
 											<label for="edit_email">이메일</label>
-											<input type="text" id="edit_email" name="edit_email" class="form-control">
+											<input type="text" id="edit_email" name="email" value="${output.email}" class="form-control">
 										
 											<button type="reset" class="btn btn-default edit_btn_cancel">취소</button>
-											<button type="submit" class="btn btn-primary edit_btn_save contact_alter_save">저장</button>
+											<a id="edit_contact" href="#" data-userno= "${output.userno}" class="btn btn-primary edit_btn_save contact_alter_save">저장</a>
 										</div>
 									</form>
 								</div>
@@ -200,7 +223,7 @@
 							</div>
 							<div id="profile_pwd" class="content_box">
 								<div class="clearfix profile_title">
-									<span class="prof_title pull-left">비밀번호</span>
+									<span class="prof_title pull-left">비밀번호 수정</span>
 									<button type="button" id="profile_pwd_alter" class="pull-right alter_btn">수정</button>
 								</div>
 								<div id="profile_pwd_box">
@@ -208,19 +231,13 @@
 								</div>
 								<!--수정 버튼 클릭시 나오는 수정 박스-->
 								<div id="pwd_alter_box">
-									<form role="form">
+									<form id="userpw-form" action="${pageContext.request.contextPath}/02_mypage/pwrevise_ok">
 										<div class="form-group">
 											<div class="pwd_input_box">
-												<label for="old_pwd" class="pwd_label placeholder_event">현재 비밀번호</label>
-												<input id="old_pwd" name="old_pwd" type="password" class="form-control pwd_label_event"/>
-												<button type="button" class= "showPassword">
-													<span class="pw_hide_icon">비밀번호숨기기</span>
-													<span class="pw_show_icon">비밀번호보이기</span>
-												</button>
-											</div>
-											<div class="pwd_input_box">
+											<input type="hidden" name="userno" value="${output.userno}" />
+											
 												<label for="new_pwd" class="pwd_label placeholder_event">새 비밀번호</label>
-												<input id="new_pwd" name="new_pwd" type="password" class="form-control pwd_label_event"/>
+												<input id="new_pwd" name="userpwd" type="password" class="form-control pwd_label_event"/>
 												<span class="new_pw_alert">비밀번호에는 다음이 포함되어야 합니다.</span>
 												<button type="button" class= "showPassword">
 													<span class="pw_hide_icon">비밀번호숨기기</span>
@@ -243,13 +260,39 @@
 												<span class="new_pwd_conf_alert">비밀번호를 다시 입력해야 합니다.</span>
 											</div>
 											<button type="reset" class="btn btn-defaults edit_btn_cancel">취소</button>
-											<button type="submit" class="btn btn-primary edit_btn_save pwd_alter_save">저장</button>
+											<a id="edit_password" href="#" data-userno="${output.userno}" class="btn btn-primary edit_btn_save pwd_alter_save">저장</a>
 										</div>
 									</form>
 								</div>
 								<!--수정 박스 끝-->
 							</div>
-						</div>
+							
+							<!-- 회원 쿠폰 조회 -->
+							
+							<div id="coupon_point" class="content_box">
+								<div class="clearfix profile_title">
+									<span class="prof_title pull-left">쿠폰</span>
+								</div>
+									<c:forEach var="item" items="${uc_output}" varStatus="stauts">
+										<li class="coupon_list">
+										<p class="coupon_name">${item.name}</p> 
+										<hr />
+										<p>${item.discount}
+											<c:choose>
+												<c:when test="${item.distype == 'P'}">
+													<span class="coupon_type">% 할인</span>
+												</c:when>
+												<c:otherwise>
+													<span class="coupon_type">원 할인</span>
+												</c:otherwise>
+											</c:choose> 
+										</p>
+											<p>${item.startdate} ~ ${item.enddate}</p>
+										</li>
+									</c:forEach>
+								</div>
+							</div>
+						
 						<!--주소 탭-->
 						<div role="tabpanel" class="tab-pane fade" id="profile_tab_page2">
 							<div id="profile_address" class="content_box">
@@ -264,7 +307,7 @@
 								</div>
 								<!--수정 버튼 클릭시 나오는 수정 박스-->
 								<div id="contact_address_box">
-									<form role="form">
+									<form role="useraddr-form">
 										<div class="form-group">
 											<button type="button" class="btn btn-primary" id="find_pc" onclick="sample3_execDaumPostcode()">우편번호 찾기</button>
 											<div id="daum_pc_find">
@@ -275,21 +318,21 @@
 
 											<div class="address_input_box">
 												<label for="edit_address" class="edit_address_label">도로명 주소</label>
-												<input type="text" id="edit_address" name="edit_address" class="form-control address_label_event" disabled>
+												<input type="text" id="edit_address" name="addr1" value="${output.addr1}" class="form-control address_label_event" readonly>
 											</div>
 											
 											<div class="address_input_box">
 												<label for="edit_address_detail" class="edit_address_label">상세 주소</label>
-												<input type="text" id="edit_address_detail" name="edit_address_detail" class="form-control address_label_event">
+												<input type="text" id="edit_address_detail" name="addr2" value="${output.addr2}" class="form-control address_label_event">
 											</div>
 											
 											<div class="address_input_box">
 												<label for="edit_post" class="edit_address_label">우편번호</label>
-												<input type="text" id="edit_post" name="edit_post" class="form-control address_label_eventl" disabled>
+												<input type="text" id="edit_post" name="postcode" value="${output.postcode}" class="form-control address_label_eventl" readonly>
 											</div>
 											
 											<button type="reset" class="btn btn-default edit_btn_cancel">취소</button>
-											<button type="submit" class="btn btn-primary edit_btn_save contact_alter_save">저장</button>
+											<a id="edit_addr" data-userno="${output.userno}" class="btn btn-primary edit_btn_save contact_alter_save">저장</a>
 										</div>
 									</form>
 								</div>
@@ -298,58 +341,13 @@
 						</div>
 						<!--설정 탭-->
 						<div role="tabpanel" class="tab-pane fade" id="profile_tab_page3">
-							<div id="profile_marketing" class="content_box">
-								<div class="clearfix profile_title">
-									<span class="prof_title pull-left">마케팅 수신 설정</span>
-									<button type="button" id="profile_marketing_alter" class="pull-right alter_btn">수정</button>
-								</div>
-								<div class="marketing_box">
-									<span class="mkt_title">혜택, 팁, 뉴스를 받아볼 경로:</span>
-									<div class="mkt_row clearfix">
-										<span class="email_marketing mkt pull-left">이메일</span>
-										<span class="mkt_status pull-right">-</span>
-									</div>
-									<div class="mkt_row clearfix">
-										<span class="sms_marketing mkt pull-left">문자</span>
-										<span class="mkt_status pull-right">-</span>
-									</div>
-									<div class="mkt_row clearfix">
-										<span class="post_marketing mkt pull-left">우편</span>
-										<span class="mkt_statu pull-right">-</span>
-									</div>
-								</div>
-								<div class="marketing_box_alter">
-									<form role="form">
-										<div class="form-group">
-											<span class="mkt_txt">La porte에서 보내드리는 다양한 뉴스와 혜택 정보를 받아볼 경로를 선택하세요.</span>
-
-											<div class="mkt_ck_box">
-												<input type="checkbox" name="marketing" value="이메일 수신" id="email_receive" class="ckbox_letter" style="display: none;">
-												<label for="email_receive" class="checkbox_circle">이메일 수신</label>
-											</div>
-											
-											<div class="mkt_ck_box">
-												<input type="checkbox" name="marketing" value="문자 수신" id="sms_receive" class="ckbox_letter" style="display: none;">
-												<label for="sms_receive" class="checkbox_circle">문자 수신</label>
-											</div>
-											
-											<div class="mkt_ck_box">
-												<input type="checkbox" name="marketing" value="우편물 수신" id="post_receive" class="ckbox_letter" style="display: none;">
-												<label for="post_receive" class="checkbox_circle">우편물 수신</label>
-											</div>
-
-											<button type="reset" class="btn btn-default edit_btn_cancel">취소</button>
-											<button type="submit" class="btn btn-primary edit_btn_save mkt_alter_save">저장</button>
-										</div>
-									</form>
-								</div>
+							
 								<div class="delete_user_box">
 									<span class="prof_title">회원 정보 삭제</span>
-									<p class="delete_persuade">La Porte를 더 이상 이용하지 않는다면 언제든 탈퇴할 수 있습니다. 
+									<p class="delete_persuade">la Porte를 더 이상 이용하지 않는다면 언제든 탈퇴할 수 있습니다. 
 										단, 회원 정보 및 구매 내역이 함께 삭제된다는 점을 참고해주세요.</p>
 									<a href="#" class="delete_user">계정을 삭제하시겠어요?</a>
 								</div>
-							</div>
 						</div>
 					</div>
 				</div><!--profile_tab_box 끝-->
@@ -357,19 +355,24 @@
 		</div>
 	</section>
 	<%@ include file="../01_home/footer.jsp" %>
+	
+	<!-- swweetalert -->
+<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	
+	
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="../assets/js/home.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	
+		  <!--Google CDN 서버로부터 jQuery 참조 -->
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    
+    
     <script type="text/javascript">
 		$(document).ready(function(){
-			/* $("#user_gender").on('change', function(){
-				var select = $("#user_gender").val();
-				if(!select){
-				$("#select_gender_label").addClass("select_label_ani");
-			}else{
-				$("#select_gender_label").removeClass("select_label_ani");
-			}
-			}); */
 			
 			$("#info_alter").hide();
 			$("#contact_alter_box").hide();
@@ -384,16 +387,17 @@
 
     /* ------------ 탭 컨텐츠에 출력하는 내용 ------------ */
 		$(function() {
-			$.get('../assets/api/user_info/user1.json', function(req){
-				$("#profile_hi_msg").html('안녕하세요, '+req.name+'님');
-				$("#name").html(req.name);
-				var bd=req.birthdate;
+				
+				var name = $('#edit_user_name').val();
+				$("#name").html(name);
+				
+				var bd= $('#edit_user_bd').val();
 				var bd_y = bd.substring(0,4);
-				var bd_m = bd.substring(5,6);
-				var bd_d = bd.substring(7,8);
+				var bd_m = bd.substring(6,7);
+				var bd_d = bd.substring(8);
 				$("#birthdate").html(bd_y+"년 "+bd_m+"월 "+bd_d+"일");
 
-				var gender_eng=req.gender;
+				var gender_eng=$('#user_gender > option:selected').val();
 				var gender_kor="";
 				if(gender_eng=="M"){
 					gender_kor="남자";
@@ -404,9 +408,34 @@
 				}else{
 					$("#select_gender_label").addClass("select_label_ani");
 				}
-				$("#gender").html(gender_kor);
-				var tel=req.tel;
+				$('#gender').html(gender_kor);
+			
+				//개인 정보 수정하기
+				$('#edit_userinfo').click(function(e){
+					e.preventDefault();
+					
+					let current = $(this);
+					let userno = current.data('userno');
+					let name = $('#edit_user_name').val();
+					let birthdate = $('#edit_user_bd').val();
+					let gender = $('#user_gender > option:selected').val();
+					
+					//put 메서드로 ajax 요청
+					$.put("${pageContext.request.contextPath}/02_mypage/userInfoRevise_ok",{
+						"userno" : userno,
+						"name" : name,
+						"birthdate" : birthdate,
+						"gender" : gender
+					},function(json){
+						if(json.rt == "OK"){
+						swal('완료','개인정보가 수정되었습니다.','success');
+						location.reload();
+					}
+				 });
+			});
+				
 				//핸드폰번호 11자리일 경우
+				var tel = $('#edit_tel').val();
 				if(tel.length==11){
 					var tel1=tel.substring(0,3);
 					var tel2=tel.substring(3,7);
@@ -419,17 +448,31 @@
 					var tel3=tel.substring(6);
 					$("#tel").html(tel1+"-"+tel2+"-"+tel3);
 				}
-				$("#email").html(req.email);
-				var pw=req.pw;
-				var pw_num=pw.length;
-				var pw_hide="";
-				for(var i=0; i<pw_num; i++){
-					pw_hide += "*"
-				}
-				$("#pw").html(pw_hide);
-				$("#address_basic").html(req.address);
-				$("#address_detail").html(req.address_detail);
-				$("#address_post").html(req.address_post);
+				
+				//이메일 출력
+				var email = $('#edit_email').val();
+				$('#email').html(email);
+		
+				//연락처 수정하기
+				$('#edit_contact').click(function(e){
+					e.preventDefault();
+					
+					let current = $(this);
+					let userno = current.data('userno');
+					let phoneno = $('#edit_tel').val();
+					let email = $('#edit_email').val();
+					
+					//put 메서드로 ajax 요청
+					$.put("${pageContext.request.contextPath}/02_mypage/userConRevise_ok",{
+						"userno" : userno,
+						"phoneno" : phoneno,
+						"email" : email
+					},function(json){
+						if(json.rt == "OK"){
+						swal('완료','연락처가 수정되었습니다.','success');
+						location.reload();
+					}
+				 });
 			});
 		});
 
@@ -439,21 +482,12 @@
 			$("#profile_info_alter").click(function() {
 				$("#profile_info_box").toggleClass("hide");
 				$("#info_alter").toggleClass("show");
-
-				$.get('../assets/api/user_info/user1.json', function(req){
-					$("#edit_user_name").val(req.name);
-					$("#edit_user_bd").val(req.birthdate);
-					$("#user_gender").val(req.gender);
-				});
+				
 			});
 			$("#profile_contact_alter").click(function() {
 				$("#profile_contact_box").toggleClass("hide");
 				$("#contact_alter_box").toggleClass("show");
 
-				$.get('../assets/api/user_info/user1.json', function(req){
-					$("#edit_tel").val(req.tel);
-					$("#edit_email").val(req.email);
-				});
 			});
 			$("#profile_pwd_alter").click(function() {
 				$("#profile_pwd_box").toggleClass("hide");
@@ -464,12 +498,6 @@
 			$("#profile_address_alter").click(function() {
 				$("#address_info").toggleClass("hide");
 				$("#contact_address_box").toggleClass("show");
-
-				$.get('../assets/api/user_info/user1.json', function(req){
-					$("#edit_address").val(req.address);
-					$("#edit_address_detail").val(req.address_detail);
-					$("#edit_post").val(req.address_post);
-				});
 			});
 
 			$(".address_label_event").focus(function() {
@@ -486,20 +514,38 @@
 				}
 			});
 			
-			//마케팅 수신 설정 수정 버튼 클릭시
-			$("#profile_marketing_alter").click(function() {
-				$(".marketing_box").toggleClass("hide");
-				$(".marketing_box_alter").toggleClass("show");
-			});
-
-			// 수정 버튼 클릭시 닫기로, 닫기 버튼 클릭시 수정 버튼으로 변경
-			$(".alter_btn").click(function() {
-				if($(this).html()=='수정'){
-					$(this).html('닫기');
-				}else{
-					$(this).html('수정');
+			var addr1 = $('#edit_address').val();
+			var addr2 = $('#edit_address_detail').val();
+			var postcode = $('#edit_post').val();
+			
+			$("#address_basic").html(addr1);
+			$("#address_detail").html(addr2);
+			$("#address_post").html(postcode);
+			
+			
+			//주소 수정하기
+			$('#edit_addr').click(function(e){
+				e.preventDefault();
+				
+				let current = $(this);
+				let userno = current.data('userno');
+				let addr1 = $('#edit_address').val();
+				let addr2 = $('#edit_address_detail').val();
+				let postcode = $('#edit_post').val();
+				
+				//put 메서드로 ajax 요청
+				$.put("${pageContext.request.contextPath}/02_mypage/userAddrRevise_ok",{
+					"userno" : userno,
+					"addr1" : addr1,
+					"addr2" : addr2,
+					"postcode" : postcode
+				},function(json){
+					if(json.rt == "OK"){
+					swal('완료','주소가 수정되었습니다.','success');
+					location.reload();
 				}
-			});
+			 });
+		});
 		});
 
 		/*-------비밀번호 보기 (눈) 버튼 클릭시 이벤트 처리--------*/
@@ -615,6 +661,26 @@
 				$(".new_pwd_conf_alert").show();
 			}
 		});
+		
+		//새 비밀번호로 수정하기
+		$('#edit_password').click(function(e){
+			e.preventDefault();
+			
+			let current = $(this);
+			let userno = current.data('userno');
+			let userpwd = $('#new_pwd').val();
+			
+			//put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/02_mypage/pwrevise_ok",{
+				"userno" : userno,
+				"userpwd" : userpwd,
+			},function(json){
+				if(json.rt == "OK"){
+				swal('완료','비밀번호가 재설정되었습니다.','success');
+				location.reload();
+			}
+		 });
+	});
 	});
 
 	/*---------수정 > 저장 버튼 클릭시 --------*/

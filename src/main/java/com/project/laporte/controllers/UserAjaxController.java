@@ -1,5 +1,7 @@
 package com.project.laporte.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,8 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.Coupon;
+import com.project.laporte.model.Reserve;
 import com.project.laporte.model.User;
+import com.project.laporte.model.Userscoupon;
+import com.project.laporte.service.CouponService;
+import com.project.laporte.service.ReserveService;
 import com.project.laporte.service.UserService;
+import com.project.laporte.service.UserscouponService;
 
 @Controller
 public class UserAjaxController {
@@ -29,6 +37,8 @@ public class UserAjaxController {
 	
 	/** Service 패턴 구현체 주입 */
 	@Autowired  UserService userService;
+	@Autowired 	UserscouponService userscouponService;
+	@Autowired	ReserveService	reserveService;
 	
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
@@ -74,38 +84,68 @@ public class UserAjaxController {
     }
 	
 	@RequestMapping(value="/02_mypage/pwfind.do", method=RequestMethod.GET)
-	public String loginPwFind() {
+	public ModelAndView loginPwFind(){
 		// "/src/main/webapp/WEB-INF/views/02_mypage/login_pwfind.jsp" 파일을 View로 지정한다.
-		return "/02_mypage/pwfind";
+		
+		return new ModelAndView("/02_mypage/pwfind");
 	}
 	
 	@RequestMapping(value="/02_mypage/pwrevise.do", method=RequestMethod.GET)
-	public String loginPwRevise(Model model,
+	public ModelAndView loginPwRevise(Model model,
 			//GET,POST파라미터 받기
 			@RequestParam(value="userno", defaultValue="0") int userno) {
 		
+		User input = new User();
+		input.setUserno(userno);
+		
 		//파라미터값을 View에게 전달한다.
-		model.addAttribute("userno", userno);
+		model.addAttribute("output", input);
 		// "/src/main/webapp/WEB-INF/views/02_mypage/login_pwrevise.jsp" 파일을 View로 지정한다.
-		return "/02_mypage/pwrevise";
+		return new ModelAndView("/02_mypage/pwrevise");
 	}
 	
 	@RequestMapping(value="/02_mypage/mypage.do", method=RequestMethod.GET)
     public ModelAndView mypage(Model model, HttpServletResponse response,
     		@RequestParam(value="userno") int userno) {
         // "/src/main/webapp/WEB-INF/views/02_mypage/mypage.jsp" 파일을 View로 지정한다.
+		
+		/** 1) 회원정보 */
+		//회원정보 조회를 위한 객체 생성
 		User input = new User();
 		input.setUserno(userno);
 		
+		//회원정보 출력을 위한 객체 초기화
 		User output = null;
+		
+		/**2) 예약정보 */
+		//예약정보 조회를 위한 객체 생성
+		Reserve r_input = new Reserve();
+		r_input.setUserno(userno);
+		
+		//예약정보 출력을 위한 객체 초기화
+		int r_output = 0;
+		
+		//회원이 보유한 쿠폰 조회를 위한 객체 생성
+		Userscoupon uc_input = new Userscoupon();
+		uc_input.setUserno(userno);
+		
+		//회원이 보유한 쿠폰을 출력하기 위한 객체 초기화
+		List<Userscoupon> uc_output = null;
 		
 		
 		try {
 			output = userService.getUserItem(input);
+			
+			r_output = reserveService.checkReserve(r_input);
+			
+			uc_output = userscouponService.getUsersCouponList(uc_input);
+			
 		}catch(Exception e) {e.printStackTrace();}
 		
 		//View 처리
 		 model.addAttribute("output", output);
+		 model.addAttribute("r_output", r_output);
+		 model.addAttribute("uc_output", uc_output);
         return new ModelAndView("/02_mypage/mypage");
     }
 	

@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
 		return result;
 }
 
-	/** 비밀번호 변경 */
+	/** 비밀번호 수정 */
 	@Override
 	public int pwRevise(User input) throws Exception {
 		int result = 0;
@@ -168,5 +168,67 @@ public class UserServiceImpl implements UserService {
 			throw new Exception("데이터 수정에 실패했습니다.");
 		}
 		return result;
+	}
+
+	/** 개인 정보 수정 */
+	@Override
+	public int userInfoRevise(User input) throws Exception {
+		int result = 0;
+		try {
+			result= sqlSession.update("UserMapper.userInfoRevise", input);
+			
+			if(result == 0) {
+				throw new NullPointerException("result == 0");
+			}
+			}catch(NullPointerException e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("조회된 데이터가 없습니다.");
+			}catch(Exception e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("데이터 조회에 실패했습니다.");
+			}
+			return result;
+	}
+
+	/** 연락처 수정 */
+	@Override
+	public int userConRevise(User input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.update("UserMapper.userConRevise", input);
+			
+			if(result == 0) {
+				throw new NullPointerException("result == 0");
+			}
+			}catch(NullPointerException e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("조회된 데이터가 없습니다.");
+			}catch(Exception e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("데이터 조회에 실패했습니다.");
+			}
+			return result;
+	}
+
+	/** 주소 수정*/
+	@Override
+	public int userAddrRevise(User input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.update("UserMapper.addrRevise", input);
+			
+			if(result == 0) {
+				throw new NullPointerException("result == 0");
+			}
+			}catch(NullPointerException e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("조회된 데이터가 없습니다.");
+			}catch(Exception e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("데이터 조회에 실패했습니다.");
+			}
+			return result;
 	}
 }

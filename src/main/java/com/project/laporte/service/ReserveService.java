@@ -74,4 +74,6 @@ public interface ReserveService {
 	 */
 	public List<Reserve> getReserveListcf(Reserve input) throws Exception;
 	
+	/** 마이페이지에서 회원 예약 건 확인 */
+	public int checkReserve(Reserve input) throws Exception;
 }

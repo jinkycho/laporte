@@ -87,7 +87,7 @@
 			         			<c:set var="sum" value="0" />
 			         			<c:forEach var="item" items="${output }" varStatus="status">
 									<div class="cart_itembox">
-										<input type="checkbox" class="cart_checkbox" name="chk" data-cartno="${item.cartno }" checked>
+										<input type="checkbox" class="cart_checkbox" name="chk[]" data-cartno="${item.cartno }" value="${item.cartno}" checked>
 										<div class="cart_item">
 											<img class="cart_item_img">
 											<span>
@@ -362,7 +362,7 @@
 				/* 총 가격 */
 				$(".cart_checkbox").change(function() {
 					var sum = 0;
-					var count = $("input:checkbox[name='chk']").length;
+					var count = $("input:checkbox[name='chk[]']").length;
 					
 					$(".cart_checkbox").each(function() {
 						if($(this).is(":checked") == true ) {

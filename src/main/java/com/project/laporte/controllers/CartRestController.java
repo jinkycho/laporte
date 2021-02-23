@@ -121,16 +121,7 @@ public class CartRestController {
     		@RequestParam(value="cartno", defaultValue="0") int cartno,
     		@RequestParam(value="ea", defaultValue="0") int ea) {
     	
-    	/** 1) 사용자가 입력한 파라미터 유효성 검사 */
-    	if (cartno == 0) {
-    		return webHelper.getJsonWarning("장바구니에 담긴 상품이 없습니다.");
-    	}
-    	
-    	if (ea == 0) {
-    		return webHelper.getJsonWarning("상품수량은 1개이상이어야 합니다.");
-    	}
-    	
-    	/** 2) 데이터 수정하기 */
+    	/** 1) 데이터 수정하기 */
     	// 수정할 값들을 Beans에 담는다.
     	
     	HttpSession session = request.getSession();

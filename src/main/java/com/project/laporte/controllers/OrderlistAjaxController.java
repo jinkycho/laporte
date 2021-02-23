@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Cart;
-import com.project.laporte.model.Firstimg;
 import com.project.laporte.model.User;
 import com.project.laporte.model.Userscoupon;
 import com.project.laporte.service.CartService;
@@ -105,7 +104,6 @@ public class OrderlistAjaxController {
 		
 		/**2) View 처리*/
 		model.addAttribute("output", result);
-		//model.addAttribute("f_output", f_result);
 		model.addAttribute("u_output", u_output);
 		model.addAttribute("uc_output", uc_output);
 		

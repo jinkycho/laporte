@@ -35,7 +35,7 @@
     <select id="selectUsersCouponList"
         parameterType="com.project.laporte.model.Userscoupon"
         resultMap="userscouponMap">
-        SELECT usrcouponno, u.userno, u.couponno, usestatus, name, startdate, enddate, discount, distype, dupliuse, link, expire
+        SELECT usrcouponno, u.userno, u.couponno, usestatus, name, DATE_FORMAT(startdate, '%Y-%m-%d') AS startdate, DATE_FORMAT(enddate, '%Y-%m-%d') AS enddate, discount, distype, dupliuse, link, expire
         FROM userscoupon u
         INNER JOIN coupon c ON u.couponno = c.couponno
         WHERE u.userno = #{userno} AND usestatus = 'N' AND expire = 'N'

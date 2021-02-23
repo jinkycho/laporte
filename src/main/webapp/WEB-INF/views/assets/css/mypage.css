@@ -1,5 +1,26 @@
 @charset "UTF-8";
 
+li{
+	list-style: none;
+}
+
+.coupon_list{
+	display: block;
+	border: 1px solid #dedede;
+	margin-bottom: 20px;
+	padding: 15px;
+}
+
+.coupon_type{
+	display:inline-block;
+	font-size: 14px;
+	margin-left: 2px;
+}
+
+.coupon_name{
+	font-weight: bold;
+}
+
 .profile_header {
   margin: 45px 15px 25px 15px;
 }
@@ -339,4 +360,8 @@ input[type="checkbox"] + label.checkbox_circle {
 }
 input[type="checkbox"]:checked + label.checkbox_circle {
   background-position: -422.2px -191.6px;
+}
+
+.delete_user_box{
+	 margin-top: 30px;
 }

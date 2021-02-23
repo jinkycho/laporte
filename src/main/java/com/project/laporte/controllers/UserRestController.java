@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.project.laporte.helper.MailHelper;
 import com.project.laporte.helper.RegexHelper;
@@ -260,8 +259,8 @@ public class UserRestController {
 		return webHelper.getJsonData(data);		
 	}
 	
-	/** 비밀번호 수정하기 */
-	@RequestMapping(value="/02_mypage/pwrevise_ok.do", method = RequestMethod.POST)
+	/** 비밀번호 수정 */
+	@RequestMapping(value="/02_mypage/pwrevise_ok", method = RequestMethod.PUT)
 	public Map<String, Object> pw_revie(Model model,
 			@RequestParam(value = "userno", defaultValue="0") int userno,
 			@RequestParam(value="userpwd", defaultValue="") String userpwd){
@@ -301,6 +300,138 @@ public class UserRestController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("item", output);
 		return webHelper.getJsonData(map);
+	}
+	
+	/** 개인 정보 수정 */
+	@RequestMapping(value="/02_mypage/userInfoRevise_ok", method = RequestMethod.PUT)
+	public Map<String, Object> userInfo_revise(Model model,
+			@RequestParam(value = "userno", defaultValue="0") int userno,
+			@RequestParam(value="name", defaultValue="") String name,
+			@RequestParam(value="birthdate", defaultValue="") String birthdate,
+			@RequestParam(value="gender", defaultValue="") String gender
+			){
+		
+		
+		/** 데이터 조회하기 */
+		User input = new User();
+	
+		input.setUserno(userno);
+		input.setName(name);
+		input.setBirthdate(birthdate);
+		input.setGender(gender);
+		
+		
+		/** 사용자가 입력한 파라미터 유효성 검사 */
+		 if(!regexHelper.isValue(name))						{return webHelper.getJsonWarning("이름을 입력해주세요.");}
+		 if(!regexHelper.isValue(birthdate))				{return webHelper.getJsonWarning("생년월일을 입력해주세요.");}
+		 if(!regexHelper.isValue(gender))					{return webHelper.getJsonWarning("성별을 입력해주세요.");}
+		
+		 
+		User output = null;
+		
+		try {
+			//데이터 수정
+			userService.userInfoRevise(input);
+			
+			//수정 결과 조회
+			output = userService.getUserItem(input);
+			
+		}catch(Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 결과를 확인하기 위한 JSON 출력 */
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item", output);
+		return webHelper.getJsonData(map);
+		
+	}
+	
+	/** 연락처 수정  */
+	@RequestMapping(value="/02_mypage/userConRevise_ok", method = RequestMethod.PUT)
+	public Map<String, Object> userCon_revise(Model model,
+			@RequestParam(value = "userno", defaultValue="0") int userno,
+			@RequestParam(value="phoneno", defaultValue="") String phoneno,
+			@RequestParam(value="email", defaultValue="") String email
+			){
+		
+		
+		/** 데이터 조회하기 */
+		User input = new User();
+	
+		input.setUserno(userno);
+		input.setPhoneno(phoneno);
+		input.setEmail(email);
+		
+		
+		/** 사용자가 입력한 파라미터 유효성 검사 */
+		 if(!regexHelper.isValue(phoneno))				{return webHelper.getJsonWarning("휴대폰번호를 입력해주세요.");}
+		 if(!regexHelper.isValue(email))				{return webHelper.getJsonWarning("이메일주소를 입력해주세요.");}
+		
+		 
+		User output = null;
+		
+		try {
+			//데이터 수정
+			userService.userConRevise(input);
+			
+			//수정 결과 조회
+			output = userService.getUserItem(input);
+			
+		}catch(Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 결과를 확인하기 위한 JSON 출력 */
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item", output);
+		return webHelper.getJsonData(map);
+		
+	}
+	
+	/** 주소 수정  */
+	@RequestMapping(value="/02_mypage/userAddrRevise_ok", method = RequestMethod.PUT)
+	public Map<String, Object> userAddr_revise(Model model,
+			@RequestParam(value = "userno", defaultValue="0") int userno,
+			@RequestParam(value="addr1", defaultValue="") String addr1,
+			@RequestParam(value="addr2", defaultValue="") String addr2,
+			@RequestParam(value="postcode", defaultValue="") String postcode
+			
+			){
+		
+		
+		/** 데이터 조회하기 */
+		User input = new User();
+	
+		input.setUserno(userno);
+		input.setAddr1(addr1);
+		input.setAddr2(addr2);
+		input.setPostcode(postcode);
+		
+		/** 사용자가 입력한 파라미터 유효성 검사 */
+		 if(!regexHelper.isValue(addr1))				{return webHelper.getJsonWarning("도로명주소를 입력해주세요.");}
+		 if(!regexHelper.isValue(addr2))				{return webHelper.getJsonWarning("상세주소를 입력해주세요.");}
+		 if(!regexHelper.isValue(postcode))				{return webHelper.getJsonWarning("우편번호를 입력해주세요.");}
+		
+		 
+		User output = null;
+		
+		try {
+			//데이터 수정
+			userService.userAddrRevise(input);
+			
+			//수정 결과 조회
+			output = userService.getUserItem(input);
+			
+		}catch(Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 결과를 확인하기 위한 JSON 출력 */
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item", output);
+		return webHelper.getJsonData(map);
+		
 	}
 		
 	 /** 회원정보 상세 조회 */

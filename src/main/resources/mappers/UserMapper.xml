@@ -61,12 +61,45 @@
 		SELECT userno, email FROM user WHERE email = #{email}
 	</select>
 
+	<!-- 개인정보 수정하기  -->
+	<update id = "userInfoRevise"
+	parameterType = "com.project.laporte.model.User">
+		UPDATE user SET
+		name = #{name},
+		birthdate = #{birthdate},
+		gender = #{gender},
+		editdate = now()
+		WHERE userno = #{userno}
+		
+	</update>
+	
+	<!-- 연락처 수정하기 -->
+	<update id ="userConRevise"
+	parameterType = "com.project.laporte.model.User">
+		UPDATE user SET
+		phoneno = #{phoneno},
+		email = #{email},
+		editdate = now()
+		WHERE userno = #{userno}
+	</update>
+	
 	<!-- 비밀번호 수정하기  -->
 	<update id = "pwRevise"
 		parameterType = "com.project.laporte.model.User">
 		UPDATE user SET
 		userpwd = #{userpwd},
         editdate = now()
+		WHERE userno = #{userno}
+	</update>
+	
+	<!-- 주소 수정하기 -->
+	<update id= "addrRevise"
+	parameterType = "com.project.laporte.model.User">
+		UPDATE user SET
+		addr1 = #{addr1},
+		addr2 = #{addr2},
+		postcode = #{postcode},
+		editdate = now()
 		WHERE userno = #{userno}
 	</update>
 

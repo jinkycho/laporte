@@ -192,7 +192,8 @@
 															<tr>
 																<td>${item.name}</td>
 																<td>${item.startdate}~${item.enddate}</td>
-																<td>${item.discount}<c:choose>
+																<td>${item.discount}
+																<c:choose>
 																		<c:when test="${item.distype == 'P'}">
 																			<span>%</span>
 																		</c:when>

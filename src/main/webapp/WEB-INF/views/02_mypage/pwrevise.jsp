@@ -44,15 +44,14 @@
 	</div>
 	
 	<div class="section">
-	<form id="pwrevise-form" action="${pageContext.request.contextPath}/02_mypage/pwrevise_ok.do">
-	<input type="hidden" name="userno" value= "${userno}" />
+	<form id="pwrevise-form" action="${pageContext.request.contextPath}/02_mypage/pwrevise_ok">
 	<input type="password" id="pw_insert" name="userpwd" placeholder="새로운 비밀번호"></input>
 	<a href="#" class= "showPassword">
 		<span class="pw_hide_icon">비밀번호숨기기</span>
 		<span class="pw_show_icon">비밀번호보이기</span>
 	</a>
 	<input type="password" id="pw_insert_chk" placeholder="새로운 비밀번호 확인"></input>
-
+	
 	<p>비밀번호는 최소 다음이 포함되어야 합니다.</p>
 	<p id="pw_length">✓ 8-20자 이내</p>
 	<p id="pw_num">✓ 숫자</p>
@@ -60,7 +59,7 @@
 	<p id="pw_spe">✓ 특수 문자</p>
 	<p id="pw_correct">✓ 비밀번호 일치</p>
 
-	<button id="new_pw_save" type="submit">새로운 비밀번호 저장</button>
+	<a id="new_pw_save" href="#" data-userno="${output.userno}">새로운 비밀번호 저장</a>
 	</form>
 	
 	</div>
@@ -156,8 +155,28 @@ $(function(){
 		}
 	});
 		 
+	 /** 비밀번호 수정 */
+	 $('#new_pw_save').click(function(e){
+		e.preventDefault();
+		
+		let current = $(this);
+		let userno = current.data('userno');
+		let userpwd = $('#pw_insert').val();
+		
+		//put 메서드로 ajax 요청
+		$.put("${pageContext.request.contextPath}/02_mypage/pwrevise_ok",{
+			"userno" : userno,
+			"userpwd" : userpwd,
+		},function(json){
+			if(json.rt == "OK"){
+			swal('완료','비밀번호가 재설정되었습니다.','success');
+			window.location = "${pageContext.request.contextPath}/02_mypage/login.do";
+		}
+	 });
+});
+});
 		 //#pwrevise-form에 대한 submit 이벤트를 가로채서 Ajax요청을 전송한다.
-	$('#pwrevise-form').ajaxForm({
+	/* $('#pwrevise-form').ajaxForm({
 		//전송 메서드 지정
 		method : "POST",
 		//서버에서 200 응답을 전달한 경우 실행됨
@@ -166,12 +185,11 @@ $(function(){
 			
 			//json 결과가 OK 일 시 로그인 페이지로 이동한다.
 			if(json.rt == "OK"){
-			swal('완료','비밀번호가 재설정되었습니다.','success');
+			swal('완료','비밀번호가 재설정되었습니다.','success'); */
 				
-			}
+		/* 	}
 		}
-	});
-});
+	}); */
 </script>
 </body>
 </html>

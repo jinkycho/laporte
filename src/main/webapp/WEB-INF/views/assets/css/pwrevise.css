@@ -75,7 +75,7 @@
     	text-indent: -10000px;
     	} 
     	
-    	button{
+    	#new_pw_save{
     	display: block;
     	width: 60%;
     	height: 45px;
@@ -85,13 +85,16 @@
 		margin-top: 70px;
     	}
     	
-    	button:focus{
+    	#new_pw_save:focus{
     	outline: none;
     	}
     	
     	#login_pwrevise .section #new_pw_save{
     	background-color:#172F50;
     	color: #ffffff;
+    	text-align: center;
+    	padding-top: 10px;
+    	
     	}
     	
     	#login_pwrevise .section #new_pw_save:hover{

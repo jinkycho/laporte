@@ -69,5 +69,10 @@
 	SELECT reserno,showroom , name, phoneno,time, area, request FROM reserve WHERE status = 'CF'
 	</select>
 	
+	<!--마이페이지에서 회원 예약 건 확인  -->
+	<select id="checkReserve" parameterType="com.project.laporte.model.Reserve" resultType="int">
+		SELECT COUNT(*) FROM reserve WHERE userno = #{userno}
+	</select>
+	
 	
 	</mapper>

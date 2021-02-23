@@ -223,4 +223,20 @@ public class ReserveServiceImpl implements ReserveService{
 		return result;
 	}
 
+	/** 마이페이지에서 회원 예약 건 확인 */
+	@Override
+	public int checkReserve(Reserve input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.selectOne("ReserveMapper.checkReserve", input);
+					
+		}catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		}
+
+		return result;
+	}
+
 }
