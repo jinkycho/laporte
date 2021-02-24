@@ -15,15 +15,15 @@
 <!-- stylesheet -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../assets/css/csmain.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
-			<!-- css경로 ../ << 넣고 만들기  -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/csmain.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common.css">
+			
 <!-- javascript -->
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!-- ajax-helper -->
-    <link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/ajax/ajax_helper.css" />
     <script src="../plugins/ajax/ajax_helper.js"></script>
     <style type="text/css">
 
@@ -125,10 +125,10 @@
                                 문의 시 성함, 연락처, 구매정보(영수증/주문번호)를 준비해주세요.
                             </p>
                         </div>
-                        <form class="csmain_email_section">
+                        <form id="email-inquiry-form" action="${pageContext.request.contextPath}/09_cs" class="csmain_email_section" enctype="multipart/form-data">
                             <div id="csmain_user_icon"></div>
                             <div class="csmain_user">
-                                <input type="text" name="username" id="username" class="form-control2" placeholder="이름">
+                                <input type="text" name="name" id="name" class="form-control2" placeholder="이름">
                             </div>
                             <div id="csmain_email_icon"></div>
                             <div class="csmain_email">
@@ -136,26 +136,26 @@
                             </div>
                             <div id="csmain_topic_icon"></div>
                             <div class="csmain_topic">
-                                <select id="csmain_category">
-                                    <option>카테고리 선택</option>
-                                    <option>온라인주문</option>
-                                    <option>교환환불</option>
-                                    <option>laporte서비스</option>
-                                    <option>제품정보</option>
-                                    <option>laporte웹사이트 이용약관</option>
+                                <select id="csmain_category" name="category">
+                                    <option value="">카테고리 선택</option>
+                                    <option value="O">온라인주문</option>
+                                    <option value="C">교환환불</option>
+                                    <option value="S">laporte서비스</option>
+                                    <option value="P">제품정보</option>
+                                    <option value="A">laporte웹사이트 이용약관</option>
 
                                     </select>
                             </div>
                             <div id="csmain_file_icon"></div>
                             <div class="csmain_file">
                                 <label for="csmain_file_choose">5MB 이하 첨부 가능</label>
-                                <input type="file" id="csmain_file_choose" class="form-control2">
+                                <input type="file" name="file" id="csmain_file_choose" class="form-control2" />
                             </div>
                             <div id="csmain_message_icon"></div>
                             <div class="csmain_message">
-                                <textarea id="csmain_message_content" placeholder="문의 내용을 입력해주세요."></textarea>
+                                <textarea id="csmain_message_content" name="content" placeholder="문의 내용을 입력해주세요."></textarea>
                             </div>
-                            <span id="csmain_email_send">이메일 보내기</span>
+                            <button type="submit" id="csmain_email_send">이메일 보내기</button>
                         </form>
                     </div>
                     <hr>
@@ -176,8 +176,15 @@
     <%@ include file="../01_home/footer.jsp" %>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="../assets/js/home.js"></script>
-    <script type="text/javascript">
+    <script src="${pageContext.request.contextPath}/assets/js/home.js"></script>
+	<!-- jQuery Ajax Form plugin CDN -->
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+	<!-- jQuery Ajax Setup -->
+	<script
+		src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+
+	<script type="text/javascript">
 
         /* ---------------------- csmain --------------------------- */
             $(document).ready(function(){
@@ -222,6 +229,26 @@
         });
 
     });
+            
+
+         
+            
+            // 이메일 문의 Ajax로 저장
+            $("#email-inquiry-form").ajaxForm({
+                // 전송 메서드 지정
+                method: "POST",
+                // 서버에서 200 응답을 전달한 경우 실행됨
+                success: function(json) {
+                    console.log(json);
+                    
+                    // json 결과가 OK일 시 로그인 페이지로 이동한다.
+                    if (json.rt == "OK") {
+            			alert("이메일 문의가 등록되었습니다.");
+                        location.reload();
+                    }
+                }
+            });
+    
     </script>
-  </body>
+</body>
 </html>

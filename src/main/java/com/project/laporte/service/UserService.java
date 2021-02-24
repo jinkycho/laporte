@@ -33,6 +33,7 @@ public interface UserService {
 	/** 주소 수정*/
 	public int userAddrRevise(User input) throws Exception;
 	
-	
+	/** 사용한 포인트 차감 */
+	public int pointRevise(User input) throws Exception;
 	
 }

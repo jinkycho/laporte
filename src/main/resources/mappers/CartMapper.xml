@@ -70,6 +70,7 @@
         ORDER BY cartno
     </select>
 	
+	
     <!-- 장바구니 저장을 위한 기능 정의 -->
 	<insert id="insertCartItem"
 		parameterType = "com.project.laporte.model.Cart"

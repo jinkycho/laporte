@@ -6,9 +6,9 @@ import lombok.Data;
 public class Email_inquiry {
 	
 	private int emailno;
-	private String category;
 	private String name;
 	private String email;
+	private String category;
 	private String file;
 	private String content;
 	private String status;

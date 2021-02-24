@@ -21,11 +21,11 @@
     rel="stylesheet">
 <link rel="stylesheet"
     href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../assets/css/admin_common.css">
-<link rel="stylesheet" href="../assets/css/admin_qanda.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_qanda.css">
 
 <!-- handlebar plugin -->
-<script src="../plugins/handlebars/handlebars-v4.0.11.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.0.11.js"></script>
 
 <!-- javascript -->
 <script src="http://code.jquery.com/jquery.min.js"></script>
@@ -33,8 +33,8 @@
     src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!-- ajax-helper -->
-<link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
-<script src="../plugins/ajax/ajax_helper.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 </head>
 
 <body>
@@ -70,7 +70,7 @@
                             data-toggle="dropdown"><i class="glyphicon glyphicon-edit"></i>
                                 홈 퍼블리싱 예약관리 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="admin_resvappv.html"><i
+                                <li><a href="${pageContext.request.contextPath}/admin_resvappv.do"><i
                                         class="glyphicon glyphicon-ok"></i> 예약 승인</a></li>
                             </ul></li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -79,11 +79,11 @@
                             <ul class="dropdown-menu">
                                 <li><a href="stock_management.html"><i
                                         class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
-                                <li><a href="product_add.html"><i
+                                <li><a href="${pageContext.request.contextPath}/product_add.do"><i
                                         class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
-                                <li><a href="review_management.html"><i
+                                <li><a href="${pageContext.request.contextPath}/review_management.do"><i
                                         class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
-                                <li><a href="admin_sales.html"><i class="glyphicon glyphicon-usd"></i>
+                                <li><a href="${pageContext.request.contextPath}/admin_sales.do"><i class="glyphicon glyphicon-usd"></i>
                                         매출 관리</a></li>
                             </ul></li>
 							<li class="dropdown">
@@ -92,19 +92,19 @@
 									고객 관리 <b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href="admin_userlist.html">
+									<li><a href="${pageContext.request.contextPath}/admin_userlist.do">
 										<i class="glyphicon glyphicon-user"></i> 회원정보 관리</a></li>
-									<li><a href="admin_order.html">
+									<li><a href="${pageContext.request.contextPath}/admin_order.do">
 										<i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
-									<li><a href="admin_delivery.html">
+									<li><a href="${pageContext.request.contextPath}/admin_delivery.do">
 										<i class="glyphicon glyphicon-transfer"></i> 배송정보 관리</a></li>
-									<li><a href="admin_cancel.html">
+									<li><a href="${pageContext.request.contextPath}/admin_cancel.do">
 										<i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
-									<li><a href="admin_coupon.html">
+									<li><a href="${pageContext.request.contextPath}/admin_coupon.do">
 										<i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>
-									<li><a href="admin_point.html" >
+									<li><a href="${pageContext.request.contextPath}/admin_point.do" >
 										<i class="glyphicon glyphicon-usd"></i> 적립금</a></li>
-									<li><a href="admin_visitors.html">
+									<li><a href="${pageContext.request.contextPath}/admin_visitors.do">
 										<i class="glyphicon glyphicon-stats"></i> 방문자 수 관리</a></li>
 								</ul>
 							</li>
@@ -114,9 +114,9 @@
 									문의 관리 <b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="admin_qanda.html">
+									<li class="active"><a href="${pageContext.request.contextPath}/admin_qanda.do">
 										<i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a></li>
-									<li><a href="admin_fanda.html">
+									<li><a href="${pageContext.request.contextPath}/admin_fanda.do">
 										<i class="glyphicon glyphicon-list-alt"></i> F&A 관리</a></li>
 								</ul>
 							</li>
@@ -221,149 +221,213 @@
                                         </div>
                                     </div>
 
-                                    <table class="table table-bordered product_table">
-                                        <thead>
-                                            <tr class="product_table_color">
-                                                <th style="width: 10px"><input type='checkbox' id="all_check"></th>
-                                                <th>카테고리</th>
-                                                <th>작성일</th>
-                                                <th>작성자이름</th>
-                                                <th>이메일 주소</th>
-                                                <th>파일</th>
-                                                <th>문의내용</th>
-                                                <th>답변상태</th>
-                                                <td>기능</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="product_list">
-                                            <tr>
-                                                <td><input type='checkbox' class="delete_check"></td>
-                                                <td>이메일문의</td>
-                                                <td>2021.01.10</td>
-                                                <td>조진경</td>
-                                                <td>jinkycho@email.com</td>
-                                                <td>1234567.jpg</td>
-                                                <td>1주일 전 주문번호 1234567로 구매한 STUVA 스투바를 교환하고 싶습니다.</td>
-                                                <td class="answer_status">답변대기</td>
-                                                <td class="clear">
-                                                    <button type="button" class="btn btn-warning btn-xs review_list_answer">답변</button>
-                                                    <button type="button" class="btn btn-danger btn-xs review_list_delete">삭제</button>
-                                                </td>
+										<table class="table table-bordered product_table">
+											<thead>
+												<tr class="product_table_color">
+													<th style="width: 10px"><input type='checkbox'
+														id="all_check"></th>
+													<th>카테고리</th>
+													<th>작성일</th>
+													<th>작성자이름</th>
+													<th>이메일 주소</th>
+													<th>파일</th>
+													<th>문의내용</th>
+													<th>답변상태</th>
+													<td>기능</td>
+												</tr>
+											</thead>
+											
+									
+											<c:forEach var="item" items="${output}" varStatus="status">
+												<tbody id="product_list">
+													<tr>
+														<td><input type='checkbox' class="delete_check"></td>
+														<td>이메일문의</td>
+														<td>${item.regdate}</td>
+														<td>${item.name}</td>
+														<td>${item.email}</td>
+														<c:choose>
 
+															<c:when test="${item.file} == null">
+																<td>첨부파일없음</td>
+															</c:when>
+															<c:otherwise>
+																<td><a href="#">첨부파일보기</a></td>
+															</c:otherwise>
 
-                                        </tbody>
-                                    </table>
-                                    <div class="answer_box">
-                                        <table class="table table-bordered product_info_table">
-                                            <tr>
-                                                <td class="info_table_color">답변 내용</td>
-                                                <td>
-                                                    <form class="form-inline">
-                                                        <textarea name="qanda_notes" id="qanda_notes" class="form-control"></textarea>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <div class="btn_box">
-                                            <button type="submit" id="answer_save" class="btn btn-block btn-primary btn-md">등록</button>
-                                        </div>
-                                    </div>
-                                </tr>
-                            </div>
+														</c:choose>
+														<td>${item.content}</td>
+														<td class="answer_status">답변대기</td>
+														<td class="clear">
+															<a type="button" data-emailno="${item.emailno}"
+																class="btn btn-warning btn-xs review_list_answer">답변</a>
+															<button type="button"
+																class="btn btn-danger btn-xs review_list_delete">삭제</button>
+														</td>
+													</tr>
+												</tbody>						
+											</c:forEach>
+										</table>
+														<form id="email-answer"
+															action="${pageContext.request.contextPath}/09_cs">
+
+																<table class="answer_box table table-bordered product_info_table">
+																	<tr>
+																	<td class="info_table_color">답변 내용</td>
+																	<td>
+																		<div class="form-inline">
+															<input type="text" id="this_emailno" name="emailno"/>
+																			<input type="text" name="answer" id="qanda_notes"
+																				class="form-control"></input>
+																		</div>
+																	</td>
+																	</tr>
+																
+															</table>
+															<div class="btn_box">
+																<button type="submit" id="answer_save"
+																	class="btn btn-block btn-primary btn-md">등록</button>
+															</div>
+														</form>
+														</div>
+														</div>
+														</div>
+											</div>
+											</div>
+											
+
+									
+									</div>
                                 <!-- /.card-body -->
                                 </div>
                                 <!-- /.card 끝 -->
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /wrapper  끝-->
-        </div>
     </section>
     <footer></footer>
 
+		  <!--Google CDN 서버로부터 jQuery 참조 -->
+    <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- jQuery Ajax Setup -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    
+    
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('.answer_box').hide()
-        });
+					$(document).ready(function() {
+						$('.answer_box').hide()
+					});
 
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
+					$("#menu-toggle").click(function(e) {
+						e.preventDefault();
+						$("#wrapper").toggleClass("toggled");
+					});
 
-        $(function() {
-            /* `#all_check`의 선택 상태가 변경되었을 때의 이벤트 */
-            $("#all_check").change(function() {
-                // 모든 `.delete_check`의 선택 상태를 `#all_check`와 동일하게 맞춘다.
-                $(".delete_check").prop('checked', $(this).prop('checked'));
-            });
-            /** 선택 삭제 버튼 클릭시 */
-            $(".select_delete").click(function () {
-                var delete_check_list = $(".delete_check:checked");
-                if(delete_check_list.length == 0){
-                    alert("선택된 항목이 없습니다.");
-                    return false;
-                }
+					$(function() {
+						/* `#all_check`의 선택 상태가 변경되었을 때의 이벤트 */
+						$("#all_check").change(
+								function() {
+									// 모든 `.delete_check`의 선택 상태를 `#all_check`와 동일하게 맞춘다.
+									$(".delete_check").prop('checked',
+											$(this).prop('checked'));
+								});
+						/** 선택 삭제 버튼 클릭시 */
+						$(".select_delete")
+								.click(
+										function() {
+											var delete_check_list = $(".delete_check:checked");
+											if (delete_check_list.length == 0) {
+												alert("선택된 항목이 없습니다.");
+												return false;
+											}
 
-                //배열의 길이만큼 반복한다.
-                for (var i=0; i<delete_check_list.length; i++) {
-                    // i번째 HTML요소를 jQuery객체로 변환하여 입력값을 취한다.
-                    var ckeck_product = $(delete_check_list[i]);
-                    // 체크된 항목 삭제
-                    $(ckeck_product).parents('tr').remove();
-                };
+											//배열의 길이만큼 반복한다.
+											for (var i = 0; i < delete_check_list.length; i++) {
+												// i번째 HTML요소를 jQuery객체로 변환하여 입력값을 취한다.
+												var ckeck_product = $(delete_check_list[i]);
+												// 체크된 항목 삭제
+												$(ckeck_product).parents('tr')
+														.remove();
+											}
+											;
 
-                //상품 목록이 하나도 없을시
-                if(product_list_num == 0){
-                    console.log(product_list_num);
-                    $('#product_list').html('<tr id="product_none_msg"><td colspan="9">답변 대기 중인 문의가 없습니다.</td></tr>');
-                }
-            });
+											//상품 목록이 하나도 없을시
+											if (product_list_num == 0) {
+												console.log(product_list_num);
+												$('#product_list')
+														.html(
+																'<tr id="product_none_msg"><td colspan="9">답변 대기 중인 문의가 없습니다.</td></tr>');
+											}
+										});
 
-            $(".review_list_delete").click(function () {
-                var delete_confirm = confirm("정말 삭제 하시겠습니까?")
+						$(".review_list_delete")
+								.click(
+										function() {
+											var delete_confirm = confirm("정말 삭제 하시겠습니까?")
 
-                if(delete_confirm){
-                    $(this).parents('tr').remove();
-                    $('.answer_box').hide()
+											if (delete_confirm) {
+												$(this).parents('tr').remove();
+												$('.answer_box').hide()
 
-                }else{
-                    return false;
-                }
+											} else {
+												return false;
+											}
 
-                var product_list_num = $('.product_table tbody tr').length;
-                $('.search_number').html(product_list_num);
-                $('.total_number').html(product_list_num);
+											var product_list_num = $('.product_table tbody tr').length;
+											$('.search_number').html(
+													product_list_num);
+											$('.total_number').html(
+													product_list_num);
 
-                //상품 목록이 하나도 없을시
-                if(product_list_num == 0){
-                    console.log(product_list_num);
-                    $('#product_list').html('<tr id="product_none_msg"><td colspan="9">답변 대기 중인 문의가 없습니다.</td></tr>');
-                }
-            });
+											//상품 목록이 하나도 없을시
+											if (product_list_num == 0) {
+												console.log(product_list_num);
+												$('#product_list')
+														.html(
+																'<tr id="product_none_msg"><td colspan="9">답변 대기 중인 문의가 없습니다.</td></tr>');
+											}
+										});
 
-            $(".review_list_answer").click(function (e) {
-                e.preventDefault();
-                $('.answer_box').show()
-            });
+						$(document).on("click",".review_list_answer", function(e) {
+							e.preventDefault();
+							
+							let click = $(this);
+							let emailno= click.data('emailno');
+							let insert_emailno = $('#this_emailno').val(emailno);
+							
+							$('.answer_box').show()
+						});
 
-            $('#answer_save').click(function(e){
-                e.preventDefault();
-                var answer = $('#qanda_notes').val();
+	/* 					$('#answer_save').click(function(e) {
+							e.preventDefault();
+							var answer = $('#qanda_notes').val();
 
-                if(answer){
-                    alert("답변이 저장되었습니다.");
-                    $('.answer_box').hide()
-                    $('.answer_status').html("답변완료");
-                }else{
-                    alert("답변을 입력해주세요.");
-                    return false;
-                }
-            });
-        });
+							if (!answer) {
+								alert("답변을 입력해주세요.");
+								return false;
+							}
+						}); */
+				
+			
+	
+							//put 메서드로 ajax 요청
+							$('#email-answer').ajaxForm({
+								   // 전송 메서드 지정
+					            method: "PUT",
+					            // 서버에서 200 응답을 전달한 경우 실행됨
+					            success: function(json) {
+					                console.log(json);
+					                
+					                // json 결과가 OK일 시 로그인 페이지로 이동한다.
+					                if (json.rt == "OK") {
+					        			alert("이메일 문의 답변이 완료 되었습니다.");
+					                    location.reload();
+					                }
+					            }
+						 });
+					});
 
-    </script>
+	
+			
+				</script>
 </body>
 </html>

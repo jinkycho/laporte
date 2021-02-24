@@ -13,9 +13,11 @@
         <result property="userno" column="userno" />
         <result property="couponno" column="couponno" />
         <result property="usestatus" column="usestatus" />
+        <result property="regdate" column="regdate" />
+        <result property="editdate" column="editdate" />
         
         <!-- user 테이블과 조인 -->
-        <result property="usestatus" column="usestatus" />
+        <result property="u_userno" column="u_userno AS userno" />
         
         <!-- coupon 테이블과 조인  -->
         <result property="name" column="name" />
@@ -29,7 +31,13 @@
         <result property="expire" column="expire" />
    
     </resultMap>
-	
+    
+	<!-- 단일 회원 쿠폰 조회를 위한 기능 정의 -->
+    <select id="selectUsersCoupon"
+        parameterType="com.project.laporte.model.Userscoupon"
+        resultMap="userscouponMap">
+        SELECT * FROM userscoupon WHERE usrcouponno = #{usrcouponno}
+     </select>
 	
 	<!-- 회원 쿠폰 목록 조회를 위한 기능 정의 -->
     <select id="selectUsersCouponList"
@@ -42,12 +50,22 @@
         ORDER BY usrcouponno
     </select>
 	
+	
     <!-- 회원 쿠폰 추가 위한 기능 정의 -->
 	<insert id="inserUsersCoupon"
 		parameterType = "com.project.laporte.model.Userscoupon"
 		useGeneratedKeys="true" keyProperty="usrcouponno">
-		INSERT INTO userscoupon(userno, couponno, usestatus)
-		VALUES(#{userno}, #{couponno}, #{usestatus})
+		INSERT INTO userscoupon(userno, couponno, usestatus, regdate, editdate)
+		VALUES(#{userno}, #{couponno}, 'N', now(), now())
 	</insert>
+	
+	<!-- 사용한 쿠폰을 업데이트 하는 기능 정의 -->
+	<update id = "updateUsersCoupon"
+	parameterType = "com.project.laporte.model.Userscoupon">
+		UPDATE userscoupon SET
+		usestatus = #{usestatus},
+		editdate = now()
+		WHERE usrcouponno = #{usrcouponno}
+	</update>
 	
 </mapper>

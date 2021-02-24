@@ -527,9 +527,9 @@
                 padding:0 0 5px 10px;
             }
             #csmain_file_choose {
-                width:1px;
-                height:1px;
-                float:left;
+                border: none;
+                margin-left: 25px;
+                font-size: 14px;
             }
             #csmain_message_icon {
                 background-image:url(../img/laporte_clipping.png);

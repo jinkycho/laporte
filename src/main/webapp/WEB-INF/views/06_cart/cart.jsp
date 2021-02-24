@@ -89,7 +89,7 @@
 									<div class="cart_itembox">
 										<input type="checkbox" class="cart_checkbox" name="chk[]" value="${item.cartno }" data-cartno="${item.cartno }" checked>
 										<div class="cart_item">
-											<img class="cart_item_img" src="${pageContext.request.contextPath}/assets/${item.thumbnailUrl}">
+											<img class="cart_item_img" src="${item.thumbnailUrl}">
 											<span>
 												<a class="cart_item_title" href="#">${item.pname }</a>
 												<p class="cart_item_info">${item.color}, ${item.size }</p>

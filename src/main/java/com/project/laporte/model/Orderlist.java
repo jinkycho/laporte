@@ -22,6 +22,7 @@ public class Orderlist {
 	private int totalprice;
 	private int usrcouponno;
 	private int userno;
+	private int point;
 	private int deltypeno;
 	private String orderstatus;
 	private String paystatus;
@@ -39,7 +40,7 @@ public class Orderlist {
 	private int discount;
 	private String distype;
 	
-	// 4) 페이지 구현을 위한 static 변수
+	// 5) 페이지 구현을 위한 static 변수
 	/** LIMIT 절에서 사용할 조회 시작 위치 */
 	private static int offset;
 	

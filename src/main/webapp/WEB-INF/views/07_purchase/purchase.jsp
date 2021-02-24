@@ -78,29 +78,35 @@
 
 
 	<div id="purchase">
+		<form id='purchase-form'
+			action='${pageContext.request.contextPath}/07_purchase'>
+			<input type="hidden" name="userno" value="${u_output.userno}"/>
 		<!-- 주문 정보 시작 -->
 		<div class="purchase_detail">
 			<div class="cart_item">
 				<h4>주문 정보</h4>
 				<a class="product_revise"
 					href="${pageContext.request.contextPath}/06_cart/cartlist.do?userno=<%out.print(session.getAttribute("my_session"));%>">수정</a>
-							
+
 				<c:forEach var="item" items="${output}" varStatus= "status">
 				<c:set var="sum" value="0" />
-				<div>
-				<input type="hidden" name="purchase" value="${item.cartno}" />
-				<br /> <img class="cart_item_img" src="${pageContext.request.contextPath}/assets/${item.thumbnailUrl}"></img>
+
+				<input type="hidden" name="cartno[]" value="${item.cartno}" />
+				<br /> <img class="cart_item_img" src="${item.thumbnailUrl}"></img>
 					<span class="cart_item_title">${item.pname}</span> <br /> <span
-						class="cart_item_info">${item.color}</span> <span
-						class="cart_item_num">${item.prodno}</span> 
-						<span class= "cart_item_ea"> 수량 : ${item.ea}</span> 
-						<span class= "cart_item_price"> 가격 : &#8361; <fmt:formatNumber value="${item.price}" pattern="#,###" />
-					</span>
+						class="cart_item_info">${item.color}, ${item.size}</span> <span
+						class="cart_item_num">${item.prodno}</span>
+						<div class= "cart_item_1ea"> 수량 : ${item.ea}</div>
+						<br />
+						<div class= "cart_item_price">
+						가격 : &#8361; <fmt:formatNumber value="${item.price}" pattern="#,###" />
+					</div>
 					<c:set var="sum" value="${sum + item.ea * item.price}" />
-				</div>
+
 				</c:forEach>
 
 			</div>
+			<br />
 
 			<div class="purchase_msg clearfix">
 				<span id="info_icon">정보</span> 이 금액에는 배송비가 포함되어 있지 않으며, 배송지에 따라 구매가
@@ -110,10 +116,10 @@
 
 			<div class="purchase_total_price">
 				<p>총 주문 금액</p>
-				<span class="cart_item_price"> 
+				<span class="cart_item_price">
 				&#8361;
 				<fmt:formatNumber
-							value="${sum}" pattern="#,###" /> 
+							value="${sum}" pattern="#,###" />
 				<input type="hidden" name="totalprice" value="${sum}">
 				</span>
 			</div>
@@ -129,7 +135,7 @@
 			<p class="step_text">주소:${u_output.addr1}</p>
 			<p class="step_text">상세주소:${u_output.addr2}</p>
 			<p class="step_text">우편번호:${u_output.postcode}</p>
-			
+
 			<p class="step_text">새로운 배송지를 입력하시려면 아래 우편번호 찾기 버튼을 눌러주세요.</p>
 
 			<button id="find_pc"">우편번호 찾기</button>
@@ -140,9 +146,6 @@
 		<!-- 우편번호 조회 끝 -->
 
 		<!-- 배송방법 선택 시작 -->
-		<form id='purchase-form'
-			action='${pageContext.request.contextPath}/07_purchase'>
-			<input type="hidden" name="userno" value="${u_output.userno}"/>
 			<div id="purchase_del_type" class="step_line">
 				<div class="delivery_pc_add">
 					<span class="loc_icon">위치표시</span>
@@ -159,7 +162,7 @@
 						<input type="radio" name="deltypeno"
 							class="delivery_type  clearfix" id="normal_del" value="1"
 							checked /> <label for="normal_del">일반배송</label> <span
-							class="delivery_price">&#8361; 5,000 </span> 
+							class="delivery_price">&#8361; 5,000 </span>
 						<input type="radio"
 							name="deltypeno" class="delivery_type clearfix" id="truck_del"
 							value="2" /> <label for="truck_del">트럭배송</label> <span
@@ -214,13 +217,13 @@
 				<div id="purchase_delivery_first" class="purchase_delivery_first1">
 
 					<li class="delivery_address_li">
-						<p>이름</p> 
+						<p>이름</p>
 						<input type="text" id="delivery_name" name="name" value="${u_output.name}"
  						class="delivery_address">
 					</li>
 
 					<li class="delivery_address_li">
-						<p>이메일</p> 
+						<p>이메일</p>
 						<input type="text" id="delivery_email" name="email" value="${u_output.email}"
 						class="delivery_address">
 					</li>
@@ -239,7 +242,7 @@
 					</li>
 
 					<li class="delivery_address_li">
-						<p>상세주소</p> 
+						<p>상세주소</p>
 						<input type="text" id="delivery_address02"
 						class="delivery_address" name="addr2" value="${u_output.addr2}" readonly>
 						<input type="hidden" name="postcode" value="${u_output.postcode}">
@@ -337,14 +340,22 @@
 						</li>
 						<li class="purchase_total_cost">
 							<hr> <span>쿠폰 / 적립금</span> <label
-							class="purchase_summary_coupon">보너스 쿠폰</label> 
+							class="purchase_summary_coupon">보너스 쿠폰</label>
 							<select id="coupon_select" name="usrcouponno">
-								<option value="">쿠폰을 선택 해주세요.</option>
+							<c:choose>
+								<c:when test="${coupon.usrcouponno == 0}">
+								<option>보유한 쿠폰이 없습니다. </option>
+								</c:when>
+								<c:otherwise>
+								<option value="0">쿠폰을 선택 해주세요.</option>
 								<c:forEach var = "coupon" items="${uc_output}" varStatus="status">
 								<option id="join_coupon" value="${coupon.usrcouponno}">${coupon.name}</option>
 								</c:forEach>
-						</select> <label class="purchase_summary_point">적립금</label> <input
-							id="point_input" type="text" placeholder="0">
+								</c:otherwise>
+							</c:choose>
+						</select>
+						<label class="purchase_summary_point">적립금</label>
+							<input id="point_input" name="point" type="text" value="0">
 							<button class="point_useall">모두 사용</button>
 							<p class="point_left">적립 마일리지</p>
 							<p class="point_left" id="user_point">${u_output.point}p</p>
@@ -387,14 +398,15 @@
 				<p class="step_text">어떤 방법으로 결제하시겠어요?</p>
 
 				<div class="payment_type_btn">
-					<input type="button" value="신용카드 및 체크카드">
-					<input type="button" value="무통장입금(가상계좌)">
-					<input type="button" value="휴대폰결제">
-					<input type="button" value="실시간계좌이체">
+					<input type="hidden" name="paytype" id="paytype" />
+					<input type="button" id="pay_card" value="신용/체크카드" />
+					<input type="button" id="pay_remit" value="무통장입금(가상계좌)" />
+					<input type="button" id="pay_mobile" value="휴대폰결제" />
+					<input type="button" id="pay_remit_d" value="실시간계좌이체" />
 				</div>
 			</div>
 
-				<button type="submit" id="pur_finish_btn">결제완료</button>
+			<button type="submit" id="pur_finish_btn">결제완료</button>
 		</form>
 
 
@@ -403,7 +415,7 @@
 
 	<!-- swweetalert -->
 	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-	
+
 	<script src="${pageContext.request.contextPath}/assets/js/home.js"></script>
 
 	<!--Google CDN 서버로부터 jQuery 참조 -->
@@ -411,10 +423,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- jQuery Ajax Setup -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
-    
+
 	<script type="text/javascript">
 $(document).ready(function() {
-                    
+
     //구매 첫번째를 제외한 단계 숨기기
     $('#purchase_del_type').hide()
 	$('#purchase_delivery_first').hide()
@@ -437,7 +449,7 @@ $(document).ready(function() {
 //불러온 우편번호 및 주소 저장
   $('#find_pc_save').click(function(e){
       e.preventDefault();
-   
+
       var pcAddr= $("#sample3_address").val();
       var p = $("<p>");
       p.html(pcAddr);
@@ -452,7 +464,7 @@ $(document).ready(function() {
       $("#pc_address_input").html(p);
       $("#pc_address_input1").html(p1);
       $("#delivery_address01").val(pcAddr);
-      $("#delivery_address02").val(pcAddrDetail); 
+      $("#delivery_address02").val(pcAddrDetail);
       $('.purchase_postcode').hide();
   	}
       $('#purchase_del_type').show();
@@ -467,7 +479,7 @@ $(document).ready(function() {
 		type : 'post',
 		dataType : 'text',
 		success : function(data){
-			
+
 		//통신이 성공했을 떄 실행되는 함수.
         $("#daum_pc_find").empty();
         // 준비된 요소에게 읽어온 내용을 출력한다.
@@ -485,14 +497,14 @@ $(document).ready(function() {
         var dd=date.getDate();
 
         //배송 유형 선택 단계에 예상 날짜 전달
-        var estDelDate = yy + "." + ("0" + mm).slice(-2)+ "." 
+        var estDelDate = yy + "." + ("0" + mm).slice(-2)+ "."
         + ("0" + dd).slice(-2)+ " 09:00 ~ 13:00";
         var p = $("<p>");
         p.html(estDelDate);
         $('.est_delivery_date').html(p);
 
         //배송 날짜 배송 정보 요약 단계로 전달
-        var estDelDate1 = yy + "." + ("0" + mm).slice(-2)+ "." 
+        var estDelDate1 = yy + "." + ("0" + mm).slice(-2)+ "."
         + ("0" + dd).slice(-2)+ " 09:00 ~ 13:00";
         var p1 = $("<p>");
         p1.html(estDelDate1);
@@ -512,8 +524,8 @@ $(document).ready(function() {
     $('.delivery_type').change(function(e){
         e.preventDefault();
         var deliveryType = $("input[name='deltypeno']:checked").val();
-    
-        //일반배송 선택 시 
+
+        //일반배송 선택 시
         if(deliveryType == "1"){
             //배송정보가 필요한 단계에 배송 정보 전달
             $('#selected_delivery').html("&#8361; 5,000");
@@ -522,7 +534,7 @@ $(document).ready(function() {
             $('.delivery_final_price').html("5000");
 
         }
-        
+
         //트럭배송 선택 시
         else if(deliveryType == "2"){
             //배송정보가 필요한 단계에 배송 정보 전달
@@ -533,8 +545,8 @@ $(document).ready(function() {
         }
     });
 
-   
-    
+
+
 
     //배송 선택 단계 다음버튼 클릭 시
     $('#next_step').click(function(e){
@@ -559,10 +571,10 @@ $(document).ready(function() {
     $('#purchase_con').click(function(e){
         e.preventDefault();
         var delName= $('#delivery_name').val();
-        var delEmail= $('#delivery_email').val(); 
+        var delEmail= $('#delivery_email').val();
         var delPhoneNo = $('#delivery_phone').val();
         var delHomeAddress= $('#delivery_address01').val();
-    
+
 
         if(!delName){
             swal('확인','이름을 입력 해주세요.','warning');
@@ -582,13 +594,13 @@ $(document).ready(function() {
             $('#delivery_phone').focus();
             return false;
         }
-        
+
         var NameP = $("<p>");
         NameP.html(delName);
-        
+
         var emailP = $("<p>");
         emailP.html(delEmail);
-        
+
         var phoneP = $("<p>");
         phoneP.html(delPhoneNo);
 
@@ -599,7 +611,7 @@ $(document).ready(function() {
         $('#customer_email').html(emailP);
         $('#customer_phone').html(phoneP);
         $('#customer_address').html(addressP);
-        
+
         $('#purchase_delivery_first').hide()
         $('#purchase_delivery_first').next().show()
     });
@@ -611,7 +623,7 @@ $(document).ready(function() {
         var delFprice = $('.delivery_final_price').html();
         var purFprice = $('.purchase_final_price').html();
         var delandpurFprice = parseInt(delFprice) + parseInt(purFprice);
-            
+
         $('#delandpur_final_price').html(delandpurFprice);
 
         var builType = $("input[name='loctype']:checked").val();
@@ -665,10 +677,10 @@ $(document).ready(function() {
         var delFprice = $('.delivery_final_price').html();
         var purFprice = $('.purchase_final_price').html();
         var delandpurFprice = (parseInt(delFprice) + parseInt(purFprice)) * couponDiscount;
-        
+
         $('#delandpur_final_price').html(delandpurFprice);
 
-      /*   if(couponIdx == 1){    
+      /*   if(couponIdx == 1){
             $(this).children('#join_coupon').remove();
         }else if(couponIdx == 2){
             $(this).children('#bday_coupon').remove();
@@ -683,7 +695,7 @@ $(document).ready(function() {
         var delandpurFprice = $('#delandpur_final_price').html();
         var delandpurFprice1 = parseInt(delandpurFprice) - pointDiscount;
 
-        
+
          $('#delandpur_final_price').html(delandpurFprice1).prop('disabled','true');
     });
 
@@ -698,7 +710,31 @@ $(document).ready(function() {
             $('#purchase_delivery_first').show()
 
         });
-	
+     
+     //신용/체크카드 버튼 클릭 시
+     $('#pay_card').click(function(e){
+    	e.preventDefault(); 
+    	$('#paytype').val("C");
+     });
+
+     //무통장입금(가상계좌) 버튼 클릭 시
+     $('#pay_remit').click(function(e){
+    	e.preventDefault(); 
+    	$('#paytype').val("D");
+     });
+     
+   //휴대폰 결제 버튼 클릭 시
+     $('#pay_mobile').click(function(e){
+    	e.preventDefault(); 
+    	$('#paytype').val("M");
+     });
+   
+   //휴대폰 결제 버튼 클릭 시
+     $('#pay_remit_d').click(function(e){
+    	e.preventDefault(); 
+    	$('#paytype').val("D2");
+     });
+     
      //#purchase-form에 대한 submit 이벤트를 가로채서 Ajax요청을 전송한다.
      $("#purchase-form").ajaxForm({
     	 //전송 메서드 지정
@@ -706,7 +742,7 @@ $(document).ready(function() {
     	 //서버에서 200 응답을 전달한 경우 실행됨
     	 success: function(json) {
     		 console.log(json);
-    		 
+
     		 //json 결과가 OK 일 시 마이페이지로 이동한다.
     		 if(json.rt == "OK"){
     			 alert("구매가 완료되었습니다.");
@@ -714,7 +750,7 @@ $(document).ready(function() {
     		 }
     	 }
     });
-    	
+
 
 
         /* header fixed */

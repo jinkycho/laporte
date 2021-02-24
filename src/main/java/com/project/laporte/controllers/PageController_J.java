@@ -27,10 +27,4 @@ public class PageController_J {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_fanda.jsp" 파일을 View로 지정한다.
 	        return "/11_admin/admin_fanda";
 	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_qanda.do", method=RequestMethod.GET)
-	    public String qanda() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_qanda.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_qanda";
-	    }
 }

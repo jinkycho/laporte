@@ -102,5 +102,13 @@
 		editdate = now()
 		WHERE userno = #{userno}
 	</update>
-
+	
+	<!-- 포인트 차감하기  -->
+	<update id ="pointRevise"
+	parameterType = "com.project.laporte.model.User">
+		UPDATE user SET
+		point = #{point},
+		editdate = now()
+		WHERE userno = #{userno}
+	</update>
 </mapper>

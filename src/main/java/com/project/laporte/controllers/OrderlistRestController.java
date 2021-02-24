@@ -1,8 +1,6 @@
 package com.project.laporte.controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Cart;
-import com.project.laporte.model.Coupon;
+import com.project.laporte.model.Order_prod;
 import com.project.laporte.model.Orderlist;
+import com.project.laporte.model.User;
+import com.project.laporte.model.Userscoupon;
 import com.project.laporte.service.CartService;
 import com.project.laporte.service.CouponService;
+import com.project.laporte.service.OrderProdService;
 import com.project.laporte.service.OrderlistService;
+import com.project.laporte.service.UserService;
+import com.project.laporte.service.UserscouponService;
 
 @RestController
 public class OrderlistRestController {
@@ -37,6 +40,9 @@ public class OrderlistRestController {
     @Autowired  CouponService couponService;
     @Autowired 	OrderlistService orderlistService;
     @Autowired 	CartService cartService;
+    @Autowired 	UserscouponService userscouponService;
+    @Autowired  UserService userService;
+    @Autowired 	OrderProdService orderprodService;
 
     /** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
     @Value("#{servletContext.contextPath}")
@@ -53,12 +59,13 @@ public class OrderlistRestController {
     		@RequestParam(value="phoneno", defaultValue="") String phoneno,
     		@RequestParam(value="loctype", defaultValue="") String loctype,
     		@RequestParam(value="servicetype", defaultValue="") String servicetype,
-    		@RequestParam(value="request", defaultValue="") String p_request,
+    		@RequestParam(value="request", defaultValue="NULL") String p_request,
     		@RequestParam(value="sizelimit", defaultValue="") String sizelimit,
     		@RequestParam(value="deldate", defaultValue="") String deldate,
     		@RequestParam(value="paytype", defaultValue="") String paytype,
     		@RequestParam(value="totalprice", defaultValue="0") int totalprice,
     		@RequestParam(value="usrcouponno", defaultValue="0") int usrcouponno,
+    		@RequestParam(value="point", defaultValue="0") int point,
     		@RequestParam(value="userno", defaultValue="0") int userno,
     		@RequestParam(value="deltypeno", defaultValue="0") int deltypeno
     		){
@@ -80,20 +87,17 @@ public class OrderlistRestController {
 		input.setRequest(p_request);
 		input.setSizelimit(sizelimit);
 		input.setDeldate(deldate);
+		input.setPoint(point);
+		input.setPaytype(paytype);
 		
-		if(paytype == "신용카드 및 체크카드") {
-			input.setPaytype("C");
+		if(paytype == "C") {
 			input.setPaystatus("Y");
-		}else if(paytype == "무통장입금(가상계좌)") {
-			input.setPaytype("D");
-			input.setPaystatus("N");
-		}else if(paytype == "휴대폰결제") {
-			input.setPaytype("M");
+		}else if(paytype == "M") {
 			input.setPaystatus("Y");
 		}else {
-			input.setPaytype("D2");
-			input.setPaystatus("Y");
+			input.setPaystatus("N");
 		}
+		
 		input.setTotalprice(totalprice);
 		input.setUsrcouponno(usrcouponno);
 		input.setUserno(userno);
@@ -102,20 +106,33 @@ public class OrderlistRestController {
 		//저장된 결과를 조회하기 위한 객체
 		Orderlist output = null;
 		
+		/** 4) 사용한 쿠폰 업데이트 */
+		Userscoupon uc_input = new Userscoupon();
+		Userscoupon uc_output =null;
+		
+		
+		/** 3) 구매 내역에 저장하기 */
+		Order_prod op_input = new Order_prod();
+		Order_prod op_output = null;
+	
+		
 		
 		/** 2) 구매한 장바구니 삭제하기 */
-		//체크된 카트 배열을 불러온다.
-				String[] selectedCart = request.getParameterValues("chk[]");
+
+				// 카트 정보를 불러올 객체 생성
+		
+				//체크된 카트 배열을 불러온다.
+				String[] selectedCart = request.getParameterValues("cartno[]");
 				// 체크된 카트 번호 변수 선언 및 초기화
 				int selectedCartno = 0;
 				
-				// 카트 정보를 불러올 객체 생성
 				Cart c_input = new Cart();
-				// 조회한 카트 정보를 담을 객체 초기화
-				int c_output = 0;
+				Cart c_output = null;
 				
-				// 여러 개의 카트 정보를 담을 List 객체 생성
-				List<Cart> result = new ArrayList<Cart>();
+				
+				// 조회한 카트 정보를 담을 객체 초기화
+				int c_delete = 0;
+				
 				
 		try {
 			//데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
@@ -123,15 +140,88 @@ public class OrderlistRestController {
 			
 			//데이터 조회
 			output = orderlistService.getPurchase(input);
+		
 			
-			for(int i= 0; i < selectedCart.length; i++) {
-				c_input.setCartno(selectedCartno);
-				c_output = cartService.deleteCart(c_input);// 체크된 카트 번호 int로 parse
-				selectedCartno = Integer.parseInt(selectedCart[i]);
+			if(output != null) {
+				try {
+					if(output.getUsrcouponno() != 0) 
+					{
+					
+					uc_input.setUsrcouponno(output.getUsrcouponno());
+					uc_input.setUsestatus("Y");
 				
-				c_input.setCartno(selectedCartno);
-				c_output = cartService.deleteCart(c_input);
+					userscouponService.updateUsersCoupon(uc_input);
+					uc_output = userscouponService.getUsersCoupon(uc_input);
+					
+					System.out.println(uc_output);
+					
+					}
+						
+				
+					// 사용한 포인트 계산하기
+					
+					/** 5) 사용한 포인트 차감하기 */
+					
+					//현재 사용자가 보유하고 있는 포인트 조회
+					User have_point = new User();
+					have_point.setUserno(output.getUserno());
+					
+					//사용한 포인트 조회
+					User change_point = new User();
+					User u_output = null;
+					int use_point = 0;
+					
+					use_point = output.getPoint();
+					
+					// 보유 포인트 - 사용한 포인트
+					int now_point = have_point.getPoint() - use_point;
+					System.out.println(now_point);
+					
+					change_point.setUserno(output.getUserno());
+					change_point.setPoint(now_point);
+				
+					System.out.print(change_point);
+					
+					// 사용한 포인트 차감하기
+					userService.pointRevise(change_point);
+					u_output = userService.getUserItem(change_point);
+					
+					System.out.println(u_output);
+					
+				
+				
+				//구매한 장바구니 삭제하기
+					for(var i = 0;  i < selectedCart.length; i++) {
+						
+						// 체크된 카트 번호 int로 parse
+						selectedCartno = Integer.parseInt(selectedCart[i]);
+						
+						c_input.setCartno(selectedCartno);
+						c_output = cartService.getCartByCartno(c_input);
+						
+
+					// 구매내역 저장하기
+					op_input.setOrderno(output.getOrderno());
+					op_input.setProdno(c_output.getProdno());
+					op_input.setEa(c_output.getEa());
+					
+					orderprodService.addOrderProd(op_input);
+					
+					// 저장된 구매내역 조회
+					op_output = orderprodService.getOrderProd(op_input);
+					
+					System.out.println(op_output);
+					
+					//구매 내역 저장 완료 후 해당 카트는 삭제
+					c_delete = cartService.deleteCart(c_output);
 			
+					
+					
+				}
+				}catch(Exception e) {
+					return webHelper.getJsonError(e.getLocalizedMessage());
+				
+			}
 			}
 			
 		}catch(Exception e) {
@@ -141,7 +231,8 @@ public class OrderlistRestController {
 		/** 결과를 확인하기 위한 페이지 연동 */
 		//저장 결과를 확인하기 위해 데이터 저장 시 생성된 PK값을 상세 페이지로 전달해야 한다.
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("item", output);
+		map.put("item", c_delete);
 		return webHelper.getJsonData();
     }
+
 }
