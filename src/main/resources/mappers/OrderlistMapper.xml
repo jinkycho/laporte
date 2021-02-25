@@ -38,6 +38,14 @@
         <result property="c_name" column="c_name" />
         <result property="discount" column="discount" />
         <result property="distype" column="ditype" />
+        
+        <!-- product(제품) 테이블과 조인 -->
+        <result property="prodno" column="prodno" />
+        <result property="pname" column="pname" />
+        <result property="ea" column="ea" />
+        <result property="price" column="price" />
+        <result property="size" column="size" />
+        <result property="color" column="color" />
 
     </resultMap>
 
@@ -65,16 +73,48 @@
 
     </select>
 
+	<!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectOrderItem"
+        parameterType="com.project.laporte.model.Orderlist"
+        resultMap="orderlistMap">
+        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
+        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate,
+        	d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum, u.userno
+        FROM orderlist o
+        INNER JOIN delivery d ON d.orderno = o.orderno
+        INNER JOIN user u ON u.userno = o.userno
+        ORDER BY o.orderno
+        WHERE orderno=#{orderno}
+    </select>
+	
 	<!-- 다중행 조회를 위한 기능 정의 -->
     <select id="selectOrderList"
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
         SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
         	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate,
-        	d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum
+        	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color
         FROM orderlist o
-        INNER JOIN delivery d ON d.orderno = o.orderno
+        INNER JOIN user u ON u.userno = o.userno
+        INNER JOIN order_prod op ON op.orderno = o.orderno
+        INNER JOIN product p ON p.prodno = op.prodno
+        ORDER BY o.orderno
     </select>
+    
+    <!-- 다중행 조회를 위한 기능 정의 
+    <select id="selectOrderUserList"
+        parameterType="com.project.laporte.model.Orderlist"
+        resultMap="orderlistMap">
+        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
+        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate,
+        	 u.userno, p.prodno, p.name AS `pname`, op.ea
+        FROM orderlist o
+        INNER JOIN user u ON u.userno = o.userno
+        INNER JOIN order_prod op ON op.orderno = o.orderno
+        INNER JOIN product p ON p.prodno = op.prodno
+        ORDER BY o.orderno
+        WHERE o.userno = #{userno}
+    </select> -->
 
 	<!-- 데이터 수 조회를 위한 기능 정의 -->
     <select id="selectCountAll"

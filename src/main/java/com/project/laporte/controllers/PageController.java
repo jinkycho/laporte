@@ -12,11 +12,7 @@ public class PageController {
     // -> import org.springframework.web.bind.annotation.RequestMapping;
     // -> import org.springframework.web.bind.annotation.RequestMethod;
 	
-	@RequestMapping(value="/02_mypage/order.do", method=RequestMethod.GET)
-    public String mypageOrder() {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/order.jsp" 파일을 View로 지정한다.
-        return "/02_mypage/order";
-    }
+	
 	
 	//@RequestMapping(value="/03_detail/detail.do", method=RequestMethod.GET)
     //public String detail() {

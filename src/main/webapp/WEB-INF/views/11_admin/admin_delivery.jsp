@@ -194,6 +194,34 @@
                                 </div>
                             </div>
 
+							<!-- 배송정보 입력 -->
+							<div class="col-md-12" id="form_hidden">
+                            	<div class="card">
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title">배송 정보 입력</h3>
+                            				<form id="delivery_form" action="${pageContext.request.contextPath}/11_admin/admin_delivery">
+                            					<div>
+										    		<label for="orderno">주문번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
+										    		<input type="number" name="orderno" id="orderno" class="cfm_input" maxlength='5' oninput="maxLengthCheck(this)" placeholder="50,000 번대를 입력해주세요." value=""/>
+										    	</div>
+                            					<div>
+										    		<label for="userno">회원번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
+										    		<input type="number" name="userno" id="userno" class="cfm_input" maxlength='5' oninput="maxLengthCheck(this)" placeholder="10,000 번대를 입력해주세요." value=""/>
+										    	</div>
+										    	<div>
+										    		<label for="trackingnum">운송장 번호 &nbsp;: </label>
+										    		<input type="number" name="trackingnum" id="trackingnum" class="cfm_input" maxlength='6' oninput="maxLengthCheck(this)" placeholder="6자리의 숫자를 입력해주세요"/>
+										    	</div>
+										    	<div>
+										    		<label for="deliverystatus1">배송 상태 &nbsp;&nbsp;&nbsp;&nbsp;: </label>
+										    		<input type="radio" name="deliverystatus" id="deliverystatus" value="R" checked/> 배송 준비중</label>
+										    	</div>
+										    	<button type="submit" class="btn btn-primary btn-sm" id="delivery_cfm">작성완료</button>
+                            				</form>
+                       				</div>
+                   				</div>
+               				</div>
+							
                             <!-- 결제확인 -->
                             <div class="col-md-12 content_nopay">
                                 <div class="card">
@@ -219,66 +247,66 @@
                                             </thead>
                                             <tbody id="delivery_list">
                                             	<c:choose>
-                                            		<c:when test="${orderlistOutput == null || fn:length(orderlistOutput) == 0}">
+                                            		<c:when test="${output == null || fn:length(output) == 0}">
 									                    <tr>
 									                        <td colspan="12" align="center">조회결과가 없습니다.</td>
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
-								                    	<c:forEach var="orderitem" items="${orderlistOutput }" varStatus="status">
-								                    		<c:if test="${orderitem.orderstatus=='N' }">
+								                    	<c:forEach var="item" items="${orderlistOutput }" varStatus="status">
+								                    		<c:if test="${item.orderstatus=='N' && output[status.index].deliverystatus==null || output[status.index].deliverystatus=='N'}">
 				                                                <tr>
 				                                                    <td>
-				                                                    	<input type='checkbox' class="check" name='chkn[]' value="${orderitem.orderno }">
-				                                                    	<input type="hidden" data-deldate="${orderitem.deldate }"/>
+				                                                    	<input type='checkbox' class="check" name='chkn[]' value="${item.orderno }">
+				                                                    	<input type='hidden' value="${item.userno }">
 			                                                    	</td>
-				                                                    <td>${orderitem.orderno }</td>
+				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${orderitem.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
 				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
-				                                                    <td>${orderitem.name }</td>
+				                                                    <td>${item.name }</td>
 				                                                    <td>
-				                                                    	0<fmt:formatNumber var="phoneno" value="${orderitem.phoneno }" pattern="###,####,####" />
+				                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
 				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
 			                                                    	</td>
-				                                                    <td>${orderitem.addr1 }, ${orderitem.addr2 }</td>
-				                                                    <td>상품 이름----------</td>
+				                                                    <td>${item.addr1 }, ${item.addr2 }</td>
+				                                                    <td>${item.pname }</td>
 				                                                    <td>
-				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${orderitem.totalprice }'/>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${orderitem.deldate}" var="deldate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.deldate}" var="deldate" pattern="yyyy-MM-dd" />
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 				                                                    </td>
 				                                                    <td>
-				                                                    	<c:if test="${orderitem.paytype=='C' }">
+				                                                    	<c:if test="${item.paytype=='C' }">
 				                                                    		신용카드
 				                                                    	</c:if>
-				                                                    	<c:if test="${orderitem.paytype=='D' }">
+				                                                    	<c:if test="${item.paytype=='D' }">
 				                                                    		무통장입금
 				                                                    	</c:if>
-				                                                    	<c:if test="${orderitem.paytype=='M' }">
+				                                                    	<c:if test="${item.paytype=='M' }">
 				                                                    		휴대폰결제
 				                                                    	</c:if>
-				                                                    	<c:if test="${orderitem.paytype=='D2' }">
+				                                                    	<c:if test="${item.paytype=='D2' }">
 				                                                    		실시간계좌이체
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td data-paystatus="${orderitem.paystatus }">
-				                                                    	<c:if test="${orderitem.paystatus=='N' }">
+				                                                    <td data-paystatus="${item.paystatus }">
+				                                                    	<c:if test="${item.paystatus=='N' }">
 				                                                    		결제전
 				                                                    	</c:if>
-				                                                    	<c:if test="${orderitem.paystatus=='Y' }">
+				                                                    	<c:if test="${item.paystatus=='Y' }">
 				                                                    		결제완료
 				                                                    	</c:if>
 				                                                    </td>
 				                                                    <td width='54' align='center' class="clear">
 				                                                    	<c:choose>
-				                                                    	<c:when test="${orderitem.request != null }">
+				                                                    	<c:when test="${item.request != null }">
 					                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
 					                                                        <p class="user_memo">
-					                                                        	${orderitem.request }
+					                                                        	${item.request }
 				                                                        	</p>
 			                                                        	</c:when>
 			                                                        	<c:otherwise>
@@ -342,7 +370,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='R' }">
+								                    		<c:if test="${item.deliverystatus=='R' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chkr[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
@@ -361,7 +389,7 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>${orderlistOutput[status.index].pname }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -433,7 +461,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='S' }">
+								                    		<c:if test="${item.deliverystatus=='S' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chks[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
@@ -452,7 +480,7 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>${orderlistOutput[status.index].pname }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -524,7 +552,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='D' }">
+								                    		<c:if test="${item.deliverystatus=='D' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chkd[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
@@ -543,7 +571,7 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>${orderlistOutput[status.index].pname }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -615,7 +643,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.paystatus=='Y' && item.deliverystatus=='C' }">
+								                    		<c:if test="${item.deliverystatus=='C' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chkc[]' value="${item.deliveryno }"></td>
 				                                                    <td>${item.orderno }</td>
@@ -634,7 +662,8 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>상품이름 자리 ------</td>
+				                                                    <td>${orderlistOutput[status.index].pname }
+				                                                    </td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -671,47 +700,9 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!--페이지네이션 끝
-                                    var orderno = $(current).val();
-									var userno = "10005";			// userno 취득해야함
-									var deliverystatus = "R";
-									var trackingnum = 12345678;		// 운송장번호 취득해야함
-									var deliverydate = $(current).next().data();-->
+                                    <!--페이지네이션 끝-->
                                 </div>
                             </div>
-                            <div class="col-md-12" id="form_hidden">
-                            	<div class="card">
-                                    <div class="card-header border-0">
-                                        <h3 class="card-title">배송 정보 입력</h3>
-                            				<form id="delivery_form" action="${pageContext.request.contextPath}/11_admin/admin_delivery">
-                            					<div>
-										    		<label for="orderno">주문번호 : </label>
-										    		<input type="number" name="orderno" id="orderno" placeholder="50,000 번대를 입력해주세요."/>
-										    	</div>
-                            					<div>
-										    		<label for="userno">회원번호 : </label>
-										    		<input type="number" name="userno" id="userno" placeholder="10,000 번대를 입력해주세요."/>
-										    	</div>
-										    	<div>
-										    		<label for="deliverydate">배송일자 : </label>
-										    		<input type="date" name="deliverydate" id="deliverydate"/>
-										    	</div>
-										    	<div>
-										    		<label for="trackingnum">운송장 번호 : </label>
-										    		<input type="number" name="trackingnum" id="trackingnum" placeholder="6자리의 숫자를 입력해주세요"/>
-										    	</div>
-										    	<div>
-										    		<label for="deliverystatus1">배송 상태 : </label>
-										    		<label><input type="radio" name="deliverystatus" id="deliverystatus1" value="R"/>배송 준비중</label>
-										    		<label><input type="radio" name="deliverystatus" id="deliverystatus2" value="S"/>배송 대기</label>
-										    		<label><input type="radio" name="deliverystatus" id="deliverystatus3" value="D"/>배송 중</label>
-										    		<label><input type="radio" name="deliverystatus" id="deliverystatus4" value="D"/>배송 완료</label>
-										    	</div>
-										    	<button type="submit">작성완료</button>
-                            				</form>
-                       				</div>
-                   				</div>
-               				</div>
                         </div>
                     </div>
 				</div>
@@ -733,6 +724,13 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+        
+        /* input 숫자타입 최대 글자수 */
+        function maxLengthCheck(object){
+            if (object.value.length > object.maxLength){
+              object.value = object.value.slice(0, object.maxLength);
+            }    
+          }
         
         /* 상단 메뉴 탭 관리 */
         $(function() {
@@ -835,6 +833,26 @@
         	$("#form_hidden").slideToggle(200);
         });
 		
+        /* 선택한 요소 */
+        $(document).on("click",".check", function() {
+        	var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkn[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkn[]']:checked").length;		// 체크된 요소 갯수
+			
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkn[]']:checked");		// 체크된 주문정보
+				}
+			}
+			
+			var orderno = $(current).parent().next().html();
+			var userno = $(current).next().val();
+			$("#orderno").val(orderno);
+			$("#userno").val(userno);
+        });
+        
         /* 작성완료 버튼 */
         $(function() {
     		$("#delivery_form").ajaxForm({
@@ -866,7 +884,7 @@
 			}
 			
 			// var paystatus = current.parent().eq(10).data();
-			var orderno = current.val();
+			var orderno = current;
 			var orderstatus = "CC";
 			if (!confirm("해당 주문건은 관리자에 의해 취소 됩니다.")) {
 				return false;
@@ -878,7 +896,7 @@
 				"orderstatus":orderstatus
 			}, function(json) {
 				if(json.rt == "OK") {
-					alert("변경되었습니다");
+					alert("주문취소처리 되었습니다");
 					// 변경 완료 후 목록 페이지 이동
 					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
 				}

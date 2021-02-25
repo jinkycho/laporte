@@ -216,7 +216,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.orderstatus=='CC' && item.paystatus=='N' }">
+								                    		<c:if test="${item.orderstatus=='CC'}">
 				                                                <tr>
 				                                                	<td><input type='checkbox' class="check" name='chkcc[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
@@ -326,12 +326,12 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.orderstatus=='CH' && item.paystatus=='Y' }">
+								                    		<c:if test="${item.orderstatus=='CH' && item.paystatus=='Y'}">
 				                                                <tr>
 				                                                	<td><input type='checkbox' class="check" name='chkch[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${item.editdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
 				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 			                                                    	<td>
@@ -339,8 +339,8 @@
 				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.name }</td>
-				                                                    <td>상품이름-----</td>
-				                                                    <td>1-----</td>
+				                                                    <td>${item.pname }</td>
+				                                                    <td>${item.ea }</td>
 				                                                    <td>
 				                                                    	<c:if test="${item.paystatus=='N' }">
 				                                                    		결제전
@@ -416,12 +416,12 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.orderstatus=='RT' && item.paystatus=='Y' }">
+								                    		<c:if test="${item.orderstatus=='RT' && item.paystatus=='Y'}">
 				                                                <tr>
 				                                                	<td><input type='checkbox' class="check" name='chkrt[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${item.editdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
 				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 			                                                    	<td>
@@ -429,8 +429,8 @@
 				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.name }</td>
-				                                                    <td>상품이름-----</td>
-				                                                    <td>1-----</td>
+				                                                    <td>${item.pname }</td>
+				                                                    <td>${item.ea }</td>
 				                                                    <td>
 				                                                    	<c:if test="${item.paystatus=='N' }">
 				                                                    		결제전
@@ -509,12 +509,12 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
-								                    		<c:if test="${item.orderstatus=='RF' && item.paystatus=='Y' }">
+								                    		<c:if test="${item.orderstatus=='RF' && item.paystatus=='Y'}">
 				                                                <tr>
 				                                                	<td><input type='checkbox' class="check" name='chkrf[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${item.editdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
 				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                	<td>
@@ -522,7 +522,7 @@
 				                                                    	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.name }</td>
-				                                                    <td>1---</td>
+				                                                    <td>${item.ea }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>

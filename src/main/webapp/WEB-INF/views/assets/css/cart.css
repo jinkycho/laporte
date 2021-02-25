@@ -20,8 +20,8 @@ input[type="checkbox"] {
   width:100%;
 }
 .cart_item_img {
-  width: 70px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   margin: 0 10px;
   float: left;
 }

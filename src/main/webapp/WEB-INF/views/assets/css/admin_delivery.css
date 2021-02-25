@@ -126,7 +126,21 @@ input[type="radio"] {
   color: #333;
   font-weight: bold;
 }
-
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.cfm_input {
+  border: 0;
+  border-bottom: 1px solid #000;
+  outline: 0;
+  overflow: hidden;
+  margin-right: 20px;
+}
+.cfm_input:focus {
+	border-bottom: 2px solid #172f50;
+}
 /* 본문 */
 .delivery_table {
 	margin-top: 20px;

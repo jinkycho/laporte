@@ -12,9 +12,15 @@ public interface OrderlistService {
 	/** 구매 정보 조회 */
 	public Orderlist getPurchase(Orderlist input) throws Exception;
 
-	/** 주문 목록 조회 */
+	/** 주문 상세 조회 */
+	public Orderlist getOrderItem(Orderlist input) throws Exception;
+	
+	/** 관리자 - 주문 목록 조회 */
 	public List<Orderlist> getOrderList(Orderlist input) throws Exception;
-
+	
+	/** 사용자 - 주문 목록 조회 
+	public List<Orderlist> getOrderUserList(Orderlist input) throws Exception;
+*/
 	/** 주문 데이터가 저장되어 있는 갯수 조회 */
 	public int getOrderlistCount(Orderlist input) throws Exception;
 

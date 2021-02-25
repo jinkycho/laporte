@@ -61,13 +61,14 @@ public class CartAjaxController {
 
         try {
         	if(userno == 0) {       		
+        		HttpSession session = request.getSession();
+        		userno = (int) session.getAttribute("my_session");
+        		
+        		input.setUserno(userno);
         		output = cartService.getCartList(input);
         		
         	// 데이터 조회하기
         	} else { 
-        		HttpSession session = request.getSession();
-        		userno = (int) session.getAttribute("my_session");
-        		
         		input.setUserno(userno);
         		output = cartService.getCartList(input);
     		}

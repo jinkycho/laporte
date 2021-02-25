@@ -76,15 +76,14 @@
 		parameterType = "com.project.laporte.model.Delivery"
 		useGeneratedKeys="true" keyProperty="deliveryno">
 		INSERT INTO delivery(deliveryno, deliverydate, deliverystatus, trackingnum, userno, orderno, regdate, editdate)
-		VALUES(#{deliveryno}, #{deliverydate}, #{deliverystatus}, #{trackingnum}, #{userno}, #{orderno}, now(), now())
+		VALUES(#{deliveryno}, now(), #{deliverystatus}, #{trackingnum}, #{userno}, #{orderno}, now(), now())
 	</insert>
 
     <!-- 배송정보 수정을 위한 기능 정의 -->
     <update id="updateDeliveryItem"
         parameterType="com.project.laporte.model.Delivery">
         UPDATE delivery SET
-            deliveryno=#{deliveryno}, deliverydate=now(), deliverystatus=#{deliverystatus}, 
-            trackingnum=#{trackingnum}, editdate=now()
+            deliveryno=#{deliveryno}, deliverystatus=#{deliverystatus}, editdate=now()
         WHERE deliveryno=#{deliveryno}
     </update>
     
@@ -101,11 +100,6 @@
         FROM delivery d
         INNER JOIN user u ON u.userno = d.userno
         INNER JOIN orderlist o ON o.orderno = d.orderno
-        <where>
-            <if test="orderno != null and orderno != ''">
-                o.orderno LIKE concat('%', #{orderno}, '%')
-            </if>
-        </where>
     </select>
     
 </mapper>

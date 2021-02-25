@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +42,39 @@ public class DeliveryRestController {
 	// -> import org.springframework.beans.factory.annotation.Value;
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
+	
+	@RequestMapping(value="/02_mypage/order_view.do", method=RequestMethod.GET)
+    public String allproduct1() {
+        // "/src/main/webapp/WEB-INF/views/03_detail/detail.jsp" 파일을 View로 지정한다.
+        return "/02_mypage/order_view";
+    }
     
+	/** 상세 페이지 */
+    @RequestMapping(value = "/02_mypage/order_view/{orderno}", method = RequestMethod.GET)
+    public Map<String, Object> get_item(@PathVariable("orderno") int orderno) {
+
+        /** 1) 데이터 조회하기 */
+        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+        Orderlist input = new Orderlist();
+        input.setOrderno(orderno);
+
+        // 조회결과를 저장할 객체 선언
+        Orderlist output = null;
+
+        try {
+            // 데이터 조회
+            output = orderlistService.getOrderItem(input);
+        } catch (Exception e) {
+            return webHelper.getJsonError(e.getLocalizedMessage());
+        }
+        
+        /** 2) JSON 출력하기 */
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("item", output);
+        
+        return webHelper.getJsonData(data);
+    }
+	
     /** 저장 */
 	@RequestMapping(value = "/11_admin/admin_delivery", method = RequestMethod.POST)
     public Map<String, Object> post(
@@ -101,7 +134,7 @@ public class DeliveryRestController {
     	input.setOrderno(orderno);
     	input.setPaystatus(paystatus);
     	input.setOrderstatus(orderstatus);
-    	
+    	    	
     	Delivery deliveryInput = new Delivery();
     	deliveryInput.setDeliveryno(deliveryno);
     	deliveryInput.setDeliverystatus(deliverystatus);

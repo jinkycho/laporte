@@ -67,8 +67,7 @@
   background-position: -118px -28px;
   opacity: 0.7;
 }
-.order_list01,
-.order_list02 {
+.order_list {
   margin-top: 30px;
   padding: 0 20px;
 }
@@ -89,9 +88,6 @@
 .order_list02 p,
 .order_list02 span {
   font-size: 14px;
-}
-.order_back {
-  font-weight: 700;
 }
 .order_info01,
 .order_info02,

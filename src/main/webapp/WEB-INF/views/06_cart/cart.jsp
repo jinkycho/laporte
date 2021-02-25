@@ -65,7 +65,7 @@
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
 	        
-	        <!-- 비 로그인 상태 -->
+	        	<!-- 비 로그인 상태 -->
 	            <c:if test = "${my_session == null }">
 		            <div class="cart_none">
 		                <div class="cart_login">
@@ -75,6 +75,7 @@
 		                </div>
 		            </div>
 	            </c:if>
+	            <!-- 비 로그인 상태 끝 -->
 	        
 		       <c:choose>
 			        <c:when test="${output == null || fn:length(output) == 0}">
@@ -91,12 +92,12 @@
 										<div class="cart_item">
 											<img class="cart_item_img" src="${item.thumbnailUrl}">
 											<span>
-												<a class="cart_item_title" href="#">${item.pname }</a>
+												<a class="cart_item_title" href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno }">${item.pname }</a>
 												<p class="cart_item_info">${item.color}, ${item.size }</p>
 											</span>
 											<div class="cart_item_1ea">${item.ea } 개</div><br/>
 											<div class="cart_item_price">
-												<fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
+												&#8361; <fmt:formatNumber pattern="#,###" value='${item.price * item.ea }'/>
 											</div>
 										</div>
 									</div>
@@ -122,7 +123,7 @@
 					            		<div>
 					            			<p class="cart_total"><b>총 주문금액</b></p>
 					            			<span class="cart_totalprice">
-					            				&#8361; <fmt:formatNumber pattern="###,###,###" value='${sum }'/>
+					            				&#8361; <fmt:formatNumber pattern="#,###" value='${sum }'/>
 				            				</span>
 					           			</div>
 					           	 	</div>
@@ -387,7 +388,7 @@
 						
 						if(json.rt == "OK") {
 							alert("장바구니에 추가되었습니다.");
-							window.location = "${pageContext.request.contextPath}/06_cart/cart.do?";
+							window.location = "${pageContext.request.contextPath}/06_cart/cart.do?userno="+ <%out.print(session.getAttribute("my_session"));%>;
 						}
 					}
 				});
@@ -412,7 +413,7 @@
 					if(json.rt == "OK") {
 						alert("삭제되었습니다");
 						// 삭제 완료 후 목록 페이지 이동
-						window.location = "${pageContext.request.contextPath}/06_cart/cart.do";
+						window.location = "${pageContext.request.contextPath}/06_cart/cart.do?userno="+ <%out.print(session.getAttribute("my_session"));%>;
 					}
 				});
 			});
@@ -436,7 +437,7 @@
 					if(json.rt == "OK") {
 						alert("변경되었습니다");
 						// 변경 완료 후 목록 페이지 이동
-						window.location = "${pageContext.request.contextPath}/06_cart/cart.do";
+						window.location = "${pageContext.request.contextPath}/06_cart/cart.do?userno="+ <%out.print(session.getAttribute("my_session"));%>;
 					}
 				});
 			});

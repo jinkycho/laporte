@@ -275,7 +275,7 @@
 			                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
 			                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
 		                                                    	</td>
-			                                                    <td>상품 이름 자리------------------</td>
+			                                                    <td>${item.pname }</td>
 			                                                    <td>
 			                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 		                                                    	</td>
@@ -307,7 +307,7 @@
 			                                                    </td>
 			                                                    <td>
 			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='N' }">
-			                                                    		입금전
+			                                                    		결제확인중
 			                                                    	</c:if>
 			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='R' }">
 			                                                    		준비중
@@ -324,7 +324,7 @@
 		                                                    	</td>
 			                                                    <td>
 			                                                    	<c:if test="${item.orderstatus=='N' }">
-			                                                    		주문
+			                                                    		일반주문
 			                                                    	</c:if>
 			                                                    	<c:if test="${item.orderstatus=='CC' }">
 			                                                    		취소

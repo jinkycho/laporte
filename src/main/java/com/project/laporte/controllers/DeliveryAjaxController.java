@@ -3,6 +3,9 @@ package com.project.laporte.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -44,9 +47,68 @@ public class DeliveryAjaxController {
     @Value("#{servletContext.contextPath}")
     String contextPath;
     
-    /** 주문관리 목록 페이지 */
+    /** 사용자 주문관리 목록 페이지 */
+    @RequestMapping(value = "/02_mypage/order.do", method = RequestMethod.GET)
+    public ModelAndView list(Model model, HttpServletRequest request,
+            @RequestParam(value="userno", defaultValue="0") int userno,
+            // 페이지 구현에서 사용할 현재 페이지 번호
+            @RequestParam(value="page", defaultValue="1") int nowPage) {
+        
+        /** 1) 페이지 구현에 필요한 변수값 생성 */
+        int totalCount = 0;              // 전체 게시글 수
+        int listCount  = 10;             // 한 페이지당 표시할 목록 수
+        int pageCount  = 5;              // 한 그룹당 표시할 페이지 번호 수
+        
+        /** 2) 데이터 조회하기 */
+        // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
+        Orderlist input = new Orderlist();
+        Delivery deliveryInput = null;
+        
+        List<Orderlist> output = null;          					// 조회결과가 저장될 객체
+        PageData pageData = null;               					// 페이지 번호를 계산한 결과가 저장될 객체
+        List<Delivery> deliveryOutput = new ArrayList<Delivery>();  // 조회결과가 저장될 객체   
+
+        try {
+        	if(userno == 0) {       		
+        		HttpSession session = request.getSession();
+        		userno = (int) session.getAttribute("my_session");
+        		
+        		input.setUserno(userno);
+        		output = OrderlistService.getOrderList(input);
+        		//output = OrderlistService.getOrderUserList(input);
+        		
+        	// 데이터 조회하기
+        	} else { 
+        		
+        		input.setUserno(userno);
+        		output = OrderlistService.getOrderList(input);
+        		//output = OrderlistService.getOrderUserList(input);
+        		
+	            // 전체 게시글 수 조회
+	            totalCount = OrderlistService.getOrderlistCount(input);
+	            // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
+	            pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+	            
+	            // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+	            Orderlist.setOffset(pageData.getOffset());
+	            Orderlist.setListCount(pageData.getListCount());
+        	}            
+            deliveryOutput = deliveryService.getDeliveryList(deliveryInput);
+        } catch (Exception e) {
+            return webHelper.redirect(null, e.getLocalizedMessage());
+        }
+
+        /** 3) View 처리 */
+        model.addAttribute("output", output);
+        model.addAttribute("pageData", pageData);
+        model.addAttribute("deliveryOutput", deliveryOutput);
+
+        return new ModelAndView("/02_mypage/order");
+    }
+    
+    /** 관리자 - 주문관리 목록 페이지 */
     @RequestMapping(value = "/11_admin/admin_order.do", method = RequestMethod.GET)
-    public ModelAndView list(Model model,
+    public ModelAndView orderList(Model model,
             // 검색어
             @RequestParam(value="keyword", required=false) String keyword,
             // 페이지 구현에서 사용할 현재 페이지 번호
@@ -83,7 +145,7 @@ public class DeliveryAjaxController {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }
 
-        /** 4) View 처리 */
+        /** 3) View 처리 */
         model.addAttribute("output", output);
         model.addAttribute("pageData", pageData);
         model.addAttribute("deliveryOutput", deliveryOutput);
@@ -92,7 +154,7 @@ public class DeliveryAjaxController {
         return new ModelAndView("11_admin/admin_order");
     }
     
-    /** 배송관리 목록 페이지 */
+    /** 관리자 - 배송관리 목록 페이지 */
     @RequestMapping(value = "/11_admin/admin_delivery.do", method = RequestMethod.GET)
     public ModelAndView DeliveryList(Model model,
     		// 페이지 구현에서 사용할 현재 페이지 번호
@@ -106,12 +168,12 @@ public class DeliveryAjaxController {
         /** 2) 데이터 조회하기 */
         // 조회에 필요한 조건값를 Beans에 담는다.
         Delivery input = new Delivery();
-        Orderlist orderlistInput = null;
+        Orderlist orderlistInput = new Orderlist();
         
         List<Delivery> output = null;          							// 조회결과가 저장될 객체
         PageData pageData = null;               						// 페이지 번호를 계산한 결과가 저장될 객체
-        List<Orderlist> orderlistOutput = new ArrayList<Orderlist>();	// 조회결과가 저장될 객체
-
+        List<Orderlist> orderlistOutput = new ArrayList<Orderlist>();
+        
         try {
             // 전체 게시글 수 조회
             totalCount = deliveryService.getDeliveryCount(input);
@@ -128,15 +190,15 @@ public class DeliveryAjaxController {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }
 
-        /** 4) View 처리 */
+        /** 3) View 처리 */
         model.addAttribute("output", output);
-        model.addAttribute("orderlistOutput", orderlistOutput);
         model.addAttribute("pageData", pageData);
+        model.addAttribute("orderlistOutput", orderlistOutput);
 
         return new ModelAndView("11_admin/admin_delivery");
     }
     
-    /** 취소관리 목록 페이지 */
+    /** 관리자 - 취소관리 목록 페이지 */
     @RequestMapping(value = "/11_admin/admin_cancel.do", method = RequestMethod.GET)
     public ModelAndView cancelList(Model model,
             // 페이지 구현에서 사용할 현재 페이지 번호
@@ -172,7 +234,7 @@ public class DeliveryAjaxController {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }
 
-        /** 4) View 처리 */
+        /** 3) View 처리 */
         model.addAttribute("output", output);
         model.addAttribute("pageData", pageData);
         model.addAttribute("deliveryOutput", deliveryOutput);

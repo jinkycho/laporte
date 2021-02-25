@@ -17,6 +17,7 @@
 	<!-- stylesheet -->
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert2.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
 	    <link rel="stylesheet" type="text/css" href="../assets/css/order.css">
 	
@@ -25,8 +26,8 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
 	<!-- ajax-helper -->
-	    <link rel="stylesheet" href="assets/plugins/ajax/ajax_helper.css" />
-	    <script src="assets/plugins/ajax/ajax_helper.js"></script>
+	    <link rel="stylesheet" href="../assets/plugins/ajax/ajax_helper.css" />
+	    <script src="../assets/plugins/ajax/ajax_helper.js"></script>
 	</head>
 
 	<body>
@@ -49,158 +50,482 @@
 						</form>
 						<div id="search_result" >
 							<h4>추천 검색어</h4>
-							<a href="../03_detail/allproduct1.html"><span class="rec_reyword"></span>가구</a>
-							<a href="../03_detail/allproduct3.html"><span class="rec_reyword"></span>침대</a>
-							<a href="../03_detail/allproduct5.html"><span class="rec_reyword"></span>주방</a>
-							<a href="../03_detail/allproduct2.html"><span class="rec_reyword"></span>소파</a>
-							<a href="../03_detail/allproduct4.html"><span class="rec_reyword"></span>수납</a>
-							<a href="../03_detail/allproduct6.html"><span class="rec_reyword"></span>조명</a>
+							<a href="${pageContext.request.contextPath}/03_detail/allproduct1.html"><span class="rec_reyword"></span>가구</a>
+							<a href="${pageContext.request.contextPath}/03_detail/allproduct3.html"><span class="rec_reyword"></span>침대</a>
+							<a href="${pageContext.request.contextPath}/03_detail/allproduct5.html"><span class="rec_reyword"></span>주방</a>
+							<a href="${pageContext.request.contextPath}/03_detail/allproduct2.html"><span class="rec_reyword"></span>소파</a>
+							<a href="${pageContext.request.contextPath}/03_detail/allproduct4.html"><span class="rec_reyword"></span>수납</a>
+							<a href="${pageContext.request.contextPath}/03_detail/allproduct6.html"><span class="rec_reyword"></span>조명</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- 검색 끝 -->
 			
-			<!-- <h3>내 주문내역</h3> -->
 			<!-- 탭 전체 박스 -->
 			<div class="order_tab">
 				<!-- 탭 버튼 영역 -->
 				<ul class="order_tab_button clearfix">
 					<li class="order_tab_item">
-						<a class="order_tab_itemlink selected" id="order_tab_link01" href=".order_tab_page01">처리중 주문</a>
+						<a class="order_tab_itemlink selected" id="order_tab_link01" href="#">처리중 주문</a>
 					</li>
 					<li class="order_tab_item">
-						<a class="order_tab_itemlink" id="order_tab_link02" href=".order_tab_page02">지난 주문</a>
+						<a class="order_tab_itemlink" id="order_tab_link02" href="#">지난 주문</a>
 					</li>
 				</ul>
 			</div>
 			
-			<div class="container order">
-				<!-- 내용영역 -->
-				<div>
-					<div class="order_tab_pagenone">
-						<p class="order_none_title">현재 진행중인 주문이 없습니다.</p>
-					</div>
-					<div class="order_tab_page01"></div>
-					<div class="order_tab_page02"></div>
+			<!-- 공통 -->
+			<div class="container">
+				<div id="order_tab_page01">
+					<c:choose>
+						<c:when test="${output == null || fn:length(output) == 0}">
+							<div>
+								<div class="order_tab_pagenone">
+									<p class="order_none_title">현재 진행중인 주문이 없습니다.</p>
+								</div>
+							</div>
+							<div class="order_none">
+								<span id="order_search_icon"></span>
+								<div>
+									<p><b>찾는 주문 내역이 없으신가요?</b></p>
+									<p>매장 또는 비회원으로 주문하신 경우, 여기서 주문내역을 확인할 수 있습니다.
+										<a href="#" class="order_link">주문 내역 확인</a>
+									</p>
+								</div>
+								<div class="order_blank">
+									<p>찾는 주문 내역이 없으신가요?
+										<a href="#" class="order_link">고객지원센터</a> 로 문의해 주세요.
+									</p>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="item" items="${output }" varStatus="status">
+								<c:if test="${deliveyOutput[status.index].deliverystatus==null || output[status.index].deliverystatus!='C'}" >
+									<!-- 주문 목록 -->
+									<div class="order_page01">
+										<p>
+											주문 번호 - 
+											<span class="order_orderno">${item.orderno }</span><br/>
+											주문 날짜 - 
+											<span class="order_date">
+				                               	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                               	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+											</span><br/>
+											현황 - 
+											<span class="order_condition">
+												<c:if test="${item.orderstatus=='N' }">
+													일반주문
+												</c:if>
+												<c:if test="${item.orderstatus=='CC' }">
+													취소
+												</c:if>
+												<c:if test="${item.orderstatus=='CH' }">
+													교환
+												</c:if>
+												<c:if test="${item.orderstatus=='RT' }">
+													반품
+												</c:if>
+												<c:if test="${item.orderstatus=='RF' }">
+													환불
+												</c:if>
+										   </span>
+										</p>
+										<a class="order_link" href="#">주문 내역 보기</a>
+										<hr/>
+									</div>
+									
+									<!-- 주문내역 -->
+									<div class="order_list">
+									    <div>
+									        <div class="order_info01">
+									            <h3>주문 내역</h3>
+									            <p>주문 번호 : <span class="order_orderno">${item.orderno }</span></p>
+									        </div>
+									    </div>
+									    <hr/>
+									    <div class="order_info02">
+									        <p>
+									            <b>주문 날짜</b><br/>
+									            <span class="order_date">
+									            	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                               		<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+								            	</span><br/>
+									            <b>주문 번호</b><br/>
+									            <span class="order_orderno">${item.orderno }</span><br/>
+									            <b>최종 결제 금액</b><br/>
+									            &#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/></span>
+									        </p>
+									        <div>
+									            <span id="order_icon"></span>
+									            <a class="order_return" href="../02_mypage/order_return.html">주문취소</a>
+									        </div>
+									    </div>
+									    <hr/>
+									    <div class="order_info03">
+									        <div class="order_line">
+									            <p><b>택배 배송 내역</b></p>
+									            <a href="#"><b><span class="order_delivery_info">+</span></b></a>
+									        </div>
+									        <div class="order_line">
+									            <p><b>택배 배송 제품</b></p>
+									            <a href="#"><b><span class="order_delivery_product">+</span></b></a>
+									        </div>
+									        <div class="order_hidden">
+									            <form class="order_itemlist">
+									                <img class="order_item_img">
+									                <div class="order_item">
+									                    <span class="order_item_title">${item.pname }</span><br/>
+									                    <span class="order_item_info">${item.color }, ${item.size }</span><br/>
+									                    <span class="order_item_productno">${item.prodno }</span><br/>
+									                    <span class="order_item_price">
+									                    	&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
+									                    </span>
+									                </div>
+									            </form>
+									        </div>
+									        <div class="order_userinfo">
+									            <p>
+									                <b>주소</b><br/>
+									                <span class="order_name">${item.name }</span><br/>
+									                <span class="order_address">${item.addr1 } ${item.addr2 }</span><br/>
+									                <span class="order_email">${item.email }</span><br/>
+									            </p>
+									        </div>
+									    </div>
+									    <hr/>
+									    <div>
+									        <p><b>결제 방법</b><br/>
+									        <span class="order_payment">
+									        	<c:if test="${item.paytype=='C'}">
+	                                        		신용카드
+	                                        	</c:if>
+	                                        	<c:if test="${item.paytype=='D'}">
+	                                        		무통장입금
+	                                       		</c:if>
+	                                       		<c:if test="${item.paytype=='M'}">
+	                                        		휴대폰결제
+	                                       		</c:if>
+	                                       		<c:if test="${item.paytype=='D2'}">
+	                                        		실시간계좌이체
+	                                       		</c:if>
+									        </span>
+									    </div>
+									    <hr/>
+									    <div>
+									        <div>
+									            <span>
+									                <b>총 주문금액</b>
+									            </span>
+									            <span class="pull_right">
+									                <b><span class="order_price">
+						                					&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
+					                				   </span></b>
+									            </span>
+									        </div>
+									        <br/>
+									        <div>
+									            <span>
+									                배송비
+									            </span>
+									            <span class="pull_right">
+									               + &#8361; <span class="order_deliveryprice">${item.d_price }</span>
+									            </span>
+									            <br/>
+									            <span>
+									                쿠폰할인
+									            </span>
+									            <span class="pull_right">
+									               - &#8361; <span class="order_deliveryprice">5000</span>
+									            </span>
+									            <br/>
+									            <span>
+									                적립금사용
+									            </span>
+									            <span class="pull_right">
+									               - &#8361; <span class="order_deliveryprice">0</span>
+									            </span>
+									        </div>
+									        <hr/>
+									        <div>
+									            <p>
+									                <span>
+									                    <b>최종 결제금액</b>
+									                </span>
+									                <span class="pull_right">
+									                    <b>&#8361; <span class="order_totalprice">
+									                    			  <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+									                    		   </span></b>
+									                </span>
+									            </p>
+									        </div>							
+									    </div>
+									</div>
+									<div class="hd_gray_layer" id="hd_menu_background"></div>
+									<div class="order_over_layer" id="hd_menu_front">
+									    <!-- 메뉴 로고 및 아이콘 -->
+									    <div>
+									        <table id="order_table01"></table>
+									    </div>
+									    <br/>
+									    <div>
+									        <table id="order_table02"></table>
+									    </div>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
-				<div class="order_none">
-					<span id="order_search_icon"></span>
-					<div>
-						<p><b>찾는 주문 내역이 없으신가요?</b></p>
-						<p>매장 또는 비회원으로 주문하신 경우, 여기서 주문내역을 확인할 수 있습니다.
-							<a href="#" class="order_link">주문 내역 확인</a>
-						</p>
-					</div>
-					<div class="order_blank">
-						<p>찾는 주문 내역이 없으신가요?
-							<a href="#" class="order_link">고객지원센터</a> 로 문의해 주세요.
-						</p>
-					</div>
+				<div id="order_tab_page02">
+					<!-- 공통 -->
+					<c:choose>
+						<c:when test="${output == null || fn:length(output) == 0}">
+							<div>
+								<div class="order_tab_pagenone">
+									<p class="order_none_title">현재 진행중인 주문이 없습니다.</p>
+								</div>
+							</div>
+							<div class="order_none">
+								<span id="order_search_icon"></span>
+								<div>
+									<p><b>찾는 주문 내역이 없으신가요?</b></p>
+									<p>매장 또는 비회원으로 주문하신 경우, 여기서 주문내역을 확인할 수 있습니다.
+										<a href="#" class="order_link">주문 내역 확인</a>
+									</p>
+								</div>
+								<div class="order_blank">
+									<p>찾는 주문 내역이 없으신가요?
+										<a href="#" class="order_link">고객지원센터</a> 로 문의해 주세요.
+									</p>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="item" items="${output }" varStatus="status">
+								<c:if test="${deliveyOutput[status.index].deliverystatus=='C' && item.paystatus=='Y'}" >
+									<!-- 주문 목록 -->
+									<div class="order_page01">
+										<p>
+											주문 번호 - 
+											<span class="order_orderno">${item.orderno }</span><br/>
+											주문 날짜 - 
+											<span class="order_date">
+				                               	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                               	<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+											</span><br/>
+											현황 - 
+											<span class="order_condition">
+												<c:if test="${item.orderstatus=='N' }">
+													일반주문
+												</c:if>
+												<c:if test="${item.orderstatus=='CC' }">
+													취소
+												</c:if>
+												<c:if test="${item.orderstatus=='CH' }">
+													교환
+												</c:if>
+												<c:if test="${item.orderstatus=='RT' }">
+													반품
+												</c:if>
+												<c:if test="${item.orderstatus=='RF' }">
+													환불
+												</c:if>
+										   </span>
+										</p>
+										<a class="order_link" href="#">주문 내역 보기</a>
+										<hr/>
+									</div>
+									
+									<!-- 주문내역 -->
+									<div class="order_list">
+									    <div>
+									        <div class="order_info01">
+									            <h3>주문 내역</h3>
+									            <p>주문 번호 : <span class="order_orderno">${item.orderno }</span></p>
+									        </div>
+									    </div>
+									    <hr/>
+									    <div class="order_info02">
+									        <p>
+									            <b>주문 날짜</b><br/>
+									            <span class="order_date">
+									            	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+				                               		<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+								            	</span><br/>
+									            <b>주문 번호</b><br/>
+									            <span class="order_orderno">${item.orderno }</span><br/>
+									            <b>최종 결제 금액</b><br/>
+									            &#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/></span>
+									        </p>
+									        <div>
+									            <span id="order_icon"></span>
+									            <a class="order_return" href="../02_mypage/order_return.html">주문취소</a>
+									        </div>
+									    </div>
+									    <hr/>
+									    <div class="order_info03">
+									        <div class="order_line">
+									            <p><b>택배 배송 내역</b></p>
+									            <a href="#"><b><span class="order_delivery_info">+</span></b></a>
+									        </div>
+									        <div class="order_line">
+									            <p><b>택배 배송 제품</b></p>
+									            <a href="#"><b><span class="order_delivery_product">+</span></b></a>
+									        </div>
+									        <div class="order_hidden">
+									            <form class="order_itemlist">
+									                <img class="order_item_img">
+									                <div class="order_item">
+									                    <span class="order_item_title">${item.pname }</span><br/>
+									                    <span class="order_item_info">${item.color }, ${item.size }</span><br/>
+									                    <span class="order_item_productno">${item.prodno }</span><br/>
+									                    <span class="order_item_price">
+									                    	&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
+									                    </span>
+									                </div>
+									            </form>
+									        </div>
+									        <div class="order_userinfo">
+									            <p>
+									                <b>주소</b><br/>
+									                <span class="order_name">${item.name }</span><br/>
+									                <span class="order_address">${item.addr1 } ${item.addr2 }</span><br/>
+									                <span class="order_email">${item.email }</span><br/>
+									            </p>
+									        </div>
+									    </div>
+									    <hr/>
+									    <div>
+									        <p><b>결제 방법</b><br/>
+									        <span class="order_payment">
+									        	<c:if test="${item.paytype=='C'}">
+	                                        		신용카드
+	                                        	</c:if>
+	                                        	<c:if test="${item.paytype=='D'}">
+	                                        		무통장입금
+	                                       		</c:if>
+	                                       		<c:if test="${item.paytype=='M'}">
+	                                        		휴대폰결제
+	                                       		</c:if>
+	                                       		<c:if test="${item.paytype=='D2'}">
+	                                        		실시간계좌이체
+	                                       		</c:if>
+									        </span>
+									    </div>
+									    <hr/>
+									    <div>
+									        <div>
+									            <span>
+									                <b>총 주문금액</b>
+									            </span>
+									            <span class="pull_right">
+									                <b><span class="order_price">
+						                					&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
+					                				   </span></b>
+									            </span>
+									        </div>
+									        <br/>
+									        <div>
+									            <span>
+									                배송비
+									            </span>
+									            <span class="pull_right">
+									               + &#8361; <span class="order_deliveryprice">${item.d_price }</span>
+									            </span>
+									            <br/>
+									            <span>
+									                쿠폰할인
+									            </span>
+									            <span class="pull_right">
+									               - &#8361; <span class="order_deliveryprice">5000</span>
+									            </span>
+									            <br/>
+									            <span>
+									                적립금사용
+									            </span>
+									            <span class="pull_right">
+									               - &#8361; <span class="order_deliveryprice">0</span>
+									            </span>
+									        </div>
+									        <hr/>
+									        <div>
+									            <p>
+									                <span>
+									                    <b>최종 결제금액</b>
+									                </span>
+									                <span class="pull_right">
+									                    <b>&#8361; <span class="order_totalprice">
+									                    			  <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+									                    		   </span></b>
+									                </span>
+									            </p>
+									        </div>					
+									    </div>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
-			<div class="order_hidelist"></div>
 		</section>
 		<%@ include file="../01_home/footer.jsp" %>
 		
-		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-		<script src="../js/home.js"></script>
+		<!-- Handlebar CDN 참조 -->
+    	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+    	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   		<!-- jQuery Ajax Form plugin CDN -->
+   		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+		<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	    <script src="../assets/js/home.js"></script>
 	    <script type="text/javascript">
-
-			// 처리중 주문 클릭시
+			
+	    	$(document).ready(function() {
+	    		$("#order_tab_page02").hide();
+	    		$(".order_list").hide();
+	    	});
+	    	
+			/* 탭 - 처리중 주문 클릭시 */
 			$(document).on("click", "#order_tab_link01", function(e) {
 				e.preventDefault();
 				
-				$(".order_tab_page01").show();
-				$(".order_tab_page02").hide();
+				location.reload();
+				
+				$(".order_page01").show();
+				$(".order_list").hide();
+				$("#order_tab_page02").hide();
 				$("#order_tab_link01").addClass("selected");
 				$("#order_tab_link02").removeClass("selected");
-				$(".order_tab_pagenone").hide();
-				$(".container").show();
-				$(".order_hidelist").hide();
-
-				$(".order_tab_page01").load("../02_mypage/order_page01.html");
-				var order_page01 = $(".order_page01");
-
-				$.get("../api/item_info/order_example01.json", function(req) {
-					$(".order_iSellno").html(req.iSellno);
-					$(".order_date").html(req.date);
-					$(".order_condition").html(req.condition);
-				
-				// $(".order_tab_page01").append(order_page01);
-				});
 			});
 
-			// 지난 주문 클릭시
+			/* 탭 - 지난 주문 클릭시 */
 			$(document).on("click", "#order_tab_link02", function(e) {
 				e.preventDefault();
 				
-				$(".order_tab_page02").show();
-				$(".order_tab_page01").hide();
+				$(".order_page02").show();
+				$(".order_list").hide();
+				$("#order_tab_page01").hide();
 				$("#order_tab_link02").addClass("selected");
 				$("#order_tab_link01").removeClass("selected");
-				$(".order_tab_pagenone").hide();
-				$(".container").show();
-				$(".order_hidelist").hide();
-
-				$(".order_tab_page02").load("../02_mypage/order_page02.html");
-				var order_page02 = $(".order_page02");
-
-				$.get("../api/item_info/order_example02.json", function(req) {
-					$(".order_iSellno").html(req.iSellno);
-					$(".order_date").html(req.date);
-					$(".order_condition").html(req.condition);
-				
-				// $(".order_tab_page02").append(order_page02);
-				});
 			});
 
-			// 처리중주문 > 주문관리 클릭시
-			$(document).on("click", ".order_link01", function(e) {
+			/* 주문내역 클릭시 
+			$(document).on("click", ".order_link", function(e) {
 				e.preventDefault();
+				$(".order_list").show();
+				$(".order_page01").hide();
+				$(".order_page02").hide();
+			}); */
+
+			/* 제품번호 버튼 toggle */
+			$(".order_link").click(function() { $(".order_list").slideToggle(200); });
 				
-				$(".order").hide();
-				$(".order_hidelist").show();
-
-				$(".order_hidelist").load("../02_mypage/order_list01.html");
-
-				$.get("../api/item_info/order_infoexample01.json", function(req) {
-					$(".order_iSellno").html(req.iSellno);
-					$(".order_condition").html(req.condition);
-					$(".order_date").html(req.date);
-					$(".order_name").html(req.name);
-					$(".order_address").html(req.address);
-					$(".order_email").html(req.email);
-					$(".order_payment").html(req.payment);
-					$(".order_price").html(req.price);
-					$(".order_deliveryprice").html(req.deliveryprice);
-					$(".order_totalprice").html(req.totalprice);
-				});
-			});
-
-			// 지난주문 >> 주문관리 클릭시
-			$(document).on("click", ".order_link02", function(e) {
-				e.preventDefault();
-				
-				$(".order").hide();
-				$(".order_hidelist").show();
-
-				$(".order_hidelist").load("../02_mypage/order_list02.html");
-
-				$.get("../api/item_info/order_infoexample02.json", function(req) {
-					$(".order_iSellno").html(req.iSellno);
-					$(".order_condition").html(req.condition);
-					$(".order_date").html(req.date);
-					$(".order_name").html(req.name);
-					$(".order_address").html(req.address);
-					$(".order_email").html(req.email);
-					$(".order_payment").html(req.payment);
-					$(".order_price").html(req.price);
-					$(".order_deliveryprice").html(req.deliveryprice);
-					$(".order_totalprice").html(req.totalprice);
-				});
-			});
-
+			
+			
+			
 			// 처리중주문 >> 더보기 클릭시
 			$(document).on("click", ".order_delivery_product", function(e) {
 				e.preventDefault();
@@ -211,40 +536,11 @@
 					} else {
 						$(this).html("+");
 					}
-				
-				var order_itemlist = $(".order_itemlist");
-
-				$.get("../api/item_info/example.json", function(req) {
-					$(".order_item_img").attr('src', req.img);
-						$(".order_item_title").html(req.name);
-						$(".order_item_info").html(req.type);
-						$(".order_item_productno").html(req.num);
-						$(".order_item_price").html("&#8361; "+ req.price);
-				});
 			});
 
-			// 지난주문 >> 더보기 클릭시
-			$(document).on("click", ".order_product", function(e) {
-				e.preventDefault();
-
-				$(".order_hidden").slideToggle(200);
-				if ( $(this).html() == "+" ) {
-					$(this).html("-")
-					} else {
-						$(this).html("+");
-					}
-				
-				var order_itemlist = $(".order_itemlist");
-
-				$.get("../api/item_info/example.json", function(req) {
-					$(".order_item_img").attr('src', req.img);
-						$(".order_item_title").html(req.name);
-						$(".order_item_info").html(req.type);
-						$(".order_item_productno").html(req.num);
-						$(".order_item_price").html("&#8361; "+ req.price);
-				});
-			});
-
+			
+			
+			
 			// 처리중 주문 배송내용 클릭시
 			$(document).on("click", ".order_delivery_info", function(e) {
 				e.preventDefault();
@@ -307,14 +603,6 @@
 					}
 				});
 			});
-
-			// 지난 주문 >> 뒤로 버튼 클릭시
-			// $(document).on("click", ".order_back", function(e) {
-			// 	e.preventDefault();
-
-			// 	$(".order_list02").hide();
-				
-			// });
 		</script>
 	</body>
 </html>

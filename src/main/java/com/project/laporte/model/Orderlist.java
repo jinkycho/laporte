@@ -28,7 +28,8 @@ public class Orderlist {
 	private String paystatus;
 	private String regdate;
 	private String editdate;
-
+	private String ccdate;
+	private String ccstatus;
 	
 	//2) deltype(배송 유형) 테이블과 조인
 	private String d_name;
@@ -39,6 +40,14 @@ public class Orderlist {
 	private String c_name;
 	private int discount;
 	private String distype;
+	
+	//4) product(제품) 테이블과 조인
+	private int prodno;
+	private String pname;
+	private int ea;
+	private int price;
+	private String size;
+	private String color;
 	
 	// 5) 페이지 구현을 위한 static 변수
 	/** LIMIT 절에서 사용할 조회 시작 위치 */
