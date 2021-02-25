@@ -364,6 +364,32 @@ public class WishlistServiceImpl implements WishlistService {
 		return result;
 	}
 	
-	
+	/**
+	 * 기본 위시리스트 목록 추가
+	 * 
+	 * @param Wishlist 조회할 장바구니의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	@Override
+	public int addbasicWishlist(Wishlist input) throws Exception {
+		int result = 0;
+
+		try {
+			result = sqlSession.insert("WishlistMapper.inserbasicwish", input);
+
+			if (result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("저장된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 저장에 실패했습니다.");
+		}
+
+		return result;
+	}
 
 }

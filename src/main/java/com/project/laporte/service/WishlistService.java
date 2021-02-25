@@ -109,4 +109,13 @@ public interface WishlistService {
 	 * @throws Exception
 	 */
 	public int deleteWishItems(Wish_prod input) throws Exception;
+	
+	/**
+	 * 기본 위시리스트 목록 추가
+	 * 
+	 * @param Wishlist 조회할 장바구니의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	public int addbasicWishlist(Wishlist input) throws Exception;
 }

@@ -222,7 +222,7 @@
 							</div>
 						</div>
 						<div class="wish_item_addtobag">
-							<button type="button" class="btn btn-primary addtobag_btn" data-prodno="${item.prodno}" data-ea="${item.ea}" data-userno="${userno }">
+							<button type="button" class="btn btn-primary addtobag_btn" data-prodno="${item.prodno}" data-ea="${item.ea}" data-userno="${userno }" data-wishno="${nowwilist.wishno }">
 								<span class="addtobag_img"></span>장바구니에 추가
 							</button>
 						</div>
@@ -646,11 +646,13 @@
 	    		let userno = current.data('userno');
 	    		let prodno = current.data('prodno');
 	    		let ea = current.data('ea');
+	    		let wishno = current.data('wishno');
 	    		
 	    		$.post("${pageContext.request.contextPath}/06_cart/cart", {
 	    			"userno": userno,
 	    			"prodno": prodno,
-	    			"ea": ea
+	    			"ea": ea,
+	    			"wishno": wishno
 	    		}, function(json) {
 	    			if(json.rt=="OK")
 	    				alert("상품이 장바구니에 추가 되었습니다.");
@@ -670,8 +672,13 @@
 	    			"wishno": wishno,
 	    		}, function(json) {
 	    			if(json.rt=="OK")
-	    				alert("상품이 장바구니에 추가 되었습니다.");
+	    			var result = confirm('상품이 모두 장바구니에 추가되었습니다. 지금 바로 장바구니로 이동 하시겠습니까?');
+	    			
+	    			if(result){
+	    				window.location = "${pageContext.request.contextPath}/06_cart/cart.do";
+	    			}else{
 	    				location.reload();
+	    			}
 	    		})
 		 });
 		 

@@ -25,9 +25,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/cart.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/detail.css">
-<link rel="stylesheet" type="text/css"
-	href="../assets/css/review_expand.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/star.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/review.css">
 
 
 <!-- javascript -->
@@ -133,213 +131,441 @@
 						</div>
 
 						<button class="btn btn-link review_btn clearfix">
-							<span class="star1_icon"></span> <span class="star1_icon"></span>
-							<span class="star1_icon"></span> <span class="star1_icon"></span>
-							<span class="star2_icon"></span> <span
-								class="review_num pull-right">(5)</span>
+							<div class="avg_all_star" data-rate="<c:if test="${reviewList!=null}">
+									<c:set var="sum_star" value="0" />
+								<c:forEach var="item" items="${reviewList }">
+									<c:set var="sum_star" value="${sum_star+item.avgscore }" />
+								</c:forEach>
+								<fmt:parseNumber var="avg_star" integerOnly= "true" value= "${sum_star/reviewList.size() }" />
+								${avg_star}</c:if>
+								<c:if test="${reviewList==null}">0</c:if>">
+								<i class="fas fa-star"></i> 
+								<i class="fas fa-star"></i> 
+								<i class="fas fa-star"></i> 
+								<i class="fas fa-star"></i> 
+								<i class="fas fa-star"></i>
+							</div>
+							 <span class="review_num pull-right">(${reviewList.size()})</span>
 						</button>
 						<!-- 리뷰 모달  -->
 						<div class="review_gray_layer" id="review_background"></div>
 						<div class="review_over_layer" id="review_front">
-							<h3 class="review_text_h3">상품평</h3>
-							<span class="review_close_button"></span>
-							<div class="review_list_box">
-								<div class="star-input">
-									<!--  별모양 반응하도록 하는 것, radio로 체크만들어서 위에 별 이미지 덮어쓰기, 값 바꿔서 작동안하도록 설정, star.js 주석해서 점수안바뀜. -->
-									<div class="input">
-										<input type="radio" name="star-input" value="1" id="p1"
-											disabled> <label for="p1">(1)</label>
-										<!-- 원래 바라보는 for에 ID를 값을 각각 입력해야합니다. 원래는 for= "p1" , 그리고 checked 값은 제거해야함.-->
-										<input type="radio" name="star-input" value="2" id="p2"
-											disabled> <label for="p2">(2)</label>
-										<!-- 원래 바라보는 for에 ID를 값을 각각 입력해야합니다. 원래는 for= "p1" , 그리고 checked 값은 제거해야함.-->
-										<input type="radio" name="star-input" value="3" id="p3"
-											checked="checked"> <label for="p3">(3)</label>
-										<!-- 원래 바라보는 for에 ID를 값을 각각 입력해야합니다. 원래는 for= "p1" , 그리고 checked 값은 제거해야함.-->
-										<input type="radio" name="star-input" value="4" id="p4"
-											checked="checked"> <label for="p4">(4)</label>
-										<!-- 원래 바라보는 for에 ID를 값을 각각 입력해야합니다. 원래는 for= "p1" , 그리고 checked 값은 제거해야함.-->
-										<input type="radio" name="star-input" value="5" id="p5"
-											checked="checked"> <label for="p5">(5)</label>
-										<!-- 원래 바라보는 for에 ID를 값을 각각 입력해야합니다. 원래는 for= "p1" , 그리고 checked 값은 제거해야함.-->
-									</div>
-									<output for="star-input">
-										<b>(5)</b>
-									</output>
-								</div>
-								<br /> <br /> <br />
-
-								<div id="rv_custoner_eval">
-									<h4 class="text">평균 고객평가</h4>
-								</div>
-								<br />
-
-								<div class="star_scrollbar">
-									<div class="starRev">
-										<span class="text">전반적으로</span> <span class="starRev_starR2">
-											<span class="starR2 on">별1</span> <span class="starR2 on">별2</span>
-											<span class="starR2 on">별3</span> <span class="starR2 on">별4</span>
-											<span class="starR2 on">별5</span>
-										</span>
+							<div id="review_big_box" class="clearfix">
+							<c:forEach var="item" items="${reviewList}" >
+							
+							</c:forEach>
+								<div class="review_title_top">
+									<h3>상품평</h3>
+									<span class="review_close_button"></span>
+									<div class="avg_all_star" data-rate="<c:if test='${reviewList.size()==0 }'>0</c:if>
+									<c:set var="total_avgstar" value="0" />
+									<c:if test='${reviewList!=null }'>
+										<c:set var="total" value="0" />
+										<c:forEach var="item" items="${reviewList }" varStatus="status">
+											<c:set var="total" value="${total+item.avgscore }" />
+										</c:forEach>
+										<fmt:parseNumber var="num" integerOnly= "true" value= "${total/reviewList.size() }" />
+										<c:set var="total_avgstar" value="${num}" />
+										${num }
+									</c:if>">
+										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+											class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+											class="fas fa-star"></i> <span class="review_count">(${reviewList.size()})</span>
 									</div>
 								</div>
-								<br />
+								<!-- 평균 고객 평가시작 -->
+								<c:if test="${reviewList.size() != 0}">
+									<c:set var="sum_easy" value="0" />
+									<c:set var="sum_bene" value="0" />
+									<c:set var="sum_qual" value="0" />
+									<c:set var="sum_apear" value="0" />
+									<c:set var="sum_func" value="0" />
+								<c:forEach var="item" items="${reviewList }">
+									<c:set var="sum_easy" value="${sum_easy+item.easyscore }" />
+									<c:set var="sum_bene" value="${sum_bene+item.benefitscore }" />
+									<c:set var="sum_qual" value="${sum_qual+item.qualityscore }" />
+									<c:set var="sum_apear" value="${sum_apear+item.appearscore }" />
+									<c:set var="sum_func" value="${sum_func+item.funcscore }" />
+								</c:forEach>
+									
+									
+									<fmt:parseNumber var="avg_easy" integerOnly= "true" value= "${sum_easy/reviewList.size() }" />
+									<fmt:parseNumber var="avg_bene" integerOnly= "true" value= "${sum_bene/reviewList.size() }" />
+									<fmt:parseNumber var="avg_qual" integerOnly= "true" value= "${sum_qual/reviewList.size() }" />
+									<fmt:parseNumber var="avg_apear" integerOnly= "true" value= "${sum_apear/reviewList.size() }" />
+									<fmt:parseNumber var="avg_func" integerOnly= "true" value= "${sum_func/reviewList.size() }" />	
+								<c:set var="sum_easy" value="${avg_easy}" />
+								<c:set var="sum_bene" value="${avg_bene}" />
+								<c:set var="sum_qual" value="${avg_qual}" />
+								<c:set var="sum_apear" value="${avg_apear}" />
+								<c:set var="sum_func" value="${avg_func}" />
+									
+								<div class="avg_custom_result">
+									<h4>평균 고객평가</h4>
+									<div class="avg_custom_result_output">
+										<div class="avg_custom_star clearfix">
+											<div class="pull-left score_row">전반적으로</div>
+											<div class="pull-right">
+												<div class="avg_all_star" data-rate="${total_avgstar}">
+													<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+														class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+														class="fas fa-star"></i>
+												</div>
+											</div>
+										</div>
+										<div class="avg_score_group">
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">손쉬운 조립</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_easysccore" min="0"
+														max="5" step="1" value="${sum_easy }" disabled /> <span
+														class="avg_easy_num star_num position-p">${sum_easy }</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 가성비</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_benesccore" min="0"
+														max="5" step="1" value="${sum_easy }" disabled /> <span
+														class="avg_bene_num star_num position-p">${sum_easy }</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 품질</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_qualsccore" min="0"
+														max="5" step="1" value="${sum_qual }" disabled /> <span
+														class="avg_qual_num star_num position-p">${sum_qual }</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 외관</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_apearsccore" min="0"
+														max="5" step="1" value="${sum_apear }" disabled /> <span
+														class="avg_apear_num star_num position-p">${sum_apear }</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 기능</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_funcsccore" min="0"
+														max="5" step="1" value="${sum_func }" disabled /> <span
+														class="avg_func_num star_num position-p">${sum_func }</span>
+													</span>
+												</div>
+											</div>
 
-								<div class="starRev">
-									<div id="text">
-										손쉬운 조립 <span id="value1" class="value"></span> <span
-											class="range_box"> <input type="range" id="myRange1"
-											class="slider1" style="width: 130px;" value="5" min=""
-											max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
-										</span>
-									</div>
-								</div>
-								<br />
-
-								<div class="starRev">
-									<div id="text">
-										제품 가성비 <span id="value2" class="value"></span> <span
-											class="range_box"> <input type="range" id="myRange2"
-											class="slider2" style="width: 130px;" value="5" min=""
-											max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
-										</span>
-									</div>
-								</div>
-								<br />
-								<!-- starRev -->
-
-								<div class="starRev">
-									<div id="text">
-										제품 품질 <span id="value3" class="value"></span> <span
-											class="range_box"> <input type="range" id="myRange3"
-											class="slider3" style="width: 130px;" value="5" min=""
-											max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
-										</span>
-									</div>
-								</div>
-								<br />
-								<!-- starRev3 -->
-
-								<div class="starRev">
-									<div id="rv_explain">
-										제품 외관 <span id="value4" class="value"></span> <span
-											class="range_box"> <input type="range" id="myRange4"
-											class="slider4" style="width: 130px;" value="5" min=""
-											max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
-										</span>
-									</div>
-								</div>
-								<br />
-								<!-- starRev4 -->
-
-								<div class="starRev">
-									<div id="rv_explain">
-										제품 기능 <span id="value5" class="value"></span>
-										<div class="range_box">
-											<input type="range" id="myRange5" class="slider5"
-												style="width: 130px;" value="5" min="" max="5" step="6" />
 										</div>
 									</div>
 								</div>
-								<br /> <br />
-								<!-- starRev5 -->
-
-								<div class="review1">
-									<div class="starRev">
-										<span class="starR2 on">별1</span> <span class="starR2 on">별2</span>
-										<span class="starR2 on">별3</span> <span class="starR2 on">별4</span>
-										<span class="starR2 on">별5</span>
-										<div class="date">
-											<span class="date_text" style="font-size: 13px">2020/09/27</span>
+								<!-- 평균 고개평가 끝 -->
+								<!-- 리뷰 반복문시작 -->
+								<c:forEach var="review" items="${reviewList }">
+								<div class="review_parent">
+								<div class="custom_result">
+									<div class="clearfix">
+										<div class="avg_all_star pull-left" data-rate="${review.avgscore}">
+											<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+												class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+												class="fas fa-star"></i>
+										</div>
+										<div class="date pull-right">
+											${review.editdate}
 										</div>
 									</div>
-									<br />
+									<div class="clearfix">
+										<div class="revtitle pull-left">${review.title}</div>
+										<c:if test="${userno==review.userno }">
+										<div class="pull-right edit_box">
+											<a href="#" class="revdelete" data-reviewno="${review.reviewno }"><span class="delete_img"></span>삭제</a>
+											<a href="#" class="revedit">수정</a>
+										</div>
+										</c:if>
+									</div>
 
-									<div class="rv_review clearfix">
-										<span class="text pull-left">너무 좋아요</span>
-										<div class="review_control_box pull-right">
-											<span class="delete_text clearfix"> <span
-												class="logo-icon pull-left" id="rv_trash_logoicon"></span> <span
-												class="color-font pull-right" style="font-size: 17px">삭제</span>
-											</span> <span class="modify_text" id="modify"> <span
-												class="color-font">수정</span>
-											</span>
+									<div class="revcontent">${review.content}</div>
+									<div class="revcommend">
+										<c:if test="${review.recommend=='Y'}">예, 이 제품을 추천합니다.</c:if>
+										<c:if test="${review.recommend=='N'}">아니요, 이 제품을 추천하지 않니다.</c:if>
+									</div>
+									<div class="custom_result_output">
+										<div class="avg_score_group">
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">손쉬운 조립</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_easysccore" min="0"
+														max="5" step="1" value="${review.easyscore}" disabled /> <span
+														class="avg_easy_num star_num position-p">${review.easyscore}</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 가성비</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_benesccore" min="0"
+														max="5" step="1" value="${review.benefitscore}" disabled /> <span
+														class="avg_bene_num star_num position-p">${review.benefitscore}</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 품질</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_qualsccore" min="0"
+														max="5" step="1" value="${review.qualityscore}" disabled /> <span
+														class="avg_qual_num star_num position-p">${review.qualityscore}</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 외관</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_apearsccore" min="0"
+														max="5" step="1" value="${review.appearscore}" disabled /> <span
+														class="avg_apear_num star_num position-p">${review.appearscore}</span>
+													</span>
+												</div>
+											</div>
+											<div class="score_row clearfix position-r">
+												<div class="pull-left score_name">제품 기능</div>
+												<div class="pull-right position-a">
+													<span class="range_box position-r"> <input
+														type="range" class="range-css avg_funcsccore" min="0"
+														max="5" step="1" value="${review.funcscore}" disabled /> <span
+														class="avg_func_num star_num position-p">${review.funcscore}</span>
+													</span>
+												</div>
+											</div>
+
 										</div>
 									</div>
-									<div class="rv_reple">
-										<h5 class="reple">쿠션 느낌도 좋고 튼튼합니다.</h5>
-										<h6 class="reple">예, 이 제품을 추천합니다.</h6>
-									</div>
-									<br />
-
-									<div class="star&scrollbar2">
-										<div class="starRev">
-											<div id="text">
-												손쉬운 조립 <span id="value6" class="value"></span> <span
-													class="range_box"> <input type="range" id="myRange6"
-													class="slider6" style="width: 130px;" value="5" min=""
-													max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
+								</div>
+								<!-- 리뷰 수정하기 페이지 시작 -->
+								<div class="edit_review_box">
+									<form action="${pageContext.request.contextPath}/04_review/review" class="edit_review_form">
+ 									<h3>상품평 수정하기</h3>
+ 									<span class="review_write_close_button"></span>
+ 									
+									<div class="ratebar_box">
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">손쉬운 조립</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_easysccore edit_score" min="0"
+													max="5" step="1" value="${review.easyscore}" name="easyscore"/> <span
+													class="avg_easy_num star_num position-p edit_result">${review.easyscore}</span>
 												</span>
 											</div>
 										</div>
-										<br />
-
-										<div class="starRev">
-											<div id="text">
-												제품 가성비 <span id="value7" class="value"></span> <span
-													class="range_box"> <input type="range" id="myRange7"
-													class="slider7" style="width: 130px;" value="5" min=""
-													max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 가성비</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_benesccore edit_score" min="0"
+													max="5" step="1" value="${review.benefitscore}" name="benefitscore" /> <span
+													class="avg_bene_num star_num position-p">${review.benefitscore}</span>
 												</span>
 											</div>
 										</div>
-										<br />
-										<!-- starRev7 -->
-
-										<div class="starRev">
-											<div id="text">
-												제품 품질 <span id="value8" class="value"></span> <span
-													class="range_box"> <input type="range" id="myRange8"
-													class="slider8" style="width: 130px;" value="5" min=""
-													max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 품질</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_qualsccore edit_score" min="0"
+													max="5" step="1" value="${review.qualityscore}" name="qualityscore"/> <span
+													class="avg_qual_num star_num position-p">${review.qualityscore}</span>
 												</span>
 											</div>
 										</div>
-										<br />
-										<!-- starRev8 -->
-
-										<div class="starRev">
-											<div id="text">
-												제품 외관 <span id="value9" class="value"></span> <span
-													class="range_box"> <input type="range" id="myRange9"
-													class="slider9" style="width: 130px;" value="5" min=""
-													max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 외관</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_apearsccore edit_score" min="0"
+													max="5" step="1" value="${review.appearscore}" name="appearscore"/> <span
+													class="avg_apear_num star_num position-p">${review.appearscore}</span>
 												</span>
 											</div>
 										</div>
-										<br />
-										<!-- starRev9 -->
-
-										<div class="starRev">
-											<div id="text">
-												제품 기능 <span id="value10" class="value"></span> <span
-													class="range_box"> <input type="range"
-													id="myRange10" class="slider10" style="width: 130px;"
-													value="5" min="" max="5" step="6" /> <!-- 작동 멈추기 위해 값 조절. 원래 value = "0" min = "0", step = "5" -->
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 기능</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_funcsccore edit_score" min="0"
+													max="5" step="1" value="${review.funcscore}" name="funcscore" /> <span
+													class="avg_func_num star_num position-p">${review.funcscore}</span>
 												</span>
 											</div>
 										</div>
-										<br />
-										<!-- starRev10 -->
+
+										<div class="add_avg_star">
+											<h4>평균별점</h4>
+											<div class="avg_all_star pull-left edit_avgstar" data-rate="${review.avgscore}">
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i>
+											</div>
+											<input type="hidden" name="avgscore" value="${review.avgscore}"/>
+										</div>
 									</div>
-									<div class="rv_write">
-										<a href="../04_review/review_write.html"> <span
-											class="text" style="color: navy;"> 상품평 작성하기 </span>
-										</a>
+									<input type="text" class="form-control title_input"
+										placeholder="제목을 입력해주세요." name="title" value="${review.title}"/>
+									<textarea class="form-control content_input" rows="6"
+										placeholder="내용을 입력해주세요." name="content">${review.content}</textarea>
+									<div class="commend_box">
+										<div>
+											<input type="radio" name="recommend" value="Y" <c:if test="${review.recommend=='Y' }">checked</c:if> />
+											<label for="y">이 제품을 추천합니다.</label> 
+										</div>
+										<div>
+											<input type="radio" name="recommend" value="N"<c:if test="${review.recommend=='N' }">checked</c:if>/> 
+											<label for="n">이 제품을 추천하지 않습니다.</label>
+										</div>
 									</div>
-								</div>s
+									<input type="hidden" name="reviewno" value="${review.reviewno }" />	
+									<div class="btn_box_submit">
+										<button type="submit" class="edit_review_btn">수정 완료</button>
+									</div>
+									</form>
+								</div>
+								</div>
+								<!-- 리뷰 수정하기 페이지 끝 -->
+								</c:forEach>
+								
+								
+								
+								</c:if>
+								<c:if test="${reviewList.size() ==0 }">
+									<div class="no_review">
+										<p>작성된 상품평이 없습니다.</p>
+									</div>
+								</c:if>
+								
+								<!-- 리뷰 반복문 끝 -->
+								<c:if test="${orderno != 0 }">
+								<div class="add_review pull-right">
+									<a href="#">상품평 작성하기</a>
+								</div>
+								</c:if>
+								
+								
+								<!-- 상품평 작성하기 페이지 시작 -->
+								<div id="add_review_box">
+									<form action="${pageContext.request.contextPath}//04_review/review" class="write_review_form">
+ 									<h3>상품평 작성하기</h3>
+ 									<span class="review_write_close_button"></span>
+ 									
+									<div class="ratebar_box">
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">손쉬운 조립</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_easysccore add_score" min="0"
+													max="5" step="1" value="5" name="easyscore"
+													oninput="document.getElementById('easy_num').innerHTML=this.value;"  id="write_es"/> <span
+													class="avg_easy_num star_num position-p" id="easy_num">5</span>
+												</span>
+											</div>
+										</div>
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 가성비</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_benesccore add_score" min="0"
+													max="5" step="1" value="5" name="benefitscore" 
+													oninput="document.getElementById('bene_num').innerHTML=this.value;"  id="write_bs"/> <span
+													class="avg_bene_num star_num position-p" id="bene_num">5</span>
+												</span>
+											</div>
+										</div>
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 품질</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_qualsccore add_score" min="0"
+													max="5" step="1" value="5" name="qualityscore" 
+													oninput="document.getElementById('qual_num').innerHTML=this.value;" id="write_qs"/> <span
+													class="avg_qual_num star_num position-p" id="qual_num">5</span>
+												</span>
+											</div>
+										</div>
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 외관</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_apearsccore add_score" min="0"
+													max="5" step="1" value="5" name="appearscore"
+													oninput="document.getElementById('apear_num').innerHTML=this.value;" id="write_as"/> <span
+													class="avg_apear_num star_num position-p" id="apear_num">5</span>
+												</span>
+											</div>
+										</div>
+										<div class="score_row clearfix position-r">
+											<div class="pull-left score_name">제품 기능</div>
+											<div class="pull-right position-a">
+												<span class="range_box position-r"> <input
+													type="range" class="range-css avg_funcsccore add_score" min="0"
+													max="5" step="1" value="5" name="funcscore" 
+													oninput="document.getElementById('func_num').innerHTML=this.value;" id="write_fs"/> <span
+													class="avg_func_num star_num position-p" id="func_num">5</span>
+												</span>
+											</div>
+										</div>
+
+										<div class="add_avg_star">
+											<h4>평균별점</h4>
+											<div class="avg_all_star pull-left" id="add_review_avgstar" data-rate="5">
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i> 
+												<i class="fas fa-star"></i>
+											</div>
+											<input type="hidden" name="avgscore" value="5" id="avgscore"/>
+										</div>
+									</div>
+									<input type="text" class="form-control title_input"
+										placeholder="제목을 입력해주세요." name="title"/>
+									<textarea class="form-control content_input" rows="6"
+										placeholder="내용을 입력해주세요." name="content"></textarea>
+									<div class="commend_box">
+										<div>
+											<input type="radio" name="recommend" value="Y" id="y" checked />
+											<label for="y">이 제품을 추천합니다.</label> 
+										</div>
+										<div>
+											<input type="radio" name="recommend" value="N" id="n" /> 
+											<label for="n">이 제품을 추천하지 않습니다.</label>
+										</div>
+									</div>
+									<input type="hidden" name="prodno" value="${output.prodno }" />	
+									<input type="hidden" name="userno" value="${userno }" />	
+									<input type="hidden" name="orderno" value="${orderno }" />									
+									<div class="btn_box_submit">
+										<button type="submit" class="submit_review_btn">작성 완료</button>
+									</div>
+									</form>
+								</div>
+								<!-- 상품평 작성하기 페이지 끝 -->
 							</div>
 						</div>
+						<!-- 리뷰 모달 -->
 					</div>
 					<!-- 리뷰 모달 끝 -->
 				</div>
@@ -348,8 +574,10 @@
 						onclick="location.href='../07_purchase/purchase.html'">구매하기</button>
 					<div class="heart_box pull-right">
 						<input type="checkbox" id="chk_heart" class="chk_heart"
-							style="display: none;" <c:if test="${wishoutput!=null }">checked</c:if> data-wishno="${my_wish}" data-prodno="${output.prodno }" data-userno="${userno}"/> 
-							<label class="heart" for="chk_heart"></label>
+							name="chk_heart" style="display: none;"
+							<c:if test="${wishoutput!=null }">checked</c:if>
+							data-wishno="${my_wish}" data-prodno="${output.prodno }"
+							data-userno="${userno}" /> <label class="heart" for="chk_heart"></label>
 					</div>
 				</div>
 			</div>
@@ -412,11 +640,13 @@
 										<a href="#"><span class="home_wishlist_icon"></span></a>
 									</div>
 									<div>
-										<a href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno}"> <img class="home_item_img" alt="${item.name}"
+										<a
+											href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno}">
+											<img class="home_item_img" alt="${item.name}"
 											src="${item.fileUrl}">
 										</a> <a href="#"> <c:set var="group" value="${item.group }" />
-											<span class="home_item_title">${item.name}</span> <br />
-											<span class="home_item_info">${item.size} <br />${item.color}</span><br />
+											<span class="home_item_title">${item.name}</span> <br /> <span
+											class="home_item_info">${item.size} <br />${item.color}</span><br />
 											<c:choose>
 												<c:when test="${fn:contains(group, '세일') }">
 													<span class="home_item_info home_item_pricedown">&#8361;
@@ -480,28 +710,22 @@
 		</div>
 	</section>
 	<%@ include file="../01_home/footer.jsp"%>
-	<script src="../assets/js/input_value_1.js"></script>
-	<script src="../assets/js/input_value_2.js"></script>
-	<script src="../assets/js/input_value_3.js"></script>
-	<script src="../assets/js/input_value_4.js"></script>
-	<script src="../assets/js/input_value_5.js"></script>
-	<script src="../assets/js/input_value_6.js"></script>
-	<script src="../assets/js/input_value_7.js"></script>
-	<script src="../assets/js/input_value_8.js"></script>
-	<script src="../assets/js/input_value_9.js"></script>
-	<script src="../assets/js/input_value_10.js"></script>
-	<script src="../assets/js/review_star2.js"></script>
-	<script src="../assets/js/review_star1.js"></script>
 	<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 	<script src="../assets/js/review_common.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<!-- Handlebar CDN 참조 -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
 	<!-- jQuery Ajax Form plugin CDN -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-    <!-- jQuery Ajax Setup -->
-    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+	<!-- jQuery Ajax Setup -->
+	<script
+		src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script src="../assets/plugins/toTop/totop.min.js"></script>
 	<script src="../assets/js/home.js"></script>
@@ -528,6 +752,9 @@
 				$("#review_front").fadeOut(200);
 				$("#review_background").fadeOut(100);
 			});
+			$("#add_review_box").hide();
+			$(".edit_review_box").hide();
+			
 		});
 		
 		<!-- 버튼 누를 시 삭제 알림기능 -->
@@ -541,10 +768,13 @@
 				window.location.href = "../04_review/review_modify.html";
     		}); // end click */
     		
-			$("#chk_heart").change(function(e) {
-				if($("#chk_heart").is(":checked") == true){
-					let current = $(this); 
-		    		let userno = current.data('userno');
+			$("#chk_heart").click(function(e) {
+				let current = $(this); 
+	    		let userno = current.data('userno');
+				if(userno==0){
+					alert("로그인을 먼저 하세요");
+					return false;
+				}else if($("#chk_heart").is(":checked") == true){
 		    		let prodno = current.data('prodno');
 		    		let wishno = current.data('wishno');
 		    		
@@ -552,7 +782,7 @@
 		    			"userno": userno,
 		    			"prodno": prodno,
 		    			"wishno": wishno
-		    		}, function(json) {
+		    		} , function(json) {
 		    			if(json.rt=="OK")
 		    				alert("상품이 위시리스트에 추가 되었습니다.");
 		    				location.reload();
@@ -575,7 +805,143 @@
 			
 			});
 		
+		$(function(){
+			var rating = $(".avg_all_star");
+			rating.each(function(){
+				var targetScore=$(this).attr('data-rate');
+				$(this).find('svg:nth-child(-n+'+targetScore+')').css({color:'#172f50'});
+			});
+		});
 		
+		$(function(){
+			var rating = $("#add_review_avgstar");
+			rating.each(function(){
+				var targetScore=$(this).attr('data-rate');
+				$(this).find('svg:nth-child(-n+'+targetScore+')').css({color:'#172f50'});
+			});
+		});
+			
+		$(document).on("change",".add_score",function(){
+			var easyscore = parseInt($('#write_es').val());
+			var benescore = parseInt($('#write_bs').val());
+			var qualscore = parseInt($('#write_qs').val());
+			var apearscore = parseInt($('#write_as').val());
+			var funcscore = parseInt($('#write_fs').val());
+			
+			var avg_star = Math.floor((easyscore+benescore+qualscore+apearscore+funcscore)/5);
+			$("#add_review_avgstar").attr('data-rate' , avg_star);
+			$("#add_review_avgstar").find('svg:nth-child(-n+6)').css({color:'#dee3e6'});
+			$("#add_review_avgstar").find('svg:nth-child(-n+'+avg_star+')').css({color:'#172f50'});
+			$("#avgscore").val(avg_star);
+		});
+		
+		$(document).on("click",".add_review",function(){
+			$(".custom_result").hide();
+			$(".review_title_top").hide();
+			$(".review_title_top").hide();
+			$(".avg_custom_result").hide();
+			$(".add_review").hide();
+			$(".no_review").hide();
+			$(".edit_review_box").hide();
+			$("#add_review_box").show();
+			
+		});
+		
+		$(document).on("click",".review_write_close_button",function(){
+			$(".custom_result").show();
+			$(".review_title_top").show();
+			$(".review_title_top").show();
+			$(".avg_custom_result").show();
+			$(".edit_review_box").hide();
+			$(".add_review").show();
+			$("#add_review_box").hide();
+		});
+		
+		$(function() {
+	    	//.add_wishlist_form에 대한 submit이벤트를 가로채서 Ajax 요청을 전송한다.
+	    	$("#add_review_box").ajaxForm({
+	    		//전송 메서드 지정
+	    		method: "POST",
+	    		//서버에서 200 응답을 전달한 경우 실행됨
+	    		success: function(json){
+	    			//json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+	    			if(json.rt == "OK"){
+	    				console.log(json);
+	    				alert("리뷰가 작성 되었습니다.");
+	    				
+	    				location.reload();
+	    			}
+	    		}
+	    	});
+	    });
+		
+		 // 리뷰 삭제
+		 $(document).on("click",".revdelete",function(){
+			    let current = $(this); 
+	    		let reviewno = current.data('reviewno');
+	    		var result = confirm("정말 리뷰를 삭제하시겠습까?");
+	    		if(result){
+	    			$.delete("${pageContext.request.contextPath}//04_review/review", {
+		    			"reviewno": reviewno
+		    		}, function(json) {
+		    			if(json.rt=="OK")
+		    			alert("리뷰가 삭제되었습니다.");
+		    			location.reload();
+		    		})
+	    		}
+		 });
+		
+		 //리뷰 수정
+		 $(document).on("change",".edit_score",function(){
+			 var current = $(this).parents(".ratebar_box");
+			var easyscore = parseInt(current.find('.avg_easysccore').val());
+			current.find('.avg_easysccore').next().html(easyscore);
+			var benescore = parseInt(current.find('.avg_benesccore').val());
+			current.find('.avg_benesccore').next().html(benescore);
+			var qualscore = parseInt(current.find('.avg_qualsccore').val());
+			current.find('.avg_qualsccore').next().html(qualscore);
+			var apearscore = parseInt(current.find('.avg_apearsccore').val());
+			current.find('.avg_apearsccore').next().html(apearscore);
+			var funcscore = parseInt(current.find('.avg_funcsccore').val());
+			current.find('.avg_funcsccore').next().html(funcscore);
+			
+			var avg_star = Math.floor((easyscore+benescore+qualscore+apearscore+funcscore)/5);
+			var avg = current.find(".edit_avgstar");
+			avg.attr('data-rate' , avg_star);
+			avg.find('svg:nth-child(-n+6)').css({color:'#dee3e6'});
+			avg.find('svg:nth-child(-n+'+avg_star+')').css({color:'#172f50'});
+			avg.next().val(avg_star);
+		});
+		 
+		 $(function() {
+		    	//.add_wishlist_form에 대한 submit이벤트를 가로채서 Ajax 요청을 전송한다.
+		    	$(".edit_review_form").ajaxForm({
+		    		//전송 메서드 지정
+		    		method: "PUT",
+		    		//서버에서 200 응답을 전달한 경우 실행됨
+		    		success: function(json){
+		    			//json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+		    			if(json.rt == "OK"){
+		    				console.log(json);
+		    				alert("리뷰가 수정 되었습니다.");
+		    				
+		    				location.reload();
+		    			}
+		    		}
+		    	});
+		    });
+		 
+		 $(document).on("click",".revedit",function(){
+			 	$(".custom_result").hide();
+				$(".review_title_top").hide();
+				$(".avg_custom_result").hide();
+				$(".add_review").hide();
+				$(".no_review").hide();
+				$("#add_review_box").hide();
+				$(this).parents(".review_parent").find(".edit_review_box").show();
+				
+			});
+		 
 	</script>
 </body>
 </html>

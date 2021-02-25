@@ -20,14 +20,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.Delivery;
 import com.project.laporte.model.DetailImg;
 import com.project.laporte.model.Firstimg;
+import com.project.laporte.model.Order_prod;
+import com.project.laporte.model.Orderlist;
 import com.project.laporte.model.Prod_category1;
 import com.project.laporte.model.Prod_category2;
 import com.project.laporte.model.Product;
+import com.project.laporte.model.Review;
 import com.project.laporte.model.Wish_prod;
 import com.project.laporte.model.Wishlist;
 import com.project.laporte.service.ProductService;
+import com.project.laporte.service.ReviewService;
 import com.project.laporte.service.WishlistService;
 
 @Controller
@@ -46,9 +51,12 @@ public class ProductAjaxController {
 	/** Service 패턴 구현체 주입 */
 	@Autowired
 	ProductService productService;
-	
+
 	@Autowired
 	WishlistService wishlistService;
+
+	@Autowired
+	ReviewService reviewService;
 
 	/** "/프로젝트이름"에 해당하는 ContextPath 변수 주입 */
 	// --> import org.springframework.beans.factory.annotation.Value;
@@ -94,8 +102,7 @@ public class ProductAjaxController {
 
 	/** 수정 폼 페이지 */
 	@RequestMapping(value = "/11_admin/product_edit.do", method = RequestMethod.GET)
-	public ModelAndView edit(Model model,
-							 @RequestParam(value = "prodno", defaultValue = "0") int prodno) {
+	public ModelAndView edit(Model model, @RequestParam(value = "prodno", defaultValue = "0") int prodno) {
 
 		/** 1) 파라미터 유효성 검사 */
 		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
@@ -113,18 +120,18 @@ public class ProductAjaxController {
 		// 조회결과를 저장할 객체 선언
 		Product output = null;
 		Firstimg imgoutput = null;
-		
+
 		try {
 			output = productService.getProductItem(input);
 			imgoutput = productService.getProductFirstImg(img);
-			
+
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-		
-		int catno1=output.getCatno1();
+
+		int catno1 = output.getCatno1();
 		System.out.println(catno1);
-		
+
 		// 카테고리 대분류 목록 조회 결과를 저장할 객체 선언
 		List<Prod_category1> category1 = null;
 
@@ -133,7 +140,7 @@ public class ProductAjaxController {
 		Prod_category2 cat2 = new Prod_category2();
 		cat2.setCatno1(catno1);
 		List<Prod_category2> category2 = null;
-		
+
 		try {
 			// 데이터 조회 --> 검색조건 없이 모든 카테고리 조회
 			category1 = productService.category(null);
@@ -216,14 +223,13 @@ public class ProductAjaxController {
 		model.addAttribute("imgList", imgList);
 		return new ModelAndView("11_admin/product_img");
 	}
-	
+
 	/** 상품 상세 페이지 - 사용자 */
 	@RequestMapping(value = "/03_detail/detail.do", method = RequestMethod.GET)
 	public ModelAndView detail(Model model, @RequestParam(value = "prodno", defaultValue = "0") int prodno,
-											HttpServletResponse response,
-											HttpServletRequest request,
-											@CookieValue(value="my_cookie", defaultValue="") String myCookie,
-											@CookieValue(value="my_wish", defaultValue="0", required=false)int my_wish) {
+			HttpServletResponse response, HttpServletRequest request,
+			@CookieValue(value = "my_cookie", defaultValue = "") String myCookie,
+			@CookieValue(value = "my_wish", defaultValue = "0", required = false) int my_wish) {
 		/** 1) 유효성 검사 */
 		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
 		if (prodno == 0) {
@@ -254,17 +260,17 @@ public class ProductAjaxController {
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-		
+
 		try {
 			// 데이터 조회
-			category =  productService.getCategotyName(output);
+			category = productService.getCategotyName(output);
 			similar = productService.getSimilarList(output);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-		
-		/**쿠키 저장 **/
-		Cookie cookie = new Cookie("prodno"+prodno, String.valueOf(prodno)); // 저장할 쿠키 객체 생성.
+
+		/** 쿠키 저장 **/
+		Cookie cookie = new Cookie("prodno" + prodno, String.valueOf(prodno)); // 저장할 쿠키 객체 생성.
 		cookie.setPath("/"); // 쿠키의 유효 경로 --> 사이트 전역에 대한 설정.
 		cookie.setDomain("localhost"); // 쿠키의 유효 도메인
 
@@ -275,29 +281,29 @@ public class ProductAjaxController {
 		}
 
 		response.addCookie(cookie); // 쿠키 저장
-		
+
 		/** 쿠키 꺼내기 **/
 		Cookie[] cookies = request.getCookies();
-		
+
 		List<Firstimg> cookie_img = new ArrayList<Firstimg>();
-		
+
 		Firstimg cookie_img_output = new Firstimg();
-		
+
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				Cookie cookie2 = cookies[i];
 				if (cookie2.getName().contains("prodno")) {
 					myCookie = cookie2.getValue();
-					int cookie_prodno=Integer.parseInt(myCookie);
+					int cookie_prodno = Integer.parseInt(myCookie);
 					Firstimg cookie_output = new Firstimg();
 					cookie_output.setProdno(cookie_prodno);
 					try {
-						cookie_img_output=productService.getProductFirstImg(cookie_output);
-					}catch (Exception e) {
+						cookie_img_output = productService.getProductFirstImg(cookie_output);
+					} catch (Exception e) {
 						return webHelper.redirect(null, e.getLocalizedMessage());
 					}
 					cookie_img.add(cookie_img_output);
-					//System.out.println("Hello " + cookie_img);
+					// System.out.println("Hello " + cookie_img);
 				}
 			}
 			// 추출한 값을 View에게 전달
@@ -306,29 +312,28 @@ public class ProductAjaxController {
 			try {
 				Firstimg cookie_output = new Firstimg();
 				cookie_output.setProdno(Integer.parseInt(myCookie));
-				cookie_img_output=productService.getProductFirstImg(cookie_output);
-			}catch (Exception e) {
+				cookie_img_output = productService.getProductFirstImg(cookie_output);
+			} catch (Exception e) {
 				return webHelper.redirect(null, e.getLocalizedMessage());
 			}
 			model.addAttribute("my_cookie", cookie_img_output);
 		}
-		//현재 상품이 위시리스트에 담겨있는지 확인
+		// 현재 상품이 위시리스트에 담겨있는지 확인
 		Wish_prod wishValue = new Wish_prod();
-		
-		//로그인 여부 확인 -> 로그인 중 일때 - userno!=0 / 로그인 하지 않았을때 - userno ==0
-		int userno= 0;
+
+		// 로그인 여부 확인 -> 로그인 중 일때 - userno!=0 / 로그인 하지 않았을때 - userno ==0
+		int userno = 0;
 		HttpSession session = request.getSession();
-    	if(session.getAttribute("my_session")!=null) {
-    		userno = (int) session.getAttribute("my_session");
-    	}
-    	
-    	Wishlist basicoutput = new Wishlist();
-		if(my_wish==0 && userno !=0) {	//로그인은 했으나 쿠키에 위시리스트가 저장되어있지 않을때 기본 위시리스트에 저장
-			//사용자의 기본위시리스트번호 조회
+		if (session.getAttribute("my_session") != null) {
+			userno = (int) session.getAttribute("my_session");
+		}
+
+		Wishlist basicoutput = new Wishlist();
+		if (my_wish == 0 && userno != 0) { // 로그인은 했으나 쿠키에 위시리스트가 저장되어있지 않을때 기본 위시리스트에 저장
+			// 사용자의 기본위시리스트번호 조회
 			Wishlist basicinput = new Wishlist();
 			basicinput.setUserno(userno);
-			
-			
+
 			try {
 				// 데이터 조회
 				basicoutput = wishlistService.selectBasicWish(basicinput);
@@ -336,16 +341,101 @@ public class ProductAjaxController {
 				return webHelper.redirect(null, e.getLocalizedMessage());
 			}
 		}
-		
+
 		wishValue.setWishno(my_wish);
 		wishValue.setProdno(prodno);
 		Wish_prod wishoutput = new Wish_prod();
 		try {
 			wishoutput = wishlistService.getWishitem(wishValue);
-		}catch (Exception e) {
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** ---------------------리뷰 관련----------------------- */
+		/** ---------로그인을 했을 경우---------- !! */
+		List<Orderlist> orderoutput = null;
+		Order_prod orderprod = new Order_prod();
+		Delivery delivery = new Delivery();
+		Review review = new Review();
+		Review result = new Review();
+		int orderno =0;
+
+		if (userno != 0) {
+			/** ----리뷰를 작성할 자격이 있는지 검사---- */
+			/** 1) 주문 내역이 있는지 확인 */
+			Orderlist orderinput = new Orderlist();
+			orderinput.setUserno(userno);
+			try {
+				// 데이터 조회
+				orderoutput = reviewService.getOrderList(orderinput);
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+			/** 2) 조회한 주문 내역 중에서 현재 페이지의 상품을 구매했는지 확인 */
+			if (orderoutput.size() != 0) {
+				for (int i = 0; i < orderoutput.size(); i++) {
+					Orderlist item = orderoutput.get(i);
+
+					Order_prod orderprodinput = new Order_prod();
+
+					orderprodinput.setOrderno(item.getOrderno());
+					orderprodinput.setProdno(prodno);
+
+					try {
+						// 데이터 조회
+						orderprod = reviewService.getOrderProd(orderprodinput);
+					} catch (Exception e) {
+						return webHelper.redirect(null, e.getLocalizedMessage());
+					}
+
+					/** 3) 그 주문한 내역이 배송상태가 배송완료인 상태인지 확인 */
+					if (orderprod != null) {
+						Delivery deliveryinput = new Delivery();
+						deliveryinput.setOrderno(orderprod.getOrderno());
+
+						try {
+							// 데이터 조회
+							delivery = reviewService.getDelivery(deliveryinput);
+						} catch (Exception e) {
+							return webHelper.redirect(null, e.getLocalizedMessage());
+						}
+
+						/** 4) 그 주문번호로 이 상품에 대해 리뷰를 작성한적이 있는지 확인 */
+						if (delivery != null) {
+							review.setOrderno(delivery.getOrderno());
+							review.setProdno(prodno);
+							
+							try {
+								// 데이터 조회
+								result = reviewService.getReviewCount(review);
+							} catch (Exception e) {
+								return webHelper.redirect(null, e.getLocalizedMessage());
+							}
+							System.out.println("result============="+result);
+							if(result==null) {
+								orderno=review.getOrderno();
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		/**----------리뷰 목록------------*/
+		Review reviewinput = new Review();
+		List<Review> reviewList =null;
+		reviewinput.setProdno(prodno);
+		
+		try {
+			// 데이터 조회
+			reviewList = reviewService.getReviewList(reviewinput);
+		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 		
+
+		System.out.println("result============="+result);
+		System.out.println("result============="+orderno);
 		
 		/** 3) View 처리하기 */
 		model.addAttribute("wishoutput", wishoutput);
@@ -357,8 +447,10 @@ public class ProductAjaxController {
 		model.addAttribute("my_wish", my_wish);
 		model.addAttribute("userno", userno);
 		model.addAttribute("basicoutput", basicoutput);
+		model.addAttribute("result", result);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("orderno", orderno);
 		return new ModelAndView("03_detail/detail");
-	
-	}
 
+	}
 }

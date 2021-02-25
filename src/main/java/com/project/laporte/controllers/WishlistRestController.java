@@ -34,7 +34,7 @@ public class WishlistRestController {
 	/** Service 패턴 구현체 주입 */
 	@Autowired
 	WishlistService wishlistService;
-	
+
 	@Autowired
 	CartService cartservice;
 
@@ -122,7 +122,7 @@ public class WishlistRestController {
 		map.put("item", output);
 		return webHelper.getJsonData(map);
 	}
-	
+
 	/** 위시리스트 삭제하는 페이지 */
 	@RequestMapping(value = "/05_wishlist/wishlist", method = RequestMethod.DELETE)
 	public Map<String, Object> delete_wishlist(@RequestParam(value = "wishno") int wishno) {
@@ -140,7 +140,7 @@ public class WishlistRestController {
 		wishprodinput.setWishno(wishno);
 
 		try {
-			wishlistService.deleteWishlist(wishinput, wishprodinput); //위시리스트 삭제
+			wishlistService.deleteWishlist(wishinput, wishprodinput); // 위시리스트 삭제
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
@@ -149,7 +149,7 @@ public class WishlistRestController {
 		// 확인할 대상이 삭제된 결과값만 OK로 전달
 		return webHelper.getJsonData();
 	}
-	
+
 	/** 위시리스트 이름 수정 */
 	@RequestMapping(value = "/05_wishlist/wishlist/rename", method = RequestMethod.PUT)
 	public Map<String, Object> edit_listname(@RequestParam(value = "wishno", defaultValue = "0") int wishno,
@@ -162,7 +162,7 @@ public class WishlistRestController {
 		if (title == "") {
 			return webHelper.getJsonWarning("위시리스트 이름이 없습니다.");
 		}
-		
+
 		// 수정할 값들을 Beans에 담는다.
 		Wishlist input = new Wishlist();
 		input.setTitle(title);
@@ -185,7 +185,7 @@ public class WishlistRestController {
 		map.put("item", output);
 		return webHelper.getJsonData(map);
 	}
-	
+
 	/** 위시리스트 아이템 삭제하는 페이지 */
 	@RequestMapping(value = "/05_wishlist/wishlist/item", method = RequestMethod.DELETE)
 	public Map<String, Object> delete_wishitem(@RequestParam(value = "wishno") int wishno,
@@ -206,7 +206,7 @@ public class WishlistRestController {
 		wishprodinput.setProdno(prodno);
 
 		try {
-			wishlistService.deleteWishlistItem(wishprodinput); //위시리스트 삭제
+			wishlistService.deleteWishlistItem(wishprodinput); // 위시리스트 삭제
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
@@ -215,7 +215,7 @@ public class WishlistRestController {
 		// 확인할 대상이 삭제된 결과값만 OK로 전달
 		return webHelper.getJsonData();
 	}
-	
+
 	/** 위시리스트 상품 다른 위시리스트로 이동 */
 	@RequestMapping(value = "/05_wishlist/wishlist/moveitem", method = RequestMethod.PUT)
 	public Map<String, Object> edit_wishitem(@RequestParam(value = "newwishno", defaultValue = "0") int newwishno,
@@ -232,7 +232,7 @@ public class WishlistRestController {
 		if (wishno == 0) {
 			return webHelper.getJsonWarning("이동시킬 상품 번호을 담은 위시리스트번호가 없습니다.");
 		}
-		
+
 		// 수정할 값들을 Beans에 담는다.
 		Wish_prod input = new Wish_prod();
 		input.setNewwishno(newwishno);
@@ -249,7 +249,7 @@ public class WishlistRestController {
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
-		
+
 		try {
 			newwish.setWishno(newwishno);
 			newwish.setProdno(prodno);
@@ -258,23 +258,39 @@ public class WishlistRestController {
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
-		
+
 		/** 3) 결과를 확인하기 위한 JSON 출력 */
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("item", output);
 		return webHelper.getJsonData(map);
 	}
-	
+
 	/** 위시리스트에 상품을 추가하는 action 페이지 */
 	@RequestMapping(value = "/05_wishlist/wishlist/item", method = RequestMethod.POST)
 	public Map<String, Object> add_wishitem(@RequestParam(value = "wishno") int wishno,
 			@RequestParam(value = "prodno", defaultValue = "0") int prodno,
-			@RequestParam(value = "userno", defaultValue = "0") int userno){
+			@RequestParam(value = "userno", defaultValue = "0") int userno) {
 
-		if(userno==0) {
+		if (userno == 0) {
 			return webHelper.getJsonWarning("로그인 후 이용해주세요.");
 		}
-		
+
+		if (wishno == 0) {
+			// 조회결과를 저장할 객체 선언
+			Wishlist input = new Wishlist();
+			input.setUserno(userno);
+			Wishlist basicoutput = null;
+
+			try {
+				// 데이터 조회
+				basicoutput = wishlistService.selectBasicWish(input);
+			} catch (Exception e) {
+				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
+
+			wishno = basicoutput.getWishno();
+		}
+
 		// 저장할 값들을 Beans에 담는다.
 		Wish_prod input = new Wish_prod();
 		input.setWishno(wishno);
@@ -301,16 +317,16 @@ public class WishlistRestController {
 		map.put("item", output);
 		return webHelper.getJsonData(map);
 	}
-	
+
 	/** 위시리스트에 있는 모든 상품을 장바구니에 추가 */
 	@RequestMapping(value = "/05_wishlist/wishlist/moveitem", method = RequestMethod.DELETE)
-	public Map<String, Object>add_allcart(@RequestParam(value = "wishno", defaultValue = "0") int wishno,
-										@RequestParam(value = "userno", defaultValue = "0") int userno) {
+	public Map<String, Object> add_allcart(@RequestParam(value = "wishno", defaultValue = "0") int wishno,
+			@RequestParam(value = "userno", defaultValue = "0") int userno) {
 
 		if (wishno == 0) {
 			return webHelper.getJsonWarning("장바구니에 추가할 상품 번호을 담은 위시리스트번호가 없습니다.");
 		}
-		
+
 		// 수정할 값들을 Beans에 담는다.
 		Wishlist input = new Wishlist();
 		input.setWishno(wishno);
@@ -324,34 +340,68 @@ public class WishlistRestController {
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
-		
-		for(int i =0; i<wishitems.size(); i++) {
+
+		// 저장된 결과를 조회하기 위한 객체
+		List<Cart> output = null;
+		int count = 0;
+
+		for (int i = 0; i < wishitems.size(); i++) {
 			Wish_prod item = wishitems.get(i);
 			Cart cart = new Cart();
 			cart.setProdno(item.getProdno());
 			cart.setUserno(userno);
 			cart.setEa(item.getEa());
+
+			// 중복검사
 			try {
-				cartservice.addCart(cart);
+				count = cartservice.countCart(cart);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
+
+			// 갯수 추가 수정
+			if (count != 0) {
+				try {
+					cartservice.updateCart(cart);
+
+					// 데이터 조회
+					output = cartservice.getCartList(cart);
+
+				} catch (Exception e) {
+					return webHelper.getJsonError(e.getLocalizedMessage());
+				}
+			} else {
+
+				try {
+					// 데이터 저장
+					// --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+					cart.setUserno(userno);
+					cartservice.addCart(cart);
+
+					// 데이터 조회
+					output = cartservice.getCartList(cart);
+
+				} catch (Exception e) {
+					return webHelper.getJsonError(e.getLocalizedMessage());
+				}
 			}
 		}
-		
+
 		Wishlist wishinput = new Wishlist();
 		Wish_prod wishprodinput = new Wish_prod();
 		wishinput.setWishno(wishno);
 		wishprodinput.setWishno(wishno);
 
 		try {
-			wishlistService.deleteWishlist(wishinput, wishprodinput); //위시리스트 삭제
+			wishlistService.deleteWishItems(wishprodinput); // 위시리스트 안에있는 상품을 삭제
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
-		
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item", output);
+
 		return webHelper.getJsonData();
 	}
-	
-}
 
+}

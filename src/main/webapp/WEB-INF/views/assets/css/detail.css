@@ -79,11 +79,12 @@
 
 .review_num {
 	font-size: 14px;
-	color: #172f50;
-	width: 25px;
-	height: 22px;
-	display: inline-block;
-	padding-left: 8px;
+    color: #172f50;
+    width: 25px;
+    height: 40px;
+    display: inline-block;
+    padding-left: 8px;
+    line-height: 40px;
 }
 
 .wish {
@@ -326,7 +327,8 @@ input[type="checkbox"]:checked+label.heart {
 	padding: 20px;
 }
 
-.review_close_button {
+.review_close_button,
+.review_write_close_button {
 	display: block;
 	width: 20px;
 	height: 20px;
@@ -366,4 +368,7 @@ input[type="checkbox"]:checked+label.heart {
 .price_font{
 	font-size: 20px;
     font-weight: bold;
+}
+.btn > .avg_all_star{
+	    float: left;
 }

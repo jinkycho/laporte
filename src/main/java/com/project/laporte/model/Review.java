@@ -7,6 +7,7 @@ public class Review {
 	private int reviewno;
 	private int prodno;
 	private int userno;
+	private int orderno;
 	private String title;
 	private String content;
 	private int easyscore;
@@ -14,6 +15,7 @@ public class Review {
 	private int qualityscore;
 	private int funcscore;
 	private int appearscore;
+	private int avgscore;
 	private String recommend;
 	private String regdate;
 	private String editdate;

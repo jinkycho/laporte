@@ -20,7 +20,9 @@ import com.project.laporte.helper.MailHelper;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.User;
+import com.project.laporte.model.Wishlist;
 import com.project.laporte.service.UserService;
+import com.project.laporte.service.WishlistService;
 
 @RestController
 public class UserRestController {
@@ -36,6 +38,8 @@ public class UserRestController {
     
     /** Service 패턴 구현체 주입 */
     @Autowired  UserService userService;
+    
+    @Autowired  WishlistService wishService;
     
     /** Spring Security 주입 */
     @Autowired BCryptPasswordEncoder pwdEncoder;
@@ -140,6 +144,19 @@ public class UserRestController {
 		}catch(Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
+		
+		//기본 위시리스트 생성하기
+		Wishlist wishinput = new Wishlist(); //userno을 담을 빈즈 생성
+		wishinput.setUserno(output.getUserno());
+		
+		try {
+			wishService.addbasicWishlist(wishinput);
+			//--> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+			
+		}catch(Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
 		
 		/**3) 결과를 확인하기 위한 페이지 연동*/
 		//저장 결과를 확인하기 위해 데이터 저장 시 생성된 PK값을 상세 페이지로 전달해야 한다.
