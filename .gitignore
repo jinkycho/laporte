@@ -46,3 +46,4 @@ MANIFEST.MF
 pom.properties
 target/
 .springBeans
+root-context.xml
