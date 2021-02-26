@@ -119,14 +119,17 @@ public class DeliveryRestController {
         return webHelper.getJsonData(map);
     }
 	
-	/** 수정 */
+	/** 주문 및 배송 수정 */
     @RequestMapping(value="/11_admin/admin_delivery", method = RequestMethod.PUT)
     public Map<String, Object> put(
     		@RequestParam(value="orderno", defaultValue="0") int orderno,
     		@RequestParam(value="paystatus", defaultValue="N") String paystatus,
     		@RequestParam(value="orderstatus", defaultValue="N") String orderstatus,
     		@RequestParam(value="deliveryno", defaultValue="0") int deliveryno,
-    		@RequestParam(value="deliverystatus", defaultValue="N") String deliverystatus) {
+    		@RequestParam(value="deliverystatus", defaultValue="N") String deliverystatus,
+    		@RequestParam(value="ccstatus", defaultValue="I") String ccstatus) {
+    	
+    	//if(paystatus == null)			{return webHelper.getJsonWarning("아이디를 입력하세요.");}
     	
     	/** 1) 데이터 수정하기 */
     	// 수정할 값들을 Beans에 담는다.
@@ -134,8 +137,12 @@ public class DeliveryRestController {
     	input.setOrderno(orderno);
     	input.setPaystatus(paystatus);
     	input.setOrderstatus(orderstatus);
-    	    	
+    	input.setCcstatus(ccstatus);
+    	
     	Delivery deliveryInput = new Delivery();
+	    	if(paystatus == null) {
+	    		deliveryInput.setPaystatus(paystatus);
+	    	}
     	deliveryInput.setDeliveryno(deliveryno);
     	deliveryInput.setDeliverystatus(deliverystatus);
     	
@@ -167,6 +174,38 @@ public class DeliveryRestController {
     	Map<String, Object> map = new HashMap<String, Object>();
     	map.put("item", output);
     	map.put("ditem", deliveryOutput);
+    	return webHelper.getJsonData(map);
+    }
+    
+    /** 취소 수정 */
+    @RequestMapping(value="/11_admin/admin_cancel", method = RequestMethod.PUT)
+    public Map<String, Object> cancelPut(
+    		@RequestParam(value="orderno", defaultValue="0") int orderno,
+    		@RequestParam(value="ccstatus", defaultValue="") String ccstatus) {
+    	
+    	/** 1) 데이터 수정하기 */
+    	// 수정할 값들을 Beans에 담는다.
+    	Orderlist input = new Orderlist();
+    	input.setOrderno(orderno);
+    	input.setCcstatus(ccstatus);
+    	    	
+    	
+    	// 수정된 결과를 조회하기 위한 객체
+    	List<Orderlist> output = null;
+    	
+		try {
+    		// 데이터 수정
+    		orderlistService.updateOrderCClist(input);
+    		// 수정 결과 조회
+    		input.setOrderno(orderno);
+    		output = orderlistService.getOrderList(input);
+    	} catch (Exception e) {
+    		return webHelper.getJsonError(e.getLocalizedMessage());
+    	}
+    	
+    	/** 3) 결과를 확인하기 위한 JSON 출력 */
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("item", output);
     	return webHelper.getJsonData(map);
     }
 }

@@ -193,7 +193,7 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                	<th style="width: 30px"></th>
                                                     <th>주문번호</th>
                                                     <th>취소신청일</th>
                                                     <th>주문일자</th>
@@ -204,7 +204,7 @@
                                                     <th>결제수단</th>
                                                     <th>결제상태</th>
                                                     <th>취소처리</th>
-                                                    <th>메모</th>
+                                                    <th width='54px'>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
@@ -221,8 +221,8 @@
 				                                                	<td><input type='checkbox' class="check" name='chkcc[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
-				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${ccdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 			                                                    	<td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -233,7 +233,7 @@
 				                                                    	0<fmt:formatNumber var="phoneno" value="${item.phoneno }" pattern="###,####,####" />
 				                                                    	<c:out value="${fn:replace(phoneno, ',', '-') }" />
 			                                                    	</td>
-				                                                    <td>상품이름-----</td>
+				                                                    <td>${item.pname }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -259,8 +259,15 @@
 				                                                    		결제완료
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td>진행중 -----</td>
-				                                                    <td width='54' align='center' class="clear">
+				                                                    <td>
+				                                                    	<c:if test="${item.ccstatus=='I' }">
+				                                                    		처리중
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.ccstatus=='C' }">
+				                                                    		처리완료
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td class="clear">
 				                                                    	<c:choose>
 					                                                    	<c:when test="${item.request != null }">
 						                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
@@ -280,6 +287,7 @@
                                                 </c:choose>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-danger btn-sm select_complete" id="cc_complete">처리완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -305,7 +313,7 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                	<th style="width: 10px"></th>
                                                     <th>주문번호</th>
                                                     <th>교환신청일</th>
                                                     <th>주문일자</th>
@@ -314,7 +322,7 @@
                                                     <th>수량</th>
                                                     <th>결제상태</th>
                                                     <th>교환처리</th>
-                                                    <th>메모</th>
+                                                    <th width='54px'>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
@@ -331,8 +339,8 @@
 				                                                	<td><input type='checkbox' class="check" name='chkch[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
-				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${ccdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 			                                                    	<td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -349,8 +357,15 @@
 				                                                    		결제완료
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td>진행중-----</td>
-				                                                    <td width='54' align='center' class="clear">
+				                                                    <td>
+				                                                    	<c:if test="${item.ccstatus=='I' }">
+				                                                    		처리중
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.ccstatus=='C' }">
+				                                                    		처리완료
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td class="clear">
 				                                                    	<c:choose>
 					                                                    	<c:when test="${orderitem.request != null }">
 						                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
@@ -370,6 +385,7 @@
                                                 </c:choose>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-danger btn-sm select_complete" id="ch_complete">처리완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -395,7 +411,7 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                	<th style="width: 10px"></th>
                                                     <th>주문번호</th>
                                                     <th>반품신청일</th>
                                                     <th>주문일자</th>
@@ -404,7 +420,7 @@
                                                     <th>수량</th>
                                                     <th>결제상태</th>
                                                     <th>반품처리</th>
-                                                    <th>메모</th>
+                                                    <th width='54px'>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
@@ -421,8 +437,8 @@
 				                                                	<td><input type='checkbox' class="check" name='chkrt[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
-				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${ccdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 			                                                    	<td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -439,8 +455,15 @@
 				                                                    		결제완료
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td>진행중-----</td>
-				                                                    <td width='54' align='center' class="clear">
+				                                                    <td>
+				                                                    	<c:if test="${item.ccstatus=='I' }">
+				                                                    		처리중
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.ccstatus=='C' }">
+				                                                    		처리완료
+				                                                    	</c:if>
+				                                                    </td>
+				                                                    <td class="clear">
 				                                                    	<c:choose>
 					                                                    	<c:when test="${orderitem.request != null }">
 						                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
@@ -460,6 +483,7 @@
                                                 </c:choose>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-danger btn-sm select_complete" id="rt_complete">처리완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -485,26 +509,25 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr class="table_color">
-                                                	<th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                	<th style="width: 10px"></th>
                                                     <th>주문번호</th>
                                                     <th>환불신청일</th>
                                                     <th>주문일자</th>
                                                     <th>주문자</th>
                                                     <th>총 수량</th>
                                                     <th>총 환불액</th>
-                                                    <th>실 환불액</th>
                                                     <th>쿠폰</th>
                                                     <th>적립금</th>
                                                     <th>환불수단</th>
                                                     <th>처리상태</th>
-                                                    <th>메모</th>
+                                                    <th width='54px'>메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cancel_list">
                                             	<c:choose>
                                             		<c:when test="${output == null || fn:length(output) == 0}">
 									                    <tr>
-									                        <td colspan="13" align="center">조회결과가 없습니다.</td>
+									                        <td colspan="12" align="center">조회결과가 없습니다.</td>
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
@@ -514,8 +537,8 @@
 				                                                	<td><input type='checkbox' class="check" name='chkrf[]' value="${item.orderno }"></td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
-				                                                    	<fmt:parseDate value="${item.editdate}" var="editdate" pattern="yyyy-MM-dd" />
-				                                                    	<fmt:formatDate value="${editdate }" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
+				                                                    	<fmt:formatDate value="${ccdate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                	<td>
 				                                                    	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
@@ -526,9 +549,22 @@
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
-				                                                    <td>80,000---</td>
-				                                                    <td>0</td>
-				                                                    <td>10,000---</td>
+				                                                    <td>
+				                                                    	<c:choose>
+				                                                    		<c:when test="${item.distype=='W' }">
+				                                                    			&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.discount }'/>
+				                                                    		</c:when>
+				                                                    		<c:when test="${item.distype=='P' }">
+				                                                    			<fmt:formatNumber pattern="###,###,###" value='${item.discount }'/> %
+				                                                    		</c:when>
+				                                                    		<c:otherwise>
+				                                                    			쿠폰사용 안함
+				                                                    		</c:otherwise>
+				                                                    	</c:choose>
+				                                                    </td>
+				                                                    <td>
+				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.point }'/>
+				                                                    </td>
 				                                                    <td>
 				                                                    	<c:if test="${item.paytype=='C' }">
 				                                                    		신용카드
@@ -543,7 +579,14 @@
 				                                                    		실시간계좌이체
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td>처리중---</td>
+				                                                    <td>
+				                                                    	<c:if test="${item.ccstatus=='I' }">
+				                                                    		처리중
+				                                                    	</c:if>
+				                                                    	<c:if test="${item.ccstatus=='C' }">
+				                                                    		처리완료
+				                                                    	</c:if>
+				                                                    </td>
 				                                                    <td width='54' align='center' class="clear">
 				                                                    	<c:choose>
 					                                                    	<c:when test="${orderitem.request != null }">
@@ -564,6 +607,7 @@
                                                 </c:choose>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="btn btn-block btn-danger btn-sm select_complete" id="rf_complete">처리완료</button>
                                     </div>
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
@@ -662,16 +706,141 @@
             });
         });
 
-        // 전체 체크
-        $(".order_allcheck").change(function() {
-            $(".order_check").prop('checked', $(this).prop('checked'));
-        });
+        /* 취소 처리완료 버튼 */
+		$(document).on("click","#cc_complete", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkcc[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkcc[]']:checked").length;		// 체크된 요소 갯수
 
-        $("#all_check").change(function() {
-            $(".check").prop('checked', $(this).prop('checked'));
-        });
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkcc[]']:checked").val();	// 체크된 주문정보
+				}
+			}
+			
+			var orderno = current;
+			var ccstatus = "C";
+			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
+				"orderno":orderno,
+				"ccstatus":ccstatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_cancel.do";
+				}
+			});
+		});
         
-        
+		/* 교환 처리완료 버튼 */
+		$(document).on("click","#ch_complete", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkch[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkch[]']:checked").length;		// 체크된 요소 갯수
+
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkch[]']:checked").val();	// 체크된 주문정보
+				}
+			}
+			
+			var orderno = current;
+			var ccstatus = "C";
+			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
+				"orderno":orderno,
+				"ccstatus":ccstatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_cancel.do";
+				}
+			});
+		});
+		
+		/* 반품 처리완료 버튼 */
+		$(document).on("click","#rt_complete", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkrt[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkrt[]']:checked").length;		// 체크된 요소 갯수
+
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkrt[]']:checked").val();	// 체크된 주문정보
+				}
+			}
+			
+			var orderno = current;
+			var ccstatus = "C";
+			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
+				"orderno":orderno,
+				"ccstatus":ccstatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_cancel.do";
+				}
+			});
+		});
+		
+		/* 환불 처리완료 버튼 */
+		$(document).on("click","#rf_complete", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkrf[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkrf[]']:checked").length;		// 체크된 요소 갯수
+
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkrf[]']:checked").val();	// 체크된 주문정보
+				}
+			}
+			
+			var orderno = current;
+			var ccstatus = "C";
+			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
+				return false;
+			}
+			
+			// put 메서드로 ajax 요청
+			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
+				"orderno":orderno,
+				"ccstatus":ccstatus
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_cancel.do";
+				}
+			});
+		});
         
 	</script>
 </body>

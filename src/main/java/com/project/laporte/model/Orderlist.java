@@ -37,6 +37,7 @@ public class Orderlist {
 	
 	
 	//3) coupon(쿠폰) 테이블과 조인
+	private String couponno;
 	private String c_name;
 	private int discount;
 	private String distype;

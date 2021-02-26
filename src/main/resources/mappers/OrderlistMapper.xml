@@ -29,12 +29,15 @@
         <result property="paystatus" column="paystatus" />
         <result property="regdate" column="regdate" />
         <result property="editdate" column="editdate" />
+        <result property="ccdate" column="ccdate" />
+        <result property="ccstatus" column="ccstatus" />
 
         <!--deltype(배송 유형) 테이블과 조인  -->
         <result property="d_name" column="d_name" />
         <result property="d_price" column="d_price" />
 
-        <!-- coupon(쿠폰) 테이블과 조인 -->
+        <!-- coupon(쿠폰) 테이블과 조인 -->       
+        <result property="couponno" column="couponno" />
         <result property="c_name" column="c_name" />
         <result property="discount" column="discount" />
         <result property="distype" column="ditype" />
@@ -79,12 +82,13 @@
         resultMap="orderlistMap">
         SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
         	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate,
-        	d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum, u.userno
+        	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color
         FROM orderlist o
-        INNER JOIN delivery d ON d.orderno = o.orderno
         INNER JOIN user u ON u.userno = o.userno
+        INNER JOIN order_prod op ON op.orderno = o.orderno
+        INNER JOIN product p ON p.prodno = op.prodno
         ORDER BY o.orderno
-        WHERE orderno=#{orderno}
+        WHERE userno=#{userno}
     </select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
@@ -92,12 +96,14 @@
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
         SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
-        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate,
-        	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color
+        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate, o.ccstatus, o.ccdate,
+        	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color, c.distype, c.discount
         FROM orderlist o
         INNER JOIN user u ON u.userno = o.userno
         INNER JOIN order_prod op ON op.orderno = o.orderno
         INNER JOIN product p ON p.prodno = op.prodno
+        INNER JOIN userscoupon us ON us.usrcouponno = o.usrcouponno
+        INNER JOIN coupon c ON c.couponno = us.couponno
         ORDER BY o.orderno
     </select>
     
@@ -134,7 +140,15 @@
     <update id="updateOrderItem"
         parameterType="com.project.laporte.model.Orderlist">
         UPDATE orderlist SET
-            paystatus=#{paystatus}, orderstatus=#{orderstatus}, editdate=now()
+            paystatus=#{paystatus}, orderstatus=#{orderstatus}, editdate=now(), ccdate=now(), ccstatus=#{ccstatus}
+        WHERE orderno=#{orderno}
+    </update>
+    
+    <!-- 취소상태 수정을 위한 기능 정의 -->
+    <update id="updateOrderCCItem"
+        parameterType="com.project.laporte.model.Orderlist">
+        UPDATE orderlist SET
+            ccstatus=#{ccstatus}, ccdate=now()
         WHERE orderno=#{orderno}
     </update>
 

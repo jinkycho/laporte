@@ -242,7 +242,7 @@
                                                     <th>배송희망날짜</th>
                                                     <th>배송상태</th>
                                                     <th>주문상태</th>
-                                                    <th>메모</th>
+                                                    <th width='54px' >메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="order_list">
@@ -306,21 +306,26 @@
 			                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    </td>
 			                                                    <td>
-			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='N' }">
-			                                                    		결제확인중
-			                                                    	</c:if>
-			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='R' }">
-			                                                    		준비중
-			                                                    	</c:if>
-			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='S' }">
-			                                                    		배송대기
-			                                                    	</c:if>
-			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='D' }">
-			                                                    		배송중
-			                                                    	</c:if>
-			                                                    	<c:if test="${deliveryOutput[status.index].deliverystatus=='C' }">
-			                                                    		배송완료
-			                                                    	</c:if>
+			                                                    	<c:choose>
+				                                                    	<c:when test="${deliveryOutput[status.index].deliverystatus=='N' }">
+				                                                    		결제 확인 중
+				                                                    	</c:when>
+				                                                    	<c:when test="${deliveryOutput[status.index].deliverystatus=='R' }">
+				                                                    		준비중
+				                                                    	</c:when>
+				                                                    	<c:when test="${deliveryOutput[status.index].deliverystatus=='S' }">
+				                                                    		배송대기
+				                                                    	</c:when>
+				                                                    	<c:when test="${deliveryOutput[status.index].deliverystatus=='D' }">
+				                                                    		배송중
+				                                                    	</c:when>
+				                                                    	<c:when test="${deliveryOutput[status.index].deliverystatus=='C' }">
+				                                                    		배송완료
+				                                                    	</c:when>
+				                                                    	<c:otherwise>
+				                                                    		관리자 확인 전
+				                                                    	</c:otherwise>
+			                                                    	</c:choose>
 		                                                    	</td>
 			                                                    <td>
 			                                                    	<c:if test="${item.orderstatus=='N' }">
@@ -339,7 +344,7 @@
 			                                                    		환불
 			                                                    	</c:if>
 			                                                    </td>
-			                                                    <td width='54' align='center' class="clear">
+			                                                    <td class="clear">
 			                                                    	<c:choose>
 			                                                    	<c:when test="${item.request != null }">
 				                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>

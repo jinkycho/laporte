@@ -64,21 +64,20 @@ public class DeliveryAjaxController {
         Orderlist input = new Orderlist();
         Delivery deliveryInput = null;
         
-        List<Orderlist> output = null;          					// 조회결과가 저장될 객체
+        List<Orderlist> output = null;          							// 조회결과가 저장될 객체
         PageData pageData = null;               					// 페이지 번호를 계산한 결과가 저장될 객체
         List<Delivery> deliveryOutput = new ArrayList<Delivery>();  // 조회결과가 저장될 객체   
 
         try {
         	if(userno == 0) {       		
-        		HttpSession session = request.getSession();
-        		userno = (int) session.getAttribute("my_session");
-        		
         		input.setUserno(userno);
         		output = OrderlistService.getOrderList(input);
         		//output = OrderlistService.getOrderUserList(input);
         		
         	// 데이터 조회하기
         	} else { 
+        		HttpSession session = request.getSession();
+        		userno = (int) session.getAttribute("my_session");
         		
         		input.setUserno(userno);
         		output = OrderlistService.getOrderList(input);

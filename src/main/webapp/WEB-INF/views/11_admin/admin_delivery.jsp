@@ -231,7 +231,7 @@
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                    <th style="width: 30px"></th>
                                                     <th>주문번호</th>
                                                     <th>주문일</th>
                                                     <th>주문자</th>
@@ -242,7 +242,7 @@
                                                     <th>배송희망날짜</th>
                                                     <th>결제수단</th>
                                                     <th>결제상태</th>
-                                                    <th>메모</th>
+                                                    <th style="width: 54px">메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
@@ -254,7 +254,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 								                    	<c:forEach var="item" items="${orderlistOutput }" varStatus="status">
-								                    		<c:if test="${item.orderstatus=='N' && output[status.index].deliverystatus==null || output[status.index].deliverystatus=='N'}">
+								                    		<c:if test="${item.orderstatus=='N' && (output[status.index].deliverystatus==null || output[status.index].deliverystatus=='N')}">
 				                                                <tr>
 				                                                    <td>
 				                                                    	<input type='checkbox' class="check" name='chkn[]' value="${item.orderno }">
@@ -301,7 +301,7 @@
 				                                                    		결제완료
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td width='54' align='center' class="clear">
+				                                                    <td class="clear">
 				                                                    	<c:choose>
 				                                                    	<c:when test="${item.request != null }">
 					                                                        <button type="button" class="btn btn-secondary btn-xs memo user_selected">user</button>
@@ -348,7 +348,7 @@
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                    <th style="width: 30px"></th>
                                                     <th>주문번호</th>
                                                     <th>주문일</th>
                                                     <th>주문자</th>
@@ -358,7 +358,7 @@
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
                                                     <th>총 금액</th>
-                                                    <th>메모</th>
+                                                    <th style="width: 54px">메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
@@ -439,7 +439,7 @@
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                    <th style="width: 30px"></th>
                                                     <th>주문번호</th>
                                                     <th>주문일</th>
                                                     <th>주문자</th>
@@ -449,7 +449,7 @@
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
                                                     <th>총 금액</th>
-                                                    <th>메모</th>
+                                                    <th style="width: 54px">메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
@@ -530,7 +530,7 @@
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                    <th style="width: 30px"></th>
                                                     <th>주문번호</th>
                                                     <th>주문일</th>
                                                     <th>주문자</th>
@@ -540,7 +540,7 @@
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
                                                     <th>총 금액</th>
-                                                    <th>메모</th>
+                                                    <th style="width: 54px">메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
@@ -621,7 +621,7 @@
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
-                                                    <th style="width: 10px"><input type='checkbox' id="all_check"></th>
+                                                    <th style="width: 30px"></th>
                                                     <th>주문번호</th>
                                                     <th>주문일</th>
                                                     <th>주문자</th>
@@ -631,7 +631,7 @@
                                                     <th>운송장번호</th>
                                                     <th>상품정보</th>
                                                     <th>총 금액</th>
-                                                    <th>메모</th>
+                                                    <th style="width: 54px">메모</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="delivery_list">
@@ -823,11 +823,6 @@
             });
         });
 
-        /* 체크박스 일괄 선택 */
-        $("#all_check").change(function() {
-            $(".check").prop('checked', $(this).prop('checked'));
-        });
-        
         /* 배송준비 버튼 toggle */
         $("#delivery_ready").click(function() {
         	$("#form_hidden").slideToggle(200);
@@ -886,6 +881,7 @@
 			// var paystatus = current.parent().eq(10).data();
 			var orderno = current;
 			var orderstatus = "CC";
+			var ccstatus = "I";
 			if (!confirm("해당 주문건은 관리자에 의해 취소 됩니다.")) {
 				return false;
 			}
@@ -893,12 +889,13 @@
 			// put 메서드로 ajax 요청
 			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
 				"orderno":orderno,
-				"orderstatus":orderstatus
+				"orderstatus":orderstatus,
+				"ccstatus":ccstatus
 			}, function(json) {
 				if(json.rt == "OK") {
 					alert("주문취소처리 되었습니다");
 					// 변경 완료 후 목록 페이지 이동
-					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_cancel.do";
 				}
 			});
 		});

@@ -26,5 +26,8 @@ public interface OrderlistService {
 
 	/** 주문정보 수정 */
 	public int updateOrderlist(Orderlist input) throws Exception;
+	
+	/** 취소정보 수정 */
+	public int updateOrderCClist(Orderlist input) throws Exception;
 
 }

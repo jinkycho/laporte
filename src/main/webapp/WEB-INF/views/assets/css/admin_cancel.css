@@ -207,6 +207,14 @@ select#child {
 .memo:hover + p.admin_memo {
   display: block;
 }
+.select_complete {
+  width: inherit;
+  float: left;
+  color: #eee;
+}
+.select_complete:hover {
+	color:#eee;
+}
 .content_footer {
   padding-top: 15px;
   margin: 15px;

@@ -135,133 +135,6 @@
 										<a class="order_link" href="#">주문 내역 보기</a>
 										<hr/>
 									</div>
-									
-									<!-- 주문내역 -->
-									<div class="order_list">
-									    <div>
-									        <div class="order_info01">
-									            <h3>주문 내역</h3>
-									            <p>주문 번호 : <span class="order_orderno">${item.orderno }</span></p>
-									        </div>
-									    </div>
-									    <hr/>
-									    <div class="order_info02">
-									        <p>
-									            <b>주문 날짜</b><br/>
-									            <span class="order_date">
-									            	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
-				                               		<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
-								            	</span><br/>
-									            <b>주문 번호</b><br/>
-									            <span class="order_orderno">${item.orderno }</span><br/>
-									            <b>최종 결제 금액</b><br/>
-									            &#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/></span>
-									        </p>
-									        <div>
-									            <span id="order_icon"></span>
-									            <a class="order_return" href="../02_mypage/order_return.html">주문취소</a>
-									        </div>
-									    </div>
-									    <hr/>
-									    <div class="order_info03">
-									        <div class="order_line">
-									            <p><b>택배 배송 내역</b></p>
-									            <a href="#"><b><span class="order_delivery_info">+</span></b></a>
-									        </div>
-									        <div class="order_line">
-									            <p><b>택배 배송 제품</b></p>
-									            <a href="#"><b><span class="order_delivery_product">+</span></b></a>
-									        </div>
-									        <div class="order_hidden">
-									            <form class="order_itemlist">
-									                <img class="order_item_img">
-									                <div class="order_item">
-									                    <span class="order_item_title">${item.pname }</span><br/>
-									                    <span class="order_item_info">${item.color }, ${item.size }</span><br/>
-									                    <span class="order_item_productno">${item.prodno }</span><br/>
-									                    <span class="order_item_price">
-									                    	&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
-									                    </span>
-									                </div>
-									            </form>
-									        </div>
-									        <div class="order_userinfo">
-									            <p>
-									                <b>주소</b><br/>
-									                <span class="order_name">${item.name }</span><br/>
-									                <span class="order_address">${item.addr1 } ${item.addr2 }</span><br/>
-									                <span class="order_email">${item.email }</span><br/>
-									            </p>
-									        </div>
-									    </div>
-									    <hr/>
-									    <div>
-									        <p><b>결제 방법</b><br/>
-									        <span class="order_payment">
-									        	<c:if test="${item.paytype=='C'}">
-	                                        		신용카드
-	                                        	</c:if>
-	                                        	<c:if test="${item.paytype=='D'}">
-	                                        		무통장입금
-	                                       		</c:if>
-	                                       		<c:if test="${item.paytype=='M'}">
-	                                        		휴대폰결제
-	                                       		</c:if>
-	                                       		<c:if test="${item.paytype=='D2'}">
-	                                        		실시간계좌이체
-	                                       		</c:if>
-									        </span>
-									    </div>
-									    <hr/>
-									    <div>
-									        <div>
-									            <span>
-									                <b>총 주문금액</b>
-									            </span>
-									            <span class="pull_right">
-									                <b><span class="order_price">
-						                					&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
-					                				   </span></b>
-									            </span>
-									        </div>
-									        <br/>
-									        <div>
-									            <span>
-									                배송비
-									            </span>
-									            <span class="pull_right">
-									               + &#8361; <span class="order_deliveryprice">${item.d_price }</span>
-									            </span>
-									            <br/>
-									            <span>
-									                쿠폰할인
-									            </span>
-									            <span class="pull_right">
-									               - &#8361; <span class="order_deliveryprice">5000</span>
-									            </span>
-									            <br/>
-									            <span>
-									                적립금사용
-									            </span>
-									            <span class="pull_right">
-									               - &#8361; <span class="order_deliveryprice">0</span>
-									            </span>
-									        </div>
-									        <hr/>
-									        <div>
-									            <p>
-									                <span>
-									                    <b>최종 결제금액</b>
-									                </span>
-									                <span class="pull_right">
-									                    <b>&#8361; <span class="order_totalprice">
-									                    			  <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
-									                    		   </span></b>
-									                </span>
-									            </p>
-									        </div>							
-									    </div>
-									</div>
 									<div class="hd_gray_layer" id="hd_menu_background"></div>
 									<div class="order_over_layer" id="hd_menu_front">
 									    <!-- 메뉴 로고 및 아이콘 -->
@@ -337,137 +210,137 @@
 										<a class="order_link" href="#">주문 내역 보기</a>
 										<hr/>
 									</div>
-									
-									<!-- 주문내역 -->
-									<div class="order_list">
-									    <div>
-									        <div class="order_info01">
-									            <h3>주문 내역</h3>
-									            <p>주문 번호 : <span class="order_orderno">${item.orderno }</span></p>
-									        </div>
-									    </div>
-									    <hr/>
-									    <div class="order_info02">
-									        <p>
-									            <b>주문 날짜</b><br/>
-									            <span class="order_date">
-									            	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
-				                               		<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
-								            	</span><br/>
-									            <b>주문 번호</b><br/>
-									            <span class="order_orderno">${item.orderno }</span><br/>
-									            <b>최종 결제 금액</b><br/>
-									            &#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/></span>
-									        </p>
-									        <div>
-									            <span id="order_icon"></span>
-									            <a class="order_return" href="../02_mypage/order_return.html">주문취소</a>
-									        </div>
-									    </div>
-									    <hr/>
-									    <div class="order_info03">
-									        <div class="order_line">
-									            <p><b>택배 배송 내역</b></p>
-									            <a href="#"><b><span class="order_delivery_info">+</span></b></a>
-									        </div>
-									        <div class="order_line">
-									            <p><b>택배 배송 제품</b></p>
-									            <a href="#"><b><span class="order_delivery_product">+</span></b></a>
-									        </div>
-									        <div class="order_hidden">
-									            <form class="order_itemlist">
-									                <img class="order_item_img">
-									                <div class="order_item">
-									                    <span class="order_item_title">${item.pname }</span><br/>
-									                    <span class="order_item_info">${item.color }, ${item.size }</span><br/>
-									                    <span class="order_item_productno">${item.prodno }</span><br/>
-									                    <span class="order_item_price">
-									                    	&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
-									                    </span>
-									                </div>
-									            </form>
-									        </div>
-									        <div class="order_userinfo">
-									            <p>
-									                <b>주소</b><br/>
-									                <span class="order_name">${item.name }</span><br/>
-									                <span class="order_address">${item.addr1 } ${item.addr2 }</span><br/>
-									                <span class="order_email">${item.email }</span><br/>
-									            </p>
-									        </div>
-									    </div>
-									    <hr/>
-									    <div>
-									        <p><b>결제 방법</b><br/>
-									        <span class="order_payment">
-									        	<c:if test="${item.paytype=='C'}">
-	                                        		신용카드
-	                                        	</c:if>
-	                                        	<c:if test="${item.paytype=='D'}">
-	                                        		무통장입금
-	                                       		</c:if>
-	                                       		<c:if test="${item.paytype=='M'}">
-	                                        		휴대폰결제
-	                                       		</c:if>
-	                                       		<c:if test="${item.paytype=='D2'}">
-	                                        		실시간계좌이체
-	                                       		</c:if>
-									        </span>
-									    </div>
-									    <hr/>
-									    <div>
-									        <div>
-									            <span>
-									                <b>총 주문금액</b>
-									            </span>
-									            <span class="pull_right">
-									                <b><span class="order_price">
-						                					&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
-					                				   </span></b>
-									            </span>
-									        </div>
-									        <br/>
-									        <div>
-									            <span>
-									                배송비
-									            </span>
-									            <span class="pull_right">
-									               + &#8361; <span class="order_deliveryprice">${item.d_price }</span>
-									            </span>
-									            <br/>
-									            <span>
-									                쿠폰할인
-									            </span>
-									            <span class="pull_right">
-									               - &#8361; <span class="order_deliveryprice">5000</span>
-									            </span>
-									            <br/>
-									            <span>
-									                적립금사용
-									            </span>
-									            <span class="pull_right">
-									               - &#8361; <span class="order_deliveryprice">0</span>
-									            </span>
-									        </div>
-									        <hr/>
-									        <div>
-									            <p>
-									                <span>
-									                    <b>최종 결제금액</b>
-									                </span>
-									                <span class="pull_right">
-									                    <b>&#8361; <span class="order_totalprice">
-									                    			  <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
-									                    		   </span></b>
-									                </span>
-									            </p>
-									        </div>					
-									    </div>
-									</div>
 								</c:if>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
+				</div>
+				
+				<!-- 주문내역 -->
+				<div class="order_list">
+				    <div>
+				        <div class="order_info01">
+				            <h3>주문 내역</h3>
+				            <p>주문 번호 : <span class="order_orderno">${item.orderno }</span></p>
+				        </div>
+				    </div>
+				    <hr/>
+				    <div class="order_info02">
+				        <p>
+				            <b>주문 날짜</b><br/>
+				            <span class="order_date">
+				            	<fmt:parseDate value="${item.regdate}" var="regdate" pattern="yyyy-MM-dd" />
+                              		<fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+			            	</span><br/>
+				            <b>주문 번호</b><br/>
+				            <span class="order_orderno">${item.orderno }</span><br/>
+				            <b>최종 결제 금액</b><br/>
+				            &#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/></span>
+				        </p>
+				        <div>
+				            <span id="order_icon"></span>
+				            <a class="order_return" href="../02_mypage/order_return.html">주문취소</a>
+				        </div>
+				    </div>
+				    <hr/>
+				    <div class="order_info03">
+				        <div class="order_line">
+				            <p><b>택배 배송 내역</b></p>
+				            <a href="#"><b><span class="order_delivery_info">+</span></b></a>
+				        </div>
+				        <div class="order_line">
+				            <p><b>택배 배송 제품</b></p>
+				            <a href="#"><b><span class="order_delivery_product">+</span></b></a>
+				        </div>
+				        <div class="order_hidden">
+				            <form class="order_itemlist">
+				                <img class="order_item_img">
+				                <div class="order_item">
+				                    <span class="order_item_title">${item.pname }</span><br/>
+				                    <span class="order_item_info">${item.color }, ${item.size }</span><br/>
+				                    <span class="order_item_productno">${item.prodno }</span><br/>
+				                    <span class="order_item_price">
+				                    	&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
+				                    </span>
+				                </div>
+				            </form>
+				        </div>
+				        <div class="order_userinfo">
+				            <p>
+				                <b>주소</b><br/>
+				                <span class="order_name">${item.name }</span><br/>
+				                <span class="order_address">${item.addr1 } ${item.addr2 }</span><br/>
+				                <span class="order_email">${item.email }</span><br/>
+				            </p>
+				        </div>
+				    </div>
+				    <hr/>
+				    <div>
+				        <p><b>결제 방법</b><br/>
+				        <span class="order_payment">
+				        	<c:if test="${item.paytype=='C'}">
+	                       		신용카드
+	                       	</c:if>
+	                       	<c:if test="${item.paytype=='D'}">
+                       			무통장입금
+                      		</c:if>
+                      		<c:if test="${item.paytype=='M'}">
+                       			휴대폰결제
+                      		</c:if>
+                      		<c:if test="${item.paytype=='D2'}">
+                       			실시간계좌이체
+                      		</c:if>
+				        </span>
+				    </div>
+				    <hr/>
+				    <div>
+				        <div>
+				            <span>
+				                <b>총 주문금액</b>
+				            </span>
+				            <span class="pull_right">
+				                <b><span class="order_price">
+	                					&#8361; <span class="order_totalprice"><fmt:formatNumber pattern="###,###,###" value='${item.price * item.ea }'/>
+                				   </span></b>
+				            </span>
+				        </div>
+				        <br/>
+				        <div>
+				            <span>
+				                배송비
+				            </span>
+				            <span class="pull_right">
+				               + &#8361; <span class="order_deliveryprice">${item.d_price }</span>
+				            </span>
+				            <br/>
+				            <span>
+				                쿠폰할인
+				            </span>
+				            <span class="pull_right">
+				               - &#8361; <span class="order_deliveryprice">5000</span>
+				            </span>
+				            <br/>
+				            <span>
+				                적립금사용
+				            </span>
+				            <span class="pull_right">
+				               - &#8361; <span class="order_deliveryprice">0</span>
+				            </span>
+				        </div>
+				        <hr/>
+				        <div>
+				            <p>
+				                <span>
+				                    <b>최종 결제금액</b>
+				                </span>
+				                <span class="pull_right">
+				                    <b>&#8361; <span class="order_totalprice">
+				                    			  <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+				                    		   </span></b>
+				                </span>
+				            </p>
+				        </div>							
+				    </div>
 				</div>
 			</div>
 		</section>
@@ -512,13 +385,13 @@
 				$("#order_tab_link01").removeClass("selected");
 			});
 
-			/* 주문내역 클릭시 
+			/* 주문내역 클릭시 */
 			$(document).on("click", ".order_link", function(e) {
 				e.preventDefault();
 				$(".order_list").show();
 				$(".order_page01").hide();
 				$(".order_page02").hide();
-			}); */
+			});
 
 			/* 제품번호 버튼 toggle */
 			$(".order_link").click(function() { $(".order_list").slideToggle(200); });
