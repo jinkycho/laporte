@@ -7,64 +7,113 @@
 <html>
 
 <head>
-   <meta charset="utf-8" />
+	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>la porte</title>
 
-	<!-- font stylesheet -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
+<!-- stylesheet -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-	
-	<!-- stylesheet -->
-    <link rel="stylesheet" href="../assets/dist/css/metallic/zebra_datepicker.css" type="text/css">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-  	<link rel="stylesheet" type="text/css" href="../assets/css/common.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/reserve.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/confirm.css"/>
+     <link rel="stylesheet" href="../assets/css/edit.css"/>
+      <link rel="stylesheet" href="../assets/dist/css/metallic/zebra_datepicker.css" type="text/css">
+			<!-- css경로 ../ << 넣고 만들기  -->
+<!-- javascript -->
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-	<!-- javascript -->
-    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<!-- ajax-helper -->
+    <link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
+    <script src="../assets/plugins/ajax/ajax_helper.js"></script>
+    <script src="../assets/plugins/handlebars/handlebars-v4.0.11.js"></script>
+    <script src="../assets/dist/zebra_datepicker.src.js"></script>
 	<script>window.jQuery || document.write('<script src="path/to/jquery-3.5.0.js"><\/script>')</script>
-	 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-
-	
-	<!-- sweetalert -->
-    <link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert2.min.css">
+    <style type="text/css">
+    	
+    </style>
 </head>
 
 <body>
-    <form id="editForm" method="post" action="${pageContext.request.contextPath}/08_reserve/reserve_edit_ok.do">
+	<%@ include file="../01_home/header.jsp" %>
+<!-- 본문영역 -->
+	<section>
+<!-- 검색 -->
+        <div class="hd_searchbox">
+            <div class="hd_search">
+                <input id="search_text" type="text" placeholder="검색어 입력">
+                    <span id="hd_search_icon"></span>
+            </div>
+            <div class="sc_gray_layer" id="hd_search_background"></div>
+       			<div class="sc_over_layer" id="hd_search_front">
+       				<div id="modal_search_box_container">
+       					<form>
+       						<input id="modal_search_text" type="text" placeholder="검색어 입력">
+       						<span id="search_close_icon"></span>
+       						<input type="reset" id="search_remove_icon">
+       						<input type="submit" id="search_enter_icon">
+       					</form>
+       					<div id="search_result" >
+       						<h4>추천 검색어</h4>
+       						<a href="#"><span class="rec_reyword"></span>가구</a>
+       						<a href="#"><span class="rec_reyword"></span>침대</a>
+       						<a href="#"><span class="rec_reyword"></span>주방</a>
+       						<a href="#"><span class="rec_reyword"></span>소파</a>
+       						<a href="#"><span class="rec_reyword"></span>수납</a>
+       						<a href="#"><span class="rec_reyword"></span>조명</a>
+       					</div>
+       				</div>
+       			</div>
+        </div>
+<!-- 검색 끝-->
+<!-- 내용영역 -->
+		<div class="confirm_tab">
+			<ul class="confirm_tab_ul">
+				<li class="confirm_tab_ul_li ">
+					<a href="${pageContext.request.contextPath}/08_reserve/reserve_cfm.do?reserveno=${output.reserveno}"class="confirem_tab_ul_li_a">
+					예약 확인
+					</a>
+				</li>
+				<li class="confirm_tab_ul_li active">
+					<a href="${pageContext.request.contextPath}/08_reserve/reserve_edit.do?reserveno=${output.reserveno}"class="confirem_tab_ul_li_a">
+					예약 수정
+					</a>
+				</li>
+			</ul>
+		</div>
+    <form class="confirm_content" id="editForm" action="${pageContext.request.contextPath}/08_reserve">
+    	<h3 class="confirm_content_h32">예약 수정</h3>
     <input type="hidden" name="reserveno" value="${output.reserveno}"/>
-    
-    <div>
-    	<label for="reserveno">예약번호 </label>
-    	<h4>${output.reserveno}</h4>
-    </div>
-    
-    <div>
-    	<label for="name">예약자 </label>
-    	<h4>${output.name}</h4>	
-    </div>
-    
-    <div class="reserve_calendar">
-		<label for="date"> 예약일자 </label>
-		<div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
-		<input value="${output.date}" name="date" id="datepicker-always-visible" type="text" class="form-control" data-zdp_readonly_element="false"
+  		<div class="editbox">
+    		<div class="editbox_input">
+    			<label class="input_txt" for="reserveno">예약번호 </label>
+    			<h4 class="input_txt_h4">${output.reserveno}</h4>
+    		</div>
+    		<div class="editbox_input">
+    			<label class="input_txt" for="name">예약자 </label>
+    			<h4 class="input_txt_h4">${output.name}</h4>	
+    		</div>
+    	</div>
+    <div class="editbox_input">
+		<label class="input_txt" for="date"> 예약일자 </label>
+		
+		<input value="${output.date}" name="date" id="datepicker" type="text" class="form-control" data-zdp_readonly_element="false"
 			placeholder="캘린더에서 날짜를 선택해주세요.">
 	</div>
 	
-    <div class="reserve_select">
-		<label for="showroom">매장선택</label>
-		<select name="showroom" class="resvation_select-box">
-			<option value="A" class='reserve_select-box_option' <c:if test="${output.showroom == 'A'}">selected</c:if>>강남점</option>
-			<option value="B" class='reserve_select-box_option' <c:if test="${output.showroom == 'B'}">selected</c:if>>광명점</option>
-			<option value="C" class='reserve_select-box_option' <c:if test="${output.showroom == 'C'}">selected</c:if>>대구점</option>
+    <div class="editbox_input">
+		<label class="input_txt" for="showroom">매장선택</label>
+		<select name="showroom" class="input_default">
+			<option value="A" class='editbox_select-box_option' <c:if test="${output.showroom == 'A'}">selected</c:if>>강남점</option>
+			<option value="B" class='editbox_select-box_option' <c:if test="${output.showroom == 'B'}">selected</c:if>>광명점</option>
+			<option value="C" class='editbox_select-box_option' <c:if test="${output.showroom == 'C'}">selected</c:if>>대구점</option>
 		</select>
 	</div>
 
-	<div>
-		<label for="time">예약 시간</label>
+	<div class="editbox_input" >
+		<label class="input_txt" for="time">예약 시간</label>
 		   <select name="time" class="input_default">
               <option value="9" class="call_time" <c:if test="${output.time == '9'}">selected</c:if> >오전 9시</option>
               <option value="10" class="call_time" <c:if test="${output.time == '10'}">selected</c:if> >오전 10시</option>
@@ -77,8 +126,8 @@
               <option value="5" class="call_time" <c:if test="${output.time == '5'}">selected</c:if> >오후 5시</option>
            </select>
 	</div>
-	<div>
-		<label for="area">컨설팅 영역</label>
+	<div class="editbox_input" >
+		<label class="input_txt" for="area">컨설팅 영역</label>
 		<select name="area" class="input_default">
 			<option value="F" class="area_select" <c:if test="${output.area == 'F'}">selected</c:if>>가구</option>
 			<option value="C" class="area_select" <c:if test="${output.area == 'C'}">selected</c:if>>소파/암체어</option>
@@ -88,13 +137,22 @@
 			<option value="L" class="area_select" <c:if test="${output.area == 'L'}">selected</c:if>>조명</option>
 		</select>
 	</div>
-	<div class="reserve_input_req">
-		<label for="request">요청사항</label>
-		<input value="${output.request}"class="request" name="request" type="text" placeholder="요청 사항이 있으시면 남겨주세요."/>
+	<div class="editbox_input"">
+		<label class="input_txt" for="request">요청사항</label>
+		<input value="${output.request}"class="input_default_txt" name="request" type="text" placeholder="요청 사항이 있으시면 남겨주세요."/>
 	</div>
-	<button type="submit">저장하기</button>
-	<button type="reset">다시작성</button>
+	
+	<div class="confirm_txt">
+		<span class="confirm_txt_icon"></span><p>컨설팅 서비스예약 취소는 예약24시간 전까지만 가능 합니다.</p>
+		<span class="confirm_txt_icon"></span><p>컨설팅 서비스예약 수정/취소는 홈페이지 메뉴 및 고객센터를 통해 가능합니다.</p>
+	</div>
+	<div class="confirm_button">
+	<button class="confirm_button_a3" type="submit">저장하기</button>
+	<button class="confirm_button_a4" type="reset">다시작성</button>
+	</div>
     </form>
+    </section>
+    	<%@ include file="../01_home/footer.jsp" %>
     <!-- swweetalert -->
  <!-- jQuery Ajax Form plugin CDN -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
@@ -106,25 +164,23 @@
 
 
 $(document).ready(function() {
-
-    /* 캘린더 플러그인 */
-	$('#datepicker-always-visible').Zebra_DatePicker({
-		/* 캘린더 페이지에 항상 표시 */
-        always_visible: $('#container'),
-        /* 14일 이후까지만 표시 */
-        direction: [1,14],
-        /* 일요일 선택 disable */
-        disabled_dates: ['* * * 0'] 
-    });
+	$('#datepicker').Zebra_DatePicker({
+	direction: [1,14],
+	disabled_dates: ['* * * 0'] 
+	});
 });
 
 $(function(){
-  	$("#addForm").ajaxForm({
+  	$("#editForm").ajaxForm({
   		// 전송 메서드 지정
-  		method: "POST",
+  		method: "PUT",
   		// 서버에서 200 응답을 전달한 경우 실행됨
   		success: function(json){
-  			console.log(json);
+  			
+  			if(json.rt == "OK"){
+  				alert(json.item.name+"님 예약 수정이 완료 되었습니다.");
+  				 window.location = "${pageContext.request.contextPath}/08_reserve/reserve_cfm.do?reserveno=" + json.item.reserveno;
+  			}
   		}
   	});
     $('#reserve_submit').click(function(e){

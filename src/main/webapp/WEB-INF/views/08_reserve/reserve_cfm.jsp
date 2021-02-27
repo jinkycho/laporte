@@ -76,8 +76,8 @@
 					</a>
 				</li>
 				<li class="confirm_tab_ul_li">
-					<a href="#"class="confirem_tab_ul_li_a">
-					수정/취소
+					<a href="${pageContext.request.contextPath}/08_reserve/reserve_edit.do?reserveno=${output.reserveno}"class="confirem_tab_ul_li_a">
+					예약 수정
 					</a>
 				</li>
 			</ul>
@@ -151,92 +151,22 @@
 		
 			<div class="confirm_button">
 				<a href="${pageContext.request.contextPath}/08_reserve/reserve_delete_ok.do?reserveno=${output.reserveno}" id="ok3" class="confirm_button_a">예약 취소</a>
-				<a href="#"id="ok2"class="confirm_button_a2">예약</a>
+				<a href="${pageContext.request.contextPath}/08_reserve/reserve_list.do?userno=${output.userno}"id="ok2"class="confirm_button_a2">목록으로</a>
 			</div>
 		</div>
-		<div class="bookedInformation editCancel_wrap">
-			<div class="confirm_content">
-				<div role="tabpanel" class="tab-pane fade" id="dept"></div>
-				<h3 class="confirm_content_h32">예약수정/취소</h3>
-				<!-- 결과가 출력될 DIV -->
-				<div class="resultbox">
-				<div id="result2"></div>
-				<div class="editbox_input">
-                    <span class="input_txt">예약 일자</span>
-                    <input id="datepicker" type="text" class="form-control" data-zdp_readonly_element="false">
-                </div>
-				   <div class="editbox_input">
-                      <span class="input_txt">예약 지점</span>
-                    <select class="input_default">
-                        <option class=editbox_select-box_option>강남점</option>
-                        <option class=editbox_select-box_option>광명점</option>
-                        <option class=editbox_select-box_option>대구점</option>
-                    </select>
-                </div>
-                
-                <div class="editbox_input">
-                      <span class="input_txt">예약 시간</span>
-                    <select class="input_default">
-                        <option class="call_time">오전 9시</option>
-                        <option class="call_time">오전 10시</option>
-                        <option class="call_time">오전 11시</option>
-                        <option class="call_time">오전 12시</option>
-                        <option class="call_time">오후 1시</option>
-                        <option class="call_time">오후 2시</option>
-                        <option class="call_time">오후 3시</option>
-                        <option class="call_time">오후 4시</option>
-                        <option class="call_time">오후 5시</option>
-                    </select>
-                </div>
-                <div class="editbox_input">
-                     <span class="input_txt">컨설팅 영역</span>
-                        <select class="input_default">
-                        <option class="area_select">가구</option>
-                        <option class="area_select">소파/암체어</option>
-                        <option class="area_select">침대</option>
-                        <option class="area_select">수납/정리</option>
-                        <option class="area_select">주방가구/용품</option>
-                        <option class="area_select">조명</option>
-                    </select>
-                </div>
-                <div class="editbox_input">
-                      <span class="input_txt">요청 사항</span>
-                <input class="input_default_txt" type="text" placeholder="요청사항 적어주세요.">
-                </div>
-				</div>
-			<div class="confirm_txt">
-				<span class="confirm_txt_icon"></span><p>컨설팅 서비스예약 취소는 예약24시간 전까지만 가능 합니다.</p>
-				<span class="confirm_txt_icon"></span><p>컨설팅 서비스예약 수정/취소는 홈페이지 메뉴 및 고객센터를 통해 가능합니다.</p>
-			</div>
 		
-			<div class="confirm_button">
-				<a href="${pageContext.request.contextPath}/08_reserve/reserve_delete_ok.do?reserveno=${output.reserveno}" id="ok3" class="confirm_button_a">예약 취소</a>
-				<a href="#" id="ok4" class="confirm_button_a2">에약 수정</a>
-			</div>
-			</div>
-		</div>
-</div>
-    	</div>
+	</div>
+   </div>
 	</section>
 <!-- 하단영역 -->
 	<%@ include file="../01_home/footer.jsp" %>
-
-  <script id="dept_item_tmpl" type="text/x-handlebars-template">
-	
-</script>
-<script id="editCancel_item_tmpl" type="text/x-handlebars-template">
-	       <div class="editbox">
-            	<div class="editbox_input">
-                	<span class="input_txt">예약번호</span>
-                	<h4 class="input_txt_h4">{{reservNo}}</h4>
-            	</div>
-             	<div class="editbox_input">
-                <span class="input_txt">예약자</span>
-                	<h4 class="input_txt_h4">{{reservName}}</h4>
-            	</div>
-          </div>
-	</script>
-    <script type="text/javascript">
+ <!-- jQuery Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+     <!-- jQuery Ajax Setup -->
+ <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+<script src="../assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="../assets/js/home.js"></script>
+<script type="text/javascript">
 
 		
         /* header fixed */
@@ -326,25 +256,7 @@
         });
 		
 
-    	// 탭 
-		$(function(){
-			$(".confirm_tab_ul li").click(function(){
-				var list = $(this).index();
-				$(".confirm_tab_ul li").removeClass("active");
-				$(this).addClass("active");
-				$(".bookedInformation").hide();
-				$(".bookedInformation").eq(list).show();
-			});
-		});
-		//달력
-		$(document).ready(function() {
-			$('#datepicker').Zebra_DatePicker({
-        	direction: [1,14],
-        	disabled_dates: ['* * * 0'] 
-    		});
-		});
-		
-    });
+    
     </script>
    
 

@@ -2,6 +2,8 @@ package com.project.laporte.controllers;
 
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -45,6 +47,7 @@ public class ReserveAjaxController {
 	/** 목록 페이지 */
 	@RequestMapping(value="/08_reserve/reserve_list.do",method = RequestMethod.GET)
 	public ModelAndView list(Model model,
+	
 			@RequestParam(value="userno",defaultValue="0")int userno) {
 		/** 1) 유효성 검사 */
 		// 이 값이 존재하지 않는다면 데이터 조회가 불가능 하므로 필수값으로 처리해야한다.
@@ -134,44 +137,6 @@ public class ReserveAjaxController {
 	
 	
 	
-	@RequestMapping(value="/08_reserve/reserve_edit_ok.do",method = RequestMethod.POST)
-	public ModelAndView edit_ok(Model model,
-			@RequestParam(value="reserveno",defaultValue="0") int reserveno,
-			@RequestParam(value="date",defaultValue = "")String date,
-			@RequestParam(value="showroom",defaultValue="")String showroom,
-			@RequestParam(value="time",defaultValue="")String time,
-			@RequestParam(value="area",defaultValue="")String area,
-			@RequestParam(value="request",defaultValue="")String request) {
-		
-		/** 1)사용자가 입력한 파라미터 유효성 검사 */
-		// 상태유지 처리된 PK값에 대한 검사
-		if(reserveno == 0) {return webHelper.redirect(null, "예약정보가 없습니다.");}
-		
-		// 일반 문자열 입력 컬럼 --> String으로 파라미터가 선언되어 있는 경우는 값이 입력되지 않으면 빈 문자열로 처리된다.
-		if(!regexHelper.isValue(date))	{return webHelper.redirect(null, "날짜가 입력되지 않았습니다.");}
-		if(!regexHelper.isValue(showroom))	{return webHelper.redirect(null, "매장을 선택해주세요.");}
-		if(!regexHelper.isValue(time))	{return webHelper.redirect(null, "시간을 선택해주세요.");}
-		if(!regexHelper.isValue(area))	{return webHelper.redirect(null, "컨설팅 영역을 선택해주세요.");}
-		/** 2)데이터 수정하기 */
-		// 수정할 값들을 Beans에 담는다.
-		Reserve input = new Reserve();
-		input.setReserveno(reserveno);
-		input.setDate(date);
-		input.setShowroom(showroom);
-		input.setTime(time);
-		input.setArea(area);
-		input.setRequest(request);
-		
-		try {
-			reserveService.editReserve(input);
-		}catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
-		/** 3)결과를 확인하기 위한 페이지 이동 */
-		String redirectUrl = contextPath +"/08_reserve/reserve_cfm.do?reserveno=" + input.getReserveno();
-		return webHelper.redirect(redirectUrl, "수정되었습니다.");
-	}
-	
 	/** 예약 취소 처리 */
 	@RequestMapping(value ="08_reserve/reserve_delete_ok.do",method =RequestMethod.GET)
 	public ModelAndView delete_ok(Model model,
@@ -221,13 +186,13 @@ public class ReserveAjaxController {
 	}
 	
 	@RequestMapping(value ="/11_admin/admin_resvappv.do", method = RequestMethod.GET)
-	public ModelAndView adlistw (Model model) {
+	public ModelAndView adlist (Model model) {
 		
 		List<Reserve> output = null;
 		
 		try {
 			// 데이터 조회하기
-			output = reserveService.getReserveListw(null);
+			output = reserveService.getReserveList(null);
 		}catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
@@ -237,37 +202,4 @@ public class ReserveAjaxController {
 		return new ModelAndView("11_admin/admin_resvappv");
 	}
 	
-	@RequestMapping(value ="/11_admin/admin_resvappvcf.do", method = RequestMethod.GET)
-	public ModelAndView adlistcf (Model model) {
-		
-		List<Reserve> outputcf = null;
-		
-		try {
-			// 데이터 조회하기
-			outputcf = reserveService.getReserveListcf(null);
-		}catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
-		
-		model.addAttribute("outputcf",outputcf);
-		
-		return new ModelAndView("11_admin/admin_resvappvcf");
-	}
-	
-	@RequestMapping(value ="/11_admin/admin_resvappvcc.do", method = RequestMethod.GET)
-	public ModelAndView adlistcc (Model model) {
-		
-		List<Reserve> outputcc = null;
-		
-		try {
-			// 데이터 조회하기
-			outputcc = reserveService.getReserveListcc(null);
-		}catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
-		
-		model.addAttribute("outputcc",outputcc);
-		
-		return new ModelAndView("11_admin/admin_resvappvcc");
-	}
 }

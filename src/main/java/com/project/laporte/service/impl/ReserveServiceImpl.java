@@ -161,12 +161,12 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 
 	@Override
-	public List<Reserve> getReserveListw(Reserve input) throws Exception {
+	public List<Reserve> getReserveList(Reserve input) throws Exception {
 		List<Reserve> result = null;
 		
 		
 		try {
-			result = sqlSession.selectList("ReserveMapper.reserveListW", input);
+			result = sqlSession.selectList("ReserveMapper.reserveList", input);
 			
 			if(result == null) {
 				throw new NullPointerException("result=null");
@@ -181,47 +181,7 @@ public class ReserveServiceImpl implements ReserveService{
 		return result;
 	}
 
-	@Override
-	public List<Reserve> getReserveListcc(Reserve input) throws Exception {
-		List<Reserve> result = null;
-		
-		
-		try {
-			result = sqlSession.selectList("ReserveMapper.reserveListCC", input);
-			
-			if(result == null) {
-				throw new NullPointerException("result=null");
-			}
-		}catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("조회된 데이터가 없습니다.");
-		} catch (Exception e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("데이터 조회에 실패했습니다.");
-		}
-		return result;
-	}
-
-	@Override
-	public List<Reserve> getReserveListcf(Reserve input) throws Exception {
-		List<Reserve> result = null;
-		
-		
-		try {
-			result = sqlSession.selectList("ReserveMapper.reserveListCF", input);
-			
-			if(result == null) {
-				throw new NullPointerException("result=null");
-			}
-		}catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("조회된 데이터가 없습니다.");
-		} catch (Exception e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("데이터 조회에 실패했습니다.");
-		}
-		return result;
-	}
+	
 
 	/** 마이페이지에서 회원 예약 건 확인 */
 	@Override

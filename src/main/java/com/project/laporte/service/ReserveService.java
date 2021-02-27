@@ -56,23 +56,9 @@ public interface ReserveService {
 	 * @throws Exception
 	 */
 	
-	public List<Reserve> getReserveListw(Reserve input) throws Exception;
+	public List<Reserve> getReserveList(Reserve input) throws Exception;
 	
-	/**
-	 * 관리자 예약 목록 조회
-	 * @param Reserve 검색조건 페이지 구현 정보를 담고 있는 Beans
-	 * @return 조회 결과에 대한 컬랙션
-	 * @throws Exception
-	 */
-	public List<Reserve> getReserveListcc(Reserve input) throws Exception;
 	
-	/**
-	 * 관리자 예약 목록 조회
-	 * @param Reserve 검색조건 페이지 구현 정보를 담고 있는 Beans
-	 * @return 조회 결과에 대한 컬랙션
-	 * @throws Exception
-	 */
-	public List<Reserve> getReserveListcf(Reserve input) throws Exception;
 	
 	/** 마이페이지에서 회원 예약 건 확인 */
 	public int checkReserve(Reserve input) throws Exception;

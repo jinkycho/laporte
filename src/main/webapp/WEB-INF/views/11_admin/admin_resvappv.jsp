@@ -173,17 +173,18 @@
 
 
                     <div id="appv_before_top">
-                    	<c:choose>
+                    	
                     		<%-- 조회결과가 없는경우 --%>
-                    		<c:when test="${output==null || fn:length(output)==0 }">
+                    		<c:if test="${output==null || fn:length(output)==0 }">
                     		 	<div id="no_res_mssg">
                       				<p>승인 대기 중인 예약이 없습니다.</p>
                     			</div>
-                    		</c:when>
+                    		</c:if>
                     		<%-- 조회결과가 있는 경우 --%>
-                    		<c:otherwise>
+                    		
                     			<%-- 조회 결과에 따른 반복 처리 --%>
                     			<c:forEach var="item" items="${output}" varStatus="status">
+                    				<c:if test="${item.status == 'W'}">
                     				<li class="appv_before_li">
                     					<span class="reserveno">${item.reserveno}</span>
                        					<c:if test="${item.showroom=='A'}"><span>강남점</span></c:if>
@@ -211,9 +212,9 @@
                         				<a href="${pageContext.request.contextPath}/08_reserve/reserve_update_ok.do?reserveno=${item.reserveno}" class="appv btn-success btn-xs" >예약승인</a>
                         				<a href="${pageContext.request.contextPath}/08_reserve/reserve_delete_ok.do?reserveno=${item.reserveno}" class="cancel btn-danger btn-xs">예약취소</a>   
                       				  </li>
+                      				  </c:if>
                     			</c:forEach>
-                    		</c:otherwise>
-                    	</c:choose>
+                    		
               
                       
 
@@ -223,10 +224,147 @@
               </div>
             </div>
 
-         	<%@ include file="../11_admin/admin_resvappvcf.jsp" %>
+         	<div class="col-md-12">
+            <div class="card">
+              <div class="card-header border-0">
+                  <h3 class="card-title">예약 승인 완료
+                  </h3>
+                  <br>
+             
+                      <li class="appv_before_head">
+                        <span>예약매장</span>
+                        <span>예약자</span>
+                        <span>예약자연락처</span>
+                        <span>예약시간</span>
+                        <span>컨설팅영역</span>
+                        <span>요청사항</span>
+                        <span>변경</span>
+                      </li>
+                      
+                    
+
+
+                    <div id="appv_before_top">
+                    	
+                    		<%-- 조회결과가 없는경우 --%>
+                    		<c:if test="${output==null || fn:length(output)==0 }">
+                    		 	<div id="no_res_mssg">
+                      				<p>승인 완료된 예약이 없습니다.</p>
+                    			</div>
+                    		</c:if>
+                    		<%-- 조회결과가 있는 경우 --%>
+                    		
+                    			<%-- 조회 결과에 따른 반복 처리 --%>
+                    			<c:forEach var="item" items="${output}" varStatus="status">
+                    				<c:if test="${item.status == 'CF'}">
+                    				<li class="appv_before_li">
+                    					<span class="reserveno">${item.reserveno}</span>
+                       					<c:if test="${item.showroom=='A'}"><span>강남점</span></c:if>
+                       					<c:if test="${item.showroom=='B'}"><span>광명점</span></c:if>
+                       					<c:if test="${item.showroom=='C'}"><span>대구점</span></c:if>
+                        				<span>${item.name}</span>
+                       					<span>${item.phoneno}</span>
+                        				<c:if test="${item.time=='9'}"><span>오전 9시</span></c:if>
+                        				<c:if test="${item.time=='10'}"><span>오전 10시</span></c:if>
+                        				<c:if test="${item.time=='11'}"><span>오전 11시</span></c:if>
+                        				<c:if test="${item.time=='12'}"><span>오전 12시</span></c:if>
+                        				<c:if test="${item.time=='1'}"><span>오후 1시</span></c:if>
+                        				<c:if test="${item.time=='2'}"><span>오후 2시</span></c:if>
+                        				<c:if test="${item.time=='3'}"><span>오후 3시</span></c:if>
+                        				<c:if test="${item.time=='4'}"><span>오후 4시</span></c:if>
+                        				<c:if test="${item.time=='5'}"><span>오후 5시</span></c:if>
+                        				
+                        				<c:if test="${item.area=='F'}"><span>가구</span></c:if>
+                        				<c:if test="${item.area=='C'}"><span>소파/암체어</span></c:if>
+                        				<c:if test="${item.area=='B'}"><span>침대</span></c:if>
+                        				<c:if test="${item.area=='D'}"><span>수납/정리</span></c:if>
+                        				<c:if test="${item.area=='K'}"><span>주방가구/용품</span></c:if>
+                        				<c:if test="${item.area=='L'}"><span>조명</span></c:if>
+                        				<span>${item.request}</span>
+                        				<a href="${pageContext.request.contextPath}/08_reserve/reserve_delete_ok.do?reserveno=${item.reserveno}" class="cancel btn-danger btn-xs">예약취소</a>   
+                      				  </li>
+                      				  </c:if>
+                    			</c:forEach>
+                    	
+              
+                      
+
+               
+                  </div>
+                </div> 
+              </div>
+            </div>
             <!-- /.card -->
             
-			<%@ include file="../11_admin/admin_resvappvcc.jsp" %>            
+			<div class="col-md-12">
+            <div class="card">
+              <div class="card-header border-0">
+                  <h3 class="card-title">예약 취소 
+                  </h3>
+                  <br>
+             
+                      <li class="appv_before_head">
+                        <span>예약매장</span>
+                        <span>예약자</span>
+                        <span>예약자연락처</span>
+                        <span>예약시간</span>
+                        <span>컨설팅영역</span>
+                        <span>요청사항</span>
+                        <span>변경</span>
+                      </li>
+                      
+                    
+
+
+                    <div id="appv_before_top">
+                   
+                    		<%-- 조회결과가 없는경우 --%>
+                    		<c:if test="${output==null || fn:length(output)==0 }">
+                    		 	<div id="no_res_mssg">
+                      				<p>취소된 예약이 없습니다.</p>
+                    			</div>
+                    		</c:if>
+                    		<%-- 조회결과가 있는 경우 --%>
+                    		
+                    			<%-- 조회 결과에 따른 반복 처리 --%>
+                    			<c:forEach var="item" items="${output}" varStatus="status">
+                    				<c:if test="${item.status == 'CC'}">
+                    				<li class="appv_before_li">
+                    					<span class="reserveno">${item.reserveno}</span>
+                       					<c:if test="${item.showroom=='A'}"><span>강남점</span></c:if>
+                       					<c:if test="${item.showroom=='B'}"><span>광명점</span></c:if>
+                       					<c:if test="${item.showroom=='C'}"><span>대구점</span></c:if>
+                        				<span>${item.name}</span>
+                       					<span>${item.phoneno}</span>
+                        				<c:if test="${item.time=='9'}"><span>오전 9시</span></c:if>
+                        				<c:if test="${item.time=='10'}"><span>오전 10시</span></c:if>
+                        				<c:if test="${item.time=='11'}"><span>오전 11시</span></c:if>
+                        				<c:if test="${item.time=='12'}"><span>오전 12시</span></c:if>
+                        				<c:if test="${item.time=='1'}"><span>오후 1시</span></c:if>
+                        				<c:if test="${item.time=='2'}"><span>오후 2시</span></c:if>
+                        				<c:if test="${item.time=='3'}"><span>오후 3시</span></c:if>
+                        				<c:if test="${item.time=='4'}"><span>오후 4시</span></c:if>
+                        				<c:if test="${item.time=='5'}"><span>오후 5시</span></c:if>
+                        				
+                        				<c:if test="${item.area=='F'}"><span>가구</span></c:if>
+                        				<c:if test="${item.area=='C'}"><span>소파/암체어</span></c:if>
+                        				<c:if test="${item.area=='B'}"><span>침대</span></c:if>
+                        				<c:if test="${item.area=='D'}"><span>수납/정리</span></c:if>
+                        				<c:if test="${item.area=='K'}"><span>주방가구/용품</span></c:if>
+                        				<c:if test="${item.area=='L'}"><span>조명</span></c:if>
+                        				<span>${item.request}</span>   
+                      				  </li>
+                      				  </c:if>
+                    			</c:forEach>
+                    	
+              
+                      
+
+               
+                  </div>
+                </div> 
+              </div>
+            </div>           
 
               </div>
             </div>
@@ -263,11 +401,11 @@
 	  $('.reserveno').hide();
 	  
 		
-	  $('#appv').click(function() {
+	  $('#appv').onclick(function() {
 		  location.reload();
 		  });
 
-	  $('#cancel').click(function() {
+	  $('#cancel').onclick(function() {
 		  location.reload();
 		  });
 

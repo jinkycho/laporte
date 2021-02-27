@@ -65,7 +65,7 @@
 			<ul class="allproduct_category">
 				<c:forEach var="item" items="${category1}" varStatus="status">
 					<li class="category <c:if test="${item.catno1==input.catno1}">active</c:if>">
-						<a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=${item.catno1}">${item.catname1}</a></li>
+						<a class="category_a" href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=${item.catno1}">${item.catname1}</a></li>
 				</c:forEach>
 			</ul>
 	  	</div>
@@ -73,17 +73,17 @@
 	  	<div id="result">
 	  	<div class="result_content">
 	  	<div class="allproduct_top">
-	  	<c:if test="${input.catno1==101}"><h3>소파/암체어</h3></c:if>
-	  	<c:if test="${input.catno1==102}"><h3>침대</h3></c:if>
-	  	<c:if test="${input.catno1==103}"><h3>수납/정리</h3></c:if>
-	  	<c:if test="${input.catno1==104}"><h3>주방가/용품</h3></c:if>
-	  	<c:if test="${input.catno1==105}"><h3>조명</h3></c:if>
+	  	<c:if test="${input.catno1==101}"><h3 class="pdh3">소파/암체어</h3></c:if>
+	  	<c:if test="${input.catno1==102}"><h3 class="pdh3">침대</h3></c:if>
+	  	<c:if test="${input.catno1==103}"><h3 class="pdh3">수납/정리</h3></c:if>
+	  	<c:if test="${input.catno1==104}"><h3 class="pdh3">주방가/용품</h3></c:if>
+	  	<c:if test="${input.catno1==105}"><h3 class="pdh3">조명</h3></c:if>
 		<div class="allproduct_slide">
 			
 			<ul class="allproduct_slide_ul category2" >
 				<c:forEach var="item2" items="${category2}" varStatus="status">
 					<c:if test="${item2.catno1==input.catno1}">
-					<li class="category"><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=${item2.catno1}&catno2=${item2.catno2}">${item2.catname2}</a></li>
+					<li class="category3 <c:if test="${item2.catno2==input.catno2}">active2</c:if>"><a class="category_a2" href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=${item2.catno1}&catno2=${item2.catno2}">${item2.catname2}</a></li>
 					</c:if>
 				</c:forEach>
 			</ul>

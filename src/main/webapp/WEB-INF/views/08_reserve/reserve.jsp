@@ -84,14 +84,21 @@
 <form id="addForm" class="reserve_input" action="${pageContext.request.contextPath}/08_reserve">
 	<!-- 매장 선택 -->
 	<div class="reserve_select">
-		<label for="showroom">매장 선택</label>
+		<label class="showroomS"for="showroom">매장 선택</label>
 		<select name="showroom" class="resvation_select-box">
 			<option value="A" class=reserve_select-box_option>강남점</option>
 			<option value="B" class=reserve_select-box_option>광명점</option>
 			<option value="C" class=reserve_select-box_option>대구점</option>
 		</select>
 	</div>
+		<div class="reserve_cal-text">
+		<p>
+		상담을 원하는 날짜를 선택해주세요.<br>
+		오늘 일자부터 2주간의 예약이 가능합니다.
+		</p>
+   		 </div>
 	<!-- 날짜 선택 -->
+	<div class="reserve_bottom">
 	<div class="reserve_calendar">
 		<label for="date"> 날짜선택 </label>
 		<div id="container" style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
@@ -99,37 +106,39 @@
 			placeholder="캘린더에서 날짜를 선택해주세요.">
 </div>
 	<!-- 이름 입력  -->
-	<div class="reserve_input_name">
+	<div class="reserve_input">
+		<div class="reserve_input_name">
 		<label for="name">이름</label>
-		<input class="name" type="text" name="name" id="name" />
+		<input class="input_default" type="text" name="name" id="name" />
+		</div>
 	</div>
 	<!-- 이메일 입력 -->
 	<div class="reserve_input_email">
 		<label for="email">E-mail</label>
-		<input class="email" type="email" name="email" id="email"/>
+		<input class="input_default" type="email" name="email" id="email"/>
 	</div>
 	<!-- 휴대폰 번호 입력 -->
 	<div class="reserve_input_call">
 		<label for="phoneno">휴대폰 번호</label>
-		<input class="phoneno" type="tel" name="phoneno" id="phoneno"/>
+		<input class="input_default" type="tel" name="phoneno" id="phoneno"/>
 	</div>
 	<!-- 예약시간 -->
-	<div>
+	<div class="reserve_input_time">
 		<label for="time">예약 시간</label>
 		<select class="input_default" name="time" id="time">	
 			<option value="9" class="call_time">오전 9시</option>
 			<option value="10" class="call_time">오전 10시</option>
 			<option value="11" class="call_time">오전 11시</option>
 			<option value="12" class="call_time">오전 12시</option>
-			<option value="1" class="call_time">오전 1시</option>
-			<option value="2" class="call_time">오전 2시</option>
-			<option value="3" class="call_time">오전 3시</option>
-			<option value="4" class="call_time">오전 4시</option>
-			<option value="5" class="call_time">오전 5시</option>
+			<option value="1" class="call_time">오후 1시</option>
+			<option value="2" class="call_time">오후 2시</option>
+			<option value="3" class="call_time">오후 3시</option>
+			<option value="4" class="call_time">오후 4시</option>
+			<option value="5" class="call_time">오후 5시</option>
 		</select>
 	</div>
 	<!-- 컨설팅 영역 -->
-	<div>
+	<div class="reserve_input_area">
 		<label for="area">컨설팅 영역</label>
 		<select name="area" class="input_default">
 			<option value="F" class="area_select">가구</option>
@@ -143,17 +152,19 @@
 	<!-- 요청사항 -->
 	<div class="reserve_input_req">
 		<label for="request">요청사항</label>
-		<input class="request" name="request" type="text" placeholder="요청 사항이 있으시면 남겨주세요."/>
+		<input class="input_default" name="request" type="text" placeholder="요청 사항이 있으시면 남겨주세요."/>
 	</div>
 	<!-- 예약확인 동의  -->
-	<div class="reserve_chck">
-		<input type="checkbox" id="reserve_agr">
-		<p>예약확인 등을 위해 개인정보를 제3자에게 동의합니다.
-		<a href="#">(자세히보기)</a></p>
+	<div class="reserve_agree">
+		<input class="agree_check" type="checkbox">
+		<p class="reserve_p"> 예약확인 등을 위해 개인정보를 제3자에게 동의합니다.
+		<a class="reserve_p_a" href="#">(자세히 보기)</a></p>
+		
 	</div>
 	
-	<button type="submit">저장하기</button>
-	<button type="reset">다시작성</button>
+	<button class="reserve_submit" type="submit">확인</button>
+	<button class="reserve_submit2" type="reset">다시작성</button>
+	</div>
 </form>
 
 <%@ include file="../01_home/footer.jsp" %>
@@ -314,6 +325,8 @@ $(function(){
             });
         /* ----------------- 함수 입력시 여기지우고부터 작성 시작 ------------------ */
     });
+        
+        
     </script>
  <script src="../assets/dist/zebra_datepicker.src.js"></script>
  

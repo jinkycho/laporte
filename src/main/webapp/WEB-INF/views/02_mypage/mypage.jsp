@@ -114,7 +114,7 @@
 						
 					<div class="col-sm-3 col-md-3 col-xs-12 profile_link_box">
 						<div class="profile_bolder">
-						<a class="profile_link_a" href="${pageContext.request.contextPath}/08_reserve/reserve_cfm.do?userno=${userno}">
+						<a class="profile_link_a" href="${pageContext.request.contextPath}/08_reserve/reserve_list.do?userno=${output.userno}">
 						<div class="profile_link clearfix">
 							<div class="profile_link_txt pull-left">
 								<span class="profile_link_title">

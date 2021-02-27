@@ -19,6 +19,7 @@ import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Reserve;
 import com.project.laporte.service.ReserveService;
 
+
 @RestController
 public class ReserveRestController {
 	/** WebHelper 주입 */
@@ -34,14 +35,42 @@ public class ReserveRestController {
 	// --> import com.project.laporte.service.ReserveService;
 	@Autowired ReserveService reserveService;
 	
+	/** 상세 페이지 */
+	@RequestMapping(value ="/08reserve/{reserveno}", method = RequestMethod.GET)
+	public Map<String, Object> get_item(@PathVariable("reserveno") int reserveno){
+		
+		/** 1) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		Reserve input = new Reserve();
+		input.setReserveno(reserveno);
+		
+		// 조회결과를 저장할 객체 선언
+		Reserve output = null;
+		
+		try {
+			output = reserveService.getReserveItem(input);
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		
+		/** 2) JSON 출력하기 */
+		Map<String,Object> data = new HashMap<String,Object>();
+		data.put("item",output);
+		
+		return webHelper.getJsonData(data);
+	}
 	
+	
+	
+	
+	// 관리자 목록 
 	@RequestMapping(value="/11_admin",method = RequestMethod.GET)
 	public Map<String,Object>get_admin_list(){
 		
 		List<Reserve> output = null;
 		
 		try {
-			output = reserveService.getReserveListw(null);
+			output = reserveService.getReserveList(null);
 		}catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
@@ -56,7 +85,7 @@ public class ReserveRestController {
  
 	/** 목록 페이지 */
 	
-	@RequestMapping(value = "/08_reserve", method = RequestMethod.GET)
+	@RequestMapping(value = "/08_reserve/{userno}", method = RequestMethod.GET)
 	public Map<String,Object>get_list(
 			@PathVariable("userno")int userno){
 		
@@ -137,6 +166,49 @@ public class ReserveRestController {
 				map.put("item",output);
 				return webHelper.getJsonData(map);
 	}
+	
+	/** 수정폼에 대한 action 페이지 */
+	@RequestMapping(value = "/08_reserve", method = RequestMethod.PUT)
+	public Map<String,Object>reserve_edit(
+			@RequestParam(value="reserveno",defaultValue="0") int reserveno,
+			@RequestParam(value="date",defaultValue = "")String date,
+			@RequestParam(value="showroom",defaultValue="")String showroom,
+			@RequestParam(value="time",defaultValue="")String time,
+			@RequestParam(value="area",defaultValue="")String area,
+			@RequestParam(value="request",defaultValue="")String request){
+		/** 1)사용자가 입력한 파라미터 유효성 검사 */
+		if(!regexHelper.isValue(date))	{return webHelper.getJsonWarning("날짜가 입력되지 않았습니다.");}
+		if(!regexHelper.isValue(showroom))	{return webHelper.getJsonWarning("매장을 선택해주세요.");}
+		if(!regexHelper.isValue(time))	{return webHelper.getJsonWarning("시간을 선택해주세요.");}
+		if(!regexHelper.isValue(area))	{return webHelper.getJsonWarning("컨설팅 영역을 선택해주세요.");}
+		
+		/** 2)데이터 수정하기*/
+		// 수정할 값들을 Beans에 담는다.
+		Reserve input = new Reserve();
+		input.setReserveno(reserveno);
+		input.setDate(date);
+		input.setShowroom(showroom);
+		input.setTime(time);
+		input.setArea(area);
+		input.setRequest(request);
+		
+		//수정된 결과를 조회하기 위한 객체
+		Reserve output = null;
+		
+		try {
+			//데이터 수정
+			reserveService.editReserve(input);
+			// 수정 결과 조회
+			output = reserveService.getReserveItem(input);
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+		/** 3)결과를 확인하기 위한 JSON 출력 */
+		Map<String, Object> map = new HashMap<String, Object>();
+				map.put("item", output);
+		return webHelper.getJsonData(map);
+	}
+	
 	
 	/** 예약승인 action 페이지 */
 	@RequestMapping(value = "/11_admin" ,method = RequestMethod.PUT)

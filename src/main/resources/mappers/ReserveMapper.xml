@@ -45,29 +45,24 @@
 	status='CF', editdate=now() WHERE reserno=#{reserveno}
 	</update>
 	<!-- 단일행 조회를 위한 기능 정의 -->
+	
 	<select id="selectItem" parameterType="com.project.laporte.model.Reserve" resultMap="reserveMap">
-		SELECT status, reserno,name, DATE_FORMAT(date, '%Y-%m-%d') AS date, time, area, request FROM reserve WHERE reserno = #{reserveno};
+		SELECT userno, status, reserno,name, DATE_FORMAT(date, '%Y-%m-%d') AS date, time, area, request FROM reserve WHERE reserno = #{reserveno};
 	</select>
+	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="selectList" parameterType="com.project.laporte.model.Reserve" resultMap="reserveMap">
-		SELECT status, reserno, showroom, DATE_FORMAT(date, '%Y-%m-%d') AS date, name, email, phoneno, time, area FROM reserve WHERE userno=#{userno}; 
+		SELECT userno, status, reserno, showroom, DATE_FORMAT(date, '%Y-%m-%d') AS date, name, email, phoneno, time, area FROM reserve WHERE userno=#{userno}; 
 	</select>
 	
 	
 	<!-- 관리자 예약페이지 다중행 조회 기능 정의  -->
-	<select id="reserveListW" parameterType="com.project.laporte.model.Reserve" resultMap="reserveMap">
-	SELECT reserno,showroom , name, phoneno,time, area, request FROM reserve WHERE status = 'W'
+	<select id="reserveList" parameterType="com.project.laporte.model.Reserve" resultMap="reserveMap">
+		
+		SELECT * FROM reserve
+		
 	</select>
 	
-	<!-- 관리자 예약페이지 다중행 조회 기능 정의  -->
-	<select id="reserveListCC" parameterType="com.project.laporte.model.Reserve" resultMap="reserveMap">
-	SELECT reserno,showroom , name, phoneno,time, area, request FROM reserve WHERE status = 'CC'
-	</select>
-	
-	<!-- 관리자 예약페이지 다중행 조회 기능 정의  -->
-	<select id="reserveListCF" parameterType="com.project.laporte.model.Reserve" resultMap="reserveMap">
-	SELECT reserno,showroom , name, phoneno,time, area, request FROM reserve WHERE status = 'CF'
-	</select>
 	
 	<!--마이페이지에서 회원 예약 건 확인  -->
 	<select id="checkReserve" parameterType="com.project.laporte.model.Reserve" resultType="int">
