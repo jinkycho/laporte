@@ -23,6 +23,7 @@
         <result property="deldate" column="deldate" />
         <result property="totalprice" column="totalprice" />
         <result property="usrcouponno" column="usrcouponno" />
+        <result property="point" column="point" />
         <result property="userno" column="userno" />
         <result property="deltypeno" column="deltypeno" />
         <result property="orderstatus" column="orderstatus" />
@@ -58,9 +59,9 @@
 	useGeneratedKeys="true" keyProperty="orderno">
 
 		INSERT INTO orderlist(addr1, addr2, postcode, name, email, phoneno, loctype, servicetype,
-        request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
+        request, sizelimit, deldate, paytype, totalprice, usrcouponno, point, userno, deltypeno, orderstatus, paystatus,
         regdate, editdate) VALUES(#{addr1}, #{addr2}, #{postcode}, #{name}, #{email}, #{phoneno}, #{loctype}, #{servicetype},
-        #{request}, #{sizelimit}, #{deldate}, #{paytype}, #{totalprice}, #{usrcouponno}, #{userno}, #{deltypeno}, 'N', #{paystatus},
+        #{request}, #{sizelimit}, #{deldate}, #{paytype}, #{totalprice}, #{usrcouponno}, #{point}, #{userno}, #{deltypeno}, 'N', #{paystatus},
         now(), now())
 	</insert>
 
@@ -69,7 +70,7 @@
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
         SELECT orderno, addr1, addr2, postcode, name, email, phoneno, loctype, servicetype,
-        request, sizelimit, deldate, paytype, totalprice, usrcouponno, userno, deltypeno, orderstatus, paystatus,
+        request, sizelimit, deldate, paytype, totalprice, usrcouponno, point, userno, deltypeno, orderstatus, paystatus,
         regdate, editdate
         FROM orderlist
         WHERE orderno = #{orderno}
@@ -122,6 +123,20 @@
         WHERE o.userno = #{userno}
     </select> -->
 
+
+	<!-- 회원별 주문 정보 조회를 위한 기능 정의 -->
+	<!-- 0228추가 -조진경  -->
+    <select id="selectOrderlistbyUserno"
+        parameterType="com.project.laporte.model.Orderlist"
+        resultMap="orderlistMap">
+        SELECT o.orderno, o.userno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, DATE_FORMAT(o.editdate, '%Y-%m-%d') AS editdate,
+        	o.request, DATE_FORMAT(o.deldate, '%Y-%m-%d') AS deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, DATE_FORMAT(o.regdate, '%Y-%m-%d') AS regdate,
+        	d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum
+        FROM orderlist o
+        INNER JOIN delivery d ON d.orderno = o.orderno
+        WHERE d.userno = #{userno}
+    </select>
+    
 	<!-- 데이터 수 조회를 위한 기능 정의 -->
     <select id="selectCountAll"
         parameterType="com.project.laporte.model.Orderlist" resultType="int">

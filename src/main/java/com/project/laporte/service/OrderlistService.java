@@ -21,9 +21,14 @@ public interface OrderlistService {
 	/** 사용자 - 주문 목록 조회 
 	public List<Orderlist> getOrderUserList(Orderlist input) throws Exception;
 */
+	/** 회원별 주문 목록 정보 조회*/
+	//0228추가-조진경
+	public List<Orderlist> getOrderListbyUserno(Orderlist input) throws Exception;
+	
 	/** 주문 데이터가 저장되어 있는 갯수 조회 */
 	public int getOrderlistCount(Orderlist input) throws Exception;
 
+	
 	/** 주문정보 수정 */
 	public int updateOrderlist(Orderlist input) throws Exception;
 	

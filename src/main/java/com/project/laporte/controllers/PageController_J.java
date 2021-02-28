@@ -15,13 +15,7 @@ public class PageController_J {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_point.jsp" 파일을 View로 지정한다.
 	        return "/11_admin/admin_point";
 	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_userlist.do", method=RequestMethod.GET)
-	    public String adminUserlist() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_userlist.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_userlist";
-	    }
-	 
+	
 	 @RequestMapping(value="/11_admin/admin_fanda.do", method=RequestMethod.GET)
 	    public String fanda() {
 	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_fanda.jsp" 파일을 View로 지정한다.

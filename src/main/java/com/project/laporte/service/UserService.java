@@ -1,11 +1,16 @@
 package com.project.laporte.service;
 
+import java.util.List;
+
+import com.project.laporte.model.Outuser;
 import com.project.laporte.model.User;
 
 public interface UserService {
 	/** 회원가입 정보 저장 */
 	public int addUser(User input) throws Exception;
 	
+	/** 회원 목록 조회 */
+	public List<User> getUserlist(User input) throws Exception;
 	/** 회원가입 정보 조회 */
 	public User getUserItem(User input) throws Exception;
 	
@@ -35,5 +40,8 @@ public interface UserService {
 	
 	/** 사용한 포인트 차감 */
 	public int pointRevise(User input) throws Exception;
+	
+	/** 탈퇴 회원 조회 */
+	public List<Outuser> getOutuserList(Outuser input) throws Exception;
 	
 }

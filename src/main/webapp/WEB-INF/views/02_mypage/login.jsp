@@ -47,7 +47,7 @@
 	<div class="section">
 	
 	<form id="login-form" action="${pageContext.request.contextPath}/02_mypage/login_ok.do">
-		<input id="id_insert" name="userid" type="text" placeholder="이메일 또는 휴대폰 번호" />
+		<input id="id_insert" name="email" type="text" placeholder="이메일 또는 휴대폰 번호" />
 		
 		<div>
 		<input id="pw_insert" name="userpwd" type="password" placeholder="비밀번호를 입력하세요"/>
@@ -125,7 +125,7 @@ $(document).ready(function(){
 				
 				//json에 결과가 OK일 시 홈으로 이동
 				if(json.rt == "OK"){
-					alert("안녕하세요. " + json.item.userid + "님");				
+					alert("안녕하세요. " + json.item.name + "님");				
 					window.location = "${pageContext.request.contextPath}/home.do";
 				}
 			}			

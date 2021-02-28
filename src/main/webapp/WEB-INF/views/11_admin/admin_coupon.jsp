@@ -178,6 +178,7 @@
 														<th>쿠폰링크</th>
 														<th>변경</th>
 													</tr>
+												</thead>
 												<tbody>
 
 													<c:if test="${output == null || fn:length(output) == 0 }">
@@ -361,6 +362,7 @@
 					<!-- /.col-md-6 -->
 				</div>
 				<!-- /.row -->
+			</div>
 			</div>
 	</section>
 	<!-- /wrapper  끝-->

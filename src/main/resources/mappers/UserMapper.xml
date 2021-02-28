@@ -10,13 +10,12 @@
         type="com.project.laporte.model.User">
         <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
         <result property="userno" column="userno" />
-        <result property="userid" column="userid" />
+        <result property="email" column="email" />
         <result property="userpwd" column="userpwd" />
         <result property="name" column="name" />
         <result property="birthdate" column="birthdate" />
         <result property="phoneno" column="phoneno" />
         <result property="gender" column="gender" />
-        <result property="email" column="email" />
         <result property="addr1" column="addr1" />
         <result property="addr2" column="addr2" />
         <result property="postcode" column="postcode" />
@@ -30,30 +29,37 @@
 	<insert id="insertUser"
 		parameterType = "com.project.laporte.model.User"
 		useGeneratedKeys="true" keyProperty="userno">
-		INSERT INTO user(userid, userpwd, name, birthdate, phoneno, gender, email, addr1, addr2,
+		INSERT INTO user(email, userpwd, name, birthdate, phoneno, gender, addr1, addr2,
 		postcode, userstatus, point, regdate, editdate)
-		VALUES(#{userid}, #{userpwd}, #{name}, #{birthdate}, #{phoneno}, #{gender}, #{email},
+		VALUES(#{email}, #{userpwd}, #{name}, #{birthdate}, #{phoneno}, #{gender},
 		#{addr1}, #{addr2}, #{postcode}, 'Y', 0, now(), now()
 		)
 	</insert>
 
+	<!--  회원 목록 조회를  위한 기능 정의 -->
+	<select id="selectUserList" parameterType = "com.project.laporte.model.User" resultMap="userMap">
+		SELECT userno, email, userpwd, name, DATE_FORMAT(birthdate, '%Y-%m-%d') AS birthdate, phoneno, gender, email, addr1, addr2,
+		postcode, regdate, point FROM user
+	</select>
+
+
 	<!--  회원정보 조회를  위한 기능 정의 -->
 	<select id="selectItem" parameterType = "com.project.laporte.model.User" resultMap="userMap">
-		SELECT userno, userid, userpwd, name, DATE_FORMAT(birthdate, '%Y-%m-%d') AS birthdate, phoneno, gender, email, addr1, addr2,
+		SELECT userno, email, userpwd, name, DATE_FORMAT(birthdate, '%Y-%m-%d') AS birthdate, phoneno, gender, email, addr1, addr2,
 		postcode, editdate, point FROM user WHERE userno = #{userno}
 	</select>
 
 	<!--  아이디 중복 확인을 위한 기능 정의 -->
 	<select id="idCheck" parameterType = "com.project.laporte.model.User" resultType="int">
-		SELECT COUNT(*) FROM user WHERE userid = #{userid}
+		SELECT COUNT(*) FROM user WHERE email = #{email}
 	</select>
 
 	<!--  로그인 아이디 패스워드 확인 -->
 	<select id="idPwCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
-		SELECT userno, userid, userpwd FROM user WHERE userid = #{userid} AND userpwd = #{userpwd}
+		SELECT userno, email, name, userpwd FROM user WHERE email = #{email} AND userpwd = #{userpwd}
 	</select>
 	<select id="pwCheck" parameterType = "com.project.laporte.model.User" resultMap="userMap">
-		SELECT userid, userpwd FROM user WHERE userid = #{userid}
+		SELECT email, userpwd FROM user WHERE email = #{email}
 	</select>
 
 	<!--  이메일로 비밀번호 찾기(동일한 이메일 존재 시 userno 을 URL 전달) -->
@@ -78,7 +84,6 @@
 	parameterType = "com.project.laporte.model.User">
 		UPDATE user SET
 		phoneno = #{phoneno},
-		email = #{email},
 		editdate = now()
 		WHERE userno = #{userno}
 	</update>

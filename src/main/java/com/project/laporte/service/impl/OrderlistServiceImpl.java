@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.laporte.helper.WebHelper;
-import com.project.laporte.model.Cart;
 import com.project.laporte.model.Orderlist;
 import com.project.laporte.service.OrderlistService;
 
@@ -110,6 +109,29 @@ public class OrderlistServiceImpl implements OrderlistService {
         return result;
 	}
 	
+	/** 회원별 주문 목록 정보 조회*/
+	//0228추가-조진경
+	@Override
+	public List<Orderlist> getOrderListbyUserno(Orderlist input) throws Exception {
+		
+		List<Orderlist> result = null;
+		
+		try {
+			result = sqlSession.selectList("OrderlistMapper.selectOrderlistbyUserno", input);
+			
+			if(result == null) {
+				 throw new NullPointerException("result == null");
+			}
+			}catch (NullPointerException e) {
+	            log.error(e.getLocalizedMessage());
+	            throw new Exception("조회된 데이터가 없습니다.");
+	        } catch (Exception e) {
+	            log.error(e.getLocalizedMessage());
+	            throw new Exception("데이터 조회에 실패했습니다.");
+	        }
+	        return result;
+	}
+	
 	/** 사용자 - 주문 목록 조회 
 	@Override
 	public List<Orderlist> getOrderUserList(Orderlist input) throws Exception {
@@ -131,6 +153,7 @@ public class OrderlistServiceImpl implements OrderlistService {
         return result;
 	} */
 
+	
 	/** 주문 갯수 */
 	@Override
     public int getOrderlistCount(Orderlist input) throws Exception {

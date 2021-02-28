@@ -39,8 +39,8 @@
 
 	<div id="join">
 		<div class="header">
-			<a href="${pageContext.request.contextPath}/02_mypage/join.do"> <span
-				id="d_icon_l">이전으로 가기</span>
+			<%-- <a href="${pageContext.request.contextPath}/02_mypage/join.do"> <span
+				id="d_icon_l">이전으로 가기</span> --%>
 			</a> <br>
 			<p>로그인에 사용할</p>
 			<p>아이디와 비밀번호를 입력해주세요.</p>
@@ -48,12 +48,16 @@
 
 		<form id="join-form" class="userinfo_insert" action="${pageContext.request.contextPath}/02_mypage">
 		
-			<div class="input_box box">
-			<label for='id' id="join_id" class='input_label placeholder_event'>아이디</label> 
-			<input type='text' name='userid'
+			<div class="input_box box"> 
+			<!-- <input type='text' name='email'
 				id='user_id' class='form-control label_event' />
-			<span id='id_e_msg' class='error_msg'>아이디는 영문과 숫자만 사용할 수 있습니다.</span>
-			<button id="id_check">아이디중복확인</button>
+			<span id='id_e_msg' class='error_msg'>아이디는 영문과 숫자만 사용할 수 있습니다.</span> -->
+			<div class='input_box box'>
+			<label for='email' class='input_label placeholder_event'>이메일</label>
+			<input type = 'text' name='email' id='email' class='form-control label_event' />
+			<span id='email_e_msg' class='error_msg'>이메일 형식이 아닙니다.</span>
+			</div>
+			<button id="id_check">이메일중복확인</button>
 			</div>
 			
 			<div class="input_box box">
@@ -82,11 +86,6 @@
 			</select>
 			</div>
 			
-			<div class='input_box box'>
-			<label for='email' class='input_label placeholder_event'>이메일</label>
-			<input type = 'text' name='email' id='email' class='form-control label_event' />
-			<span id='email_e_msg' class='error_msg'>이메일 형식이 아닙니다.</span>
-			</div>
 			
 			<label for='address'>주소</label> 
 			<div id="contact_address_box">
@@ -171,6 +170,37 @@
 			$('#name_e_msg').hide();
 			$('#phone_e_msg').hide();
 			$('#email_e_msg').hide();
+		});
+		
+		$(function() {
+			var count = 0;
+			//아이디 중복 검사
+		$('#id_check').click(function(e){
+			e.preventDefault();
+			var uid = $('#email').val();
+			if(!uid){
+				alert("아이디로 사용할 이메일을 입력해주세요.");
+				return false;
+			}
+				
+				$.post('${pageContext.request.contextPath}/02_mypage/id_check.do', {email : uid}, function(json){
+					if(json.item != 0){
+					alert("중복된 이메일이 있습니다. 다른 이메일을 사용해주세요.");
+					$('#email').val("");
+					$('#email').focus();
+					return false;
+				}
+				alert(uid + "는 사용가능한 아이디입니다.");
+				count++;
+			
+			});
+		});
+		$('#join_btn').click(function(e){
+			if(count == 0){
+				alert("아이디 중복검사를 해주세요.");
+				return false;
+			}
+		});
 		});
 		
 		
@@ -309,27 +339,6 @@
 				}
 			});
 			
-			//아이디 중복 검사
-			$('#id_check').click(function(e){
-				e.preventDefault();
-				var uid = $('#user_id').val();
-				
-				if(!uid){
-					alert("아이디를 입력해주세요.");
-					return false;
-				}
-					
-					$.post('${pageContext.request.contextPath}/02_mypage/id_check.do', {user_id : uid}, function(json){
-						if(json.item != 0){
-						alert("중복된 아이디가 있습니다. 다른 아이디를 사용해주세요.");
-						$('#user_id').val("");
-						$('#user_id').focus();
-						return false;
-					}
-					alert(uid + "는 사용가능한 아이디입니다.");
-			
-				});
-			});
 			
 			  // #join-form에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
 	        $("#join-form").ajaxForm({
@@ -341,7 +350,7 @@
 	                
 	                // json 결과가 OK일 시 로그인 페이지로 이동한다.
 	                if (json.rt == "OK") {
-	        			alert(json.item.userid + "님 회원가입을 축하합니다.");
+	        			alert(json.item.name+ "님 회원가입을 축하합니다.");
 	                    window.location = "${pageContext.request.contextPath}/02_mypage/login.do";
 	                }
 	            }

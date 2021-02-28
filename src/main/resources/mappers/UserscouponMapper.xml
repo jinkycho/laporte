@@ -52,7 +52,7 @@
 	
 	
     <!-- 회원 쿠폰 추가 위한 기능 정의 -->
-	<insert id="inserUsersCoupon"
+	<insert id="insertUsersCoupon"
 		parameterType = "com.project.laporte.model.Userscoupon"
 		useGeneratedKeys="true" keyProperty="usrcouponno">
 		INSERT INTO userscoupon(userno, couponno, usestatus, regdate, editdate)

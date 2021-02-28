@@ -17,6 +17,9 @@ public interface UserscouponService {
 	
 	/** 사용한 쿠폰 업데이트 */
 	public int updateUsersCoupon(Userscoupon input) throws Exception;
+	
+	/** 회원 가입 쿠폰 추가 */
+	public int addUserCoupon(Userscoupon input) throws Exception;
 }
 	
 

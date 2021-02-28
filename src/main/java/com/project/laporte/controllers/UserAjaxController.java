@@ -17,9 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.Orderlist;
+import com.project.laporte.model.Outuser;
 import com.project.laporte.model.Reserve;
 import com.project.laporte.model.User;
 import com.project.laporte.model.Userscoupon;
+import com.project.laporte.service.OrderlistService;
 import com.project.laporte.service.ReserveService;
 import com.project.laporte.service.UserService;
 import com.project.laporte.service.UserscouponService;
@@ -37,6 +40,7 @@ public class UserAjaxController {
 	@Autowired  UserService userService;
 	@Autowired 	UserscouponService userscouponService;
 	@Autowired	ReserveService	reserveService;
+	@Autowired 	OrderlistService orderlistService;
 	
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
@@ -146,14 +150,83 @@ public class UserAjaxController {
 		 model.addAttribute("uc_output", uc_output);
         return new ModelAndView("/02_mypage/mypage");
     }
-	
-	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
-    public ModelAndView logout(Model model) {
-        // "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.
-        return new ModelAndView("/logout");
-    }
-	
-	
-	
-	
+	 
+		@RequestMapping(value="/logout.do", method=RequestMethod.GET)
+	    public ModelAndView logout(Model model) {
+	        // "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.
+	        return new ModelAndView("/logout");
+	    }
+		
+		 @RequestMapping(value="/11_admin/admin_userlist.do", method=RequestMethod.GET)
+		    public ModelAndView adminUserlist(Model model,
+		    		@RequestParam(value="userno", defaultValue="0") int userno) {
+			 
+			 //회원 목록 조회
+			 List<User> output = null;
+			 
+			 //회원별 정보 조회
+			 User u_input = new User();
+			 User u_output = null;
+			 
+			 //회원별 주문정보 조회
+			 Orderlist o_input = new Orderlist();
+			 
+			 //주문정보 조회
+			 List<Orderlist> o_output = null;
+			 
+			//회원이 보유한 쿠폰 조회를 위한 객체 생성
+				Userscoupon uc_input = new Userscoupon();
+				
+			//회원이 보유한 쿠폰을 출력하기 위한 객체 초기화
+			List<Userscoupon> uc_output = null;
+			 
+			
+			//탈퇴 회원 목록 조회
+			List<Outuser> ou_output = null;
+			 
+			 try {
+				 
+				 if(userno != 0) {
+				 o_input.setUserno(userno);
+				 o_output = orderlistService.getOrderListbyUserno(o_input);
+				
+				 u_input.setUserno(userno);
+				 u_output = userService.getUserItem(u_input);
+				 
+				 uc_input.setUserno(userno);
+				 uc_output = userscouponService.getUsersCouponList(uc_input);
+				 
+				 if(o_output != null) {
+					 model.addAttribute("o_output", o_output);
+					 }
+				 
+				 if(u_output != null) {
+					 model.addAttribute("u_output", u_output);
+					 
+				 }
+				 
+				 if(uc_output != null) {
+					model.addAttribute("uc_output", uc_output);
+					
+					 
+				 }
+				 
+				 output = userService.getUserlist(null);
+				 ou_output = userService.getOutuserList(null);
+			 }
+				 output = userService.getUserlist(null);
+				 ou_output = userService.getOutuserList(null);
+			 
+				 	 
+			 }catch(Exception e) {e.printStackTrace();}
+			 
+			 //View 처리
+			 
+			 model.addAttribute("output", output);
+			 model.addAttribute("ou_output", ou_output);
+			 
+			 
+		        // "/src/main/webapp/WEB-INF/views/11_admin/admin_userlist.jsp" 파일을 View로 지정한다.
+		        return new ModelAndView("/11_admin/admin_userlist");
+		    }
 }

@@ -1,10 +1,13 @@
 package com.project.laporte.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.Outuser;
 import com.project.laporte.model.User;
 import com.project.laporte.service.UserService;
 
@@ -46,6 +49,28 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	/** 회원 목록 조회 */
+	
+	@Override
+	public List<User> getUserlist(User input) throws Exception {
+		List<User> result =null;
+		
+		try {
+			result = sqlSession.selectList("UserMapper.selectUserList", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result == null");
+			}
+			}catch(NullPointerException e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("조회된 데이터가 없습니다.");
+			}catch(Exception e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("데이터 조회에 실패했습니다.");
+			}
+			return result;
+	}
+	
 	/** 회원가입 정보 조회 */
 	@Override
 	public User getUserItem(User input) throws Exception {
@@ -232,6 +257,7 @@ public class UserServiceImpl implements UserService {
 			return result;
 	}
 
+	/** 사용한 포인트 차감하기 */
 	@Override
 	public int pointRevise(User input) throws Exception {
 		int result = 0;
@@ -251,4 +277,29 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 	}
+
+	
+	/** 탈퇴 회원 목록 조회 */
+	@Override
+	public List<Outuser> getOutuserList(Outuser input) throws Exception {
+		List<Outuser> result = null;
+		
+		try {
+			result = sqlSession.selectList("OutuserMapper.selectOutuserList", input);
+			
+			if(result == null) {
+				throw new NullPointerException("result == null");
+			}
+			
+		}catch(NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		}catch(Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	
 }
