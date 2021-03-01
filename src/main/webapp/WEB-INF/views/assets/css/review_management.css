@@ -65,7 +65,7 @@ select#child {
   width: fit-content;
 }
 .product_img {
-  width: 50px;
+  width: 55px;
 }
 
 /*--------------------------------*/
@@ -97,4 +97,9 @@ select#child {
 }
 .review_text {
   min-width: 300px;
+}
+.word_wrap{
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }

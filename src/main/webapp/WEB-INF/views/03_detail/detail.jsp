@@ -446,6 +446,20 @@
 								</div>
 								</div>
 								<!-- 리뷰 수정하기 페이지 끝 -->
+								<!-- 관리자 리뷰 답변 -->
+								<c:if test="${revcom.size() != 0 }">
+									<c:forEach var="revcom" items="${revcom }" >
+										<c:if test="${revcom.reviewno == review.reviewno}">
+										<div class="revcomment_box">
+											<div><b>La Porte의 답변</b></div>
+											<div class="answer_date">${revcom.editdate }</div>
+											<p class="revcomment_content">${revcom.content }</p>
+										</div>
+										</c:if>
+									</c:forEach>
+								</c:if>
+								
+								<!-- 관리자 리뷰 답변 끝 -->
 								</c:forEach>
 								
 								
@@ -881,7 +895,7 @@
 	    		let reviewno = current.data('reviewno');
 	    		var result = confirm("정말 리뷰를 삭제하시겠습까?");
 	    		if(result){
-	    			$.delete("${pageContext.request.contextPath}//04_review/review", {
+	    			$.delete("${pageContext.request.contextPath}/04_review/review", {
 		    			"reviewno": reviewno
 		    		}, function(json) {
 		    			if(json.rt=="OK")

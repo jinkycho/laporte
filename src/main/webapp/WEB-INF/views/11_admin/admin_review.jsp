@@ -258,151 +258,83 @@
 											</tr>
 										</thead>
 										<tbody id="product_list">
-											<tr>
-												<td><input type='checkbox' class="delete_check"></td>
-												<td><a href="#">49279604</a></td>
-												<td>
-													<a href="#">
-														<img src="https://www.ikea.com/kr/ko/images/products/stuva-fritids-toy-storage-with-wheels-white-green__0629926_PE694540_S5.JPG?f=g"
-													class="product_img">
-													</a>
-												</td>
-												<td>
-													<a href="#" class="review_link">
-														<b>너무 이뻐요.</b>
-														<span class="review_content">정말 너무 이쁘네요. 마음에 쏙 들어요.</span>
-													</a>
-												</td>
-												<td>★★★★☆</td>
-												<td>김혜지</td>
-												<td>2021-01-09 02:57:25</td>
-												<td>답변대기</td>
-												<td class="clear">
-													<button type="button" class="btn btn-warning btn-xs review_list_answer">답변</button>
-													<button type="button" class="btn btn-danger btn-xs review_list_delete">삭제</button>
-												</td>
-											</tr>
-											<tr>
-												<td><input type='checkbox' class="delete_check"></td>
-												<td><a href="#">39198397</a></td>
-												<td>
-													<a href="#">
-														<img src="https://www.ikea.com/kr/ko/images/products/hemnes-bed-frame-white-stain-loenset__0637516_PE698353_S5.JPG?f=s"
-													class="product_img">
-													</a>
-												</td>
-												<td>
-													<a href="#" class="review_link">
-														<b>이쁘고 편해요.</b>
-														<span class="review_content">이쁜데 튼튼하기까지 하네요. 꿀잠 예약입니다.</span>
-													</a>
-												</td>
-												<td>★★★★★</td>
-												<td>조진경</td>
-												<td>2021-01-08 12:54:55</td>
-												<td>답변대기</td>
-												<td class="clear">
-													<button type="button" class="btn btn-warning btn-xs review_list_answer">답변</button>
-													<button type="button" class="btn btn-danger btn-xs review_list_delete">삭제</button>
-												</td>
-											</tr>
-											<tr>
-												<td><input type='checkbox' class="delete_check"></td>
-												<td><a href="#">50491595</a></td>
-												<td>
-													<a href="#">
-														<img src="https://www.ikea.com/kr/ko/images/products/strala-led-table-decoration-cabin-in-the-forest-red-white__0675789_PE719481_S5.JPG?f=s"
-													class="product_img">
-													</a>
-												</td>
-												<td>
-													<a href="#" class="review_link">
-														<b>크리스마스 분위기에 짱인 탁상 조명~</b>
-														<span class="review_content">너무 예뻐요~~ 방 분위기가 확 삽니다.</span>
-													</a>
-												</td>
-												<td>★★★★★</td>
-												<td>곽현지</td>
-												<td>2021-01-08 08:15:36</td>
-												<td>답변대기</td>
-												<td class="clear">
-													<button type="button" class="btn btn-warning btn-xs review_list_answer">답변</button>
-													<button type="button" class="btn btn-danger btn-xs review_list_delete">삭제</button>
-												</td>
-											</tr>
-											<tr>
-												<td><input type='checkbox' class="delete_check"></td>
-												<td><a href="#">10407928</a></td>
-												<td>
-													<a href="#">
-														<img src="https://www.ikea.com/kr/ko/images/products/brimnes-wardrobe-with-3-doors-white__0176787_PE329567_S5.JPG?f=m"
-													class="product_img">
-													</a>
-												</td>
-												<td>
-													<a href="#" class="review_link">
-														<b>제가 찾던 옷장입니다.</b>
-														<span class="review_content">제가 찾던 옷장이지만 비싸네요 ㅜㅜ 그래도 마음에 듭니다.</span>
-													</a>
-												</td>
-												<td>★★★★☆</td>
-												<td>장명승</td>
-												<td>2021-01-08 05:26:45</td>
-												<td>답변대기</td>
-												<td class="clear">
-													<button type="button" class="btn btn-warning btn-xs review_list_answer">답변</button>
-													<button type="button" class="btn btn-danger btn-xs review_list_delete">삭제</button>
-												</td>
-											</tr>
-											<tr>
-												<td><input type='checkbox' class="delete_check"></td>
-												<td><a href="#">49192639</a></td>
-												<td>
-													<a href="#">
-														<img src="https://www.ikea.com/kr/ko/images/products/faerloev-3-seat-sofa-flodafors-white__0479740_PE619080_S5.JPG?f=s"
-													class="product_img">
-													</a>
-												</td>
-												<td>
-													<a href="#" class="review_link">
-														<b>편안한 2인용 쇼파~</b>
-														<span class="review_content">푹신해서 잠깐 앉았는데 눈떠보니 아침이였습니다.</span>
-													</a>
-												</td>
-												<td>★★★☆☆</td>
-												<td>김연우</td>
-												<td>2021-01-07 11:36:42</td>
-												<td>답변대기</td>
-												<td class="clear">
-													<button type="button" class="btn btn-warning btn-xs review_list_answer">답변</button>
-													<button type="button" class="btn btn-danger btn-xs review_list_delete">삭제</button>
-												</td>
-											</tr>
-											<tr>
-												<td><input type='checkbox' class="delete_check"></td>
-												<td><a href="#">70415893</a></td>
-												<td>
-													<a href="#">
-														<img src="https://www.ikea.com/kr/ko/images/products/vardagen-goblet-clear-glass__0681272_PE720081_S5.JPG?f=m"
-													class="product_img">
-													</a>
-												</td>
-												<td>
-													<a href="#" class="review_link">
-														<b>요즘 같은 시국에 홈파티용 잔</b>
-														<span class="review_content">이 유리잔에 와인을 마시면 고급져지는 효과~</span>
-													</a>
-												</td>
-												<td>★★★★★</td>
-												<td>박민규</td>
-												<td>2021-01-07 08:23:57</td>
-												<td>답변대기</td>
-												<td class="clear">
-													<button type="button" class="btn btn-warning btn-xs review_list_answer">답변</button>
-													<button type="button" class="btn btn-danger btn-xs review_list_delete">삭제</button>
-												</td>
-											</tr>
-
+											<c:if test="${item.size() != 0 }">
+												<c:forEach var="review" items="${item }">
+													<tr>
+														<td><input type='checkbox' class="delete_check"></td>
+														<td><a href="#">${review.prodno }</a></td>
+														<td>
+															<a href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${review.prodno}">
+																<img src="${review.thumbnailUrl }" alt="상품 이미지" class="product_img">
+															</a>		
+														</td>
+														<td>
+															<a href="#" class="review_link">
+																<b class="word_wrap">${review.title }</b>
+																<span class="review_content word_wrap">${review.content }</span>
+															</a>
+														</td>
+														<td>
+															<c:choose>
+																<c:when test="${review.avgscore==0 }">
+																	☆☆☆☆☆
+																</c:when>
+																<c:when test="${review.avgscore==1 }">
+																	★☆☆☆☆
+																</c:when>
+																<c:when test="${review.avgscore==2 }">
+																	★★☆☆☆
+																</c:when>
+																<c:when test="${review.avgscore==3 }">
+																	★★★☆☆
+																</c:when>
+																<c:when test="${review.avgscore==4 }">
+																	★★★★☆
+																</c:when>
+																<c:when test="${review.avgscore==5 }">
+																	★★★★★
+																</c:when>
+															</c:choose>
+														</td>
+														<td class="word_wrap">${review.name}</td>
+														<td class="word_wrap">${review.editdate}</td>
+														<td>
+															<c:if test="${revcom.size() != 0}" >
+															<c:set var ="result" value="0" />
+																<c:forEach var="revcom" items="${revcom }">
+																<fmt:formatNumber value="${revcom.reviewno}" type="number" var="revanswer" />
+																<fmt:formatNumber value="${review.reviewno}" type="number" var="revno" />
+																	<c:choose>
+																		<%-- <c:when test="${fn:contains(revno, revanswer)}">답변완료</c:when> --%>
+																		<c:when test="${revno==revanswer }">
+																			답변완료
+																			<c:set var ="result" value="${result+1 }" />
+																		</c:when>
+																		
+																	</c:choose>
+																</c:forEach>
+															</c:if>
+															<c:if test="${revcom.size() == 0 || result<1}" >
+																답변대기
+															</c:if>
+														</td>
+														<td class="clear">
+															<c:if test="${revcom.size() == 0 || result<1}" >
+																<a href="${pageContext.request.contextPath }/11_admin/admin_review_answer.do?reviewno=${review.reviewno}"
+															class="btn btn-warning btn-xs review_list_answer">답변</a>
+															</c:if>
+															<c:if test="${result==1}" >
+																<a href="${pageContext.request.contextPath }/11_admin/admin_review_view.do?reviewno=${review.reviewno}"
+															class="btn btn-warning btn-xs review_list_answer">답변</a>
+															</c:if>
+															<%-- <a href="${pageContext.request.contextPath }/11_admin/admin_review_answer.do?reviewno=${review.reviewno}"
+															class="btn btn-warning btn-xs review_list_answer">답변</a> --%>
+															<button type="button" class="btn btn-danger btn-xs review_list_delete" data-reviewno="${review.reviewno }">삭제</button>
+														</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+											
 										</tbody>
 									</table>
 								<!--페이지 네이션-->
@@ -503,7 +435,7 @@
 				//상품 목록이 하나도 없을시 
 				if(product_list_num == 0){
 					console.log(product_list_num);
-					$('#product_list').html('<tr id="product_none_msg"><td colspan="8">상품을 등록해주세요.</td></tr>');
+					$('#product_list').html('<tr id="product_none_msg"><td colspan="9">상품을 등록해주세요.</td></tr>');
 				}
 			});
 			$(".review_list_delete").click(function () {

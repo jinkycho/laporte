@@ -28,6 +28,7 @@ import com.project.laporte.model.Orderlist;
 import com.project.laporte.model.Prod_category1;
 import com.project.laporte.model.Prod_category2;
 import com.project.laporte.model.Product;
+import com.project.laporte.model.RevComment;
 import com.project.laporte.model.Review;
 import com.project.laporte.model.Wish_prod;
 import com.project.laporte.model.Wishlist;
@@ -426,9 +427,14 @@ public class ProductAjaxController {
 		List<Review> reviewList =null;
 		reviewinput.setProdno(prodno);
 		
+		/**---------리뷰 답변 목록----------*/
+		RevComment revcomoutput = new RevComment();
+		List<RevComment> reviewadminList =null;
+		
 		try {
 			// 데이터 조회
 			reviewList = reviewService.getReviewList(reviewinput);
+			reviewadminList = reviewService.admintReviewAllList(revcomoutput);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
@@ -450,6 +456,7 @@ public class ProductAjaxController {
 		model.addAttribute("result", result);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("orderno", orderno);
+		model.addAttribute("revcom", reviewadminList);
 		return new ModelAndView("03_detail/detail");
 
 	}

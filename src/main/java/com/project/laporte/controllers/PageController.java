@@ -95,17 +95,17 @@ public class PageController {
 	        return "/11_admin/admin_home";
 	    }
 	 
-	 @RequestMapping(value="/11_admin/admin_review_answer.do", method=RequestMethod.GET)
-	    public String adminReviewAnswer() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_review_answer.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_review_answer";
-	    }
-	 
-	 @RequestMapping(value="/11_admin/admin_review.do", method=RequestMethod.GET)
-	    public String adminReview() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_review.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/admin_review";
-	    }
+//	 @RequestMapping(value="/11_admin/admin_review_answer.do", method=RequestMethod.GET)
+//	    public String adminReviewAnswer() {
+//	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_review_answer.jsp" 파일을 View로 지정한다.
+//	        return "/11_admin/admin_review_answer";
+//	    }
+//	 
+//	 @RequestMapping(value="/11_admin/admin_review.do", method=RequestMethod.GET)
+//	    public String adminReview() {
+//	        // "/src/main/webapp/WEB-INF/views/11_admin/admin_review.jsp" 파일을 View로 지정한다.
+//	        return "/11_admin/admin_review";
+//	    }
 	
 	 
 	 @RequestMapping(value="/11_admin/stock_management.do", method=RequestMethod.GET)

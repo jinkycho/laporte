@@ -372,3 +372,12 @@ input[type="checkbox"]:checked+label.heart {
 .btn > .avg_all_star{
 	    float: left;
 }
+.revcomment_box{
+	padding-top: 20px;
+}
+.answer_date{
+	font-size: 14px;
+}
+.revcomment_content{
+	    padding-top: 10px;
+}

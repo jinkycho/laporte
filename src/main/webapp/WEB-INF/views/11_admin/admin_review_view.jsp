@@ -127,14 +127,14 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h2 class="m-0">답변 등록</h2>
+								<h2 class="m-0">답변</h2>
 							</div>
 							<!-- /.col -->
 							<div class="col-sm-6 clearfix">
 								<ol class="breadcrumb pull-right">
                                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin_home.do">홈</a></li>
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin_review.do">리뷰관리</a></li>
-									<li class="breadcrumb-item active">답변등록</li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/11_admin/admin_review.do">리뷰관리</a></li>
+									<li class="breadcrumb-item active">답변</li>
 								</ol>
 							</div>
 							<!-- /.col -->
@@ -225,24 +225,23 @@
 
                                     <!--가격 및 재고 시작-->
                                     <div class="card-header">
-                                        <h3 class="card-title">답변 등록</h3>
+                                        <h3 class="card-title">답변</h3>
                                     </div>
-                                    <form class="form-inline" action="${pageContext.request.contextPath}/11_admin/admin_review_answer"id="add_revcomment">
                                     <div class="card-body">
                                         <table class="table table-bordered product_info_table">
                                             <tr>
-                                                <td class="info_table_color">답변 내용</td>
+                                                <td class="info_table_color">답변</td>
                                                 <td>
-                                                        <textarea name="content" id="QandA_notes" class="form-control"></textarea>
+                                                  ${comitem.content }
                                                 </td>
                                             </tr>
                                         </table>
                                         <input type="hidden" name="reviewno" value="${item.reviewno }" />
                                         <div class="btn_box">
-                                        	<button type="submit" class="btn btn-block btn-primary review_answer_add_btn">등록</button>
+                                        	<a href="${pageContext.request.contextPath }/11_admin/admin_review_edit.do?reviewno=${item.reviewno}" class="btn btn-block btn-primary review_answer_edit_btn">수정</a>
+                                    		<button type="button" id="delete_review_answer" class="btn btn-danger delete_revcomment" data-reviewno="${item.reviewno}">삭제</button>
                                     	</div>
                                     </div>
-                                    </form>
                                     
                                     <!--상품 이미지 끝-->
 
@@ -257,7 +256,7 @@
 		<!-- /wrapper  끝-->
 	</section>
 	<footer></footer>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- jQuery Ajax Form plugin CDN -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- jQuery Ajax Setup -->
@@ -267,24 +266,29 @@
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
         });
-		
 		$(function() {
-	    	//.add_wishlist_form에 대한 submit이벤트를 가로채서 Ajax 요청을 전송한다.
-	    	$("#add_revcomment").ajaxForm({
-	    		//전송 메서드 지정
-	    		method: "POST",
-	    		//서버에서 200 응답을 전달한 경우 실행됨
-	    		success: function(json){
-	    			//json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
-	    			if(json.rt == "OK"){
-	    				console.log(json);
-						alert("답변이 등록 되었습니다.");	            
-						window.location = "${pageContext.request.contextPath}/11_admin/admin_review_view.do?reviewno=" + json.item.reviewno;
-	    			}
+	    	$("#delete_review_answer").click(function(e) {
+	    		e.preventDefault();
+	    		
+	    		let current = $(this); //이벤트가 발생한 객체 자신 ==> <a>태그
+	    		let reviewno = current.data('reviewno');    //data-reviewno 값을 가져옴
+	    		
+	    		//삭제확인
+	    		if(!confirm("정말 리뷰 답변을 삭제하시겠습니까?")){
+	    			return false;
 	    		}
+	    		//delete 메서드로 Ajax 요청 --> <form>전송이 아니므로 직접 구현한다.
+	    		$.delete("${pageContext.request.contextPath}/11_admin/admin_review_answer", {
+	    			"reviewno": reviewno
+	    		}, function(json) {
+	    			if(json.rt=="OK"){
+	    				alert("삭제되었습니다.");
+	    				//삭제완료 후 목록 페이지로 이동
+	    				window.location = "${pageContext.request.contextPath}/11_admin/admin_review.do";
+	    			}
+	    		})
 	    	});
 	    });
-       
 	</script>
 </body>
 </html>

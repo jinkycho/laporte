@@ -26,4 +26,15 @@
 }
 .btn_box {
   margin: auto;
+  width: fit-content;
+}
+.delete_revcomment{
+	display: inline-block;
+    padding: 10px 50px;
+}
+.review_answer_edit_btn{
+	width: fit-content;
+    padding: 10px 50px;
+    display: inline-block;
+    margin: 0 30px;
 }

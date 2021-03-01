@@ -127,14 +127,14 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h2 class="m-0">답변 등록</h2>
+								<h2 class="m-0">답변 수정</h2>
 							</div>
 							<!-- /.col -->
 							<div class="col-sm-6 clearfix">
 								<ol class="breadcrumb pull-right">
                                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin_home.do">홈</a></li>
                                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin_review.do">리뷰관리</a></li>
-									<li class="breadcrumb-item active">답변등록</li>
+									<li class="breadcrumb-item active">답변수정</li>
 								</ol>
 							</div>
 							<!-- /.col -->
@@ -225,21 +225,22 @@
 
                                     <!--가격 및 재고 시작-->
                                     <div class="card-header">
-                                        <h3 class="card-title">답변 등록</h3>
+                                        <h3 class="card-title">답변 수정</h3>
                                     </div>
                                     <form class="form-inline" action="${pageContext.request.contextPath}/11_admin/admin_review_answer"id="add_revcomment">
                                     <div class="card-body">
                                         <table class="table table-bordered product_info_table">
                                             <tr>
-                                                <td class="info_table_color">답변 내용</td>
+                                                <td class="info_table_color">답변 수정</td>
                                                 <td>
-                                                        <textarea name="content" id="QandA_notes" class="form-control"></textarea>
+                                                        <textarea name="content" id="QandA_notes" class="form-control">${comitem.content }</textarea>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <input type="hidden" name="reviewno" value="${item.reviewno }" />
+                                        <input type="hidden" name="revcomno" value="${comitem.revcomno }" />
+                                        <input type="hidden" name="reviewno" value="${item.reviewno }" id="reviewno" />
                                         <div class="btn_box">
-                                        	<button type="submit" class="btn btn-block btn-primary review_answer_add_btn">등록</button>
+                                        	<button type="submit" class="btn btn-block btn-primary review_answer_add_btn" data-reviewno="${item.reviewno }">등록</button>
                                     	</div>
                                     </div>
                                     </form>
@@ -269,17 +270,20 @@
         });
 		
 		$(function() {
+			
 	    	//.add_wishlist_form에 대한 submit이벤트를 가로채서 Ajax 요청을 전송한다.
 	    	$("#add_revcomment").ajaxForm({
 	    		//전송 메서드 지정
-	    		method: "POST",
+	    		method: "PUT",
 	    		//서버에서 200 응답을 전달한 경우 실행됨
 	    		success: function(json){
 	    			//json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
 	    			if(json.rt == "OK"){
 	    				console.log(json);
-						alert("답변이 등록 되었습니다.");	            
-						window.location = "${pageContext.request.contextPath}/11_admin/admin_review_view.do?reviewno=" + json.item.reviewno;
+						alert("답변이 수정 되었습니다.");	
+						var reviewno = $("#reviewno").val();
+						window.location = "${pageContext.request.contextPath}/11_admin/admin_review_view.do?reviewno=" + reviewno;
+
 	    			}
 	    		}
 	    	});
