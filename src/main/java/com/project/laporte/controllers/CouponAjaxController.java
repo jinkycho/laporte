@@ -35,18 +35,44 @@ public class CouponAjaxController {
 	
 	/** 쿠폰 목록 */
 	 @RequestMapping(value="/11_admin/admin_coupon.do", method=RequestMethod.GET)
-	    public String adminCoupon(Model model, HttpServletResponse response) {
+	    public String adminCoupon(Model model, HttpServletResponse response,
+	    		@RequestParam(value="couponno", defaultValue="0") int couponno ) {
 		 
-		 List<Coupon> output = null;
+		 List<Coupon> coupon = null;
+		 List<Coupon> end_coupon = null;
+		 
+		//데이터 조회에 필요한 조건값을 Beans에 저장하기
+		 Coupon input = new Coupon();
+		 input.setCouponno(couponno);
+		 
+		 //수정할 데이터의 원본 조회하기
+		 Coupon edit_coupon = null;
 		 
 		 try {
-			 //데이터 조회하기
-			 output = couponService.getCouponList(null);
+			 //만료전 쿠폰 조회하기
+			 coupon = couponService.getCouponList(null);
+			 
+			 //만료된 쿠폰 조회하기
+			 end_coupon = couponService.getEndCouponList(null);
+			 
+			 if(couponno != 0) {
+				 
+				//데이터 조회하기
+				 edit_coupon = couponService.getCoupon(input);
+				 //만료전 쿠폰 조회하기
+				 coupon = couponService.getCouponList(null);
+				 
+				 //만료된 쿠폰 조회하기
+				 end_coupon = couponService.getEndCouponList(null);			 
+				 model.addAttribute("edit_coupon", edit_coupon);
+				 
+			 }
 			 
 		 }catch(Exception e) {e.printStackTrace();}
 		 
 		 //View 처리
-		 model.addAttribute("output", output);
+		 model.addAttribute("output", coupon);
+		 model.addAttribute("end_coupon", end_coupon);
 	     return "11_admin/admin_coupon";
 	    }
 	 

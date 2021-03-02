@@ -30,11 +30,22 @@
         WHERE couponno = #{couponno}
     </select>
 	
-	<!-- 쿠폰 목록 조회를 위한 기능 정의 -->
+	<!-- 만료전 쿠폰 목록 조회를 위한 기능 정의 -->
     <select id="selectCouponList"
         parameterType="com.project.laporte.model.Coupon"
         resultMap="couponMap">
-        SELECT couponno, name, DATE_FORMAT(startdate, '%Y-%m-%d')AS startdate, DATE_FORMAT(enddate, '%Y-%m-%d') AS enddate, discount, distype, dupliuse, expire, link, regdate, editdate FROM coupon
+        SELECT couponno, name, DATE_FORMAT(startdate, '%Y-%m-%d')AS startdate, DATE_FORMAT(enddate, '%Y-%m-%d') AS enddate, discount, distype, dupliuse, expire, link, regdate, editdate 
+        FROM coupon
+        WHERE expire = 'N'
+    </select>
+    
+    <!-- 만료된 쿠폰 목록 조회를 위한 기능 정의 -->
+    <select id="selectEndCouponList"
+        parameterType="com.project.laporte.model.Coupon"
+        resultMap="couponMap">
+        SELECT couponno, name, DATE_FORMAT(startdate, '%Y-%m-%d')AS startdate, DATE_FORMAT(enddate, '%Y-%m-%d') AS enddate, discount, distype, dupliuse, expire, link, regdate, editdate 
+        FROM coupon
+        WHERE expire = 'Y'
     </select>
 	
     <!-- 새로운 쿠폰 생성을 위한 기능 정의 -->
@@ -66,5 +77,14 @@
         parameterType="com.project.laporte.model.Coupon">
         DELETE FROM coupon WHERE couponno=#{couponno}
     </delete>
+    
+     <!-- 쿠폰 만료을 위한 기능 정의 -->
+    <update id="expireCoupon"
+        parameterType="com.project.laporte.model.Coupon">
+        UPDATE coupon SET 
+        expire = 'Y', 
+        editdate = now()
+        WHERE couponno = #{couponno}
+    </update>
 	
 </mapper>

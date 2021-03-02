@@ -1,6 +1,7 @@
 package com.project.laporte.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Coupon;
+import com.project.laporte.model.Orderlist;
 import com.project.laporte.service.CouponService;
 
 @RestController
@@ -156,5 +158,32 @@ public class CouponRestController {
     	
     	/** 3) 결과 확인 JSON 출력 */
     	return webHelper.getJsonData();
+    }
+    
+    /** 관리자-쿠폰 상세 조회 */
+    @RequestMapping(value = "/11_admin/admin_coupon_detail", method = RequestMethod.GET)
+    public Map<String, Object> get_coupon_detail(@RequestParam("couponno") int couponno) {
+
+        /** 1) 데이터 조회하기 */
+        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+    	Coupon input = new Coupon();
+        input.setCouponno(couponno);
+
+        // 조회결과를 저장할 객체 선언
+        //주문정보 조회
+		 Coupon output = null;
+
+        try {
+            // 데이터 조회
+        	 output = couponService.getCoupon(input);
+        } catch (Exception e) {
+            return webHelper.getJsonError(e.getLocalizedMessage());
+        }
+
+        /** 2) JSON 출력하기 */
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("item", output);
+
+        return webHelper.getJsonData(data);
     }
 }

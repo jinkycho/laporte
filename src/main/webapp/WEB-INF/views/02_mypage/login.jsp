@@ -36,9 +36,6 @@
 
 <div id= "login">
 	<div class="header">
-		<a href="${pageContext.request.contextPath}/home.do">
-			<span id="d_icon_l">이전으로 가기</span>
-		</a>
 		<h3><b>지금 la porte로 로그인하세요!</b></h3>
 		<h5>휴대폰 번호를 인증하시면 해당 번호로</h5>
 		<h5>간편 로그인이 가능해집니다.</h5>
@@ -47,7 +44,7 @@
 	<div class="section">
 	
 	<form id="login-form" action="${pageContext.request.contextPath}/02_mypage/login_ok.do">
-		<input id="id_insert" name="email" type="text" placeholder="이메일 또는 휴대폰 번호" />
+		<input id="id_insert" name="email" type="text" placeholder="이메일을 입력하세요" />
 		
 		<div>
 		<input id="pw_insert" name="userpwd" type="password" placeholder="비밀번호를 입력하세요"/>

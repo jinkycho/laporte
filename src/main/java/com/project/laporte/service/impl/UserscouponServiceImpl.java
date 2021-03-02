@@ -30,7 +30,7 @@ public class UserscouponServiceImpl implements UserscouponService {
 		int result = 0;
 		
 		try {
-			result = sqlSession.insert("UsersCouponMapper.insertUsersCoupon", input);
+			result = sqlSession.insert("UserscouponMapper.insertUsersCoupon", input);
 			
 			if(result == 0) {
 				throw new NullPointerException("result==0");

@@ -72,14 +72,15 @@
 		$('#email_insert').keyup(function(e){
 			e.preventDefault;
 			
-		var emailValue = $('#id_insert').val();
+		var emailValue = $('#email_insert').val();
 		var emailPattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
 		
 		if(!emailPattern.test(emailValue)){
 				$('#email_insert').css("border-bottom","2px solid #f64b4b");
 				$('#email_e_msg').css("color", "#f64b4b").show();
 				return false;
-		}else if(emailValue == ""){
+		}else{
+			$('#email_insert').css("border-bottom","2px solid rgb(165, 165, 165)");
 			$('#email_e_msg').hide();
 		}
 		});

@@ -179,6 +179,7 @@ public class UserRestController {
 		//저장 결과를 확인하기 위해 데이터 저장 시 생성된 PK값을 상세 페이지로 전달해야 한다.
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("item", output);
+		map.put("uc_output", uc_output);
 		return webHelper.getJsonData(map);
 	}
 
@@ -267,7 +268,7 @@ public class UserRestController {
 					String pwrevise_url = url + "?" + "userno=" + param_userno;
 
 
-					String content = "<div style = 'width : 75%; background-color: #cebea7; margin:auto; padding:30px;'>" +
+					String content = "<div style = 'width : 75%; border: 35px solid #cebea7; margin:auto; padding:30px;'>" +
 									 "<h2> 안녕하세요. la porte 입니다 </h2>" +
 									 "<br />" +
 									 "<p> 해당 메일은 비밀번호 재설정 요청에 의해 전송된 이메일 입니다. <p>" +
@@ -276,7 +277,9 @@ public class UserRestController {
 									 "<br />" +
 									 "<p> 비밀번호 변경을 요청하셨다면 아래 버튼을 클릭하시면 비밀번호 변경이 가능한 페이지로 이동합니다.</p>" +
 									 "<br />" +
-									 "<a type= 'button' style ='display:block; width:10%; height: 28px; color:#fff; font-size: 12px; font-weight:bold; background-color: #172f50; margin:auto; margin-top: 20px; border-radius:25px;' href='" + pwrevise_url + "'>비밀번호 변경하기</a>" +
+									 "<a type= 'button' style ='display:block; width:140px; height: 32px; color:#fff; "
+									 + "font-size: 12px; font-weight:bold; background-color: #172f50; margin:auto; "
+									 + "margin-top: 20px; border-radius:25px; text-align: center; padding-top: 15px; text-decoration: none;' href='" + pwrevise_url + "'>비밀번호 변경하기</a>" +
 									 "</div>";
 					//sendMail() 메서드 선언시 throws 를 정의했기 때문에 예외처리가 요구된다.
 					mailHelper.sendMail(output.getEmail(), subject, content);

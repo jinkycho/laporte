@@ -188,7 +188,7 @@
 													</c:if>
 
 													<c:forEach var="item" items="${output}" varStatus="stauts">
-														<c:if test="${item.expire == 'N'}">
+												
 
 															<tr>
 																<td>${item.name}</td>
@@ -206,17 +206,107 @@
 																<td>${item.dupliuse}</td>
 																<td>${item.link}</td>
 																<td class="coupon_li_btns">
-																	<a href="${pageContext.request.contextPath}/11_admin/admin_coupon_rev.do?couponno=${item.couponno}" class="revise">수정</a>
+																	<a href="#" data-couponno = "${item.couponno}" class="revise">수정</a>
 																	<a href="#" id="deleteCoupon" data-couponno= "${item.couponno}" data-name= "${item.name}" class="delete btn-danger">삭제</a></td>
 															</tr>
-														</c:if>
+													
 													</c:forEach>
 							
 												</tbody>
 											</table>
 										</div>
 
-										<div id='revcoupon-box'></div>
+										<div class="coupon_li_revise">
+		<div class="coupon_rev_border">
+
+			<form id='revcoupon-form'
+				action='${pageContext.request.contextPath}/11_admin/admin_coupon'>
+				<table class="coupon_reg_card">
+				<tr class="coupon_reg_li">
+						<td class="coupon_reg">쿠폰번호</td>
+						<td class="coupon_reg_input">
+							<div class="form-inline">
+								<div class="form-group">
+									<input id="couponno" type="text" name="couponno" value="${edit_coupon.couponno}" class="form-control" readonly />
+								</div>
+							</div>
+						</td>
+					</tr>
+					
+					<tr class="coupon_reg_li">
+						<td class="coupon_reg">쿠폰명</td>
+						<td class="coupon_reg_input">
+							<div class="form-inline">
+								<div class="form-group">
+									<input id="coupon_name" type="text" name="name" value= "${edit_coupon.name}"
+										class="form-control" />
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="coupon_reg_li">
+						<td class="coupon_reg">기간</td>
+						<td class="coupon_reg_input">
+
+							<div class="form-inline">
+								<div class="form-group">
+									<input type="date" class="coupon_date form-control"
+										id="coupon_date1" name="startdate" value= "${edit_coupon.startdate}" /> ~ <input type="date"
+										class="coupon_date form-control" id="coupon_date2"
+										name="enddate" value= "${edit_coupon.enddate}" />
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="coupon_reg_li">
+						<td class="coupon_reg">쿠폰금액/할인률</td>
+						<td class="coupon_reg_input">
+							<div class="form-inline">
+								<div class="form-group">
+									<input type="text" id="coupon_discount" class="form-control"
+										name="discount" value="${edit_coupon.discount}"/> 
+										<input type="radio"
+										class="discount_type" name="distype" value="P" <c:if test= "${edit_coupon.distype == 'P'}">checked</c:if>/><span>%퍼센트</span>
+									<input type="radio" class="discount_type" name="distype" value="W"
+										<c:if test= "${edit_coupon.distype == 'W'}">checked</c:if>/><span>원</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="coupon_reg_li">
+						<td class="coupon_reg">중복사용여부</td>
+						<td class="coupon_reg_input">
+						<input type="radio"
+							name="dupliuse" class="dupli_use" value="Y" <c:if test= "${edit_coupon.dupliuse == 'Y'}">checked</c:if>/><span>중복사용가능</span>
+						<input type="radio" name="dupliuse" class="dupli_use" value="N" <c:if test= "${edit_coupon.dupliuse}">checked</c:if>/><span>중복사용불가</span></td>
+					</tr>
+
+
+					<tr class="coupon_reg_li">
+						<div class="form-group">
+							<td class="coupon_reg">쿠폰링크</td>
+							<td class="coupon_reg_input">
+								<div class="form-inline">
+									<div class="form-group">
+										<input type="text" id="coupon_link" name="link"
+											class="form-control" value= "${edit_coupon.link}">
+									</div>
+								</div>
+							</td>
+						</div>
+					</tr>
+				</table>
+				
+				<div class= "button-block">
+				<button type="reset" id="coupon_rev_cancel">수정취소</button>
+				<button type="submit" id="coupon_revise">수정완료</button>
+				</div>
+			</form>
+		</div>
+	</div>
 									</div>
 							</div>
 
@@ -238,20 +328,24 @@
 													</tr>
 												<tbody>
 
-													<c:if test="${output == null || fn:length(output) == 0 }">
+
+													
+													<c:choose>
+														<c:when test="${end_coupon == null || fn:length(end_coupon) == 0}">
 														<tr class="coupon_li">
-															<td>쿠폰이 없습니다. 새로운 쿠폰을 추가하세요.</td>
+															<td colspan="5">쿠폰이 없습니다. 새로운 쿠폰을 추가하세요.</td>
 														</tr>
-													</c:if>
-
-													<c:forEach var="item" items="${output}" varStatus="stauts">
-														<c:if test="${item.expire == 'Y'}">
-
+															</c:when>
+													
+													
+													
+														<c:otherwise>
+													<c:forEach var="end_coupon" items="${end_coupon}" varStatus="stauts">
 															<tr>
-																<td>${item.name}</td>
-																<td>${item.startdate}~${item.enddate}</td>
-																<td>${item.discount}<c:choose>
-																		<c:when test="${item.distype == 'P'}">
+																<td>${end_coupon.name}</td>
+																<td>${end_coupon.startdate}~${end_coupon.enddate}</td>
+																<td>${end_coupon.discount}<c:choose>
+																		<c:when test="${end_coupon.distype == 'P'}">
 																			<span>%</span>
 																		</c:when>
 																		<c:otherwise>
@@ -259,15 +353,19 @@
 																		</c:otherwise>
 																	</c:choose>
 																</td>
-																<td>${item.dupliuse}</td>
-																<td>${item.link}</td>
+																<td>${end_coupon.dupliuse}</td>
+																<td>${end_coupon.link}</td>
 															</tr>
-														</c:if>
 													</c:forEach>
+														</c:otherwise>
+														</c:choose>
 
 
 												</tbody>
 											</table>
+											
+											
+											
 										</div>
 										</div>
 										</div>
@@ -349,8 +447,10 @@
 													</div>
 												</tr>
 											</table>
+											<div class="button-block">
 											<button type="submit" id="coupon_submit"
 												class="btn-success btn-lg">쿠폰생성</button>
+											</div>
 
 										</form>
 									</div>
@@ -382,6 +482,18 @@
 	<script type="text/javascript">
 
 		$(function() {
+			
+			$(document).ready(function(e){
+				e.preventDefault;
+	    	  	var couponno_check = $('#couponno').val();
+	    	  	
+	    	   if(couponno_check == ""){
+	        	$('.coupon_li_revise').hide();
+	    	   }else{
+	        	$('.coupon_li_revise').show();}
+				
+			});
+			
 			$('#newcoupon-form').ajaxForm({
 				//전송 메서드 지정
 				method : "POST",
@@ -397,17 +509,44 @@
 				}
 			});
 			
-		/*  $(document).on('click', '.revise', function(e) {
-				$.ajax({
-					url: 'admin_coupon_rev.do',
-					type : 'get',
-					dataType : 'text',
-					success : function(data){
-					//통신이 성공했을 떄 실행되는 함수.
-					$('#revcoupon-box').html(data);
+			$(document).on("click",".revise", function(e){
+	        	e.preventDefault;
+	        	
+	        	
+	        	let revise = $(this);
+	        	let couponno = revise.data('couponno');
+	        	let couponno_input = $('#couponno').val(couponno);
+	        	
+	        	$.get("${pageContext.request.contextPath}/11_admin/admin_coupon_detail",{
+	        		"couponno" : couponno
+	        	},function(json){
+	        		if(json.rt == "OK"){
+	        			window.location = "${pageContext.request.contextPath}/11_admin/admin_coupon.do?couponno=" + couponno;
+	        		}
+	        	});
+	        	
+	        });
+			
+			$('#revcoupon-form').ajaxForm({
+				//전송 메서드 지정
+				method : "PUT",
+				//서버에서 200 응답을 전달한 경우 실행됨
+				success : function(json) {
+					console.log(json);
+
+					//json 결과가 OK일 시 현재 페이지로 새로고침된다.
+					if (json.rt == "OK") {
+						alert("쿠폰이 수정되었습니다.");
+						window.location = "${pageContext.request.contextPath}/11_admin/admin_coupon.do";
 					}
-				});
-			}); */
+				}
+			});
+			
+			$('#coupon_rev_cancel').click(function(e){
+				e.preventDefault();
+				$('.coupon_li_revise').hide();
+				
+			});
 			
 			$(document).on('click', '#deleteCoupon', function(e){
 				e.preventDefault();
@@ -426,7 +565,7 @@
 				if(json.rt == "OK"){
 					alert("삭제되었습니다.");
 					//삭제 완료 후 목록 페이지로 이동
-					window.location = "${pageContext.request.contextPath}/11_admin/admin_coupon";
+					location.reload();
 				}
 			});
 			});

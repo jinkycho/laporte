@@ -222,6 +222,7 @@
 					$('#id_e_msg').css("color", "#f64b4b").show();
 					$('#user_id').val("");
 				}else{
+					$('#email_insert').css("border-bottom","2px solid rgb(165, 165, 165)");
 					$('#id_e_msg').hide();
 				}
 			});
@@ -241,6 +242,7 @@
 					$('#name_e_msg').css("color", "#f64b4b").show();
 					$('#user_name').val("");
 				}else{
+					$('#email_insert').css("border-bottom","2px solid rgb(165, 165, 165)");
 					$('#name_e_msg').hide();
 				}
 			});
@@ -255,6 +257,7 @@
 					$('#phone_e_msg').css("color", "#f64b4b").show();
 					$('#phone_no').val("");
 				}else{
+					$('#email_insert').css("border-bottom","2px solid rgb(165, 165, 165)");
 					$('#phone_e_msg').hide();
 				}
 			});
@@ -268,6 +271,7 @@
 					$('#email').css("border-bottom","2px solid #f64b4b");
 					$('#email_e_msg').css("color", "#f64b4b").show();
 				}else{
+					$('#email_insert').css("border-bottom","2px solid rgb(165, 165, 165)");
 					$('#email_e_msg').hide();
 				}
 			});

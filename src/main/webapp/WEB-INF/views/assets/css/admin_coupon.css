@@ -142,8 +142,7 @@ tr {
 }
 
 td {
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
+  border: 1px solid #ddd;
   font-size: 14px;
 }
 
@@ -179,44 +178,47 @@ input {
   width: 20%;
   margin: auto;
 }
+.content .button-block{
+	width: 30%;
+	margin: auto;
+}
+
 .content #coupon_rev_cancel {
-  display: inline-block;
-  width: 100px;
+  width: 45%;
   height: 40px;
   background-color: #f6464b;
   color: #fff;
   margin-top: 5px;
-  padding-top: 10px;
   text-align: center;
   border-radius: 5px;
   font-size: 14px;
+  border: none;
 }
 
+
 .content #coupon_revise {
-  display: inline-block;
-  width: 100px;
+  width: 45%;
   height: 40px;
   background-color: #437fb3;
   color: #fff;
   margin-left: 10px;
   margin-top: 5px;
-  padding-top: 10px;
   text-align: center;
   border-radius: 5px;
   font-size: 14px;
+  border: none;
 }
 
 .content #coupon_submit {
-  display: block;
-  width: 200px;
+  width: 90%;
   height: 40px;
   color: #fff;
   margin: auto;
-  margin-top: 5px;
+  margin-top: 20px;
   padding-top: 10px;
   text-align: center;
   border-radius: 5px;
   font-size: 14px;
+  border: none;
 }
 
-/*공통영역 끝*/

@@ -27,9 +27,6 @@
 
 <div id= "Join">
 	<div class="header">
-		<a href="#" onclick="history.back(); return false;">
-			<span id="d_icon_l">이전으로 가기</span>
-		</a>
 		<h3><b>지금 la porte에 가입 하세요!</b></h3>
 	</div>
 	
@@ -37,7 +34,7 @@
         <div class="Join_info_line">
             <input type="checkbox" id="Join_info_checkbox">
             <label for="Join_info_checkbox"><span></span></label>
-            <div id="Join_info_text">모두 동의(선택 정보 포함)</div>
+            <div id="Join_info_text">모두 동의</div>
         </div>
     </div>
 
@@ -45,7 +42,7 @@
 
         <div class="Join_info_line2">
             <div id="Join_accessterm_text">
-               <input type="checkbox" class='information' id="Join_accessterm_checkbox">
+               <input type="checkbox" class='check' id="Join_accessterm_checkbox">
                <span>[필수]이용약관 동의 보기</span>
             <a href="#content1" id="Join_accessterm_dropdown"></a>
             <div id="content1" class="content">
@@ -59,7 +56,7 @@
 
             <div class="Join_info_line3">
                 <div id="Join_personal_text">
-                 <input type="checkbox" class='information' id="Join_personal_checkbox">
+                 <input type="checkbox" class='check' id="Join_personal_checkbox">
                  <span>[필수] 개인정보 처리방침 동의 보기</span>
             <a href="#content2" id="Join_personal_dropdown"></a>
             <div id="content2" class="content">
@@ -68,17 +65,10 @@
             </div>
             
         </div>
-        <div class="Join_info_line4">
-            <div id="Join_email_text">
-            <input type="checkbox" class='information' id="Join_email_checkbox">
-            <span>[선택] 이메일 마케팅 수신 동의</span>
-            </div>
-        </div>
-        
-
+       
     </div>
 	
-		<button id="Join_btn" type="submit" onclick="location.href='${pageContext.request.contextPath}/02_mypage/join2.do'">동의하고 가입하기</button>
+		<button id="Join_btn" type="submit">동의하고 가입하기</button>
 	
 	<div class="footer">
 		<h5>laporte.kr-<a href="#">개인정보처리방침</a></h5>
@@ -97,11 +87,10 @@
             /* `#all_check`의 선택 상태가 변경되었을 때의 이벤트 */
             $("#Join_info_checkbox").change(function() {
                 // 모든 `.hobby`의 선택 상태를 `#all_check`와 동일하게 맞춘다.
-                $(".information").prop('checked', $(this).prop('checked'));
+                $(".check").prop('checked', $(this).prop('checked'));
             });
-        });
-
-     /** 게시글의 제목을 클릭한 경우 호출되는 이벤트 정의 */
+            
+            /** 게시글의 제목을 클릭한 경우 호출되는 이벤트 정의 */
             $("#Join_accessterm_dropdown, #Join_personal_dropdown").click(function(e) {
                 // 링크의 기본 동작(페이지 이동) 방지
                 e.preventDefault();
@@ -114,6 +103,21 @@
                 // 하고 화면에서 숨긴다.
                 $(".content").not($(target)).slideUp(100);
             });
+            
+            $('#Join_btn').click(function(e){
+            	e.preventDefault();
+            	var agree = $('.check:checked');
+            	if(agree.length < 2){
+            		alert("필수항목을 모두 선택하셔야 회원가입이 가능합니다.");
+            		return false;
+            	}else{
+            		location.href='${pageContext.request.contextPath}/02_mypage/join2.do';
+            	}
+            });
+        });
+
+    
+     
     
 </script>
 </body>
