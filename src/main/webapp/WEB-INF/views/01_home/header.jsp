@@ -19,7 +19,7 @@ reserve_list.css
 reserve.css"><span
 							id="hd_mypage_icon"></span></a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span
+						href="${pageContext.request.contextPath}/05_wishlist/wishlist.do"><span
 							id="hd_wishlist_icon"></span></a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/06_cart/cart.do?userno=<%out.print(session.getAttribute("my_session"));%>"><span

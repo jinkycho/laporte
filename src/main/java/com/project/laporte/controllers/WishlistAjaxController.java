@@ -64,6 +64,27 @@ public class WishlistAjaxController {
         		userno = (int) session.getAttribute("my_session");
         	}
 		}
+		
+		//쿠키에 저장되어있는 위시리스트가 내 계정의 위시리스트가 맞는지 확인 -> 아니라면 my_wish 지우기
+			if(my_wish!=0) {
+				Wishlist oldwish = new Wishlist();
+				oldwish.setWishno(my_wish);
+				Wishlist newwish = new Wishlist();
+				try {
+					// 데이터 조회
+					newwish = wishlistService.getWishListOne(oldwish);
+				} catch (Exception e) {
+					return webHelper.redirect(null, e.getLocalizedMessage());
+				}
+				if(newwish.getUserno() != userno) {
+					Cookie cookiewish = new Cookie("my_wish", "0");
+					cookiewish.setPath("/");
+					cookiewish.setDomain("localhost");
+					cookiewish.setMaxAge(0);
+					response.addCookie(cookiewish);
+					my_wish=0;
+				}
+			}
 
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기

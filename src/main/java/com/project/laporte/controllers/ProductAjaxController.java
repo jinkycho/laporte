@@ -328,6 +328,26 @@ public class ProductAjaxController {
 		if (session.getAttribute("my_session") != null) {
 			userno = (int) session.getAttribute("my_session");
 		}
+		//쿠키에 저장되어있는 위시리스트가 내 계정의 위시리스트가 맞는지 확인 -> 아니라면 my_wish 지우기
+		if(my_wish!=0) {
+			Wishlist oldwish = new Wishlist();
+			oldwish.setWishno(my_wish);
+			Wishlist newwish = new Wishlist();
+			try {
+				// 데이터 조회
+				newwish = wishlistService.getWishListOne(oldwish);
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+			if(newwish.getUserno() != userno) {
+				Cookie cookiewish = new Cookie("my_wish", "0");
+				cookiewish.setPath("/");
+				cookiewish.setDomain("localhost");
+				cookiewish.setMaxAge(0);
+				response.addCookie(cookiewish);
+				my_wish=0;
+			}
+		}
 
 		Wishlist basicoutput = new Wishlist();
 		if (my_wish == 0 && userno != 0) { // 로그인은 했으나 쿠키에 위시리스트가 저장되어있지 않을때 기본 위시리스트에 저장

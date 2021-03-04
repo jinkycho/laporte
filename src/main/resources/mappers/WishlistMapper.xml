@@ -49,6 +49,12 @@
         UPDATE wish_prod SET ea=#{ea} WHERE wishno=#{wishno} AND prodno=#{prodno}
     </update>
     
+    <!-- 위시리스트에 담겨있는 상품 개수 수정 -->
+     <update id="updateWishItemOne"
+        parameterType="com.project.laporte.model.Wish_prod">
+        UPDATE wish_prod SET ea=ea+1 WHERE wishno=#{wishno} AND prodno=#{prodno}
+    </update>
+    
     <!-- 위시리스트에 담겨있는 상품 다른 위시리스트로 이동 -->
      <update id="updateWishItemMove"
         parameterType="com.project.laporte.model.Wish_prod">

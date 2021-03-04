@@ -118,4 +118,14 @@ public interface WishlistService {
 	 * @throws Exception
 	 */
 	public int addbasicWishlist(Wishlist input) throws Exception;
+	
+	/**
+	 * 위시리스트 상품 추가 (원래 있던 상품)
+	 * 
+	 * @param Wish_prod 조회할 위시리스트 상품의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	public int editWishItemOne(Wish_prod input) throws Exception;
+	
 }

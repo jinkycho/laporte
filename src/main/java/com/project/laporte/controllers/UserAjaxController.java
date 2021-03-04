@@ -2,6 +2,7 @@ package com.project.laporte.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +28,7 @@ import com.project.laporte.service.OrderlistService;
 import com.project.laporte.service.ReserveService;
 import com.project.laporte.service.UserService;
 import com.project.laporte.service.UserscouponService;
+
 
 @Controller
 public class UserAjaxController {
@@ -152,7 +155,24 @@ public class UserAjaxController {
     }
 	 
 		@RequestMapping(value="/logout.do", method=RequestMethod.GET)
-	    public ModelAndView logout(Model model) {
+	    public ModelAndView logout(Model model,
+	    		HttpServletResponse response, HttpServletRequest request,
+	    		@CookieValue(value = "my_wish", defaultValue = "0", required = false) int my_wish) {
+			
+			if(my_wish!=0) {
+			     Cookie[] cookies = request.getCookies();    //쿠키를 서버에서 요청한다.
+			     for(int i=0;i<cookies.length;i++)
+			     {
+			          if(cookies[i].getName().equals("my_wish"))    //MyCookie1이름의 쿠키가 현재 있으면
+			          {
+			        	  Cookie cookie = new Cookie("my_wish", "test");  //쿠키를 생성해주고
+				          cookie.setMaxAge(0);    //쿠키의 최대기간을 "0"으로 지정해주면 제거 된다.
+				          response.addCookie(cookie);   //서버에 추가를 요청한다.(저장은 클라이언트에)
+			          }
+			     }
+			}
+			
+
 	        // "/src/main/webapp/WEB-INF/views/02_mypage/join2.jsp" 파일을 View로 지정한다.
 	        return new ModelAndView("/logout");
 	    }

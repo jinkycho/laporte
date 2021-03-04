@@ -656,7 +656,7 @@
 	    		}, function(json) {
 	    			if(json.rt=="OK")
 	    				alert("상품이 장바구니에 추가 되었습니다.");
-	    				location.reload();
+	    				location.reload(); // 장바구니로 이동 수정 예
 	    		})
 		 });
 		 

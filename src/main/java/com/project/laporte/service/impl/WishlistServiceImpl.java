@@ -391,5 +391,30 @@ public class WishlistServiceImpl implements WishlistService {
 
 		return result;
 	}
+	
+	/**
+	 * 위시리스트 상품 추가 (원래 있던 상품)
+	 * 
+	 * @param Wish_prod 조회할 위시리스트 상품의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	@Override
+	public int editWishItemOne(Wish_prod input) throws Exception {
+		int result = 0;
+
+		try {
+			result = sqlSession.update("WishlistMapper.updateWishItemOne", input);
+
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("수정된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+
+		return result;
+	}
 
 }

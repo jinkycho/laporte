@@ -300,12 +300,20 @@ public class WishlistRestController {
 
 		// 저장된 결과를 조회하기 위한 객체
 		List<Wish_prod> output = null;
+		Wish_prod itemresult = null;
 
 		try {
-			// 데이터 저장
-			// -> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
-			wishlistService.addWishlistItem(input);
-
+			
+			itemresult=wishlistService.getWishitem(input);
+			
+			if(itemresult!=null) {
+				wishlistService.editWishItemOne(input);
+			}else {
+				// 데이터 저장
+				// -> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+				wishlistService.addWishlistItem(input);
+			}
+			
 			// 데이터 조회
 			output = wishlistService.getWishitemList(wish);
 		} catch (Exception e) {

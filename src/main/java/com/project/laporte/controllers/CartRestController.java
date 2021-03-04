@@ -9,8 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Cart;
+import com.project.laporte.model.Wish_prod;
 import com.project.laporte.service.CartService;
 import com.project.laporte.service.ProductService;
 import com.project.laporte.service.UserService;
+import com.project.laporte.service.WishlistService;
 
 @RestController
 public class CartRestController {
@@ -45,6 +45,9 @@ public class CartRestController {
 	// -> import study.spring.springhelper.service.ProductService;
 	@Autowired ProductService productService;
 	
+	// -> import study.spring.springhelper.service.WishlistService;
+	@Autowired WishlistService wishlistService;
+	
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	// -> import org.springframework.beans.factory.annotation.Value;
 	@Value("#{servletContext.contextPath}")
@@ -55,7 +58,8 @@ public class CartRestController {
     public Map<String, Object> post(HttpServletRequest request,
     		@RequestParam(value="userno", defaultValue="0") int userno,
     		@RequestParam(value="prodno", defaultValue="0") int prodno,
-    		@RequestParam(value="ea", defaultValue="1") int ea) {
+    		@RequestParam(value="ea", defaultValue="1") int ea,
+    		@RequestParam(value="wishno", defaultValue="0") int wishno) {
     	
     	if (prodno == 0)                       	{ return webHelper.getJsonWarning("제품번호를 입력하세요."); }
     	if (prodno <= 20001 && prodno >= 29999)	{ return webHelper.getJsonWarning("제품번호는 20001번부터 29999까지 입니다."); }
@@ -104,6 +108,18 @@ public class CartRestController {
 				output = cartService.getCartList(input);
 				
 			} catch(Exception e) {
+				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
+		}
+		
+		if(wishno!=0) {
+			Wish_prod wishprod = new Wish_prod();
+			wishprod.setWishno(wishno);
+			wishprod.setProdno(prodno);
+			
+			try {
+				wishlistService.deleteWishlistItem(wishprod); // 위시리스트 안에있는 상품을 삭제
+			} catch (Exception e) {
 				return webHelper.getJsonError(e.getLocalizedMessage());
 			}
 		}
