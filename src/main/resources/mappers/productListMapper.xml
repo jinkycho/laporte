@@ -58,8 +58,11 @@
         FROM product p
         INNER JOIN firstimg f ON p.prodno=f.prodno
         INNER JOIN prod_category2 c ON c.catno2=p.catno2
-       	WHERE catno1 = #{catno1}<if test='catno2 != 0'>AND p.catno2 = #{catno2}</if>
-        
+        <where>
+	        <if test="catno1!=0">catno1 = #{catno1}</if>
+	       	<if test='catno2 != 0'>AND p.catno2 = #{catno2}</if>
+	       	<if test="name!=null and name!=''">name LIKE concat('%', #{name}, '%')</if>
+        </where>
     </select>
     
 </mapper>

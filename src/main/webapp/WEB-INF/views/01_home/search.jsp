@@ -13,10 +13,10 @@
 			<div class="sc_gray_layer" id="hd_search_background"></div>
 			<div class="sc_over_layer" id="hd_search_front">
 				<div id="modal_search_box_container">
-					<form>
-						<input id="modal_search_text" type="text" placeholder="검색어 입력">
+					<form method="get" action="${pageContext.request.contextPath}/03_detail/allproduct2.do">
+						<input id="modal_search_text" type="text" placeholder="검색어 입력" name="keyword" value="${keyword }">
 						<span id="search_close_icon"></span> <input type="reset"
-							id="search_remove_icon"> <input type="submit"
+							id="search_remove_icon" /> <input type="submit"
 							id="search_enter_icon">
 					</form>
 					<div id="search_result">

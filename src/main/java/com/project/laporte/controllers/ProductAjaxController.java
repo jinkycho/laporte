@@ -458,10 +458,9 @@ public class ProductAjaxController {
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-		
 
-		System.out.println("result============="+result);
-		System.out.println("result============="+orderno);
+		//System.out.println("result============="+result);
+		//System.out.println("result============="+orderno);
 		
 		/** 3) View 처리하기 */
 		model.addAttribute("wishoutput", wishoutput);

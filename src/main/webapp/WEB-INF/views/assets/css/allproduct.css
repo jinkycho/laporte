@@ -122,7 +122,7 @@
 		float:right;
 	}
 	input[type=checkbox]:checked + label.heart{
-		background-position:-266px -226px;
+		background-position:-266px -225px;
 		
 	}
 	
@@ -133,12 +133,11 @@
 	}
 	
 	.sail{
-		font-size: 16px;
+		font-size: 13px;
 	    color: #f64b4b;
 	    
     	font-weight: bold;
     	display:block;
-    	margin-bottom:7px;
 	}
 	
 	.product_a{
@@ -165,7 +164,7 @@
 	font-size:13px;
 	color:#333;
 	text-decoration:line-through;
-	padding: 4px 0;
+	margin: 4px 0;
 	}
 	
 	.money{
@@ -284,5 +283,9 @@
 	display:block;
 	font-size:12px;
 	margin:4px 0;
+	}
+	.text_box{
+	height: 120px;
+    display: block;
 	}
 	

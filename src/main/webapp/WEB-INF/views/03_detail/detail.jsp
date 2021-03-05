@@ -40,37 +40,7 @@
 
 <body>
 	<%@ include file="../01_home/header.jsp"%>
-	<section>
-		<!-- 검색 -->
-		<div class="hd_searchbox">
-			<div class="hd_search">
-				<input id="search_text" type="text" placeholder="검색어 입력"> <span
-					id="hd_search_icon"></span>
-			</div>
-			<div class="sc_gray_layer" id="hd_search_background"></div>
-			<div class="sc_over_layer" id="hd_search_front">
-				<div id="modal_search_box_container">
-					<form>
-						<input id="modal_search_text" type="text" placeholder="검색어 입력">
-						<span id="search_close_icon"></span> <input type="reset"
-							id="search_remove_icon"> <input type="submit"
-							id="search_enter_icon">
-					</form>
-					<div id="search_result">
-						<h4>추천 검색어</h4>
-						<a href="#"><span class="rec_reyword"></span>가구</a> <a href="#"><span
-							class="rec_reyword"></span>침대</a> <a href="#"><span
-							class="rec_reyword"></span>주방</a> <a href="#"><span
-							class="rec_reyword"></span>소파</a> <a href="#"><span
-							class="rec_reyword"></span>수납</a> <a href="#"><span
-							class="rec_reyword"></span>조명</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 검색 끝 -->
-
-
+	<%@ include file="../01_home/search.jsp"%>
 		<!-- 검색제외 본문영역 -->
 		<div class="container">
 			<div class="page-header">
@@ -773,14 +743,6 @@
 		
 		<!-- 버튼 누를 시 삭제 알림기능 -->
 		$(function() {
-			/* $(".delete_text").click(function(e) {
-				$('.review1').remove( );
-				swal('삭제', '성공적으로 삭제되었습니다.', 'success');
-			});
-			
-			$(".modify_text").click(function(e) {
-				window.location.href = "../04_review/review_modify.html";
-    		}); // end click */
     		
 			$("#chk_heart").click(function(e) {
 				let current = $(this); 

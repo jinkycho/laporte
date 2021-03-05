@@ -34,32 +34,7 @@
 
 <body>
 <%@ include file="../01_home/header.jsp" %>
-<div class="hd_searchbox">
-			<div class="hd_search">
-				<input id="search_text" type="text" placeholder="검색어 입력"> <span
-					id="hd_search_icon"></span>
-			</div>
-			<div class="sc_gray_layer" id="hd_search_background"></div>
-			<div class="sc_over_layer" id="hd_search_front">
-				<div id="modal_search_box_container">
-					<form>
-						<input id="modal_search_text" type="text" placeholder="검색어 입력">
-						<span id="search_close_icon"></span> <input type="reset"
-							id="search_remove_icon"> <input type="submit"
-							id="search_enter_icon">
-					</form>
-					<div id="search_result">
-						<h4>추천 검색어</h4>
-						<a href="#"><span class="rec_reyword"></span>가구</a> <a href="#"><span
-							class="rec_reyword"></span>침대</a> <a href="#"><span
-							class="rec_reyword"></span>주방</a> <a href="#"><span
-							class="rec_reyword"></span>소파</a> <a href="#"><span
-							class="rec_reyword"></span>수납</a> <a href="#"><span
-							class="rec_reyword"></span>조명</a>
-					</div>
-				</div>
-			</div>
-		</div>
+<%@ include file="../01_home/search.jsp"%>
 	<div class="allproduct">
 	  	<div class="ul_wrap">
 			<ul class="allproduct_category">
@@ -98,11 +73,15 @@
 					
 					<c:set var="prodno" value="${proditem.prodno}"/>
 					<li class="allproduct_product_ul_li">
-						<input type="checkbox" id="${proditem.prodno}" class="chk_heart" style="display: none;"/>
-						<label class="heart" for="${proditem.prodno}"></label>
+						<input type="checkbox" id="chk_heart" class="chk_heart" style="display: none;"
+						<c:if test="${wishoutput!=null }">checked</c:if>
+							data-wishno="${my_wish}" data-prodno="${proditem.prodno }"
+							data-userno="${userno}"/>
+						<label class="heart" for="chk_heart"></label>
 						<a href="${viewUrl}">
 							<img  class="product_img" src="${proditem.thumbnailUrl}" />
-							
+						</a>
+						<a href="${viewUrl}" class="text_box">
 							
 							<c:if test="${fn:contains(proditem,'세일')}">
 							<span class="sail">더낮은 새로운가격</span>
@@ -114,18 +93,18 @@
 							<span class="mini_font">${proditem.size }</span>
 							<span class="mini_font">${proditem.color}</span>
 							<c:if test="${proditem.saleprice!=0}">
-							<span class="sail_money">₩ ${proditem.saleprice}</span>
+							<span class="sail_money">₩ <fmt:formatNumber value="${proditem.saleprice}" pattern="#,###" /></span>
 							</c:if>
 							
 							<span class="money <c:if test="${fn:contains(proditem,'인기')}">home_item_mark</c:if>">
 								<span class="money_won">₩</span>
-								<span class="money_won2 ">${proditem.price}</span>
+								<span class="money_won2 "><fmt:formatNumber value="${proditem.price}" pattern="#,###" /></span>
 						    </span>
 						
 							
 							
 						</a>			
-						<a class="addcart"></a>
+						<a class="addcart" data-userno="${userno}" data-prodno="${proditem.prodno }"></a>
 					</li>
 				</c:forEach>
 
@@ -146,33 +125,61 @@
 	 $('.moveup').tottTop({
 			scrollTop:0
 		});
-	 
-			
-
-			$(".chk_heart").change(function(e) {
-				
-				if($(".chk_heart").is(":checked") == true){
-					swal('성공', '위시리스트에 추가 되었습니다.', 'success');
+	
+	 $(function() {
+ 		
+			$("#chk_heart").click(function(e) {
+				let current = $(this); 
+	    		let userno = current.data('userno');
+				if(userno==0){
+					alert("로그인을 먼저 하세요");
+					return false;
+				}else if($("#chk_heart").is(":checked") == true){
+		    		let prodno = current.data('prodno');
+		    		let wishno = current.data('wishno');
+		    		
+		    		$.post("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+		    			"userno": userno,
+		    			"prodno": prodno,
+		    			"wishno": wishno
+		    		} , function(json) {
+		    			if(json.rt=="OK")
+		    				alert("상품이 위시리스트에 추가 되었습니다.");
+		    		})
 				}else{
-					swal('취소', '위시리스트에서 삭제 되었습니다.', 'error');
-				}
-			});
-		
-			 
-			 $(document).on("click",".addcart", function(e) {
-					e.preventDefault();
-					swal({
-						title: "장바구니추가",
-						html:"추가하시겠습니까?",
-						type:"info",
-						showCloseButton:true,
-						confirmButtonText:"확인",
-						showCancelButton:true,
-						cancelButtonText:"취소"
-					});
+					let current = $(this); 
+		    		let prodno = current.data('prodno');
+		    		let wishno = current.data('wishno');
+		    		
+		    		$.delete("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+		    			"prodno": prodno,
+		    			"wishno": wishno
+		    		}, function(json) {
+		    			if(json.rt=="OK")
+		    				alert("상품이 위시리스트에서 삭제 되었습니다.");
+		    				location.reload();
+		    		})
+				}	
 				});
+			
+			});
+			
 			 
-			 $(document).on()
+			// 1개 상품만 장바구니로 옮기기
+			 $(document).on("click",".addcart",function(){
+				    let current = $(this); 
+		    		let userno = current.data('userno');
+		    		let prodno = current.data('prodno');
+		    		
+		    		$.post("${pageContext.request.contextPath}/06_cart/cart", {
+		    			"userno": userno,
+		    			"prodno": prodno,
+		    		}, function(json) {
+		    			if(json.rt=="OK")
+		    				alert("상품이 장바구니에 추가 되었습니다.");
+		    				location.reload(); // 장바구니로 이동 수정 예
+		    		})
+			 });
 				
 	    		
 	
