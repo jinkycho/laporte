@@ -101,7 +101,7 @@
 						<input type="checkbox" id="${proditem.prodno}" class="chk_heart" style="display: none;"/>
 						<label class="heart" for="${proditem.prodno}"></label>
 						<a href="${viewUrl}">
-							<img  class="product_img" src="${proditem.fileUrl}" />
+							<img  class="product_img" src="${proditem.thumbnailUrl}" />
 							
 							
 							<c:if test="${fn:contains(proditem,'세일')}">
@@ -111,8 +111,10 @@
 							<span class="new">NEW</span>
 							</c:if>
 							<strong class="product_a">${proditem.name}</strong>
+							<span class="mini_font">${proditem.size }</span>
+							<span class="mini_font">${proditem.color}</span>
 							<c:if test="${proditem.saleprice!=0}">
-							<span class="sail_money">${proditem.saleprice}</span>
+							<span class="sail_money">₩ ${proditem.saleprice}</span>
 							</c:if>
 							
 							<span class="money <c:if test="${fn:contains(proditem,'인기')}">home_item_mark</c:if>">

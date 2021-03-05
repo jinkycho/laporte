@@ -23,7 +23,7 @@
         <result property="catname1"   column="catname1" />
         <result property="catname2"   column="catname2" />
         <result property="catno1"     column="catno1" />
-        <result property="fileUrl"    column="fileUrl" />
+        <result property="thumbnailUrl"    column="thumbnailUrl" />
   
     </resultMap>
     
@@ -53,7 +53,7 @@
     		parameterType="com.project.laporte.model.Product"  
     		resultMap="productListMap">
     	
-		SELECT p.name, p.prodno, p.price, p.saleprice, p.color, p.size, `group`, f.fileUrl,
+		SELECT p.name, p.prodno, p.price, p.saleprice, p.color, p.size, `group`, f.thumbnailUrl,
         c.catno1, c.catno2
         FROM product p
         INNER JOIN firstimg f ON p.prodno=f.prodno

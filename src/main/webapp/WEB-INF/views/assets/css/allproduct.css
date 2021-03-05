@@ -104,9 +104,8 @@
 	.allproduct_product_ul_li{
 		float:left;
 		width:50%;
-		height:469px;
 		border:1px solid #ddd;
-		padding:15px 8px;
+		padding:15px 8px 50px 8px;
 		 position: relative;
 	}
 	
@@ -166,6 +165,7 @@
 	font-size:13px;
 	color:#333;
 	text-decoration:line-through;
+	padding: 4px 0;
 	}
 	
 	.money{
@@ -185,8 +185,9 @@
 	
 	.home_item_mark {
   	background-color: #ffdb00;
-  	box-shadow: 2px 2px #e00751;
-  	width: 60px;
+    box-shadow: 2px 2px #e00751;
+    width: fit-content;
+    padding: 3px;
 	}
 	
 	.starbox{
@@ -278,5 +279,10 @@
 	width:100%;
 	border-top:1px solid #f5f5f5;
 	padding-top:36px;
+	}
+	.mini_font{
+	display:block;
+	font-size:12px;
+	margin:4px 0;
 	}
 	
