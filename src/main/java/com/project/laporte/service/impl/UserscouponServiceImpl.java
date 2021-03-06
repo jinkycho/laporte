@@ -110,7 +110,7 @@ public class UserscouponServiceImpl implements UserscouponService {
 
 	/** 회원 가입 쿠폰 추가 */
 	@Override
-	public int addUserCoupon(Userscoupon input) throws Exception {
+	public int addJoinCoupon(Userscoupon input) throws Exception {
 		int result = 0;
 		
 		try {
@@ -118,6 +118,27 @@ public class UserscouponServiceImpl implements UserscouponService {
 			
 			if(result == 0) {
 			throw new NullPointerException("result == 0");
+			}
+		}catch(NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		}catch(Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	/** 중복 쿠폰 보유 여부 확인 */
+	@Override
+	public Userscoupon checkUsersCoupon(Userscoupon input) throws Exception {
+		Userscoupon result = null;
+		
+		try {
+			result = sqlSession.selectOne("UserscouponMapper.checkUsersCoupon", input);
+			
+			if(result == null) {
+				result = null;
 			}
 		}catch(NullPointerException e) {
 			log.error(e.getLocalizedMessage());

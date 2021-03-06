@@ -88,8 +88,8 @@
 				<a class="product_revise"
 					href="${pageContext.request.contextPath}/06_cart/cartlist.do?userno=<%out.print(session.getAttribute("my_session"));%>">수정</a>
 
-				<c:forEach var="item" items="${output}" varStatus= "status">
 				<c:set var="sum" value="0" />
+				<c:forEach var="item" items="${output}" varStatus= "status">
 
 				<input type="hidden" name="cartno[]" value="${item.cartno}" />
 				<br /> <img class="cart_item_img" src="${item.thumbnailUrl}"></img>
@@ -101,7 +101,7 @@
 						<div class= "cart_item_price">
 						가격 : &#8361; <fmt:formatNumber value="${item.price}" pattern="#,###" />
 					</div>
-					<c:set var="sum" value="${sum + item.ea * item.price}" />
+					<c:set var="sum" value="${sum + (item.ea * item.price)}" />
 
 				</c:forEach>
 
@@ -120,7 +120,7 @@
 				&#8361;
 				<fmt:formatNumber
 							value="${sum}" pattern="#,###" />
-				<input type="hidden" name="totalprice" value="${sum}">
+				
 				</span>
 			</div>
 
@@ -132,13 +132,16 @@
 		<div class="purchase_postcode step_line">
 			<h3 class="step_label">1</h3>
 			<h3>기본배송지</h3>
-			<p class="step_text">주소:${u_output.addr1}</p>
-			<p class="step_text">상세주소:${u_output.addr2}</p>
-			<p class="step_text">우편번호:${u_output.postcode}</p>
+			<hr />
+			<h4 class="user_addrinfo">주소</h4> <p class="user_addrinfo_data">${u_output.addr1}</p>
+			<h4 class="user_addrinfo">상세주소</h4> <p class= "user_addrinfo_data">${u_output.addr2}</p>
+			<h4 class="user_addrinfo">우편번호</h4> <p class="user_addrinfo_data">${u_output.postcode}</p>
+			<hr />
+			
+			<p class="step_text">새로운 배송지를 입력하시려면</p>
+			<p class="step_text">아래 우편번호 찾기 버튼을 눌러주세요.</p>
 
-			<p class="step_text">새로운 배송지를 입력하시려면 아래 우편번호 찾기 버튼을 눌러주세요.</p>
-
-			<button id="find_pc"">우편번호 찾기</button>
+			<button id="find_pc">우편번호 찾기</button>
 
 			<div id="daum_pc_find"></div>
 			<button id="find_pc_save" class="purchase_btn">다음</button>
@@ -149,9 +152,8 @@
 			<div id="purchase_del_type" class="step_line">
 				<div class="delivery_pc_add">
 					<span class="loc_icon">위치표시</span>
-					<p>배송지:</p>
 					<a id="pc_revise" class="product_revise" href="#">수정</a>
-					<div id="pc_address_input"></div>
+					<div id="pc_address_input"><p>${u_output.addr1}</p></div>
 				</div>
 
 				<div class="delivery_type_select clearfix">
@@ -193,7 +195,7 @@
 					있습니다.</span>
 				<ul class="my_del_summary_li clearfix">
 					<span class="loc_icon">위치아이콘</span>
-					<li id="pc_address_input1"></li>
+					<li id="pc_address_input1"><p>${u_output.addr1}</p></li>
 				</ul>
 
 
@@ -313,9 +315,8 @@
 							<p class="delivery_final_type">일반배송</p>
 							<p>배송: 4-10일</p> <span class="delivery_price_1 clearfix">&#8361;
 								5,000</span>
-						</li> <br /> <span class="est_delivery_date_title">서비스 이용일</span> <span
-							class="est_delivery_date">2020.12.30 09:00-13:00</span>
 						<hr>
+						</li> <br /> <span class="est_delivery_date_title">희망 배송일</span> 
 						<div id="container"
 							style="margin: 10px 0 15px 0; height: 255px; position: relative"></div>
 						<input id="datepicker-always-visible" type="text"
@@ -332,11 +333,13 @@
 					<hr>
 					<div class="purchase_summary">
 						<li class="purchase_total_cost"><span>전체 서비스 비용</span> <span
-							class="delivery_final_price">5000</span> <span class="price_won">&#8361;</span>
+							class="delivery_final_price">5,000</span> <span class="price_won">&#8361;</span>
 						</li>
 						<hr>
 						<li class="purchase_total_cost"><span>주문 금액</span> <span
-							class="purchase_final_price"></span> <span class="price_won">&#8361;</span>
+							class="purchase_final_price"><fmt:formatNumber
+							value="${sum}" pattern="#,###" />
+							</span> <span class="price_won">&#8361;</span>
 						</li>
 						<li class="purchase_total_cost">
 							<hr> <span>쿠폰 / 적립금</span> <label
@@ -349,14 +352,20 @@
 								<c:otherwise>
 								<option value="0">쿠폰을 선택 해주세요.</option>
 								<c:forEach var = "coupon" items="${uc_output}" varStatus="status">
-								<option id="join_coupon" value="${coupon.usrcouponno}">${coupon.name}</option>
+								<option id="join_coupon" value="${coupon.usrcouponno}">
+								${coupon.name}/${coupon.discount} 
+								<c:if test="${coupon.distype== 'P'}">%</c:if>
+								<c:if test="${coupon.distype== 'W'}">원</c:if>
+								</option>
+								
 								</c:forEach>
 								</c:otherwise>
 							</c:choose>
 						</select>
 						<label class="purchase_summary_point">적립금</label>
 							<input id="point_input" name="point" type="text" value="0">
-							<button class="point_useall">모두 사용</button>
+							<button class="point_useall">사용하기</button>
+							<button type="reset" class="point_reset">다시입력하기</button>
 							<p class="point_left">적립 마일리지</p>
 							<p class="point_left" id="user_point">${u_output.point}p</p>
 							<p class="point_info">-할인쿠폰 제외 상품이 포함되어 있는 경우, 해당 제품을 제외하고
@@ -398,14 +407,14 @@
 				<p class="step_text">어떤 방법으로 결제하시겠어요?</p>
 
 				<div class="payment_type_btn">
-					<input type="hidden" name="paytype" id="paytype" />
 					<input type="button" id="pay_card" value="신용/체크카드" />
 					<input type="button" id="pay_remit" value="무통장입금(가상계좌)" />
 					<input type="button" id="pay_mobile" value="휴대폰결제" />
 					<input type="button" id="pay_remit_d" value="실시간계좌이체" />
+					<input type="text" name="paytype" id="paytype" class="input_hidden" />
 				</div>
 			</div>
-
+			<input type="text" id="final_total_price" name="totalprice" class="input_hidden">
 			<button type="submit" id="pur_finish_btn">결제완료</button>
 		</form>
 
@@ -431,21 +440,23 @@ $(document).ready(function() {
     $('#purchase_del_type').hide()
 	$('#purchase_delivery_first').hide()
     $('#purchase_delivery_sec').hide()
-    $('#purchase_delivery_third').hide()
+    //$('#purchase_delivery_third').hide()
     $('#mydelinfo_summary').hide()
     $('#myinfo_summary').hide()
     $('.payment_type_btn').hide()
     $('#pur_finish_btn').hide()
-
+   
 
 	//달력 불러오기
 	$('#datepicker-always-visible').Zebra_DatePicker({
         always_visible: $('#container'),
-        direction: [1,14],
+        direction: [4,14],
         disabled_dates: ['* * * 0']
     });
 });
 
+$(function(){
+    
 //불러온 우편번호 및 주소 저장
   $('#find_pc_save').click(function(e){
       e.preventDefault();
@@ -468,6 +479,29 @@ $(document).ready(function() {
       $('.purchase_postcode').hide();
   	}
       $('#purchase_del_type').show();
+      
+      //배송 예상 날짜 계산하기 , 오늘 날짜 +5
+      var date= new Date();
+      date.setDate(date.getDate()+5);
+
+      var yy= date.getFullYear() ;
+      var mm= date.getMonth()+1;
+      var dd=date.getDate();
+
+      //배송 유형 선택 단계에 예상 날짜 전달
+      var estDelDate = yy + "." + ("0" + mm).slice(-2)+ "."
+      + ("0" + dd).slice(-2);
+      var p = $("<p>");
+      p.html(estDelDate);
+      $('.est_delivery_date').html(p);
+
+      //배송 날짜 배송 정보 요약 단계로 전달
+      var estDelDate1 = yy + "." + ("0" + mm).slice(-2)+ "."
+      + ("0" + dd).slice(-2);
+      var p1 = $("<p>");
+      p1.html(estDelDate1);
+      $('#date_input').html(p1);
+      
   });
 
     //우편번호 찾기
@@ -487,28 +521,6 @@ $(document).ready(function() {
         $("#find_pc").hide()
 					}
 				});
-
-        //배송 예상 날짜 계산하기 , 오늘 날짜 +5
-        var date= new Date();
-        date.setDate(date.getDate()+5);
-
-        var yy= date.getFullYear() ;
-        var mm= date.getMonth()+1;
-        var dd=date.getDate();
-
-        //배송 유형 선택 단계에 예상 날짜 전달
-        var estDelDate = yy + "." + ("0" + mm).slice(-2)+ "."
-        + ("0" + dd).slice(-2)+ " 09:00 ~ 13:00";
-        var p = $("<p>");
-        p.html(estDelDate);
-        $('.est_delivery_date').html(p);
-
-        //배송 날짜 배송 정보 요약 단계로 전달
-        var estDelDate1 = yy + "." + ("0" + mm).slice(-2)+ "."
-        + ("0" + dd).slice(-2)+ " 09:00 ~ 13:00";
-        var p1 = $("<p>");
-        p1.html(estDelDate1);
-        $('#date_input').html(p1);
     });
 
     //배송 선택 단계에서 수정 클릭 시
@@ -531,7 +543,7 @@ $(document).ready(function() {
             $('#selected_delivery').html("&#8361; 5,000");
             $('.delivery_final_type').html("일반배송");
             $('.delivery_price_1').html("&#8361; 5,000");
-            $('.delivery_final_price').html("5000");
+            $('.delivery_final_price').html("5,000");
 
         }
 
@@ -541,15 +553,35 @@ $(document).ready(function() {
             $('#selected_delivery').html("&#8361; 30,000");
             $('.delivery_final_type').html("트럭배송");
             $('.delivery_price_1').html("&#8361; 30,000");
-            $('.delivery_final_price').html("30000");
+            $('.delivery_final_price').html("30,000");
         }
     });
+    
+	//배송비 ',' 없는 가격으로 변경
+    var delPrice = $('.delivery_final_price').html();
+    var delPricePar = delPrice.indexOf(",");
+    var delFprice = delPrice.substring(0,delPricePar) + delPrice.substring(delPricePar+1);
+    console.log(delFprice);
+   
+    // 주문 금액 ',' 없는 가격으로 변경
+    var purPrice = $('.purchase_final_price').html();
+    var purPricePar = purPrice.indexOf(",");
+    var purFprice = purPrice.substring(0,purPricePar) + purPrice.substring(purPricePar+1);
+    console.log(purFprice);
+    
+    // 배송비 + 주문 금액
+    var totalPrice = parseInt(delFprice) + parseInt(purFprice);
 
 
 
 
     //배송 선택 단계 다음버튼 클릭 시
     $('#next_step').click(function(e){
+    	  //총 결제 금액 = 장바구니 총 금액 + 배송비 
+  	  console.log(totalPrice);
+        $('#delandpur_final_price').html(totalPrice);
+
+        
         e.preventDefault();
         $('#purchase_del_type').hide()
         $('#purchase_delivery_first').show()
@@ -670,33 +702,99 @@ $(document).ready(function() {
     //쿠폰선택 시 총 결제 금액에 적용
     $('#coupon_select').change(function(e){
         e.preventDefault();
-        var couponSelect = $('#coupon_select').val();
-        var couponIdx = $('#coupon_select').index();
-        var couponDiscount = (100-parseInt(couponSelect))/100;
+        var couponSelect = $('#coupon_select > option:selected').html();
+        var discountAmount = couponSelect.indexOf("/");
+        var discount = couponSelect.substring(discountAmount+1);
+        var discountType = discount.substring(discount.length-1, discount.length);
+        
 
-        var delFprice = $('.delivery_final_price').html();
-        var purFprice = $('.purchase_final_price').html();
-        var delandpurFprice = (parseInt(delFprice) + parseInt(purFprice)) * couponDiscount;
+        // 쿠폰 금액의 단위가 '원'일 떄,
+        if(discountType == "원"){
+        	var discountWon = discount.substring(0, discount.length-1);
+        	var totalFprice = totalPrice - parseInt(discountWon);
+        
+       // 쿠폰 금액의 단위가 '퍼센트' 일 때,
+        }else if(discountType == "%"){
+            var discountPer = discount.substring(0, discount.length-1);
+            var totalFprice = totalPrice * (100-parseInt(discountPer))/100;
+          
+        }
+        
+        $('#delandpur_final_price').html(totalFprice);
+        $('#final_total_price').val(totalFprice);
 
-        $('#delandpur_final_price').html(delandpurFprice);
-
-      /*   if(couponIdx == 1){
-            $(this).children('#join_coupon').remove();
-        }else if(couponIdx == 2){
-            $(this).children('#bday_coupon').remove();
-        } */
+  
     });
 
+    /* 적립금 사용 하기 */
+    var count = 0;
+    var count_reset = 0;
+   	
     //적립금 사용 시 총 결제 금액에 적용
     $('.point_useall').click(function(e){
         e.preventDefault();
+        
+    	// 사용할 적립금 입력
         var pointInput = $('#point_input').val();
         var pointDiscount = parseInt(pointInput);
         var delandpurFprice = $('#delandpur_final_price').html();
+        
+		// 사용자가 보유한 포인트
+        var userPoint = $('#user_point').html();
+        var userPointSub = userPoint.substring(0, userPoint.length-1);
+        
+        //입력한 포인트 사용하여 총 결제 금액에서 차감하기
         var delandpurFprice1 = parseInt(delandpurFprice) - pointDiscount;
+        var usedPoint = parseInt(userPointSub) - pointDiscount;
+        
+        count++;
+       
+        if(usedPoint < 0){
+        	alert("보유한 포인트가 모자랍니다. 사용하실 포인트를 다시 입력 해주세요.");
+        	$('#point_input').val("0");
+        	return false;
+        }
+        
+        if(count > 1){
+        	count = 0;
+        	return false;
+        }
+        
+		 $('#user_point').html(usedPoint + "p");
+		 $('#point_input').prop("readonly", true);
+         $('#delandpur_final_price').html(delandpurFprice1);
+         $('#final_total_price').val(delandpurFprice1);
+    });
+    
+    //적립금 다시 입력 클릭 시
+    $('.point_reset').click(function(e){
+   		e.preventDefault();
 
-
-         $('#delandpur_final_price').html(delandpurFprice1).prop('disabled','true');
+   		// 사용할 적립금 입력
+        var pointInput_re = $('#point_input').val();
+        var pointDiscount_re = parseInt(pointInput_re);
+        var delandpurFprice_re = $('#delandpur_final_price').html();
+        var delandpurFprice1_re = parseInt(delandpurFprice_re) + pointDiscount_re;
+        
+		// 사용자가 보유한 포인트
+        var userPoint_re = $('#user_point').html();
+        var userPointSub_re = userPoint_re.substring(0, userPoint_re.length-1);
+        console.log(userPointSub_re);
+       	var userPointPar_re = parseInt(userPointSub_re);
+        var userPointReset = userPointPar_re + pointDiscount_re;
+        count_reset++
+        
+        if(count_reset > 1){
+        	count_reset = 0;
+        	return false;
+        }
+        
+        $('#user_point').html(userPointReset + "p");
+		 $('#point_input').val("0").prop("readonly", false);
+        $('#delandpur_final_price').html(delandpurFprice1_re);
+        $('#final_total_price').val(delandpurFprice1_re)
+   		
+   	
     });
 
      //나의 세부 정보 수정 클릭 시
@@ -750,6 +848,7 @@ $(document).ready(function() {
     		 }
     	 }
     });
+});
 
 
 

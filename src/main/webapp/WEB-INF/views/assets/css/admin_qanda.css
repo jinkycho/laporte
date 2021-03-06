@@ -13,18 +13,24 @@ td {
   vertical-align: middle;
   margin-bottom: 25px;
 }
-.product_table #product_list td {
+.qanda_table #qanda_list td {
   vertical-align: middle;
 }
-.product_table_color {
+
+#qanda_list .file_size{
+	display: block;
+	width: 20%;
+	margin: auto;
+}
+.qanda_table_color {
   background-color: #717b86;
   color: #fff;
   font-weight: bold;
 }
-.product_table_color th {
+.qanda_table_color th {
   text-align: center;
 }
-.product_table {
+.qanda_table {
   text-align: center;
   margin-top: 10px;
 }
@@ -68,11 +74,11 @@ select#child {
   margin: auto;
   width: fit-content;
 }
-.product_img {
+/* .product_img {
   width: 50px;
 }
 
-/*--------------------------------*/
+--------------------------------
 .point_date {
   max-width: 150px;
   display: inline-block;
@@ -101,7 +107,7 @@ select#child {
 }
 .review_text {
   min-width: 300px;
-}
+} */
 
 #qanda_notes {
   width: 70%;

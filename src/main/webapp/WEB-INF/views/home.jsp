@@ -361,7 +361,7 @@
 
 	    		<!-- 홈 퍼니싱 -->
 	    		<div class="home_content">
-	    			<h4>홈퍼니싱 아이디어 더 보기</h4>
+	    			<h4>홈퍼니싱 아이디어</h4>
 	    			<div class="idea_btn_box">
 	                    <!-- 탭 버튼 구성 -->
 	    				<ul class="nav nav-pills" id="mytab">

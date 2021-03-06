@@ -156,7 +156,7 @@ public class UserRestController {
 			uc_input.setCouponno(40001);
 
 			//회원가입 쿠폰 조회
-			userscouponService.addUsersCoupon(uc_input);
+			userscouponService.addJoinCoupon(uc_input);
 			uc_output = userscouponService.getUsersCoupon(uc_input);
 
 		}catch(Exception e) {
