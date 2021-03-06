@@ -49,33 +49,40 @@ public class DeliveryRestController {
         return "/02_mypage/order_view";
     }
     
-	/** 상세 페이지 */
-    @RequestMapping(value = "/02_mypage/order_view/{orderno}", method = RequestMethod.GET)
-    public Map<String, Object> get_item(@PathVariable("orderno") int orderno) {
-
-        /** 1) 데이터 조회하기 */
-        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
-        Orderlist input = new Orderlist();
-        input.setOrderno(orderno);
-
-        // 조회결과를 저장할 객체 선언
-        Orderlist output = null;
-
-        try {
-            // 데이터 조회
-            output = orderlistService.getOrderItem(input);
-        } catch (Exception e) {
-            return webHelper.getJsonError(e.getLocalizedMessage());
-        }
-        
-        /** 2) JSON 출력하기 */
-        Map<String, Object> data = new HashMap<String, Object>();
-        data.put("item", output);
-        
-        return webHelper.getJsonData(data);
+	/** 사용자 - 취소 수정 */
+    @RequestMapping(value="/02_mypage/order", method = RequestMethod.PUT)
+    public Map<String, Object> orderPut(
+    		@RequestParam(value="orderno", defaultValue="0") int orderno,
+    		@RequestParam(value="orderstatus", defaultValue="") String orderstatus,
+    		@RequestParam(value="ccstatus", defaultValue="") String ccstatus) {
+    	
+    	/** 1) 데이터 수정하기 */
+    	// 수정할 값들을 Beans에 담는다.
+    	Orderlist input = new Orderlist();
+    	input.setOrderno(orderno);
+    	input.setOrderstatus(orderstatus);
+    	input.setCcstatus(ccstatus);
+    	
+    	// 수정된 결과를 조회하기 위한 객체
+    	List<Orderlist> output = null;
+    	
+		try {
+    		// 데이터 수정
+    		orderlistService.updateOrderCClist(input);
+    		// 수정 결과 조회
+    		input.setOrderno(orderno);
+    		output = orderlistService.getOrderList(input);
+    	} catch (Exception e) {
+    		return webHelper.getJsonError(e.getLocalizedMessage());
+    	}
+    	
+    	/** 3) 결과를 확인하기 위한 JSON 출력 */
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("item", output);
+    	return webHelper.getJsonData(map);
     }
 	
-    /** 저장 */
+    /** 관리자 - 배송 데이터 저장 */
 	@RequestMapping(value = "/11_admin/admin_delivery", method = RequestMethod.POST)
     public Map<String, Object> post(
             @RequestParam(value="deliverydate", defaultValue="") String deliverydate,
@@ -119,7 +126,7 @@ public class DeliveryRestController {
         return webHelper.getJsonData(map);
     }
 	
-	/** 주문 및 배송 수정 */
+	/** 관리자 - 주문 및 배송 수정 */
     @RequestMapping(value="/11_admin/admin_delivery", method = RequestMethod.PUT)
     public Map<String, Object> put(
     		@RequestParam(value="orderno", defaultValue="0") int orderno,
@@ -177,18 +184,19 @@ public class DeliveryRestController {
     	return webHelper.getJsonData(map);
     }
     
-    /** 취소 수정 */
+    /** 관리자 - 취소 수정 */
     @RequestMapping(value="/11_admin/admin_cancel", method = RequestMethod.PUT)
     public Map<String, Object> cancelPut(
     		@RequestParam(value="orderno", defaultValue="0") int orderno,
+    		@RequestParam(value="orderstatus", defaultValue="") String orderstatus,
     		@RequestParam(value="ccstatus", defaultValue="") String ccstatus) {
     	
     	/** 1) 데이터 수정하기 */
     	// 수정할 값들을 Beans에 담는다.
     	Orderlist input = new Orderlist();
     	input.setOrderno(orderno);
+    	input.setOrderstatus(orderstatus);
     	input.setCcstatus(ccstatus);
-    	    	
     	
     	// 수정된 결과를 조회하기 위한 객체
     	List<Orderlist> output = null;

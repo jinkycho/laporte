@@ -51,15 +51,18 @@ input[type="radio"] {
   width: 80%;
   border-right: 1px solid #bbbbbb;
 }
+#order_name {
+	margin:15px;
+}
 #search_submit {
-  display: block;
   width: 200px;
   height: 40px;
   color: #fff;
-  margin: 10px auto;
+  margin: 10px;
   text-align: center;
   border-radius: 5px;
   font-size: 14px;
+  float:right;
 }
 .table_color {
   background-color: #717b86;

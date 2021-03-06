@@ -53,6 +53,26 @@ public class DeliveryServiceImpl implements DeliveryService {
 	}
 	
 	/**
+	 * 배송 데이터 유무 조회
+	 * @param Delivery 조회할 배송의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	@Override
+	public int getDeliveryItemCount(Delivery input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.selectOne("DeliveryMapper.selectDeliveryItemCount", input);
+			
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	/**
      * 배송 데이터 목록 조회
      * @return 조회 결과에 대한 컬렉션
      * @throws Exception
@@ -172,6 +192,5 @@ public class DeliveryServiceImpl implements DeliveryService {
         return result;
     }
 
-	
 }
 

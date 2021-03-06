@@ -64,16 +64,15 @@ public class OrderlistServiceImpl implements OrderlistService {
 					throw new Exception("데이터 조회에 실패했습니다.");
 				}
 				return result;
-
 	}
 	
-	/** 주문 상세 조회 */
+	/** 사용자 - 주문 상세 조회 */
 	@Override
-	public Orderlist getOrderItem(Orderlist input) throws Exception {
-		Orderlist result = null;
+	public List<Orderlist> getOrderItem(Orderlist input) throws Exception {
+		List<Orderlist> result = null;
 		
 		try {
-			result = sqlSession.selectOne("OrderlistMapper.selectOrderItem", input);
+			result = sqlSession.selectList("OrderlistMapper.selectOrderItem", input);
 			
 			if (result == null) {
 				throw new NullPointerException("result=null");
@@ -95,6 +94,27 @@ public class OrderlistServiceImpl implements OrderlistService {
 
         try {
             result = sqlSession.selectList("OrderlistMapper.selectOrderList", input);
+
+            if (result == null) {
+                throw new NullPointerException("result=null");
+            }
+        } catch (NullPointerException e) {
+            log.error(e.getLocalizedMessage());
+            throw new Exception("조회된 데이터가 없습니다.");
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
+            throw new Exception("데이터 조회에 실패했습니다.");
+        }
+        return result;
+	}
+	
+	/** 관리자 - 주문관리 조회 */
+	@Override
+	public List<Orderlist> getOrderAllList(Orderlist input) throws Exception {
+		List<Orderlist> result = null;
+
+        try {
+            result = sqlSession.selectList("OrderlistMapper.selectOrderAllList", input);
 
             if (result == null) {
                 throw new NullPointerException("result=null");
@@ -131,28 +151,6 @@ public class OrderlistServiceImpl implements OrderlistService {
 	        }
 	        return result;
 	}
-	
-	/** 사용자 - 주문 목록 조회 
-	@Override
-	public List<Orderlist> getOrderUserList(Orderlist input) throws Exception {
-		List<Orderlist> result = null;
-
-        try {
-            result = sqlSession.selectList("OrderlistMapper.selectOrderUserList", input);
-
-            if (result == null) {
-                throw new NullPointerException("result=null");
-            }
-        } catch (NullPointerException e) {
-            log.error(e.getLocalizedMessage());
-            throw new Exception("조회된 데이터가 없습니다.");
-        } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
-            throw new Exception("데이터 조회에 실패했습니다.");
-        }
-        return result;
-	} */
-
 	
 	/** 주문 갯수 */
 	@Override
@@ -211,5 +209,19 @@ public class OrderlistServiceImpl implements OrderlistService {
 		return result;
 	}
 
+	/** 단일행 조회 */
+	@Override
+	public Orderlist getOrderDeliveryItem(Orderlist input) throws Exception {
+		Orderlist result = null;
+
+		try {
+			result = sqlSession.selectOne("OrderlistMapper.getOrderDeliveryItem", input);
+			
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
 
 }

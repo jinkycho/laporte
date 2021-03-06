@@ -218,7 +218,10 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.orderstatus=='CC'}">
 				                                                <tr>
-				                                                	<td><input type='checkbox' class="check" name='chkcc[]' value="${item.orderno }"></td>
+				                                                	<td>
+				                                                		<input type='checkbox' class="check" name='chkcc[]' value="${item.orderno }">
+				                                                		<input type='hidden' value="${item.orderstatus }" >
+				                                                	</td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
@@ -336,7 +339,10 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.orderstatus=='CH' && item.paystatus=='Y'}">
 				                                                <tr>
-				                                                	<td><input type='checkbox' class="check" name='chkch[]' value="${item.orderno }"></td>
+				                                                	<td>
+				                                                		<input type='checkbox' class="check" name='chkch[]' value="${item.orderno }">
+				                                                		<input type='hidden' value="${item.orderstatus }" >
+				                                                	</td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
@@ -434,7 +440,10 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.orderstatus=='RT' && item.paystatus=='Y'}">
 				                                                <tr>
-				                                                	<td><input type='checkbox' class="check" name='chkrt[]' value="${item.orderno }"></td>
+				                                                	<td>
+				                                                		<input type='checkbox' class="check" name='chkrt[]' value="${item.orderno }">
+				                                                		<input type='hidden' value="${item.orderstatus }" >
+		                                                			</td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
@@ -534,7 +543,10 @@
 								                    	<c:forEach var="item" items="${output }" varStatus="status">
 								                    		<c:if test="${item.orderstatus=='RF' && item.paystatus=='Y'}">
 				                                                <tr>
-				                                                	<td><input type='checkbox' class="check" name='chkrf[]' value="${item.orderno }"></td>
+				                                                	<td>
+				                                                		<input type='checkbox' class="check" name='chkrf[]' value="${item.orderno }">
+				                                                		<input type='hidden' value="${item.orderstatus }" >
+				                                                	</td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
 				                                                    	<fmt:parseDate value="${item.ccdate}" var="ccdate" pattern="yyyy-MM-dd" />
@@ -558,7 +570,7 @@
 				                                                    			<fmt:formatNumber pattern="###,###,###" value='${item.discount }'/> %
 				                                                    		</c:when>
 				                                                    		<c:otherwise>
-				                                                    			쿠폰사용 안함
+				                                                    			${item.couponno }번 쿠폰, ${item.c_name }
 				                                                    		</c:otherwise>
 				                                                    	</c:choose>
 				                                                    </td>
@@ -709,19 +721,20 @@
         /* 취소 처리완료 버튼 */
 		$(document).on("click","#cc_complete", function() {
 			
-			var current = null;														// 체크된 요소 담을 객체
-			var count = $("input:checkbox[name='chkcc[]']").length;					// 총 갯수
-			var ckcount = $("input:checkbox[name='chkcc[]']:checked").length;		// 체크된 요소 갯수
+			var current = null;													// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkcc[]']").length;				// 총 갯수
+			var ckcount = $("input:checkbox[name='chkcc[]']:checked").length;	// 체크된 요소 갯수
 
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
 				} else {
-					current = $("input:checkbox[name='chkcc[]']:checked").val();	// 체크된 주문정보
+					current = $("input:checkbox[name='chkcc[]']:checked");		// 체크된 주문정보
 				}
 			}
 			
-			var orderno = current;
+			var orderno = $(current).val();
+			var orderstatus = $(current).next().val();
 			var ccstatus = "C";
 			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
 				return false;
@@ -730,6 +743,7 @@
 			// put 메서드로 ajax 요청
 			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
 				"orderno":orderno,
+				"orderstatus":orderstatus,
 				"ccstatus":ccstatus
 			}, function(json) {
 				if(json.rt == "OK") {
@@ -751,11 +765,12 @@
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
 				} else {
-					current = $("input:checkbox[name='chkch[]']:checked").val();	// 체크된 주문정보
+					current = $("input:checkbox[name='chkch[]']:checked");	// 체크된 주문정보
 				}
 			}
 			
-			var orderno = current;
+			var orderno = $(current).val();
+			var orderstatus = $(current).next().val();
 			var ccstatus = "C";
 			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
 				return false;
@@ -764,6 +779,7 @@
 			// put 메서드로 ajax 요청
 			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
 				"orderno":orderno,
+				"orderstatus":orderstatus,
 				"ccstatus":ccstatus
 			}, function(json) {
 				if(json.rt == "OK") {
@@ -785,11 +801,12 @@
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
 				} else {
-					current = $("input:checkbox[name='chkrt[]']:checked").val();	// 체크된 주문정보
+					current = $("input:checkbox[name='chkrt[]']:checked");	// 체크된 주문정보
 				}
 			}
 			
-			var orderno = current;
+			var orderno = $(current).val();
+			var orderstatus = $(current).next().val();
 			var ccstatus = "C";
 			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
 				return false;
@@ -798,6 +815,7 @@
 			// put 메서드로 ajax 요청
 			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
 				"orderno":orderno,
+				"orderstatus":orderstatus,
 				"ccstatus":ccstatus
 			}, function(json) {
 				if(json.rt == "OK") {
@@ -819,11 +837,12 @@
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
 				} else {
-					current = $("input:checkbox[name='chkrf[]']:checked").val();	// 체크된 주문정보
+					current = $("input:checkbox[name='chkrf[]']:checked");	// 체크된 주문정보
 				}
 			}
 			
-			var orderno = current;
+			var orderno = $(current).val();
+			var orderstatus = $(current).next().val();
 			var ccstatus = "C";
 			if (!confirm("해당 주문은 처리완료 상태가 됩니다.")) {
 				return false;
@@ -832,6 +851,7 @@
 			// put 메서드로 ajax 요청
 			$.put("${pageContext.request.contextPath}/11_admin/admin_cancel", {
 				"orderno":orderno,
+				"orderstatus":orderstatus,
 				"ccstatus":ccstatus
 			}, function(json) {
 				if(json.rt == "OK") {

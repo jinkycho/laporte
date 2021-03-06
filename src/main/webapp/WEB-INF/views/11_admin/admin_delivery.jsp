@@ -253,12 +253,13 @@
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
-								                    	<c:forEach var="item" items="${orderlistOutput }" varStatus="status">
-								                    		<c:if test="${item.orderstatus=='N' && (output[status.index].deliverystatus==null || output[status.index].deliverystatus=='N')}">
-				                                                <tr>
-				                                                    <td>
+							                    		<c:forEach var="item" items="${output }" varStatus="status">
+							                    			<c:if test="${item.orderstatus=='N' && (deliveryOutput[status.index].deliverystatus=='N' || deliveryOutput[status.index].deliverystatus==null) }">
+								                    			<tr>
+								                    				<td>
 				                                                    	<input type='checkbox' class="check" name='chkn[]' value="${item.orderno }">
 				                                                    	<input type='hidden' value="${item.userno }">
+				                                                    	<input type='hidden' class="paystatus" value="${item.paystatus }">
 			                                                    	</td>
 				                                                    <td>${item.orderno }</td>
 				                                                    <td>
@@ -293,7 +294,7 @@
 				                                                    		실시간계좌이체
 				                                                    	</c:if>
 				                                                    </td>
-				                                                    <td data-paystatus="${item.paystatus }">
+				                                                    <td>
 				                                                    	<c:if test="${item.paystatus=='N' }">
 				                                                    		결제전
 				                                                    	</c:if>
@@ -314,8 +315,8 @@
 			                                                        	</c:otherwise>
 			                                                        	</c:choose>
 				                                                    </td>
-				                                                </tr>
-			                                                </c:if>
+			                                                	</tr>
+		                                                	</c:if>
 		                                                </c:forEach>
 	                                                </c:otherwise>
                                                 </c:choose>
@@ -369,7 +370,7 @@
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
-								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    	<c:forEach var="item" items="${deliveryOutput }" varStatus="status">
 								                    		<c:if test="${item.deliverystatus=='R' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chkr[]' value="${item.deliveryno }"></td>
@@ -389,7 +390,7 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>${orderlistOutput[status.index].pname }</td>
+				                                                    <td>${item.pname }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -460,7 +461,7 @@
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
-								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    	<c:forEach var="item" items="${deliveryOutput }" varStatus="status">
 								                    		<c:if test="${item.deliverystatus=='S' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chks[]' value="${item.deliveryno }"></td>
@@ -480,7 +481,7 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>${orderlistOutput[status.index].pname }</td>
+				                                                    <td>${item.pname }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -551,7 +552,7 @@
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
-								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    	<c:forEach var="item" items="${deliveryOutput }" varStatus="status">
 								                    		<c:if test="${item.deliverystatus=='D' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chkd[]' value="${item.deliveryno }"></td>
@@ -571,7 +572,7 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>${orderlistOutput[status.index].pname }</td>
+				                                                    <td>${item.pname }</td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
 				                                                    </td>
@@ -642,7 +643,7 @@
 									                    </tr>
 								                    </c:when>
 								                    <c:otherwise>
-								                    	<c:forEach var="item" items="${output }" varStatus="status">
+								                    	<c:forEach var="item" items="${deliveryOutput }" varStatus="status">
 								                    		<c:if test="${item.deliverystatus=='C' && item.paystatus=='Y' && item.orderstatus=='N'}">
 				                                                <tr>
 				                                                    <td><input type='checkbox' class="check" name='chkc[]' value="${item.deliveryno }"></td>
@@ -662,7 +663,7 @@
 				                                                    	<fmt:formatDate value="${deldate }" pattern="yyyy-MM-dd" />
 			                                                    	</td>
 				                                                    <td>${item.trackingnum }</td>
-				                                                    <td>${orderlistOutput[status.index].pname }
+				                                                    <td>${item.pname }
 				                                                    </td>
 				                                                    <td>
 				                                                    	&#8361; <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
@@ -878,8 +879,8 @@
 				}
 			}
 			
-			// var paystatus = current.parent().eq(10).data();
 			var orderno = current;
+			var paystatus = $(this).parent().find(".paystatus").val();
 			var orderstatus = "CC";
 			var ccstatus = "I";
 			if (!confirm("해당 주문건은 관리자에 의해 취소 됩니다.")) {
@@ -889,6 +890,7 @@
 			// put 메서드로 ajax 요청
 			$.put("${pageContext.request.contextPath}/11_admin/admin_delivery", {
 				"orderno":orderno,
+				"paystatus":paystatus,
 				"orderstatus":orderstatus,
 				"ccstatus":ccstatus
 			}, function(json) {

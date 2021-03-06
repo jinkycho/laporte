@@ -150,7 +150,7 @@ select#child {
 .user_memo {
   display: none;
   position: absolute;
-  right: 190px;
+  right: -10px;
   width: 150px;
   padding: 8px;
   background: #717b86;

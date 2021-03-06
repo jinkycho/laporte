@@ -30,9 +30,17 @@ public class Delivery {
 	private int totalprice;					// 총 결제 금액
 	private String orderstatus;				// 주문 상태 ( 주문 N, 취소 CC, 교환 CH, 반품 RT, 환불 RF )
 	private String paystatus;				// 결제 상태 ( 결제완료 Y, 결제전 N )
+	private int point;
+	private String ccdate;
+	private String ccstatus;
 
 	// product table
+	private String prodno;					// 상품 번호
 	private String pname;					// 상품 이름
+	private int ea;							// 상품 수량
+	private int price;						// 상품 수량
+	private String size;					// 상품 사이즈
+	private String color;					// 상품 색상
 	
 	// deltype table
 	private int deltypeno;					// 배송 유형번호
@@ -41,6 +49,7 @@ public class Delivery {
 	
 	// coupon table
 	private String usrcouponno;				// 쿠폰 번호
+	private String couponno;				// 쿠폰 번호
 	private String cname;					// 쿠폰 이름
 	private int discount;					// 할인율
 	private String distype;					// 할인 유형 ( %, - )

@@ -71,13 +71,6 @@
   margin-top: 30px;
   padding: 0 20px;
 }
-.order_link01,
-.order_link01:hover,
-.order_link02,
-.order_link02:hover {
-  text-decoration: underline;
-  font-size: 14px;
-}
 .order_blank {
   margin: 20px 0 40px 0;
 }
@@ -134,7 +127,7 @@
 }
 .order_delivery_product {
   position: absolute;
-  top: 47px;
+  top: 5px;
   right: 0;
   font-size: 18px;
 }
@@ -178,14 +171,96 @@
 }
 .order_over_layer {
   position: fixed;
-  top: 13%;
-  left: 2%;
+  top: 20%;
+  left: 5%;
   display: none;
-  width: 96%;
+  width: 90%;
   min-height: 400px;
   z-index: 8000;
   background-color: #fff;
 }
+
+.back {
+  display: block;
+  width: 23px;
+  height: 23px;
+  background-image: url(../img/laporte_clipping.png);
+  bacground-repeat: no-repeat;
+  background-size: 640px 360px;
+  background-position: -118px -278px;
+  margin: 10px;
+  text-indent: -10000px;
+}
+.cancel_icon {
+  display: block;
+  width: 25px;
+  height: 27px;
+  background-image: url(../img/laporte_clipping.png);
+  background-size: 640px 360px;
+  background-position: -520px -69px;
+  margin: auto;
+}
+.cancel_title h4, .cancel_title p {
+  margin: auto;
+  width: fit-content;
+  height: 40px;
+  line-height: 40px;
+}
+.form-control {
+	margin:auto;
+	width:85%;
+}
+.cancel_btn {
+  width: 85%;
+  background: #172f50;
+  border: none;
+  padding: 11px 0;
+  border-radius: 25px;
+  margin: auto;
+  display: block;
+  font-size: 16px;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #33598c;
+  border: none;
+}
+.back_box {
+  width: 100%;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: 34px;
+  background: #f1f1f1;
+  margin: auto;
+  cursor: pointer;
+}
+.back_box:hover {
+  background-color: #dedede;
+}
+.form-control {
+  margin-bottom: 20px;
+  height: 45px;
+}
+.form-horizontal {
+  margin-bottom: 10px;
+}
+a.back_link {
+  display: block;
+  margin: auto;
+  width: fit-content;
+  font-weight: normal;
+}
+.back {
+  cursor: pointer;
+}
+.btn_box {
+  margin-bottom: 10px;
+}
+
+
+
+
+
 table {
   width: 100%;
 }

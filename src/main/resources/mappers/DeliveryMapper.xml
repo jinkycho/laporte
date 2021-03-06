@@ -20,7 +20,12 @@
         
         <result property="uname" column="uname" />
         
+        <result property="prodno" column="prodno" />
         <result property="pname" column="pname" />
+        <result property="ea" column="ea" />
+        <result property="price" column="price" />
+        <result property="size" column="size" />
+        <result property="color" column="color" />
         
         <result property="addr1" column="addr1" />
         <result property="addr2" column="addr2" />
@@ -34,12 +39,16 @@
         <result property="totalprice" column="totalprice" />
         <result property="orderstatus" column="orderstatus" />
         <result property="paystatus" column="paystatus" />
+        <result property="point" column="point" />
+        <result property="ccdate" column="ccdate" />
+        <result property="ccstatus" column="ccstatus" />
         
         <result property="deltypeno" column="deltypeno" />
         <result property="dname" column="dname" />
         <result property="dprice" column="dprice" />
         
         <result property="usrcouponno" column="usrcouponno" />
+        <result property="couponno" column="couponno" />
         <result property="cname" column="cname" />
         <result property="discount" column="discount" />
         <result property="distype" column="distype" />
@@ -57,18 +66,29 @@
         INNER JOIN order o ON o.orderno = d.orderno
         WHERE d.deliveryno = #{deliveryno}
     </select>
+    
+    <!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectDeliveryItemCount"
+        parameterType="com.project.laporte.model.Delivery"
+        resultMap="deliveryMap">
+        SELECT * FROM delivery
+        WHERE orderno = #{orderno}
+    </select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
     <select id="selectDeliveryList"
         parameterType="com.project.laporte.model.Delivery"
         resultMap="deliveryMap">
-        SELECT d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum, d.userno, d.orderno,
-        	o.addr1, o.addr2, o.name AS 'oname', o.email, o.phoneno, o.servicetype, o.regdate,
-        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus
+        SELECT o.orderno, o.addr1, o.addr2, o.name AS `oname`, o.email, o.phoneno, o.servicetype, o.editdate, o.ccdate,
+        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate, o.ccstatus,
+        	p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color, 
+        	d.deliveryno, d.deliverydate, d.deliverystatus, d.trackingnum, d.userno
         FROM delivery d
         INNER JOIN user u ON u.userno = d.userno
         INNER JOIN orderlist o ON o.orderno = d.orderno
-        ORDER BY d.deliveryno
+        INNER JOIN order_prod op ON op.orderno = o.orderno
+        INNER JOIN product p ON p.prodno = op.prodno
+        ORDER BY o.orderno
     </select>
     
     <!-- 배송정보 저장을 위한 기능 정의 -->

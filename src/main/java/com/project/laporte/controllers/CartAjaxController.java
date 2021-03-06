@@ -52,15 +52,15 @@ public class CartAjaxController {
     @RequestMapping(value = "/06_cart/cart.do", method = RequestMethod.GET)
     public ModelAndView list(Model model, HttpServletRequest request,
             @RequestParam(value="userno", defaultValue="0") int userno) {
-        
-        /** 1) 데이터 조회하기 */
+
+    	/** 1) 데이터 조회하기 */
         // 조회에 필요한 조건값를 Beans에 담는다.
         Cart input = new Cart();
         
         List<Cart> output = null;   // 조회결과가 저장될 객체
-
+        
         try {
-        	if(userno == 0) {       		
+        	if(userno == 0) {
         		input.setUserno(userno);
         		output = cartService.getCartList(input);
         		
@@ -68,9 +68,11 @@ public class CartAjaxController {
         	} else { 
         		HttpSession session = request.getSession();
         		userno = (int) session.getAttribute("my_session");
+        		
         		input.setUserno(userno);
         		output = cartService.getCartList(input);
     		}
+        	
         } catch (Exception e) {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }

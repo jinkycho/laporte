@@ -33,34 +33,7 @@
 	<body>
 		<%@ include file="../01_home/header.jsp" %>
 		<section>
-			<!-- 검색 -->
-	        <div class="hd_searchbox">
-	            <div class="hd_search">
-	                <input id="search_text" type="text" placeholder="검색어 입력">
-	                    <span id="hd_search_icon"></span>
-	            </div>
-	            <div class="sc_gray_layer" id="hd_search_background"></div>
-	       			<div class="sc_over_layer" id="hd_search_front">
-	       				<div id="modal_search_box_container">
-	       					<form>
-	       						<input id="modal_search_text" type="text" placeholder="검색어 입력">
-	       						<span id="search_close_icon"></span>
-	       						<input type="reset" id="search_remove_icon">
-	       						<input type="submit" id="search_enter_icon">
-	       					</form>
-	       					<div id="search_result" >
-	       						<h4>추천 검색어</h4>
-	       						<a href="${pageContext.request.contextPath}/03_detail/allproduct1.do"><span class="rec_reyword"></span>가구</a>
-								<a href="${pageContext.request.contextPath}/03_detail/allproduct3.do"><span class="rec_reyword"></span>침대</a>
-								<a href="${pageContext.request.contextPath}/03_detail/allproduct5.do"><span class="rec_reyword"></span>주방</a>
-								<a href="${pageContext.request.contextPath}/03_detail/allproduct2.do"><span class="rec_reyword"></span>소파</a>
-								<a href="${pageContext.request.contextPath}/03_detail/allproduct4.do"><span class="rec_reyword"></span>수납</a>
-								<a href="${pageContext.request.contextPath}/03_detail/allproduct6.do"><span class="rec_reyword"></span>조명</a>
-	       					</div>
-	       				</div>
-	       			</div>
-	        </div>
-	        <!-- 검색 끝 -->
+			<%@ include file="../01_home/search.jsp"%>
 	        
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
@@ -101,7 +74,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="cart_count">
+									<div class="cart_count" data-cartno="${item.cartno }">
 										<select class="cart_productcount" name="ea">
 						      				<optgroup label="수량">
 						        				<c:forEach begin="1" end="10" var="i">
@@ -109,7 +82,6 @@
 		                    					</c:forEach>	
 						      				</optgroup>
 						       			</select>
-							       		<a href="#" class="cart_edit" data-cartno="${item.cartno }">변경</a>
 										<a href="#" class="cart_delete" data-cartno="${item.cartno }">삭제</a>
 									</div>
 									<c:set var="sum" value="${sum + (item.price * item.ea)}" />
@@ -374,7 +346,6 @@
 					// 미리 정의해둔 (,) 찍는 함수에 대입
 					sum = addComma(sum);
 					
-					console.log(addComma);
 					$(".cart_totalprice").html("&#8361; " + sum);
 				});
 			
@@ -419,12 +390,12 @@
 			});
 			
 			/* 수정 버튼 */
-			$(document).on("click",".cart_edit", function(e) {
+			$(document).on("change",".cart_productcount", function(e) {
 				e.preventDefault();
 				
-				var current = $(this);					// 이벤트가 발생한 버튼
-				var cartno = current.data('cartno');	// data-cartno 값을 가져옴
-				var ea = current.parent().find("select[name=ea]").val();	// 드롭다운 선택 값 가져옴
+				var current = $(this);										// 이벤트가 발생한 버튼
+				var cartno = current.parents(".cart_count").data('cartno');	// data-cartno 값을 가져옴
+				var ea = current.val();										// 드롭다운 선택 값 가져옴
 				if (!confirm("정말 수정하시겠습니까?")) {
 					return false;
 				}

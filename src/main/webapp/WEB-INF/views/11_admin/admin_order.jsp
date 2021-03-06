@@ -154,70 +154,15 @@
                                         <div class="search_box">
                                             <table class="search_table">
                                                 <tr>
-                                                    <td class="search_title">검색어</td>
+                                                    <td class="search_title">주문자이름</td>
                                                     <td class="search_data">
-                                                        <select>
-                                                            <optgroup label="-검색항목선택-"></optgroup>
-                                                            <option>주문번호</option>
-                                                            <option>운송장번호</option>
-                                                            <option>주문자명</option>
-                                                            <option>주문자연락처</option>
-                                                        </select>
-                                                        <input id="order_name" type="text">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">기간</td>
-                                                    <td class="search_data">
-                                                        <input type="date" class="order_date"> ~
-                                                        <input type="date" class="order_date">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">제품</td>
-                                                    <td class="search_data">
-                                                        <select>
-                                                            <option>제품명</option>
-                                                            <option>제품번호</option>
-                                                        </select>
-                                                        <input type="text" id="order_product">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">배송상태</td>
-                                                    <td class="search_data">
-                                                        <input type="checkbox" class="order_allcheck"><span> 전체</span>
-                                                        <input type="checkbox" class="order_check"><span> 배송준비중</span>
-                                                        <input type="checkbox" class="order_check"><span> 배송대기</span>
-                                                        <input type="checkbox" class="order_check"><span> 배송중</span>
-                                                        <input type="checkbox" class="order_check"><span> 배송완료</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">주문상태</td>
-                                                    <td class="search_data">
-                                                        <input type="checkbox" class="csorder_allcheck"><span> 전체</span>
-                                                        <input type="checkbox" class="csorder_check"><span> 주문</span>
-                                                        <input type="checkbox" class="csorder_check"><span> 취소</span>
-                                                        <input type="checkbox" class="csorder_check"><span> 교환</span>
-                                                        <input type="checkbox" class="csorder_check"><span> 반품</span>
-                                                        <input type="checkbox" class="csorder_check"><span> 환불</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="search_title">결제상태</td>
-                                                    <td class="search_data">
-                                                        <input type="radio" name="select_pay"><span> 전체</span>
-                                                        <input type="radio" name="select_pay"><span> 결제전</span>
-                                                        <input type="radio" name="select_pay"><span> 결제완료</span>
+                                                    	<form method="get" action="${pageContext.request.contextPath}/11_admin/admin_order.do">
+	                                                        <input id="order_name" type="search" name="keyword" id="keyword" value="${keyword}">
+				                                            <button type="submit" class="btn btn-primary" id="search_submit">검색</button>
+			                                            </form>
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <%-- <form method="get" action="${pageContext.request.contextPath}/11_admin/admin_order.do">
-										        <label for="keyword">검색어: </label>
-										        <input type="search" name="keyword" id="keyword" placeholder="주문자 검색" value="${keyword}" /> --%>
-                                            <button type="submit" class="btn btn-primary" id="search_submit">검색</button>
-										    <!-- </form> -->
                                         </div>
                                     </div>
                                 </div>
@@ -254,16 +199,6 @@
 								                    </c:when>
 								                    <c:otherwise>
 	                                            		<c:forEach var="item" items="${output }" varStatus="status">
-	                                            		<%-- 출력을 위해 준비한 교수이름 변수 --%>
-									                        <c:set var="name" value="${item.name}" />
-									                        
-									                        <%-- 검색어가 있다면? --%>
-									                        <c:if test="${keyword != ''}">
-									                            <%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
-									                            <c:set var="mark" value="<mark>${keyword}</mark>" />
-									                            <%-- 출력을 위해 준비한 교수이름에서 검색어와 일치하는 단어를 형광팬 효과로 변경 --%>
-									                            <c:set var="name" value="${fn:replace(name, keyword, mark)}" />
-									                        </c:if>
 			                                                <tr>
 			                                                    <td>${item.orderno }</td>
 			                                                    <td>
@@ -391,18 +326,18 @@
                                                 	<%-- 이동할 URL 생성 --%>
                                                 	<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="pageUrl">
 											            <c:param name="page" value="${i}" />
-											            <%-- <c:param name="keyword" value="${keyword}" /> --%>
+											            <c:param name="keyword" value="${keyword}" />
 											        </c:url>
 											        
 											        <%-- 페이지 번호 출력 --%>
         											<c:choose>
         												<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
             											<c:when test="${pageData.nowPage == i}">
-                                                			<li class="page-item"><a class="page-link" href="#">${i }</a></li>
+                                                			<li class="page-item"><a class="page-link" href="#">${i}</a></li>
                                                			</c:when>
                                                			<%-- 나머지 페이지의 경우 링크 적용함 --%>
 											            <c:otherwise>
-											                <li class="page-item"><a class="page-link" href="${pageUrl}">${i }</a></li>
+											                <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
 										            	</c:otherwise>
 										            </c:choose>
                                                 </c:forEach>
@@ -414,7 +349,7 @@
 														<%-- 이동할 URL 생성 --%>
 														<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="nextPageUrl">
 															<c:param name="page" value="${pageData.nextPage}" />
-															<%-- <c:param name="keyword" value="${keyword }" /> --%>
+															<c:param name="keyword" value="${keyword }" />
 														</c:url>
                                          					<li class="page-item"><a class="page-link" href="${pageData.nextPage}">&raquo;</a></li>
                                           	    	</c:when>

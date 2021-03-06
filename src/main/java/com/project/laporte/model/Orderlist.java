@@ -50,6 +50,9 @@ public class Orderlist {
 	private String size;
 	private String color;
 	
+	//5) firstimg 테이블과 조인
+	private String thumbnailUrl;
+	
 	// 5) 페이지 구현을 위한 static 변수
 	/** LIMIT 절에서 사용할 조회 시작 위치 */
 	private static int offset;
