@@ -63,7 +63,17 @@
 	       	<if test='catno2 != 0'>AND p.catno2 = #{catno2}</if>
 	       	<if test="name!=null and name!=''">name LIKE concat('%', #{name}, '%')</if>
         </where>
+          ORDER BY prodno DESC
+        <if test="listCount > 0">
+        	LIMIT #{offset},#{listCount}
+        </if>
     </select>
     
+    <select id="selectCountAll"
+    	parameterType="com.project.laporte.model.Product" resultType="int">
+    	SELECT COUNT(*) FROM product p
+    	INNER JOIN prod_category2 c ON c.catno2=p.catno2
+       	WHERE catno1 = #{catno1}<if test='catno2 != 0'>AND p.catno2 = #{catno2}</if>
+    	</select>
 </mapper>
 

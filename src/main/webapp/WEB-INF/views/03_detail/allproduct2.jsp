@@ -110,6 +110,51 @@
 
 					<!-- 구분선  -->
 				</ul>
+					<c:choose>
+				    <c:when test="${pageData.prevPage > 0}">
+           			 <%-- 이동할 URL 생성 --%>
+            		<c:url value="/03_detail/allproduct2.do?catno1=${input.catno1}&catno2=${input.catno2}" var="prevPageUrl">
+                		<c:param name="page" value="${pageData.prevPage}" />
+           			 </c:url>
+            		<a href="${prevPageUrl}">[이전]</a>
+        			</c:when>
+        			<c:otherwise>
+           			 [이전]
+       				 </c:otherwise>				
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
+					<%-- 이동할 URL 생성 --%>
+       				 <c:url value="/03_detail/allproduct2.do?catno1=${input.catno1}&catno2=${input.catno2}" var="pageUrl">
+            				<c:param name="page" value="${i}" />
+        			</c:url>
+        
+        <%-- 페이지 번호 출력 --%>
+       			 <c:choose>
+            <%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+            		<c:when test="${pageData.nowPage == i}">
+                		<strong>[${i}]</strong>
+           		 </c:when>
+            <%-- 나머지 페이지의 경우 링크 적용함 --%>
+            		<c:otherwise>
+                		<a href="${pageUrl}">[${i}]</a>
+            		</c:otherwise>
+        		</c:choose>
+			</c:forEach>
+			
+			<c:choose>
+        <%-- 다음 그룹으로 이동 가능하다면? --%>
+        <c:when test="${pageData.nextPage > 0}">
+            <%-- 이동할 URL 생성 --%>
+            <c:url value="/03_detail/allproduct2.do?catno1=${input.catno1}&catno2=${input.catno2}" var="nextPageUrl">
+                <c:param name="page" value="${pageData.nextPage}" />
+            </c:url>
+            <a href="${nextPageUrl}">[다음]</a>
+        </c:when>
+        <c:otherwise>
+            [다음]
+        </c:otherwise>
+    </c:choose>
 			</div> <!-- //allproduct_product -->
 			</div>
 			

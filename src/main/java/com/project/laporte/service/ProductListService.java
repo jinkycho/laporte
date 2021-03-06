@@ -20,4 +20,6 @@ public interface ProductListService {
 
 	public List<Firstimg> getFirstimgList(Firstimg input) throws Exception;
 	
+	public int getProductCount(Product input) throws Exception;
+	
 }

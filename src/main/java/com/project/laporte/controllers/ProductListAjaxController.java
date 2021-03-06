@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.laporte.helper.PageData;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Firstimg;
@@ -51,9 +52,14 @@ public class ProductListAjaxController {
             @RequestParam(value="keyword", required=false) String keyword,
             HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="catno2",defaultValue ="0")int catno2,
+			@RequestParam(value="page", defaultValue="1")int nowPage,
 			@CookieValue(value = "my_wish", defaultValue = "0", required = false) int my_wish){ 
 		/** 1) 유효성 검사 */
 		
+		/** 페이지 구현에 필요한 변수값 생성 */
+		int totalCount = 0;		// 전체 게시글 수 
+		int listCount = 6;		// 한 페이지당 표시할 목록 수
+		int pageCount = 5;		// 한 그룹당 표시할 페이지 번호 수
 		// 현재 상품이 위시리스트에 담겨있는지 확인
 				Wish_prod wishValue = new Wish_prod();
 		
@@ -116,13 +122,20 @@ public class ProductListAjaxController {
 		List<Prod_category1> category1 = null;
 		List<Product> output = null;
 		List<Firstimg> fimg = null;
+		PageData pageData = null;
 		
 		try {
 			// 데이터 조회
+			totalCount = productListService.getProductCount(input);
+			
+			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
 			output = productListService.getProductlistList(input);
 			category1 = productService.category(null);
 			category2 = productService.category2(cat2);
 			fimg = productListService.getFirstimgList(null);
+			
+			Product.setOffset(pageData.getOffset());
+			Product.setListCount(pageData.getListCount());
 		}catch(Exception e) { 
 			
 			return webHelper.redirect(null, e.getLocalizedMessage());
@@ -149,6 +162,7 @@ public class ProductListAjaxController {
 		model.addAttribute("wishoutput", wishoutput);
 		model.addAttribute("my_wish", my_wish);
 		model.addAttribute("basicoutput", basicoutput);
+		model.addAttribute("pageData", pageData);
 		
 		return new ModelAndView ("03_detail/allproduct2");
 	}
