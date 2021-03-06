@@ -1,5 +1,6 @@
 package com.project.laporte.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -21,13 +22,18 @@ import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Orderlist;
 import com.project.laporte.model.Outuser;
+import com.project.laporte.model.Product;
 import com.project.laporte.model.Reserve;
 import com.project.laporte.model.User;
 import com.project.laporte.model.Userscoupon;
+import com.project.laporte.model.Wish_prod;
+import com.project.laporte.model.Wishlist;
 import com.project.laporte.service.OrderlistService;
+import com.project.laporte.service.ProductListService;
 import com.project.laporte.service.ReserveService;
 import com.project.laporte.service.UserService;
 import com.project.laporte.service.UserscouponService;
+import com.project.laporte.service.WishlistService;
 
 
 @Controller
@@ -44,24 +50,110 @@ public class UserAjaxController {
 	@Autowired 	UserscouponService userscouponService;
 	@Autowired	ReserveService	reserveService;
 	@Autowired 	OrderlistService orderlistService;
+	@Autowired  WishlistService wishlistService;
+	@Autowired  ProductListService productlistService;
 	
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
 
 	@RequestMapping(value="/home.out", method=RequestMethod.GET)
-    public  ModelAndView home() {	
+    public  ModelAndView home(Model model) {	
         // "/src/main/webapp/WEB-INF/views/home.jsp" 파일을 View로 지정한다.
+		
+		/** 추천제품 */
+		Product input = new Product();
+		List<Product> output = new ArrayList<Product>();
+		
+		try {
+			// 데이터 조회
+			output = productlistService.getProductlistList(input);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("output", output);
 		return new  ModelAndView("/home");
     }
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.GET)
-    public  ModelAndView sessionWrite(Model model, HttpServletRequest request) {
+    public  ModelAndView sessionWrite(Model model, 
+    		HttpServletRequest request, HttpServletResponse response,
+			@CookieValue(value = "my_wish", defaultValue = "0", required = false) int my_wish) {
 		/** 컨트롤러에서 세션을 식별하기 위한 처리 */
 		// 세션값은 request 내장 객체를 통해서 HttpSession 객체를 생성해야 접근할 수 있다.
 		HttpSession session = request.getSession();
 		
 		int mySession = (int) session.getAttribute("my_session");
+		
+		/** 추천제품 */
+		Product input = new Product();
+		List<Product> output = new ArrayList<Product>();
+
+		// 현재 상품이 위시리스트에 담겨있는지 확인
+		Wishlist wishValue = new Wishlist();
+
+// 로그인 여부 확인 -> 로그인 중 일때 - userno!=0 / 로그인 하지 않았을때 - userno ==0
+		int userno = 0;
+		if (session.getAttribute("my_session") != null) {
+			userno = (int) session.getAttribute("my_session");
+		}
+
+//쿠키에 저장되어있는 위시리스트가 내 계정의 위시리스트가 맞는지 확인 -> 아니라면 my_wish 지우기
+		if (my_wish != 0) {
+			Wishlist oldwish = new Wishlist();
+			oldwish.setWishno(my_wish);
+			Wishlist newwish = new Wishlist();
+			try {
+				// 데이터 조회
+				newwish = wishlistService.getWishListOne(oldwish);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (newwish.getUserno() != userno) {
+				Cookie cookiewish = new Cookie("my_wish", "0");
+				cookiewish.setPath("/");
+				cookiewish.setDomain("localhost");
+				cookiewish.setMaxAge(0);
+				response.addCookie(cookiewish);
+				my_wish = 0;
+			}
+		}
+
+		Wishlist basicoutput = new Wishlist();
+		if (my_wish == 0 && userno != 0) { // 로그인은 했으나 쿠키에 위시리스트가 저장되어있지 않을때 기본 위시리스트에 저장
+			// 사용자의 기본위시리스트번호 조회
+			Wishlist basicinput = new Wishlist();
+			basicinput.setUserno(userno);
+
+			try {
+				// 데이터 조회
+				basicoutput = wishlistService.selectBasicWish(basicinput);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			// 데이터 조회
+			output = productlistService.getProductlistList(input);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		wishValue.setWishno(my_wish);
+		List<Wish_prod> wishoutput = new ArrayList<Wish_prod>();
+		try {
+			wishoutput = wishlistService.getWishitemList(wishValue);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		model.addAttribute("userno", userno);
+		model.addAttribute("output", output);
+		model.addAttribute("basicoutput", basicoutput);
+		model.addAttribute("my_wish", my_wish);
+		model.addAttribute("wishoutput", wishoutput);
+
 
 			//추출한 값을 View에게 전달
 		model.addAttribute("my_session", mySession);
