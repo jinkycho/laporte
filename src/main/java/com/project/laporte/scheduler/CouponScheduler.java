@@ -26,7 +26,7 @@ public class CouponScheduler {
 	
 	public void couponExpire() {
 		
-		/** 날짜 파라미터 처리 */
+		/** 오늘 날짜 캘린더로 정의하기 */
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DAY_OF_MONTH, -1);
 		
@@ -45,10 +45,7 @@ public class CouponScheduler {
 				
 				Date today = dateFormat.parse(date);
 				Date couponDate = dateFormat.parse(couponItemDate);
-				
-				System.out.println("오늘날짜:" + today);
-				System.out.println("쿠폰날짜:" + couponDate);
-				
+			
 				if(couponDate.before(today)) {
 					couponService.expireCoupon(couponItem);
 				}

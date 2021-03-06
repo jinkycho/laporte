@@ -88,18 +88,25 @@ public class OrderlistRestController {
 		input.setSizelimit(sizelimit);
 		input.setDeldate(deldate);
 		input.setPoint(point);
-		input.setPaytype(paytype);
 		
-		if(paytype == "C") {
-			input.setPaystatus("Y");
-		}else if(paytype == "M") {
+		System.out.println(paytype);
+		
+		if(paytype == "C" || paytype == "M") {
+			input.setPaytype(paytype);
 			input.setPaystatus("Y");
 		}else {
+			input.setPaytype(paytype);
 			input.setPaystatus("N");
 		}
 		
 		input.setTotalprice(totalprice);
-		input.setUsrcouponno(usrcouponno);
+		
+		if(usrcouponno != 0) {
+			input.setUsrcouponno(usrcouponno);
+		}else {
+			input.setUsrcouponno(0);
+			
+		}
 		input.setUserno(userno);
 		input.setDeltypeno(deltypeno);
 		

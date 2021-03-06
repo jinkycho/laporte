@@ -1,7 +1,7 @@
 package com.project.laporte.controllers;
 
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Coupon;
-import com.project.laporte.model.Orderlist;
 import com.project.laporte.service.CouponService;
 
 @RestController
@@ -186,4 +185,5 @@ public class CouponRestController {
 
         return webHelper.getJsonData(data);
     }
+    
 }

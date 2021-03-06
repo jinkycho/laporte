@@ -68,4 +68,13 @@
 		WHERE usrcouponno = #{usrcouponno}
 	</update>
 	
+	<!-- 중복 쿠폰 보유 여부를 확인 하는 기능 정의 -->
+	<select id = "checkUsersCoupon"
+	parameterType = "com.project.laporte.model.Userscoupon"
+	resultMap="userscouponMap">
+		SELECT usrcouponno
+		FROM userscoupon
+		WHERE couponno = #{couponno} AND userno = #{userno}
+	</select>
+	
 </mapper>

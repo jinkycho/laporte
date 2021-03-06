@@ -106,59 +106,13 @@
 			<div class="event_lists">
 				<div class="event_board_box">
 					<ul class="event_board">
-						<!--이벤트 목록 1개-->
-						<li class="event_board_list"><a href="#" class="event_box">
+						<!--이벤트 목록 1-->
+						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40004&userno=<%out.print(session.getAttribute("my_session")); %>" class="event_box">
 								<div class="event_wrapper clearfix">
 									<div class="event_text_box pull-left">
-										<strong class="eveny_title block">라포르테 2021 첫 정기세일 </strong> <span
-											class="event_content block">특별 상품 SALE , 함께사면 반값 특가</span> <span
-											class="event_date block">2021.01.01 - 2021.02.14</span>
-									</div>
-									<div class="event_img_box pull-right">
-										<img src="../assets/img/sale.png" class="event_img">
-									</div>
-								</div>
-						</a></li>
-						<!-- 이벤트 목록 1개 끝-->
-						<!--이벤트 목록 2개-->
-						<li class="event_board_list"><a href="#" class="event_box">
-								<div class="event_wrapper clearfix">
-									<div class="event_text_box pull-left">
-										<strong class="eveny_title block">1월 구매후기 이벤트</strong> <span
-											class="event_content block">구매후기 남기고 이벤트 신청하세요!</span> <span
-											class="event_date block">2021.01.01 - 2021.01.31</span>
-									</div>
-									<div class="event_img_box pull-right">
-										<img
-											src="https://image.guud.com/mall/DP/display/detail/6CE1A44CB2BF47D3A014749BBC95A858.jpg"
-											class="event_img">
-									</div>
-								</div>
-						</a></li>
-						<!-- 이벤트 목록 2개 끝-->
-						<!--이벤트 목록 3개-->
-						<li class="event_board_list"><a href="#" class="event_box">
-								<div class="event_wrapper clearfix">
-									<div class="event_text_box pull-left">
-										<strong class="eveny_title block">1월 카드사 무이자 할부 혜택</strong> <span
-											class="event_content block">무이자 할부 혜택으로 부담없는 쇼핑!</span> <span
-											class="event_date block">2021.01.01 - 2021.01.31</span>
-									</div>
-									<div class="event_img_box pull-right">
-										<img
-											src="https://image.guud.com/mall/DP/display/detail/B9D9C701E9E1476FA8B0640352D023E2.jpg"
-											class="event_img">
-									</div>
-								</div>
-						</a></li>
-						<!-- 이벤트 목록 3개 끝-->
-						<!--이벤트 목록 4개-->
-						<li class="event_board_list"><a href="#" class="event_box">
-								<div class="event_wrapper clearfix">
-									<div class="event_text_box pull-left">
-										<strong class="eveny_title block">새해맞이 할인 쿠폰 이벤트</strong> <span
-											class="event_content block">최대 10% 추가 할인 쿠폰 증정!</span> <span
-											class="event_date block">2021.01.01 - 2021.01.14</span>
+										<strong class="eveny_title block">코로나 저리가 쿠폰</strong> <span
+											class="event_content block">5% 추가할인</span> <span
+											class="event_date block">2021.03.01 - 2021.03.31</span>
 									</div>
 									<div class="event_img_box pull-right">
 										<img
@@ -167,14 +121,14 @@
 									</div>
 								</div>
 						</a></li>
-						<!-- 이벤트 목록 4개 끝-->
-						<!--이벤트 목록 5개-->
-						<li class="event_board_list"><a href="#" class="event_box">
+						<!-- 이벤트 목록 1 끝-->
+						<!--이벤트 목록 2-->
+						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40005&userno=<%out.print(session.getAttribute("my_session")); %>" class="event_box">
 								<div class="event_wrapper clearfix">
 									<div class="event_text_box pull-left">
-										<strong class="eveny_title block">지구 살리기 프로젝트</strong> <span
-											class="event_content block">친환경 제품 구매시, 에코백 증정</span> <span
-											class="event_date block">2021.01.01 - 2021.01.31</span>
+										<strong class="eveny_title block">지구 살리기 프로젝트 쿠폰</strong> <span
+											class="event_content block">친환경 제품 구매시, 5000원 추가 할인 쿠폰</span> <span
+											class="event_date block">2021.03.01 - 2021.03.31</span>
 									</div>
 									<div class="event_img_box pull-right">
 										<img
@@ -183,14 +137,14 @@
 									</div>
 								</div>
 						</a></li>
-						<!-- 이벤트 목록 5개 끝-->
-						<!--이벤트 목록 6개-->
-						<li class="event_board_list"><a href="#" class="event_box">
+						<!-- 이벤트 목록 2 끝-->
+						<!--이벤트 목록 3-->
+						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40006&userno=<%out.print(session.getAttribute("my_session")); %>" class="event_box">
 								<div class="event_wrapper clearfix">
 									<div class="event_text_box pull-left">
-										<strong class="eveny_title block">경품 추첨 이벤트</strong> <span
-											class="event_content block">기간내 제품 구매 고객은 누구든지!</span> <span
-											class="event_date block">2021.01.01 - 2021.03.15</span>
+										<strong class="eveny_title block">새학기 맞이 쿠폰</strong> <span
+											class="event_content block">3% 할인 쿠폰</span> <span
+											class="event_date block">2021.03.01 - 2021.03.31</span>
 									</div>
 									<div class="event_img_box pull-right">
 										<img
@@ -199,7 +153,54 @@
 									</div>
 								</div>
 						</a></li>
-						<!-- 이벤트 목록 6개 끝-->
+						<!-- 이벤트 목록 3 끝-->
+						<!--이벤트 목록 4-->
+						<li class="event_board_list"><a href="#" class="event_box">
+								<div class="event_wrapper clearfix">
+									<div class="event_text_box pull-left">
+										<strong class="eveny_title block">라포르테 2021 첫 정기세일 </strong> <span
+											class="event_content block">특별 상품 SALE , 함께사면 반값 특가</span> <span
+											class="event_date block">2021.03.15 - 2021.04.14</span>
+									</div>
+									<div class="event_img_box pull-right">
+										<img src="../assets/img/sale.png" class="event_img">
+									</div>
+								</div>
+						</a></li>
+						<!-- 이벤트 목록 4 끝-->
+						<!--이벤트 목록 5-->
+						<li class="event_board_list"><a href="#" class="event_box">
+								<div class="event_wrapper clearfix">
+									<div class="event_text_box pull-left">
+										<strong class="eveny_title block">3월 구매후기 이벤트</strong> <span
+											class="event_content block">구매후기 남기고 이벤트 신청하세요!</span> <span
+											class="event_date block">2021.03.01 - 2021.03.31</span>
+									</div>
+									<div class="event_img_box pull-right">
+										<img
+											src="https://image.guud.com/mall/DP/display/detail/6CE1A44CB2BF47D3A014749BBC95A858.jpg"
+											class="event_img">
+									</div>
+								</div>
+						</a></li>
+						<!-- 이벤트 목록 5 끝-->
+						<!--이벤트 목록 6-->
+						<li class="event_board_list"><a href="#" class="event_box">
+								<div class="event_wrapper clearfix">
+									<div class="event_text_box pull-left">
+										<strong class="eveny_title block">3월 카드사 무이자 할부 혜택</strong> <span
+											class="event_content block">무이자 할부 혜택으로 부담없는 쇼핑!</span> <span
+											class="event_date block">2021.03.01 - 2021.03.31</span>
+									</div>
+									<div class="event_img_box pull-right">
+										<img
+											src="https://image.guud.com/mall/DP/display/detail/B9D9C701E9E1476FA8B0640352D023E2.jpg"
+											class="event_img">
+									</div>
+								</div>
+						</a></li>
+						<!-- 이벤트 목록 6-->
+					
 					</ul>
 				</div>
 			</div>
