@@ -21,9 +21,6 @@ public interface OrderlistService {
 	/** 관리자 - 주문 목록 조회 */
 	public List<Orderlist> getOrderList(Orderlist input) throws Exception;
 	
-	/** 관리자 - 주문 목록 조회 */
-	public List<Orderlist> getOrderAllList(Orderlist input) throws Exception;
-	
 	/** 회원별 주문 목록 정보 조회*/
 	//0228추가-조진경
 	public List<Orderlist> getOrderListbyUserno(Orderlist input) throws Exception;

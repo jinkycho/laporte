@@ -71,14 +71,12 @@ public class DeliveryAjaxController {
 
 				input.setUserno(userno);
 				output = OrderlistService.getOrderItem(input);
-				// output = OrderlistService.getOrderUserList(input);
 
 				// 데이터 조회하기
 			} else {
 
 				input.setUserno(userno);
 				output = OrderlistService.getOrderItem(input);
-				// output = OrderlistService.getOrderUserList(input);
 			}
 			deliveryOutput = deliveryService.getDeliveryList(deliveryInput);
 		} catch (Exception e) {

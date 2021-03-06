@@ -265,22 +265,33 @@
 									            <span>
 									                배송비
 									            </span>
-									            <span class="pull_right">
-									               + &#8361; <span class="order_deliveryprice">${item.d_price }</span>
+									            <span class="pull_right">+ &#8361; 
+									            	<span class="order_deliveryprice">
+							               				<c:if test="${item.deltypeno == 1 }">
+							               					<fmt:formatNumber pattern="###,###,###" value='5000'/>
+							               				</c:if>
+							               				<c:if test="${item.deltypeno == 2 }">
+							               					<fmt:formatNumber pattern="###,###,###" value='30000'/>
+							               				</c:if>
+							               			</span>
 									            </span>
 									            <br/>
 									            <span>
 									                쿠폰할인
 									            </span>
-									            <span class="pull_right">
-									               - &#8361; <span class="order_deliveryprice">5000</span>
+									            <span class="pull_right">- &#8361; 
+									            	<span class="order_deliveryprice">
+									            		0
+									            	</span>
 									            </span>
 									            <br/>
 									            <span>
 									                적립금사용
 									            </span>
-									            <span class="pull_right">
-									               - &#8361; <span class="order_deliveryprice">0</span>
+									            <span class="pull_right">- &#8361; 
+									            	<span class="order_deliveryprice">
+									               		<fmt:formatNumber pattern="###,###,###" value='${item.point }'/>
+									                </span>
 									            </span>
 									        </div>
 									        <hr/>
@@ -289,10 +300,10 @@
 									                <span>
 									                    <b>최종 결제금액</b>
 									                </span>
-									                <span class="pull_right">
-									                    <b>&#8361; <span class="order_totalprice">
-									                    			  <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
-									                    		   </span></b>
+									                <span class="pull_right"><b>&#8361; 
+									                	<span class="order_totalprice">
+						                    			  <fmt:formatNumber pattern="###,###,###" value='${item.totalprice }'/>
+						                    		   </span></b>
 									                </span>
 									            </p>
 									        </div>							

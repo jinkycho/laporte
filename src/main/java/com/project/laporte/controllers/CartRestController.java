@@ -174,7 +174,7 @@ public class CartRestController {
 		/** 1) 파라미터 유효성 검사 */
     	// 이 값이 존재하지 않는다면 데이터가 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
     	if (cartno == 0) {
-    		return webHelper.getJsonWarning("장바구니번호가 없습니다.");
+    		return webHelper.getJsonWarning("장바구니정보가 없습니다.");
     	}
     	
     	/** 2) 데이터 삭제하기 */

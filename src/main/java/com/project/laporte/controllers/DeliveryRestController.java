@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
+import com.project.laporte.model.Cart;
 import com.project.laporte.model.Delivery;
 import com.project.laporte.model.Orderlist;
 import com.project.laporte.service.DeliveryService;
@@ -76,7 +77,7 @@ public class DeliveryRestController {
     		return webHelper.getJsonError(e.getLocalizedMessage());
     	}
     	
-    	/** 3) 결과를 확인하기 위한 JSON 출력 */
+    	/** 2) 결과를 확인하기 위한 JSON 출력 */
     	Map<String, Object> map = new HashMap<String, Object>();
     	map.put("item", output);
     	return webHelper.getJsonData(map);
@@ -136,8 +137,6 @@ public class DeliveryRestController {
     		@RequestParam(value="deliverystatus", defaultValue="N") String deliverystatus,
     		@RequestParam(value="ccstatus", defaultValue="I") String ccstatus) {
     	
-    	//if(paystatus == null)			{return webHelper.getJsonWarning("아이디를 입력하세요.");}
-    	
     	/** 1) 데이터 수정하기 */
     	// 수정할 값들을 Beans에 담는다.
     	Orderlist input = new Orderlist();
@@ -177,11 +176,38 @@ public class DeliveryRestController {
         	}
     	}
     	
-    	/** 3) 결과를 확인하기 위한 JSON 출력 */
+    	/** 2) 결과를 확인하기 위한 JSON 출력 */
     	Map<String, Object> map = new HashMap<String, Object>();
     	map.put("item", output);
     	map.put("ditem", deliveryOutput);
     	return webHelper.getJsonData(map);
+    }
+    
+    /** 관리자 - 배송 삭제 */
+    @RequestMapping(value = "/11_admin/admin_delivery", method = RequestMethod.DELETE)
+	public Map<String, Object> delete(
+			@RequestParam(value = "deliveryno", defaultValue = "0") int deliveryno) {
+    	
+		/** 1) 파라미터 유효성 검사 */
+    	// 이 값이 존재하지 않는다면 데이터가 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
+    	if (deliveryno == 0) {
+    		return webHelper.getJsonWarning("배송정보가 없습니다.");
+    	}
+    	
+    	/** 2) 데이터 삭제하기 */
+    	// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+    	Delivery input = new Delivery();
+    	input.setDeliveryno(deliveryno);
+    	
+    	try {
+    		deliveryService.deleteDelivery(input);	// 데이터 삭제
+    	} catch (Exception e) {
+    		return webHelper.getJsonError(e.getLocalizedMessage());
+    	}
+    	
+    	/** 3) 결과를 확인하기 위한 JSON 출력 */
+    	// 확인할 대상이 삭제된 결과값만 OK로 전달
+    	return webHelper.getJsonData();
     }
     
     /** 관리자 - 취소 수정 */
@@ -211,7 +237,7 @@ public class DeliveryRestController {
     		return webHelper.getJsonError(e.getLocalizedMessage());
     	}
     	
-    	/** 3) 결과를 확인하기 위한 JSON 출력 */
+    	/** 2) 결과를 확인하기 위한 JSON 출력 */
     	Map<String, Object> map = new HashMap<String, Object>();
     	map.put("item", output);
     	return webHelper.getJsonData(map);

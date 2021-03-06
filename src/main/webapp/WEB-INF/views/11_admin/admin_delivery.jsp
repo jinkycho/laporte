@@ -66,18 +66,23 @@
 							data-toggle="dropdown"><i class="glyphicon glyphicon-edit"></i>
 								홈 퍼블리싱 예약관리 <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="admin_resvappv.html"><i class="glyphicon glyphicon-ok"></i>
-										예약 승인</a></li>
-							</ul></li>
+								<li>
+									<a href="${pageContext.request.contextPath}/11_admin/admin_resvappv.do">
+										<i class="glyphicon glyphicon-ok"></i>
+										예약 승인
+									</a>
+								</li>
+							</ul>
+						</li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"><i class="glyphicon glyphicon-tags"></i>
 								제품 관리 <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="stock_management.html">
+								<li><a href="${pageContext.request.contextPath}/11_admin/stock_management.do">
 										<i class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
-               					<li><a href="product_add.html">
+               					<li><a href="${pageContext.request.contextPath}/11_admin/product_add.do">
                					 		<i class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
-								<li><a href="review_management.html">
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_review.do">
 										<i class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
 								<li><a href="#">
 										<i class="glyphicon glyphicon-usd"></i>
@@ -90,19 +95,19 @@
                                 고객 관리 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="admin_userlist.html">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_userlist.do">
                                     <i class="glyphicon glyphicon-user"></i> 회원정보 관리</a></li>
-                                <li><a href="admin_order.html">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_order.do">
                                     <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
-                                <li class="active"><a href="admin_delivery.html">
+                                <li class="active"><a href="${pageContext.request.contextPath}/11_admin/admin_delivery.do">
                                     <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리</a></li>
-                                <li><a href="admin_cancel.html">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_cancel.do">
                                     <i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
-                                <li><a href="admin_coupon.html">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_coupon.do">
                                     <i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>
-                                <li><a href="admin_point.html" >
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_point.do" >
                                     <i class="glyphicon glyphicon-usd"></i> 적립금</a></li>
-                                <li><a href="admin_visitors.html">
+                                <li><a href="#">
                                     <i class="glyphicon glyphicon-stats"></i> 방문자 수 관리</a></li>
                             </ul>
                         </li>
@@ -112,9 +117,9 @@
                                 문의 관리 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="admin_qanda.html">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_qanda.do">
                                     <i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a></li>
-                                <li><a href="admin_fanda.html">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_fanda.do">
                                     <i class="glyphicon glyphicon-list-alt"></i> F&A 관리</a></li>
                             </ul>
                         </li>
@@ -254,7 +259,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 							                    		<c:forEach var="item" items="${output }" varStatus="status">
-							                    			<c:if test="${item.orderstatus=='N' && (deliveryOutput[status.index].deliverystatus=='N' || deliveryOutput[status.index].deliverystatus==null) }">
+							                    			<c:if test="${item.orderstatus=='N' && (deliveryOutput[status.index].deliverystatus!='R' || deliveryOutput[status.index].deliverystatus==null) }">
 								                    			<tr>
 								                    				<td>
 				                                                    	<input type='checkbox' class="check" name='chkn[]' value="${item.orderno }">
@@ -619,6 +624,7 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h3 class="card-title">배송 완료</h3>
+                                        <button type="button" class="btn btn-block btn-danger btn-sm pull-right" id="delivery_delete">배송삭제</button><br>
                                         <table class="table table-bordered delivery_table">
                                             <thead>
                                                 <tr class="table_color">
@@ -829,7 +835,7 @@
         	$("#form_hidden").slideToggle(200);
         });
 		
-        /* 선택한 요소 */
+        /* 선택한 요소 --------------------------여기 오류*/
         $(document).on("click",".check", function() {
         	var current = null;														// 체크된 요소 담을 객체
 			var count = $("input:checkbox[name='chkn[]']").length;					// 총 갯수
@@ -1031,6 +1037,38 @@
 			}, function(json) {
 				if(json.rt == "OK") {
 					alert("변경되었습니다");
+					// 변경 완료 후 목록 페이지 이동
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+				}
+			});
+		});
+		
+		/* 배송삭제 버튼 */
+		$(document).on("click","#delivery_delete", function() {
+			
+			var current = null;														// 체크된 요소 담을 객체
+			var count = $("input:checkbox[name='chkc[]']").length;					// 총 갯수
+			var ckcount = $("input:checkbox[name='chkc[]']:checked").length;		// 체크된 요소 갯수
+				
+			for (var i=0; i<count; i++) {
+				if(ckcount != 1) {
+					alert("주문정보 한개씩 선택해 주세요.");
+				} else {
+					current = $("input:checkbox[name='chkc[]']:checked").val();		// 체크된 주문정보
+				}
+			}
+			
+			var deliveryno = current;
+			if (!confirm("해당 배송건은 관리자에 의해 삭제 됩니다.")) {
+				return false;
+			}
+			
+			// delete 메서드로 ajax 요청
+			$.delete("${pageContext.request.contextPath}/11_admin/admin_delivery", {
+				"deliveryno":deliveryno
+			}, function(json) {
+				if(json.rt == "OK") {
+					alert("배송삭제처리 되었습니다");
 					// 변경 완료 후 목록 페이지 이동
 					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
 				}

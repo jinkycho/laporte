@@ -100,7 +100,7 @@
     <select id="selectOrderItem"
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
-        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
+        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate, o.point, o.deltypeno,
         	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate, o.ccstatus, o.ccdate,
         	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color, c.distype, c.discount, f.thumbnailUrl
         FROM orderlist o
@@ -124,7 +124,6 @@
         INNER JOIN user u ON u.userno = o.userno
         INNER JOIN order_prod op ON op.orderno = o.orderno
         INNER JOIN product p ON p.prodno = op.prodno
-        INNER JOIN firstimg f ON p.prodno = f.prodno
         INNER JOIN userscoupon us ON us.usrcouponno = o.usrcouponno
         INNER JOIN coupon c ON c.couponno = us.couponno
         
@@ -136,35 +135,6 @@
         
         ORDER BY o.orderno
         
-        <if test="listCount > 0">
-            LIMIT #{offset}, #{listCount}
-        </if>
-    </select>
-    
-    <!-- 관리자 - 모든 조회를 위한 기능 정의 -->
-    <select id="selectOrderAllList"
-        parameterType="com.project.laporte.model.Orderlist"
-        resultMap="orderlistMap">
-        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
-        	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate, o.ccstatus, o.ccdate,
-        	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color
-        FROM orderlist o
-        INNER JOIN user u ON u.userno = o.userno
-        INNER JOIN order_prod op ON op.orderno = o.orderno
-        INNER JOIN product p ON p.prodno = op.prodno
-        INNER JOIN firstimg f ON p.prodno = f.prodno
-        
-        <where>
-            <if test="name != null and name != ''">
-                o.name LIKE concat('%', #{name}, '%')
-            </if>
-        </where>
-        
-        ORDER BY o.orderno
-        
-        <if test="listCount > 0">
-            LIMIT #{offset}, #{listCount}
-        </if>
     </select>
 
 	<!-- 회원별 주문 정보 조회를 위한 기능 정의 -->

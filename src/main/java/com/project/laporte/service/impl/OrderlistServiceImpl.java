@@ -108,27 +108,6 @@ public class OrderlistServiceImpl implements OrderlistService {
         return result;
 	}
 	
-	/** 관리자 - 주문관리 조회 */
-	@Override
-	public List<Orderlist> getOrderAllList(Orderlist input) throws Exception {
-		List<Orderlist> result = null;
-
-        try {
-            result = sqlSession.selectList("OrderlistMapper.selectOrderAllList", input);
-
-            if (result == null) {
-                throw new NullPointerException("result=null");
-            }
-        } catch (NullPointerException e) {
-            log.error(e.getLocalizedMessage());
-            throw new Exception("조회된 데이터가 없습니다.");
-        } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
-            throw new Exception("데이터 조회에 실패했습니다.");
-        }
-        return result;
-	}
-	
 	/** 회원별 주문 목록 정보 조회*/
 	//0228추가-조진경
 	@Override
