@@ -55,6 +55,7 @@ public class ProductListAjaxController {
 			@RequestParam(value="page", defaultValue="1")int nowPage,
 			@CookieValue(value = "my_wish", defaultValue = "0", required = false) int my_wish){ 
 		/** 1) 유효성 검사 */
+		System.out.println("=================================nowpage"+nowPage );
 		
 		/** 페이지 구현에 필요한 변수값 생성 */
 		int totalCount = 0;		// 전체 게시글 수 
@@ -129,13 +130,13 @@ public class ProductListAjaxController {
 			totalCount = productListService.getProductCount(input);
 			
 			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+			Product.setOffset(pageData.getOffset());
+			Product.setListCount(pageData.getListCount());
 			output = productListService.getProductlistList(input);
 			category1 = productService.category(null);
 			category2 = productService.category2(cat2);
 			fimg = productListService.getFirstimgList(null);
 			
-			Product.setOffset(pageData.getOffset());
-			Product.setListCount(pageData.getListCount());
 		}catch(Exception e) { 
 			
 			return webHelper.redirect(null, e.getLocalizedMessage());

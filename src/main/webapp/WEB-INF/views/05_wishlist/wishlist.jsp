@@ -648,7 +648,7 @@
 	    			var result = confirm('상품이 모두 장바구니에 추가되었습니다. 지금 바로 장바구니로 이동 하시겠습니까?');
 	    			
 	    			if(result){
-	    				window.location = "${pageContext.request.contextPath}/06_cart/cart.do";
+	    				window.location = "${pageContext.request.contextPath}/06_cart/cart.do?userno="+userno;
 	    			}else{
 	    				location.reload();
 	    			}

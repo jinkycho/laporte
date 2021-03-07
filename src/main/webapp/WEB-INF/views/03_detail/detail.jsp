@@ -554,8 +554,7 @@
 					<!-- 리뷰 모달 끝 -->
 				</div>
 				<div class="buy_module_btn_box clearfix">
-					<button class="btn btn-primary"
-						onclick="location.href='../07_purchase/purchase.html'">구매하기</button>
+					<button class="btn btn-primary" id="addCartDetail" data-prodno="${output.prodno}" data-userno="${userno}">구매하기</button>
 					<div class="heart_box pull-right">
 						<input type="checkbox" id="chk_heart" class="chk_heart"
 							name="chk_heart" style="display: none;"
@@ -917,6 +916,22 @@
 				$(this).parents(".review_parent").find(".edit_review_box").show();
 				
 			});
+		 
+		// 1개 상품만 장바구니로 옮기기
+		 $(document).on("click","#addCartDetail",function(){
+			    let current = $(this); 
+	    		let userno = current.data('userno');
+	    		let prodno = current.data('prodno');
+	    		
+	    		$.post("${pageContext.request.contextPath}/06_cart/cart", {
+	    			"userno": userno,
+	    			"prodno": prodno,
+	    		}, function(json) {
+	    			if(json.rt=="OK")
+	    				alert("상품이 장바구니에 추가 되었습니다.");
+	    				location.reload(); // 장바구니로 이동 수정 예
+	    		})
+		 });
 		 
 	</script>
 </body>

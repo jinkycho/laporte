@@ -155,7 +155,7 @@
 											<span class="home_item_title">${item.name}</span> <br /> <span
 											class="home_item_info">${item.size} <br />${item.color}</span><br />
 											<c:choose>
-												<c:when test="${fn:contains(group, '인기') }">
+												<c:when test="${fn:contains(group, '세일') }">
 													<span class="home_item_info home_item_pricedown">&#8361;
 														<fmt:formatNumber value="${item.price}" pattern="#,###" />
 													</span>
