@@ -34,6 +34,7 @@
 
 	<body>
 		<%@ include file="01_home/header.jsp" %>
+		<section>
 		<%@ include file="01_home/search.jsp"%>
 			<!-- 검색제외 본문영역 -->
 	        <div class="container">
@@ -263,7 +264,6 @@
 	    		</div>
 	    		<!-- 홈 퍼니싱 끝 -->
 			</div>
-		</div>
 		</section>
 		<%@ include file="01_home/footer.jsp" %>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -466,7 +466,7 @@
     		    		let userno = current.data('userno');
     					if(userno==0){
     						alert("로그인을 먼저 하세요");
-    						return false;
+    						location.reload();
     					}else if($(this).is(":checked") == true){
     			    		
     			    		let prodno = current.data('prodno');

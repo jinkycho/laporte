@@ -108,10 +108,10 @@ public class PageController {
 //	    }
 	
 	 
-	 @RequestMapping(value="/11_admin/stock_management.do", method=RequestMethod.GET)
-	    public String StockManagament() {
-	        // "/src/main/webapp/WEB-INF/views/11_admin/stock_management.jsp" 파일을 View로 지정한다.
-	        return "/11_admin/stock_management";
-	    }
+//	 @RequestMapping(value="/11_admin/stock_management.do", method=RequestMethod.GET)
+//	    public String StockManagament() {
+//	        // "/src/main/webapp/WEB-INF/views/11_admin/stock_management.jsp" 파일을 View로 지정한다.
+//	        return "/11_admin/stock_management";
+//	    }
 	 
 }

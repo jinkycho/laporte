@@ -40,6 +40,7 @@
 
 <body>
 	<%@ include file="../01_home/header.jsp"%>
+	<section>
 	<%@ include file="../01_home/search.jsp"%>
 		<!-- 검색제외 본문영역 -->
 		<div class="container">

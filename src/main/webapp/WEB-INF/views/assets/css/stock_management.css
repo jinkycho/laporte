@@ -61,3 +61,8 @@ select#child {
 .product_img {
   width: 50px;
 }
+
+.product_list_edit{
+	    background: #efefef;
+    color: #333;
+}

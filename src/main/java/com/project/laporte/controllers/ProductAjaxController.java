@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.laporte.helper.PageData;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Delivery;
@@ -478,5 +479,45 @@ public class ProductAjaxController {
 		model.addAttribute("revcom", reviewadminList);
 		return new ModelAndView("03_detail/detail");
 
+	}
+	
+	/** 상품 괌리 목록 관리자 페이지 */
+	@RequestMapping(value = "/11_admin/stock_management.do", method = RequestMethod.GET)
+	public ModelAndView stockproduct(Model model, 
+			@RequestParam(value="page", defaultValue="1")int nowPage,
+			@RequestParam(value = "keyword", defaultValue = "", required=false) String keyword) {
+		/** 1) 유효성 검사 */
+		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		
+		/** 페이지 구현에 필요한 변수값 생성 */
+		int totalCount = 0;		// 전체 게시글 수 
+		int listCount = 10;		// 한 페이지당 표시할 목록 수
+		int pageCount = 5;		// 한 그룹당 표시할 페이지 번호 수
+		
+		/** 2) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		Product input = new Product();
+		PageData pageData = null;
+		
+
+		// 조회결과를 저장할 객체 선언
+		List<Product> output = null;
+
+		try {
+			// 데이터 조회
+			totalCount = productService.getProductCountAdmin(input);
+			
+			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+			Product.setOffset(pageData.getOffset());
+			Product.setListCount(pageData.getListCount());
+			output = productService.getProductListAll(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) View 처리하기 */
+		model.addAttribute("output", output);
+		model.addAttribute("pageData", pageData);
+		return new ModelAndView("11_admin/stock_management");
 	}
 }

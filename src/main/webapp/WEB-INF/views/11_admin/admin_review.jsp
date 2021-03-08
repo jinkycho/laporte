@@ -343,9 +343,26 @@
 									<div class="pagination_box">
 										<ul class="pagination pagination-sm m-0">
 											<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<c:forEach var="i" begin="${pageData.startPage}"
+												end="${pageData.endPage}" varStatus="status">
+												<%-- 이동할 URL 생성 --%>
+													<c:url
+													value="/11_admin/admin_review.do"
+													var="pageUrl">
+													<c:param name="page" value="${i}" />
+													</c:url>
+						
+												<%-- 페이지 번호 출력 --%>
+													<c:choose>
+													<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+													<c:when test="${pageData.nowPage == i}">
+													<li class="page-item"><span class="page-link"><strong>${i}</strong></span></li>
+													</c:when>
+													<%-- 나머지 페이지의 경우 링크 적용함 --%>
+													<c:otherwise>
+													<li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>															</c:otherwise>
+													</c:choose>
+												</c:forEach>
 											<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
 										</ul>
 									</div>

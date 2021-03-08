@@ -261,7 +261,7 @@
 										<!-- // 조건 검색 목록 끝 -->
 										<div class="clearfix product_additional_box">
 											<div class="product_number_box pull-left">
-												<span>총 상품수 : <b class="total_number">6</b> ,
+												<span>총 상품수 : <b class="total_number">${pageData.totalCount}</b> ,
 												</span> <span>검색 상품 수 : <b class="search_number">6</b></span>
 											</div>
 											<div class="product_add_box pull-right">
@@ -285,110 +285,32 @@
 												</tr>
 											</thead>
 											<tbody id="product_list">
+											<c:forEach var="item" items="${output }">
 												<tr>
 													<td><input type='checkbox' class="delete_check"></td>
-													<td>49279604</td>
+													<td>${item.prodno }</td>
 													<td><img
-														src="https://www.ikea.com/kr/ko/images/products/stuva-fritids-toy-storage-with-wheels-white-green__0629926_PE694540_S5.JPG?f=g"
+														src="${item.thumbnailUrl }"
 														class="product_img"></td>
-													<td>STUVA 스투바 / FRITIDS 프리티스</td>
-													<td>90,000</td>
-													<td>90</td>
-													<td>O</td>
-													<td class="clear">
-														<button type="button"
-															class="btn btn-secondary btn-xs product_list_edit">수정</button>
-														<button type="button"
-															class="btn btn-danger btn-xs product_list_delete">삭제</button>
+													<td>${item.name }</td>
+													<td><fmt:formatNumber value="${item.price}" pattern="#,###" /></td>
+													<td><fmt:formatNumber value="${item.stock }" pattern="#,###" /></td>
+													<td>
+														<c:if test="${item.display =='Y'}">
+	                                                	O
+	                                                	</c:if>
+	                                                    <c:if test="${item.display =='N'}">
+	                                                	X
+	                                                	</c:if>
 													</td>
-												</tr>
-												<tr>
-													<td><input type='checkbox' class="delete_check"></td>
-													<td>39198397</td>
-													<td><img
-														src="https://www.ikea.com/kr/ko/images/products/hemnes-bed-frame-white-stain-loenset__0637516_PE698353_S5.JPG?f=s"
-														class="product_img"></td>
-													<td>HEMNES 헴네스</td>
-													<td>389,000</td>
-													<td>100</td>
-													<td>O</td>
 													<td class="clear">
-														<button type="button"
-															class="btn btn-secondary btn-xs product_list_edit">수정</button>
-														<button type="button"
-															class="btn btn-danger btn-xs product_list_delete">삭제</button>
+														<a type="button"
+															class="btn btn-secondary btn-xs product_list_edit" href="${pageContext.request.contextPath}/11_admin/product_view.do?prodno=${item.prodno }">수정</a>
+														<a type="button"
+															class="btn btn-danger btn-xs product_list_delete">삭제</a>
 													</td>
-												</tr>
-												<tr>
-													<td><input type='checkbox' class="delete_check"></td>
-													<td>50491595</td>
-													<td><img
-														src="https://www.ikea.com/kr/ko/images/products/strala-led-table-decoration-cabin-in-the-forest-red-white__0675789_PE719481_S5.JPG?f=s"
-														class="product_img"></td>
-													<td>STRÅLA 스트롤라</td>
-													<td>21,900</td>
-													<td>120</td>
-													<td>O</td>
-													<td class="clear">
-														<button type="button"
-															class="btn btn-secondary btn-xs product_list_edit">수정</button>
-														<button type="button"
-															class="btn btn-danger btn-xs product_list_delete">삭제</button>
-													</td>
-												</tr>
-												<tr>
-													<td><input type='checkbox' class="delete_check"></td>
-													<td>10407928</td>
-													<td><img
-														src="https://www.ikea.com/kr/ko/images/products/brimnes-wardrobe-with-3-doors-white__0176787_PE329567_S5.JPG?f=m"
-														class="product_img"></td>
-													<td>BRIMNES 브림네스</td>
-													<td>249,000</td>
-													<td>50</td>
-													<td>O</td>
-													<td class="clear">
-														<button type="button"
-															class="btn btn-secondary btn-xs product_list_edit">수정</button>
-														<button type="button"
-															class="btn btn-danger btn-xs product_list_delete">삭제</button>
-													</td>
-												</tr>
-												<tr>
-													<td><input type='checkbox' class="delete_check"></td>
-													<td>49192639</td>
-													<td><img
-														src="https://www.ikea.com/kr/ko/images/products/faerloev-3-seat-sofa-flodafors-white__0479740_PE619080_S5.JPG?f=s"
-														class="product_img"></td>
-													<td>FÄRLÖV 펠뢰브</td>
-													<td>899,000</td>
-													<td>30</td>
-													<td>O</td>
-													<td class="clear">
-														<button type="button"
-															class="btn btn-secondary btn-xs product_list_edit">수정</button>
-														<button type="button"
-															class="btn btn-danger btn-xs product_list_delete">삭제</button>
-													</td>
-												</tr>
-												<tr>
-													<td><input type='checkbox' class="delete_check"></td>
-													<td>70415893</td>
-													<td><img
-														src="https://www.ikea.com/kr/ko/images/products/vardagen-goblet-clear-glass__0681272_PE720081_S5.JPG?f=m"
-														class="product_img"></td>
-													<td>VARDAGEN 바르다겐</td>
-													<td>9,900</td>
-													<td>20</td>
-													<td>O</td>
-													<td class="clear">
-														<button type="button"
-															class="btn btn-secondary btn-xs product_list_edit">수정</button>
-														<button type="button"
-															class="btn btn-danger btn-xs product_list_delete">삭제</button>
-													</td>
-												</tr>
-
-
+												</tr>				
+											</c:forEach>
 											</tbody>
 										</table>
 										<!--페이지 네이션-->
@@ -398,9 +320,28 @@
 											<div class="pagination_box">
 												<ul class="pagination pagination-sm m-0">
 													<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-													<li class="page-item"><a class="page-link" href="#">1</a></li>
-													<li class="page-item"><a class="page-link" href="#">2</a></li>
-													<li class="page-item"><a class="page-link" href="#">3</a></li>
+													
+													<c:forEach var="i" begin="${pageData.startPage}"
+														end="${pageData.endPage}" varStatus="status">
+														<%-- 이동할 URL 생성 --%>
+															<c:url
+															value="/11_admin/stock_management.do"
+															var="pageUrl">
+															<c:param name="page" value="${i}" />
+															</c:url>
+								
+														<%-- 페이지 번호 출력 --%>
+														<c:choose>
+															<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+															<c:when test="${pageData.nowPage == i}">
+																<li class="page-item"><span class="page-link"><strong>${i}</strong></span></li>
+															</c:when>
+															<%-- 나머지 페이지의 경우 링크 적용함 --%>
+															<c:otherwise>
+															<li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
 													<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
 												</ul>
 											</div>

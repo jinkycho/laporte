@@ -447,6 +447,46 @@ public class ProductServiceImpl implements ProductService{
 		return result;
 	}
 
+	/**
+	 * 상품 데이터 목록 조회 - 상품 대표 이미지 포함 결과
+	 * @param Product 검색조건과 페이지 구현 정보(아직 구현전)를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	@Override
+	public List<Product> getProductListAll(Product input) throws Exception {
+		List<Product> result = null;
+
+		try {
+            result = sqlSession.selectList("ProductMapper.selectListAllInfo", input);
+
+            if (result == null) {
+                throw new NullPointerException("result=null");
+            }
+        } catch (NullPointerException e) {
+            log.error(e.getLocalizedMessage());
+            throw new Exception("조회된 데이터가 없습니다.");
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
+            throw new Exception("데이터 조회에 실패했습니다.");
+        }
+
+        return result;
+	}
+
+	@Override
+	public int getProductCountAdmin(Product input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.selectOne("ProductMapper.selectCountAllAdmin" , input);
+			
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
 	
 
 }

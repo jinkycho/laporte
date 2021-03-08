@@ -144,4 +144,6 @@ public interface ReviewService {
 	 * @throws Exception
 	 */
 	public List<RevComment> admintReviewAllList(RevComment input) throws Exception;
+	
+	public int getProductCountAdmin(Review input) throws Exception;
 }

@@ -189,5 +189,10 @@
         parameterType="com.project.laporte.model.RevComment">
         DELETE FROM revcomment WHERE reviewno=#{reviewno}
     </delete>
+    
+    <select id="selectCountAllAdmin"
+    	parameterType="com.project.laporte.model.Review" resultType="int">
+    	SELECT COUNT(*) FROM review 
+    </select>
 	
 </mapper>
