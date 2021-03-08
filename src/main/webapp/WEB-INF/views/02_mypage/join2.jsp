@@ -121,7 +121,6 @@
 								class="form-control address_label_eventl" readonly>
 						</div>
 
-						<button type="reset" class="btn_reset">다시 입력하기</button>
 
 					</div>
 			</div>
@@ -145,6 +144,7 @@
 					<span id="join_password_same">비밀번호 일치 ✓</span>
 				</div>
 				
+					<button type="reset" class="btn_reset">다시 입력하기</button>
 					<button id="join_btn" type="submit">가입하기</button>
 		</form>
 
