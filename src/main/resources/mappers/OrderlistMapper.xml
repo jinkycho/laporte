@@ -150,6 +150,16 @@
         WHERE d.userno = #{userno}
     </select>
     
+    <!-- 회원별 주문 건 수 조회를 위한 기능 정의 -->
+    <!-- 0308추가 - 조진경 -->
+        <select id="selectCountByUserno"
+        parameterType="com.project.laporte.model.Orderlist"
+        resultType="int">
+        SELECT COUNT(orderno)
+        FROM orderlist
+        WHERE userno = #{userno}
+    </select>
+    
 	<!-- 데이터 수 조회를 위한 기능 정의 -->
     <select id="selectCountAll"
         parameterType="com.project.laporte.model.Orderlist" resultType="int">

@@ -23,7 +23,6 @@
     href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_qanda.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_fanda.css">
 
 <!-- handlebar plugin -->
 <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.0.11.js"></script>
@@ -181,13 +180,13 @@
                                                 <form class="form-inline">
                                                     <!-- 1차 카테고리 -->
                                                     <div class="form-group">
-                                                        <select id="parent" class="form-control">
+                                                        <select id="parent" name="category" class="form-control">
                                                             <option value="">--전체보기--</option>
-                                                            <option value="online" selected>온라인 주문</option>
-                                                            <option value="exchange">교환환불</option>
-                                                            <option value="service">laporte 서비스</option>
-                                                            <option value="productinfo">제품정보</option>
-                                                            <option value="agreement">laporte 웹사이트 이용 약관</option>
+                                                            <option value="O">온라인 주문</option>
+                                                            <option value="C">교환환불</option>
+                                                            <option value="S">laporte 서비스</option>
+                                                            <option value="P">제품정보</option>
+                                                            <option value="A">laporte 웹사이트 이용 약관</option>
                                                         </select>
                                                     </div>
                                                     <!-- 1차 카테고리 끝 -->
@@ -199,11 +198,11 @@
                                             <td>
                                                 <form class="form-inline">
                                                     <div class="form-group">
-                                                        <select id="search_condition" name="search_answer"
+                                                        <select id="search_condition" name="status"
                                                             class="form-control">
                                                             <option value="">---선택---</option>
-                                                            <option value="anwer_com" selected>답변완료</option>
-                                                            <option value="anwer_wait">답변대기</option>
+                                                            <option value="W">답변대기</option>
+                                                            <option value="A">답변완료</option>
                                                         </select>
                                                     </div>
                                                 </form>
@@ -220,8 +219,6 @@
 										<table class="table table-bordered qanda_table">
 											<thead>
 												<tr class="qanda_table_color">
-													<th style="width: 10px"><input type='checkbox'
-														id="all_check"></th>
 													<th>카테고리</th>
 													<th>작성일</th>
 													<th>작성자이름</th>
@@ -237,19 +234,40 @@
 											<c:forEach var="item" items="${output}" varStatus="status">
 												<tbody id="qanda_list">
 													<tr>
-														<td><input type='checkbox' class="delete_check"></td>
-														<td>이메일문의</td>
+														
+														<td>
+														<c:if test="${item.category == 'O'}" >
+														온라인 주문
+														</c:if>
+														
+														<c:if test="${item.category == 'C'}" >
+														교환환불
+														</c:if>
+														
+														<c:if test="${item.category == 'S'}" >
+														laporte 서비스
+														</c:if>
+														
+														<c:if test="${item.category == 'P'}" >
+														제품정보
+														</c:if>
+														
+														<c:if test="${item.category == 'A'}" >
+														laporte 서비스 이용약관
+														</c:if>
+														</td>
+														
 														<td>${item.regdate}</td>
 														<td>${item.name}</td>
 														<td>${item.email}</td>
 														<c:choose>
 
-															<c:when test="${item.file} == null">
+															<c:when test="${item.file == null}">
 																<td>첨부파일없음</td>
 															</c:when>
 															<c:otherwise>
-																<td><a href="#" class="file_large" data-toggle="modal" data-target="#myModal">첨부파일보기</a>
-																<img class="file_size" src="${item.file}" /></td>
+																<td><a href="#" class="file_large" data-emailno = "${item.emailno}" data-toggle="modal" data-target="#myModal">첨부파일보기</a>
+															</td>
 															</c:otherwise>
 
 														</c:choose>
@@ -269,8 +287,6 @@
 														<td class="clear">
 															<a type="button" data-emailno="${item.emailno}"
 																class="btn btn-warning btn-xs review_list_answer">답변</a>
-															<button type="button"
-																class="btn btn-danger btn-xs review_list_delete">삭제</button>
 														</td>
 													</tr>
 												</tbody>						
@@ -321,6 +337,7 @@
                         
                             <!-- modal -->
                             
+   
                             
 		<div class="modal fade" id="myModal">
 		    <div class="post_modify_display">
@@ -330,40 +347,87 @@
 		                    aria-label="Close">
 		                    <span aria-hidden="true">&times;</span></button>
 		                    
-		                    <!-- Handlebar 탬플릿 코드 -->
-    			<script id="prof-list-tmpl" type="text/x-handlebars-template">
-					
 			                <h4 class="modal-title">첨부파일</h4>
+		                    <!-- Handlebar 탬플릿 코드 -->
 		            </div>
 		            <div class="post_modify_body">
-		                <table class="table2 table-bordered post_modify_table">
-
-
-										<tbody id="post_list">
-											<tr>
-											<td></td>
-											</tr>
-										</tbody>
-						</table>
 		            </div>
-		           </script>
 		        </div>
 		    </div>
 		</div>
+		
+		    <!-- Handlebar CDN 참조 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+    			<script id="email-list-tmpl" type="text/x-handlebars-template">
+					
+		          
+					{{#each email_list}}
+												
+													<tr>
+														<td>
+														{{email_list.category}}
+														</td>
+														
+														<td>{{email_list.regdate}}</td>
+														<td>{{email_list.name}}</td>
+														<td>{{email_list.email}}</td>
+
+													
+															<td><a href="#" class="file_large" data-emailno = "${item.emailno}" data-toggle="modal" data-target="#myModal">첨부파일보기</a>
+															{{email_list.file}}</td>
+												
+
+														<td>${email_list.content}</td>
+													
+															<td>{{email_list.status}}</td>
+												
+	
+														<td class="clear">
+															<a type="button" data-emailno="{{email_list.emailno}}"
+																class="btn btn-warning btn-xs review_list_answer">답변</a>
+														</td>
+													</tr>
+																
+											{{/each}}
+						
+		           </script>
+    			<script id="email-item-tmpl" type="text/x-handlebars-template">
+					
+		          
+
+										<tbody id="post_list">
+											<tr>
+											<td><img class="file_size" src="{{email_item.file}}" /></td>
+											</tr>
+										</tbody>
+						
+		           </script>
                         
     </section>
     <footer></footer>
 
+
+    <!-- jQuery Ajax Setup -->
+    			
 		  <!--Google CDN 서버로부터 jQuery 참조 -->
     <!-- jQuery Ajax Form plugin CDN -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-    <!-- jQuery Ajax Setup -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
     
     
     <script type="text/javascript">
+    Handlebars.registerHelper('isVowel', function(options) {
+    	  var answer_W = "W";
+    	  if (answer_W.test(this.status)) {
+    	    return "답변대기";
+    	  } else {
+    	    return "답변완료";
+    	  }
+    	});
+    
 					$(document).ready(function() {
 						$('.answer_box').hide()
+						$('.btn_box').hide()
 					});
 
 					$("#menu-toggle").click(function(e) {
@@ -372,6 +436,28 @@
 					});
 
 					$(function() {
+						
+						//검색 클릭 시
+						$('.search_btn').click(function(e){
+							e.preventDefault();
+							
+							var category = $('#parent > option:selected').val();
+							var status = $('#search_condition > option:selected').val();
+							
+							//Restful API에 GET 방식 요청
+							$.get("${pageContext.request.contextPath}/09_cs",{
+								"category": category,
+								"status" : status
+							}, function(json){
+								var list_source = $("#email-list-tmpl").html();
+								var list_template = Handlebars.compile(list_source);
+								var list_result = list_template(json);
+								$("#qanda_list").empty();
+								$("#qanda_list").html(list_result);
+						
+							}) 	
+					});
+						
 				
 						$(document).on("click",".review_list_answer", function(e) {
 							e.preventDefault();
@@ -381,6 +467,7 @@
 							let insert_emailno = $('#this_emailno').val(emailno);
 							
 							$('.answer_box').show()
+							$('.btn_box').show()
 						});
 						
 							//put 메서드로 ajax 요청
@@ -403,9 +490,21 @@
 							$('.file_large').click(function(e){
 								e.preventDefault();
 								
-							});
+								var current = $(this);
+								var emailno = current.data('emailno');
+								
+								//Restful API에 GET 방식 요청
+								$.get("${pageContext.request.contextPath}/09_cs",{
+									"emailno": emailno
+								}, function(json){
+									var source = $("#email-item-tmpl").html();
+									var template = Handlebars.compile(source);
+									var result = template(json);
+									$(".post_modify_body").html(result);
+							
+								}) 	
+						});
 					});
-
 	
 			
 				</script>

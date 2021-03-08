@@ -214,7 +214,23 @@ public class UserAjaxController {
 		//회원정보 출력을 위한 객체 초기화
 		User output = null;
 		
-		/**2) 예약정보 */
+		/** 2) 주문내역 */
+		//주문정보 조회를 위한 객체 생성
+		Orderlist o_input = new Orderlist();
+		o_input.setUserno(userno);
+		
+		//주문정보 갯수 출력을 위한 객체 초기화
+		int o_output = 0;
+		
+		/** 3) 위시리스트 내역 */
+		//위시리스트 갯수 조회를 위한 객체 생성
+		Wishlist w_input = new Wishlist();
+		w_input.setUserno(userno);
+		
+		//위시리스트 갯수 출력을 위한 객체 초기화
+		int w_output = 0;
+		
+		/** 4) 예약정보 */
 		//예약정보 조회를 위한 객체 생성
 		Reserve r_input = new Reserve();
 		r_input.setUserno(userno);
@@ -233,6 +249,10 @@ public class UserAjaxController {
 		try {
 			output = userService.getUserItem(input);
 			
+			o_output = orderlistService.getOrderQty(o_input);
+			
+			w_output = wishlistService.getWishlistQTY(w_input);
+			
 			r_output = reserveService.checkReserve(r_input);
 			
 			uc_output = userscouponService.getUsersCouponList(uc_input);
@@ -241,6 +261,8 @@ public class UserAjaxController {
 		
 		//View 처리
 		 model.addAttribute("output", output);
+		 model.addAttribute("o_output", o_output);
+		 model.addAttribute("w_output", w_output);
 		 model.addAttribute("r_output", r_output);
 		 model.addAttribute("uc_output", uc_output);
         return new ModelAndView("/02_mypage/mypage");

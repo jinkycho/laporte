@@ -417,4 +417,21 @@ public class WishlistServiceImpl implements WishlistService {
 		return result;
 	}
 
+	/** 회원별 위시리스트 갯수 조회 */
+	//0308추가 -조진경
+	
+	@Override
+	public int getWishlistQTY(Wishlist input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.selectOne("WishlistMapper.selectCountByUserno", input);
+		}catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
 }

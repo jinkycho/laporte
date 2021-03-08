@@ -33,40 +33,21 @@ public class EmailinquiryAjaxController {
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
+
 	
 	@RequestMapping(value="/11_admin/admin_qanda.do", method=RequestMethod.GET)
-    public ModelAndView admin_qanda(Model model) {
+    public ModelAndView admin_qanda(Model model,
+    		@RequestParam(value="emailno", defaultValue="0") int emailno) {
+		
 
 		/** 이메일 문의 리스트 불러오기 */
 
 		List<Email_inquiry> output = null;
 		
 		try {
-			
 			//데이터 조회하기
 			output = emailinquiryService.getEmailInquiryList(null);
 			
-		}catch(Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
-		
-		/**2) View 처리*/
-		model.addAttribute("output", output);
-		
-        // "/src/main/webapp/WEB-INF/views/07purchase/purchase.jsp" 파일을 View로 지정한다.
-        return new ModelAndView("11_admin/admin_qanda");
-    }
-	
-	@RequestMapping(value="/11_admin/admin_qanda_item.do", method=RequestMethod.GET)
-    public ModelAndView admin_qanda_item(Model model,
-    		@RequestParam(value="emailno", defaultValue="0") int emailno) {
-		
-
-		/** 이메일 문의 아이템 불러오기 */
-		
-		Email_inquiry output = null;
-		
-		try {
 			
 			
 		}catch(Exception e) {

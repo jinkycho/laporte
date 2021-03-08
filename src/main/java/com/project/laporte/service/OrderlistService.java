@@ -25,6 +25,10 @@ public interface OrderlistService {
 	//0228추가-조진경
 	public List<Orderlist> getOrderListbyUserno(Orderlist input) throws Exception;
 	
+	/** 회원별 주문 건 수 조회를 위한 기능 정의 */
+	//0308추가-조진경
+	public int getOrderQty(Orderlist input) throws Exception;
+	 
 	/** 주문 데이터가 저장되어 있는 갯수 조회 */
 	public int getOrderlistCount(Orderlist input) throws Exception;
 	

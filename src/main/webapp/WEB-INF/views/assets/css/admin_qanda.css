@@ -17,9 +17,12 @@ td {
   vertical-align: middle;
 }
 
-#qanda_list .file_size{
+#post_list{
+	width: 100%;
+}
+#post_list .file_size{
 	display: block;
-	width: 20%;
+	width: 85%;
 	margin: auto;
 }
 .qanda_table_color {
@@ -74,41 +77,6 @@ select#child {
   margin: auto;
   width: fit-content;
 }
-/* .product_img {
-  width: 50px;
-}
-
---------------------------------
-.point_date {
-  max-width: 150px;
-  display: inline-block;
-  margin-left: 10px;
-}
-.point_li_date_input a {
-  display: inline-block;
-  width: 45px;
-  height: 27px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #e5e5e5;
-  border: 1px solid #bbbbbb;
-  position: relative;
-  bottom: 2px;
-  color: #333;
-}
-.review_content {
-  display: block;
-}
-.review_link {
-  color: #333;
-}
-.review_link:hover {
-  color: #333;
-}
-.review_text {
-  min-width: 300px;
-} */
-
 #qanda_notes {
   width: 70%;
   height: 150px;
@@ -124,4 +92,33 @@ select#child {
   margin-bottom: 30px;
   width: fit-content;
   padding: 10px 50px;
+}
+
+
+.post_modify_display {
+  position: relative;
+  top: 150px;
+  left: 300px;
+  width: 75%;
+  border: 1px solid #eee;
+}
+
+.post_modify_content {
+  background-color: #fff;
+}
+.post_modify_header {
+  padding: 15px;
+}
+
+.post_modify_body {
+	display: block;
+	width: 100%;
+}
+
+.post_modify_table th {
+  text-align: center;
+  margin-top: 10px;
+}
+.post_modify_thead th {
+  text-align: right;
 }

@@ -44,6 +44,21 @@
         resultMap="emailinquiryMap">
          SELECT emailno, name, email, category, file, content, status, answer, regdate 
         FROM email_inquiry
+        
+           <where>
+        	<if test= "category != '' and category != null">
+        		category = #{category} 
+        	</if>
+        	
+        	<if test= "category != '' and category != null and status != '' and status != null">
+        		AND 
+        	</if>
+        	
+        	<if test= "status != '' and status != null">
+        		status = #{status} 
+        	</if> 
+        </where>
+        
       </select>
 	
 	<!-- 이메일 문의 답변 업데이트를 위한 기능 정의 -->

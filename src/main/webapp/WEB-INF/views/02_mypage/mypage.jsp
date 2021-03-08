@@ -79,14 +79,14 @@
 				<div class="row">
 					<div class="col-sm-3 col-md-3 col-xs-12 profile_link_box">
 						<div class="profile_bolder">
-						<a class="profile_link_a" href="order.html">
+						<a class="profile_link_a" href="${pageContext.request.contextPath}/02_mypage/order.do">
 						<div class="profile_link clearfix">
 							<div class="profile_link_txt pull-left">
 								<span class="profile_link_title">
 									주문 내역
 								</span>
 								<span class="profile_link_status">
-									진행 중인 주문 없음
+									완료된 주문 ${o_output}개
 								</span>
 							</div>
 							<span class="profile_arrow_icon pull-right"></span>
@@ -103,7 +103,7 @@
 									위시리스트
 								</span>
 								<span class="profile_link_status">
-									저장된 리스트 1개
+									저장된 리스트 ${w_output}개
 								</span>
 							</div>
 							<span class="profile_arrow_icon pull-right"></span>

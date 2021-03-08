@@ -128,4 +128,7 @@ public interface WishlistService {
 	 */
 	public int editWishItemOne(Wish_prod input) throws Exception;
 	
+	/** 회원별 위시리스트 갯수 조회 */
+	//0308추가 -조진경
+	public int getWishlistQTY(Wishlist input) throws Exception;
 }

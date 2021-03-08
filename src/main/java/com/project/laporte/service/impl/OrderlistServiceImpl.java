@@ -131,6 +131,22 @@ public class OrderlistServiceImpl implements OrderlistService {
 	        return result;
 	}
 	
+	/** 회원별 주문 건 수 조회를 위한 기능 정의 */
+	//0308추가-조진경
+	@Override
+	public int getOrderQty(Orderlist input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.selectOne("OrderlistMapper.selectCountByUserno", input);
+		}catch (Exception e) {
+            log.error(e.getLocalizedMessage());
+            throw new Exception("데이터 조회에 실패했습니다.");
+        }
+
+        return result;
+	}
+	
 	/** 주문 갯수 */
 	@Override
     public int getOrderlistCount(Orderlist input) throws Exception {
@@ -202,5 +218,7 @@ public class OrderlistServiceImpl implements OrderlistService {
 		}
 		return result;
 	}
+
+
 
 }

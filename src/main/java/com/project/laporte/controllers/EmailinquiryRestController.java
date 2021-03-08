@@ -2,7 +2,7 @@ package com.project.laporte.controllers;
 
 
 import java.util.HashMap;
-
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -133,15 +133,16 @@ public class EmailinquiryRestController {
 			if(output != null) {
 				try {
 				String subject = "la porte 고객센터 입니다.";
-				String content = "<div style = 'width : 75%; background-color: #cebea7; margin:auto; padding:30px;'>" +
+				String content = "<div style = 'width : 75%; border: 35px solid #cebea7; margin:auto; padding:30px;'> " +
 						 "<h2> 안녕하세요. la porte 입니다 </h2>" +
-						 "<p> 고객님께서 문의 해주신 </p>" +
-						 output.getContent()+
+						 "<br />" +
+						 "<p> 고객님께서" + output.getRegdate()+ "에 문의 해주신 </p>" +
+						 "<h3 stype='font-weight: bold;'>" +output.getContent() + "</h3>"+
 						 "<p>에 대한 답변 입니다.</p>"+						 
 						 "<br />" + 
 						 
-						 "<p> laporte 고객센터 답변 </p>" +
-						 output.getAnswer()+
+						 "<p style ='display:block; width:135px; height: 32px; color:#fff; font-weight:bold; background-color: #172f50; text-align: center; padding-top: 10px;'> laporte 고객센터 답변 </p>" +
+						 "<h3 stype='font-weight: bold;'>" + output.getAnswer()+ "</h3>" +
 						 "<br />" +
 						 "</div>";
 				
@@ -160,4 +161,47 @@ public class EmailinquiryRestController {
 		map.put("item", output);
 		return webHelper.getJsonData(map);
     }
+    
+    /** 이메일 문의 아이템 불러오기*/
+    @RequestMapping(value="/09_cs", method=RequestMethod.GET)
+    public Map<String, Object>item_email_inquiry(   		
+    		@RequestParam(value="emailno", defaultValue="0") int emailno,
+    		@RequestParam(value="category", defaultValue="") String category,
+    		@RequestParam(value="status", defaultValue="") String status
+    		){
+    	
+    	/** 이메일 문의 아이템 불러오기 */
+		Email_inquiry input = new Email_inquiry();
+		input.setEmailno(emailno);
+		input.setCategory(category);
+		input.setStatus(status);
+		Email_inquiry email_item = null;
+		
+		/** 이메일 문의 필터 조건에 맞는 리스트 불러오기 */
+		
+		List <Email_inquiry> list_output = null;
+		
+		
+		/** 결과를 확인하기 위한 페이지 연동 */
+		//저장 결과를 확인하기 위해 데이터 저장 시 생성된 PK값을 상세 페이지로 전달해야 한다.
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			
+			if(emailno != 0) {
+				email_item = emailinquiryService.getEmailInquiry(input);
+				map.put("email_item", email_item);
+			}
+			
+			if(category != "" || status != "") {
+				list_output = emailinquiryService.getEmailInquiryList(input);
+				map.put("email_list", list_output);
+			}
+			}catch(Exception e) {
+				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
+			return webHelper.getJsonData(map);
+		
+    }
+    	
 }
