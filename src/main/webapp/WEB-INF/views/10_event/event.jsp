@@ -80,7 +80,7 @@
 				<div class="event_board_box">
 					<ul class="event_board">
 						<!--이벤트 목록 1-->
-						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40004&userno=<%out.print(session.getAttribute("my_session")); %>" class="event_box">
+						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40004" class="event_box">
 								<div class="event_wrapper clearfix">
 									<div class="event_text_box pull-left">
 										<strong class="eveny_title block">코로나 저리가 쿠폰</strong> <span
@@ -96,7 +96,7 @@
 						</a></li>
 						<!-- 이벤트 목록 1 끝-->
 						<!--이벤트 목록 2-->
-						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40005&userno=<%out.print(session.getAttribute("my_session")); %>" class="event_box">
+						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40005" class="event_box">
 								<div class="event_wrapper clearfix">
 									<div class="event_text_box pull-left">
 										<strong class="eveny_title block">지구 살리기 프로젝트 쿠폰</strong> <span
@@ -112,7 +112,7 @@
 						</a></li>
 						<!-- 이벤트 목록 2 끝-->
 						<!--이벤트 목록 3-->
-						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40006&userno=<%out.print(session.getAttribute("my_session")); %>" class="event_box">
+						<li class="event_board_list"><a href="${pageContext.request.contextPath}/10_event/coupon?couponno=40006" class="event_box">
 								<div class="event_wrapper clearfix">
 									<div class="event_text_box pull-left">
 										<strong class="eveny_title block">새학기 맞이 쿠폰</strong> <span

@@ -61,8 +61,7 @@ reserve.css"><span
             <!-- 메뉴목록 -->
             <div>
                 <ul id="hd_menu_ul1" class="hd_menu_ul">
-                    <li id="hd_menu_product"><a href="#"><h2>모든제품</h2></a></li>
-                    <li><a href="${pageContext.request.contextPath}/03_detail/allproduct1.do">가구</a></li>
+                    <li id="hd_menu_product"><a href="${pageContext.request.contextPath}/03_detail/allproduct1.do"><h2>가구</h2></a></li>
                     <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=101">소파 / 암체어</a></li>
                     <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=102">침대</a></li>
                     <li><a href="${pageContext.request.contextPath}/03_detail/allproduct2.do?catno1=103">수납 / 정리</a></li>
@@ -75,8 +74,7 @@ reserve.css"><span
                 <ul id="hd_menu_ul3" class="hd_menu_ul">
                     <li><a href="${pageContext.request.contextPath}/08_reserve/showroom_info.do">컨설팅 쇼룸 정보</a></li>
                     <li><a href="${pageContext.request.contextPath}/09_cs/cs.do">고객지원</a></li>
-                    <li><a href="${pageContext.request.contextPath}/02_mypage/order.dp">배송조회</a></li>
-                    <li><a href="${pageContext.request.contextPath}/02_mypage/mypage.dp">내 프로필</a></li>
+                    <li><a href="${pageContext.request.contextPath}/02_mypage/order.do">배송조회</a></li>
                 </ul>
             </div>
         </div>

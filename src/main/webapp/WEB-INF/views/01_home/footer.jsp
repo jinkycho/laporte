@@ -15,16 +15,16 @@
 					<a href="${pageContext.request.contextPath}/09_cs/cs.do">고객지원</a>
 				</div>
 				<div id="content2" class="content">
-					<a href="<%=request.getContextPath()%>/09_cs/fa.do">자주 묻는 질문</a>
+					<a href="${pageContext.request.contextPath}/09_cs/fa.do">자주 묻는 질문</a>
 				</div>
 				<div id="content3" class="content">
-					<a href="<%=request.getContextPath()%>/09_cs/csmain.do">문의하기</a>
+					<a href="${pageContext.request.contextPath}/09_cs/csmain.do">문의하기</a>
 				</div>
 				<div id="content4" class="content">
 					<a href="${pageContext.request.contextPath}/09_cs/delivery.do">배송조회 및 관리</a>
 				</div>
 				<div id="content5" class="content">
-					<a href="<%=request.getContextPath()%>/09_cs/exchange.do">교환환불</a>
+					<a href="${pageContext.request.contextPath}/09_cs/exchange.do">교환환불</a>
 				</div>
 				<div class="ft_collapse">
 					<a href="#content6">
@@ -33,7 +33,7 @@
 					</a>
 				</div>
 				<div id="content6" class="content">
-					<a href="<%=request.getContextPath()%>/03_detail/allproduct1.do">쇼핑하기</a>
+					<a href="${pageContext.request.contextPath}/03_detail/allproduct1.do">쇼핑하기</a>
 				</div>
 				<div class="ft_collapse">
 					<a href="#content7, #content8">
@@ -60,7 +60,13 @@
 					<div class="ft_legalinformation">
 						<p>la porte<br/>
 						주소 : 서울특별시 서초구 서초대로77길 55<br/>
-						만든사람 : 조진경 장명승 김혜지 김연우</p>
+						만든사람 : 조진경 장명승 김혜지 김연우
+						<br />
+						<br />
+						본 사이트는 취업을 위한 학생 포트폴리오이며 어떠한 상업적 목적으로 이용하지 않을 것이고, 이용하셔도 안됩니다.
+						<br />
+						사이트에 대한 궁금한 점이 있으시면 jinkycho@gmail.com 으로 문의주시길 바랍니다.
+						</p>
 					</div>
 				</div>
 			</div>

@@ -34,7 +34,7 @@
         <!-- 검색제외 본문영역 -->
         <div class="container">
         
-       <!-- Swiper -->
+        <!-- Swiper -->
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
@@ -42,14 +42,13 @@
 				        <div class="home_banner_content">
                                 <div class="row">
                                     <div class="home_banner_img col-sm-12 col-md-6">
-                                    <img src="assets/img/banner_image.png" class="banner_carousel_img"></div>
+                                    <img src="assets/img/banner01.png" class="banner_carousel_img"></div>
                                     <div class="home_banner_txt col-sm-12 col-md-6">
                                     
                                         <h3>보다 지속가능한 삶을 위한 간단한 변화</h3>
                                         <p>laporte에서 지속가능한 삶을 위해 실천하고 있는 변화를 확인해보세요. 
                                         집에서 지속가능한 생활을 하기가 그 어느 때보다 쉬워졌고 비용도 합리적이에요. 그리고 돈도 절약하면서 소중한 자원도 보존할 수 있습니다.</p>
                                         <a href="#" id="home_banner_detail">자세히 보기</a>
-                                        <br />
                                        
                                     </div>
                                     </div>

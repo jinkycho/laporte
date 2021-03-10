@@ -496,7 +496,7 @@ public class UserRestController {
     }
     
 
-	 /** 회원정보 상세 조회 */
+	 /** 회원탈퇴 조회 */
    @RequestMapping(value = "/02_mypage", method = RequestMethod.DELETE)
    public Map<String, Object> delete_user(
 		   @RequestParam(value="userno", defaultValue="0") int userno,

@@ -32,34 +32,6 @@
 		<%@ include file="../01_home/header.jsp" %>
 		<section>
 		<%@ include file="../01_home/search.jsp"%>
-			<!-- 검색 -->
-            <div class="hd_searchbox">
-                <div class="hd_search">
-                    <input id="search_text" type="text" placeholder="검색어 입력">
-                        <span id="hd_search_icon"></span>
-                </div>
-                <div class="sc_gray_layer" id="hd_search_background"></div>
-                <div class="sc_over_layer" id="hd_search_front">
-                    <div id="modal_search_box_container">
-                        <form>
-                            <input id="modal_search_text" type="text" placeholder="검색어 입력">
-                            <span id="search_close_icon"></span>
-                            <input type="reset" id="search_remove_icon">
-                            <input type="submit" id="search_enter_icon">
-                        </form>
-                        <div id="search_result" >
-                        <h4>추천 검색어</h4>
-                            <a href="#"><span class="rec_reyword"></span>가구</a>
-                            <a href="#"><span class="rec_reyword"></span>침대</a>
-                            <a href="#"><span class="rec_reyword"></span>주방</a>
-                            <a href="#"><span class="rec_reyword"></span>소파</a>
-                            <a href="#"><span class="rec_reyword"></span>수납</a>
-                            <a href="#"><span class="rec_reyword"></span>조명</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 검색 끝 -->
 
 			<!-- 검색제외 본문영역 -->
             <div class="container">
@@ -95,7 +67,7 @@
                                 <p>구입한 제품이 지금 어디에 있는지 정확히 알고 싶으신가요? 
                                     주문을 추적하면 걱정을 덜 수 있을 거예요.</p>
                             </div>
-                            <a href="../02_mypage/order.html" class="delivery_btn">배송조회</a>
+                            <a href="#" class="delivery_btn">배송조회</a>
                         </div>
                         <!--배송조회 박스 끝-->
                         <!--주문 관리 박스 -->
@@ -105,7 +77,7 @@
                                 <p>트럭 배송 시간을 변경해야 하거나, 
                                     주문 취소 또는 조립 서비스가 필요하다면 여기에서 도와드릴게요.</p>
                             </div>
-                            <a href="../02_mypage/order.html" class="delivery_btn">주문관리</a>
+                            <a href="#" class="delivery_btn">주문관리</a>
                         </div>
                         <!--주문 관리 박스 끝-->
                     </div>

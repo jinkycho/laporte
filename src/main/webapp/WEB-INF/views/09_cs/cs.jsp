@@ -34,34 +34,6 @@
 		<section>
 	
 	<%@ include file="../01_home/search.jsp"%>
-			<!-- 검색 -->
-            <div class="hd_searchbox">
-                <div class="hd_search">
-                    <input id="search_text" type="text" placeholder="검색어 입력">
-                        <span id="hd_search_icon"></span>
-                </div>
-                <div class="sc_gray_layer" id="hd_search_background"></div>
-                <div class="sc_over_layer" id="hd_search_front">
-                    <div id="modal_search_box_container">
-                        <form>
-                            <input id="modal_search_text" type="text" placeholder="검색어 입력">
-                            <span id="search_close_icon"></span>
-                            <input type="reset" id="search_remove_icon">
-                            <input type="submit" id="search_enter_icon">
-                        </form>
-                        <div id="search_result" >
-                        <h4>추천 검색어</h4>
-                            <a href="#"><span class="rec_reyword"></span>가구</a>
-                            <a href="#"><span class="rec_reyword"></span>침대</a>
-                            <a href="#"><span class="rec_reyword"></span>주방</a>
-                            <a href="#"><span class="rec_reyword"></span>소파</a>
-                            <a href="#"><span class="rec_reyword"></span>수납</a>
-                            <a href="#"><span class="rec_reyword"></span>조명</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 검색 끝 -->
             
             <!-- 여기가 현재 페이지를 의미합니다. - active클래스 적용됨 -->
 

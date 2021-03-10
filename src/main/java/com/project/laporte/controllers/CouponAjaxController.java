@@ -2,7 +2,9 @@ package com.project.laporte.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -105,16 +107,23 @@ public class CouponAjaxController {
 	   /** 사용자-쿠폰추가*/
 	    @RequestMapping(value="/10_event/coupon", method = RequestMethod.GET)
 	    public ModelAndView add_usrcoupon(
-	    		Model model,
-	    		@RequestParam(value= "couponno", defaultValue="0") int couponno,
-	    		@RequestParam(value= "userno", defaultValue="0") int userno
-	    		){
+	    		Model model, HttpServletRequest request,
+	    		@RequestParam(value= "couponno", defaultValue="0") int couponno){
 	    	
+	    	HttpSession session = request.getSession();
+			
+			int mySession = (int) session.getAttribute("my_session");
+			
+	    	if(mySession == 0) {
+	    		return webHelper.redirect(null, "로그인을 해주세요.");
+	    		
+	    	}
 	    	/** 1) 쿠폰 저장하기 */
 	    	//userno 과 couponno 파라미터를 Userscoupon 객체에 넣어 저장하기
 	    	Userscoupon input = new Userscoupon();
-	    	input.setUserno(userno);
+	    	input.setUserno(mySession);
 	    	input.setCouponno(couponno);
+	    	
 	    	
 	    	Userscoupon output = null;
 	    	

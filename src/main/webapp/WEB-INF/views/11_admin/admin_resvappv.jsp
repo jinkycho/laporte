@@ -65,11 +65,11 @@
 								<span id="logo_img">la porte</span>
                             </a>
                         </li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
+						<li class="dropdown open"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"><i class="glyphicon glyphicon-edit"></i>
 								홈 퍼블리싱 예약관리 <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li>
+								<li class="active">
 									<a href="${pageContext.request.contextPath}/11_admin/admin_resvappv.do">
 										<i class="glyphicon glyphicon-ok"></i>
 										예약 승인
@@ -90,7 +90,7 @@
 								
 							</ul>
 						</li>
-                        <li class="dropdown open">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
                                 고객 관리 <b class="caret"></b>
@@ -102,7 +102,7 @@
                                     <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_delivery.do">
                                     <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리</a></li>
-                                <li class="active"><a href="${pageContext.request.contextPath}/11_admin/admin_cancel.do">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_cancel.do">
                                     <i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_coupon.do">
                                     <i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>

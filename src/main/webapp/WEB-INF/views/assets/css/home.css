@@ -28,8 +28,7 @@
 }
 
 .home_banner_img img {
-	width: 500px;
-	height: 430px;
+	width: 100%;
 }
 
 .home_banner_txt {

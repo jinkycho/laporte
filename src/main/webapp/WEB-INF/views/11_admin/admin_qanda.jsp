@@ -90,7 +90,7 @@
 							
 							</ul>
 						</li>
-                        <li class="dropdown open">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
                                 고객 관리 <b class="caret"></b>
@@ -98,7 +98,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_userlist.do">
                                     <i class="glyphicon glyphicon-user"></i> 회원정보 관리</a></li>
-                                <li class="active"><a href="${pageContext.request.contextPath}/11_admin/admin_order.do">
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_order.do">
                                     <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_delivery.do">
                                     <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리</a></li>
@@ -109,13 +109,13 @@
                                 
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li class="dropdown open">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-pencil"></i>
                                 문의 관리 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_qanda.do">
+                                <li class="active"><a href="${pageContext.request.contextPath}/11_admin/admin_qanda.do">
                                     <i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a></li>
                                 
                             </ul>
