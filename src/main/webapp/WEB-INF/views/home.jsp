@@ -524,15 +524,19 @@
     			    		let userno = current.data('userno');
     			    		let prodno = current.data('prodno');
     			    		
-    			    		$.post("${pageContext.request.contextPath}/06_cart/cart", {
-    			    			"userno": userno,
-    			    			"prodno": prodno,
-    			    		}, function(json) {
-    			    			if(json.rt=="OK")
-    			    				alert("상품이 장바구니에 추가 되었습니다.");
-    			    				location.reload(); // 장바구니로 이동 수정 예
-    			    		})
-    				 });
+    			    		if(userno == ""){
+    			    			alert("로그인을 먼저 해주세요.");
+    			    		}else{
+    			    			$.post("${pageContext.request.contextPath}/06_cart/cart", {
+        			    			"userno": userno,
+        			    			"prodno": prodno,
+        			    		}, function(json) {
+        			    			if(json.rt=="OK")
+        			    				alert("상품이 장바구니에 추가 되었습니다.");
+        			    				location.reload(); // 장바구니로 이동 수정 예
+        			    		})
+    			    		}
+    				 	});
     				 });
 			
 
