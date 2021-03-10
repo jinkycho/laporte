@@ -49,11 +49,11 @@ public class ReserveAjaxController {
 	public ModelAndView list(Model model,
 	
 			@RequestParam(value="userno",defaultValue="0")int userno) {
-		/** 1) 유효성 검사 */
-		// 이 값이 존재하지 않는다면 데이터 조회가 불가능 하므로 필수값으로 처리해야한다.
-		if(userno == 0) {
-			return webHelper.redirect(null, "회원 정보가 없습니다.");
-		}
+//		/** 1) 유효성 검사 */
+//		// 이 값이 존재하지 않는다면 데이터 조회가 불가능 하므로 필수값으로 처리해야한다.
+//		if(userno == 0) {
+//			return webHelper.redirect(null, "회원 정보가 없습니다.");
+//		}
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
 		Reserve input = new Reserve();
@@ -80,10 +80,10 @@ public class ReserveAjaxController {
 		
 		/** 1) 유효성 검사 */
 		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
-		if (reserveno == 0) {
-			return webHelper.redirect(null, "예약번호가 없습니다.");
-		}
-		
+//		if (reserveno == 0) {
+//			return webHelper.redirect(null, "예약번호가 없습니다.");
+//		}
+//		
 		/** 2)데이터 조회하기*/
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
 		Reserve input = new Reserve();
@@ -144,9 +144,9 @@ public class ReserveAjaxController {
 		
 		/** 1) 파라미터 유효성 검사 */
 		// 이값이 존재하지않는다면 예약취소가 불가능하므로 필수값으로 처리해야 한다.
-		if(reserveno == 0) {
-			return webHelper.redirect(null, "예약 번호가 없습니다.");
-		}
+//		if(reserveno == 0) {
+//			return webHelper.redirect(null, "예약 번호가 없습니다.");
+//		}
 		
 		/** 2) 데이터 삭제하기 */
 		Reserve input = new Reserve();
@@ -168,9 +168,9 @@ public class ReserveAjaxController {
 		
 		/** 1) 파라미터 유효성 검사 */
 		// 이값이 존재하지않는다면 예약취소가 불가능하므로 필수값으로 처리해야 한다.
-		if(reserveno == 0) {
-			return webHelper.redirect(null, "예약 번호가 없습니다.");
-		}
+//		if(reserveno == 0) {
+//			return webHelper.redirect(null, "예약 번호가 없습니다.");
+//		}
 		
 		/** 2) 데이터 수정하기 */
 		Reserve input = new Reserve();

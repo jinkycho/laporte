@@ -48,10 +48,7 @@
 				</button>
 				<span><a class="navbar-brand" href="${pageContext.request.contextPath}/11_admin/admin_home.do">HOME</a></span>
 			</div>
-			<div class="navbar-button pull-right">
-				<button class="nav_logout_btn">LOGOUT</button>
-				<button class="nav_admin_btn">ADMINISTRATOR</button>
-			</div>
+			
 		</nav>
 
 
@@ -82,8 +79,7 @@
 										class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
 								<li><a href="${pageContext.request.contextPath}/11_admin/admin_review.do"><i
 										class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
-								<li><a href="${pageContext.request.contextPath}/11_admin/admin_sales.do"><i class="glyphicon glyphicon-usd"></i>
-										매출 관리</a></li>
+								
 							</ul></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -101,10 +97,7 @@
 									<i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
 								<li><a href="${pageContext.request.contextPath}/11_admin/admin_coupon.do">
 									<i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>
-								<li><a href="${pageContext.request.contextPath}/11_admin/admin_point.do" >
-									<i class="glyphicon glyphicon-usd"></i> 적립금</a></li>
-								<li><a href="${pageContext.request.contextPath}/11_admin/admin_visitors.do">
-									<i class="glyphicon glyphicon-stats"></i> 방문자 수 관리</a></li>
+								
 							</ul>
 						</li>
 						<li class="dropdown">
@@ -116,9 +109,7 @@
 								<li>
 									<a href="${pageContext.request.contextPath}/11_admin/admin_qanda.do"><i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a>
 								</li>
-								<li>
-									<a href="${pageContext.request.contextPath}/11_admin/admin_fanda.do"><i class="glyphicon glyphicon-list-alt"></i> F&A 관리</a>
-								</li>
+								
 							</ul>
 						</li>
 					</ul>
