@@ -11,8 +11,7 @@
         <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
         <result property="outuserno" column="outuserno" />
         <result property="userno" column="userno" />
-        <result property="userid" column="userid" />
-        <result property="userpwd" column="userpwd" />
+        <result property="email" column="email" />
         <result property="name" column="name" />
         <result property="birthdate" column="birthdate" />
         <result property="phoneno" column="phoneno" />
@@ -20,28 +19,26 @@
         <result property="addr1" column="addr1" />
         <result property="addr2" column="addr2" />
         <result property="postcode" column="postcode" />
-        <result property="userstatus" column="userstatus" />
+        <result property="outreason" column="outreason" />
         <result property="regdate" column="regdate" />
         <result property="outdate" column="outdate" />
-        <result property="outreason" column="outreason" />
-        <result property="editdate" column="editdate" />
     </resultMap>
 
 	<!-- 탈퇴 회원 정보 저장을 위한 기능 정의 -->
 	<insert id="insertOutuser"
 		parameterType = "com.project.laporte.model.Outuser"
 		useGeneratedKeys="true" keyProperty="outuserno">
-		INSERT INTO user(userno, userid, userpwd, name, birthdate, phoneno, gender, addr1, addr2,
-		postcode, userstatus, outreason, regdate, outdate)
-		VALUES(#{userno}, #{userid}, #{userpwd}, #{name}, #{birthdate}, #{phoneno}, #{gender}, #{email},
-		#{addr1}, #{addr2}, #{postcode}, #{outreason}, now(), now()
+		INSERT INTO outuser(userno, email, name, birthdate, phoneno, gender, addr1, addr2,
+		postcode, outreason, regdate, outdate)
+		VALUES(#{userno}, #{email}, #{name}, #{birthdate}, #{phoneno}, #{gender},
+		#{addr1}, #{addr2}, #{postcode}, #{outreason}, #{regdate}, now()
 		)
 	</insert>
 
 	<!-- 탈퇴 회원 목록 조회를  위한 기능 정의 -->
 	<select id="selectOutuserList" parameterType = "com.project.laporte.model.Outuser" resultMap="outuserMap">
-		SELECT outuserno, userno, userid, userpwd, name, birthdate, phoneno, gender,addr1, addr2,
-		postcode, userstatus, outreason, regdate, outdate
+		SELECT outuserno, userno, email, name, birthdate, phoneno, gender,addr1, addr2,
+		postcode, outreason, regdate, outdate
 		FROM outuser
 	</select>
 

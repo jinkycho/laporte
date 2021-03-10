@@ -168,7 +168,7 @@
 															<td>${item.regdate}</td>
 															<td><a href="#" id="order-button"
 																data-userno="${item.userno}" class=" btn-success btn-xs">자세히보기</a>
-																<a href="#" class="user-delete btn-danger btn-xs"> X
+																<a href="#" data-userno="${item.userno}" id="delete_user" class="user-delete btn-danger btn-xs"> X
 																	회원삭제</a></td>
 														</tr>
 													</c:forEach>
@@ -183,11 +183,24 @@
 											
 						
 											<div id="userdetail-list">
-											<input id="userno-input" value="${u_output.userno}" readonly>
-											<table id="order-form" class="table table-bordered">
-												<thead>
+											
+											<table class="table table-bordered">
+											<thead>
 													<tr class="table_color">
 														<th>고객번호</th>
+													</tr>
+											</thead>
+											<tbody>
+											<tr>
+											<td>
+											<input id="userno-input" value="${u_output.userno}" readonly>
+											</td>
+											</tr>
+											</table>
+											<table id="order-form" class="table table-bordered">
+											</tbody>
+												<thead>
+													<tr class="table_color">
 														<th>주문번호</th>
 														<th>주문일</th>
 														<th>연락처</th>
@@ -213,7 +226,6 @@
 															<c:forEach var="order" items="${o_output}"
 																varStatus="status">
 																<tr>
-																	<td>${order.userno}</td>
 																	<td>${order.orderno}</td>
 																	<td>${order.regdate}</td>
 
@@ -287,18 +299,12 @@
 											<table id="point-form" class="table table-bordered">
 												<thead>
 													<tr class="table_color">
-														<th>고객번호</th>
 														<th>보유 포인트</th>
 													</tr>
 												</thead>
 
 												<tbody id="point_list">
-
-
-
-
 													<tr>
-														<td>${u_output.userno}</td>
 														<td><fmt:formatNumber pattern="###,###,###"
 																value="${u_output.point}" /></td>
 													</tr>
@@ -384,10 +390,20 @@
                                                             <td class="select-user"><input type="checkbox" /></td>
                                                             <td>${outuser.outuserno}</td>
                                                             <td>${outuser.name}</td>
-                                                            <td>${outuser.userid}</td>
+                                                            <td>${outuser.email}</td>
                                                             <td>${outuser.regdate}</td>
                                                             <td>${outuser.outdate}</td>
-                                                            <td>${outuser.outreason}</td>
+                                                            <td>
+                                                            	<c:choose>
+                                                            		<c:when test="${outuser.outreason == NULL}" >
+                                                            		탈퇴이유없음
+                                                            		</c:when>
+                                                            		<c:otherwise>
+                                                            		${outuser.outreason}
+                                                            		</c:otherwise>
+                                                            	</c:choose>
+                                                            
+                                                            </td>
                                                     
                                                         </tr>
                                                     </c:forEach>
@@ -432,6 +448,31 @@
         		}
         	});
         	
+        });
+        
+      //회원 탈퇴하기
+       $(document).on("click","#delete_user", function(e){
+        	e.preventDefault();
+        	
+        	let current = $(this);
+        	let outuserno = current.data('userno');
+        	let outreason = "";
+        	
+        	if(!confirm('정말 삭제하시겠습니까? 삭제한 회원은 회원 복구가 불가능 합니다.')){
+        		return false;
+        	}else{
+        	outreason = prompt("회원 삭제 이유를 기재해주세요.");
+        	}
+        	//put 메서드로 ajax 요청
+        	$.delete("${pageContext.request.contextPath}/02_mypage",{
+        		"userno" : outuserno,
+        		"outreason" : outreason
+        	},function(json){
+        		if(json.rt == "OK"){
+        		alert("회원 삭제가 정상적으로 되었습니다.");
+        		location.reload();
+        	}
+         });
         });
         
       

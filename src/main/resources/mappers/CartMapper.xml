@@ -106,5 +106,11 @@
     		ea = ea + #{ea}
     		WHERE userno = #{userno} AND prodno = #{prodno}
     </update>
+    
+    <!-- 회원 삭제 시 회원 번호 null로 업데이트 -->
+    <update id = "unsetUsernoCart"
+    	parameterType = "com.project.laporte.model.User">
+    	UPDATE cart SET userno = null WHERE userno = #{userno} 
+    </update>
 	
 </mapper>

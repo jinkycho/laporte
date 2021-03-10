@@ -346,7 +346,7 @@
 									<span class="prof_title">회원 정보 삭제</span>
 									<p class="delete_persuade">la Porte를 더 이상 이용하지 않는다면 언제든 탈퇴할 수 있습니다. 
 										단, 회원 정보 및 구매 내역이 함께 삭제된다는 점을 참고해주세요.</p>
-									<a href="#" class="delete_user">계정을 삭제하시겠어요?</a>
+									<a href="#" data-userno= "${output.userno}" id="delete_user" class="delete_user">계정을 삭제하시겠어요?</a>
 								</div>
 						</div>
 					</div>
@@ -428,7 +428,7 @@
 						"gender" : gender
 					},function(json){
 						if(json.rt == "OK"){
-						swal('완료','개인정보가 수정되었습니다.','success');
+						alert('개인정보가 수정되었습니다.');
 						location.reload();
 					}
 				 });
@@ -469,7 +469,7 @@
 						"email" : email
 					},function(json){
 						if(json.rt == "OK"){
-						swal('완료','연락처가 수정되었습니다.','success');
+						alert('연락처가 수정되었습니다.');
 						location.reload();
 					}
 				 });
@@ -541,7 +541,7 @@
 					"postcode" : postcode
 				},function(json){
 					if(json.rt == "OK"){
-					swal('완료','주소가 수정되었습니다.','success');
+					alert('주소가 수정되었습니다.');
 					location.reload();
 				}
 			 });
@@ -676,21 +676,13 @@
 				"userpwd" : userpwd,
 			},function(json){
 				if(json.rt == "OK"){
-				swal('완료','비밀번호가 재설정되었습니다.','success');
+				alert('비밀번호가 재설정되었습니다.');
 				location.reload();
 			}
 		 });
 	});
 	});
 
-	/*---------수정 > 저장 버튼 클릭시 --------*/
-	
-		//개인정보 수정 저장 버튼
-
-		//연락처 수정 저장 버튼
-
-		//비밀번호 수정 저장 버튼
-	
 /*-------------------------우편번호 ------------------------------------*/
 		   // 우편번호 찾기 화면을 넣을 element
 		 // 우편번호 찾기 찾기 화면을 넣을 element
@@ -745,6 +737,31 @@ function sample3_execDaumPostcode() {
 	element_wrap.style.display = 'block';
 }
 
+	
+//회원 탈퇴하기
+$('#delete_user').click(function(e){
+	e.preventDefault();
+	
+	let current = $(this);
+	let userno = current.data('userno');
+	let outreason = "";
+	
+	if(!confirm("정말 탈퇴하시겠습니까? 탈퇴하신 후에는 회원 복구가 불가능 합니다.")){
+		return false;
+	}else{
+	outreason = prompt("탈퇴하시는 이유를 laporte에게 알려주시면 추후 서비스에 참고하겠습니다.");
+	}
+	//put 메서드로 ajax 요청
+	$.delete("${pageContext.request.contextPath}/02_mypage",{
+		"userno" : userno,
+		"outreason" : outreason
+	},function(json){
+		if(json.rt == "OK"){
+		alert("회원 탈퇴가 정상적으로 되었습니다. 그동안 저희 laporte를 이용해주셔서 감사합니다.");
+		window.location = "${pageContext.request.contextPath}/logout.do"
+	}
+ });
+});
     </script>
 </body>
 </html>

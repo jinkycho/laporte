@@ -53,6 +53,12 @@ public class Orderlist {
 	//5) firstimg 테이블과 조인
 	private String thumbnailUrl;
 	
+	//6) delivery 테이블과 조인
+	private int deliveryno;					// 배송 번호(PK)
+	private String deliverydate;			// 배송 날짜
+	private String deliverystatus;			// 배송 상태 ( 결제전 N, 준비중 R, 배송대기 S, 배송중 D, 배송완료 C)
+	private int trackingnum;				// 운송장 번호
+	
 	// 5) 페이지 구현을 위한 static 변수
 	/** LIMIT 절에서 사용할 조회 시작 위치 */
 	private static int offset;

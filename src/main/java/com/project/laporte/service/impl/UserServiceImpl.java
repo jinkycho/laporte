@@ -301,5 +301,68 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-	
-}
+	/** 회원 삭제 */
+	@Override
+	public int deleteUser(User input) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		
+		try {
+			//회원 삭제 전 user를 참조하고 있는 reserve 테이블의 userno을 null로 수정
+			sqlSession.delete("ReserveMapper.unsetUsernoResv", input);
+			
+			//회원 삭제 전 user를 참조하고 있는 review 테이블의 userno을 null로 수정
+			sqlSession.delete("ReviewMapper.unsetUsernoRev", input);
+			
+			//회원 삭제 전 user를 참조하고 있는 cart 테이블의 userno을 null로 수정
+			sqlSession.delete("CartMapper.unsetUsernoCart", input);
+			
+			//회원 삭제 전 user를 참조하고 있는 wishlist 테이블의 userno을 null로 수정
+			sqlSession.delete("WishlistMapper.unsetUsernoWish", input);
+			
+			//회원 삭제 전 user를 참조하고 있는 orderlist 테이블의 userno을 null로 수정
+			sqlSession.delete("OrderlistMapper.unsetUsernoOrd", input);
+			
+			//회원 삭제 전 user를 참조하고 있는 delivery 테이블의 userno을 null로 수정
+			sqlSession.delete("DeliveryMapper.unsetUsernoDel", input);
+			
+			//회원 삭제 전 user를 참조하고 있는 userscoupon 테이블의 userno을 null로 수정
+			sqlSession.delete("UserscouponMapper.unsetUsernoUsc", input);
+			
+			result = sqlSession.delete("UserMapper.deleteUser", input);
+			
+			if(result ==0) {
+				throw new NullPointerException("result == 0");
+			}
+			
+		}catch(NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		}catch(Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	/** 탈퇴 회원 저장*/
+	@Override
+	public int addOutUser(Outuser input) throws Exception {
+		int result = 0;
+		
+		try {
+			result = sqlSession.insert("OutuserMapper.insertOutuser", input);
+			
+			if(result == 0) {
+				throw new NullPointerException("result==0");
+			}
+			}catch(NullPointerException e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("조회된 데이터가 없습니다.");
+			}catch(Exception e) {
+				log.error(e.getLocalizedMessage());
+				throw new Exception("데이터 조회에 실패했습니다.");
+			}
+			return result;
+		}
+	}

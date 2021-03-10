@@ -54,6 +54,11 @@
         <!-- firstimg(제품이미지) 테이블과 조인 -->
         <result property="thumbnailUrl" column="thumbnailUrl" />
 
+		<!-- delivery(배송) 테이블과 조인 --> 
+        <result property="deliveryno" column="deliveryno" />
+        <result property="deliverydate" column="deliverydate" />
+        <result property="deliverystatus" column="deliverystatus" />
+        <result property="trackingnum" column="trackingnum" />
     </resultMap>
 
 	<!-- 새로운 오더 저장을 위한 기능 정의  -->
@@ -198,6 +203,12 @@
         UPDATE orderlist SET
             ccstatus=#{ccstatus}, ccdate=now()
         WHERE orderno=#{orderno}
+    </update>
+    
+     <!-- 회원 삭제 시 회원 번호 null로 업데이트 -->
+    <update id = "unsetUsernoOrd"
+    	parameterType = "com.project.laporte.model.User">
+    	UPDATE orderlist SET userno = null WHERE userno = #{userno} 
     </update>
 
 </mapper>

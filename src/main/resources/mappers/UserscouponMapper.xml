@@ -77,4 +77,10 @@
 		WHERE couponno = #{couponno} AND userno = #{userno}
 	</select>
 	
+	 <!-- 회원 삭제 시 회원 번호 null로 업데이트 -->
+    <update id = "unsetUsernoUsc"
+    	parameterType = "com.project.laporte.model.User">
+    	UPDATE userscoupon SET userno = null WHERE userno = #{userno} 
+    </update>
+    
 </mapper>

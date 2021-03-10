@@ -21,6 +21,7 @@ import com.project.laporte.helper.MailHelper;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Orderlist;
+import com.project.laporte.model.Outuser;
 import com.project.laporte.model.User;
 import com.project.laporte.model.Userscoupon;
 import com.project.laporte.model.Wishlist;
@@ -493,6 +494,58 @@ public class UserRestController {
 
         return webHelper.getJsonData(data);
     }
+    
+
+	 /** 회원정보 상세 조회 */
+   @RequestMapping(value = "/02_mypage", method = RequestMethod.DELETE)
+   public Map<String, Object> delete_user(
+		   @RequestParam(value="userno", defaultValue="0") int userno,
+		   @RequestParam(value="outreason", defaultValue="NULL") String outreason) {
+
+	   /** 1) 파라미터 유효성 검사 */
+   		if(userno == 0) {
+   		return webHelper.getJsonWarning("잘못된 접근입니다. 삭제할 회원이 없습니다.");
+   		}
+   		
+       /** 2) 데이터 삭제하기 */
+       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+       User input = new User();
+       input.setUserno(userno);
+       
+       Outuser ou_input = new Outuser();
+       ou_input.setOutreason(outreason);
+       
+       User output = null;
+
+       try {
+    	   //데이터 조회
+    	   output = userService.getUserItem(input);
+        	
+    	   //outuser 테이블로 회원 정보 옮겨서 저장하기
+        	ou_input.setUserno(output.getUserno());
+        	ou_input.setEmail(output.getEmail());
+        	ou_input.setName(output.getName());
+        	ou_input.setBirthdate(output.getBirthdate());
+        	ou_input.setPhoneno(output.getPhoneno());
+        	ou_input.setGender(output.getGender());
+        	ou_input.setAddr1(output.getAddr1());
+        	ou_input.setAddr2(output.getAddr2());
+        	ou_input.setPostcode(output.getPostcode());
+        	ou_input.setRegdate(output.getRegdate());
+    		
+    		userService.addOutUser(ou_input);
+           // 데이터 삭제
+    	   userService.deleteUser(input);
+    	   
+    	   
+       } catch (Exception e) {
+           return webHelper.getJsonError(e.getLocalizedMessage());
+       }
+
+
+   		/** 3) 결과 확인 JSON 출력 */
+   		return webHelper.getJsonData();
+   }
 
 	 /** 관리자-고객관리 주문 상세 조회 */
     @RequestMapping(value = "/11_admin/admin_userlist_order", method = RequestMethod.GET)
@@ -516,7 +569,7 @@ public class UserRestController {
 
         /** 2) JSON 출력하기 */
         Map<String, Object> data = new HashMap<String, Object>();
-        data.put("item", o_output);
+        data.put("o_output", o_output);
 
         return webHelper.getJsonData(data);
     }

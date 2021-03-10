@@ -44,4 +44,9 @@ public interface UserService {
 	/** 탈퇴 회원 조회 */
 	public List<Outuser> getOutuserList(Outuser input) throws Exception;
 	
+	/** 회원 삭제 */
+	public int deleteUser(User input) throws Exception;
+	
+	/** 탈퇴 회원 저장*/
+	public int addOutUser(Outuser input) throws Exception;
 }

@@ -122,4 +122,10 @@
         INNER JOIN orderlist o ON o.orderno = d.orderno
     </select>
     
+     <!-- 회원 삭제 시 회원 번호 null로 업데이트 -->
+    <update id = "unsetUsernoDel"
+    	parameterType = "com.project.laporte.model.User">
+    	UPDATE delivery SET userno = null WHERE userno = #{userno} 
+    </update>
+    
 </mapper>
