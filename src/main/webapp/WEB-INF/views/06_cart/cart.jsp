@@ -79,7 +79,7 @@
 										<select class="cart_productcount" name="ea">
 						      				<optgroup label="수량">
 						        				<c:forEach begin="1" end="10" var="i">
-		                    						<option value="${i }">${i }</option>
+		                    						<option value="${i }" <c:if test="${item.ea == i }">selected</c:if>>${i }</option>
 		                    					</c:forEach>	
 						      				</optgroup>
 						       			</select>
@@ -318,7 +318,7 @@
 			});
 			
 			/** 추천제품 - 위시리스트 클릭 */
-			$(document).on("change",".heart",function() {
+			$(document).on("change",".chk_heart heart",function() {
 				let current = $(this); 
 	    		let userno = current.data('userno');
 				if (userno==0){

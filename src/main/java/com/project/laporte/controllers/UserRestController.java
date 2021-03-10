@@ -263,7 +263,7 @@ public class UserRestController {
 			if(output != null) {
 				try {
 					String subject = "la porte 비밀번호 재설정을 위한 메세지 입니다.";
-					String url = "http://localhost:8080/laporte/02_mypage/pwrevise.do";
+					String url = "http://itproject.ezenac.co.kr/laporte/02_mypage/pwrevise.do";
 					int param_userno = output.getUserno();
 
 					String pwrevise_url = url + "?" + "userno=" + param_userno;

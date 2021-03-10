@@ -82,7 +82,7 @@
 		SELECT p.prodno, p.name, p.price, p.stock, p.display, p.catno2,
 		p.`group`, f.thumbnailUrl 
 		FROM product p
-		INNER JOIN firstImg f ON f.prodno=p.prodno
+		INNER JOIN firstimg f ON f.prodno=p.prodno
 		<if test="listCount > 0">
         	LIMIT #{offset},#{listCount}
         </if>
@@ -242,13 +242,13 @@
 		resultMap="productMap">
 		SELECT p.prodno, p.name, p.size, p.color, p.catno2, p.price, p.saleprice, `group`, f.fileUrl 
 		FROM product p
-		INNER JOIN firstImg f ON p.prodno=f.prodno
+		INNER JOIN firstimg f ON p.prodno=f.prodno
 		WHERE catno2=#{catno2}
 	</select>
 	
 	<select id="selectCountAllAdmin"
     	parameterType="com.project.laporte.model.Product" resultType="int">
     	SELECT COUNT(*) FROM product p
-    	INNER JOIN firstImg f ON p.prodno=f.prodno
+    	INNER JOIN firstimg f ON p.prodno=f.prodno
     </select>
 </mapper>

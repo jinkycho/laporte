@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,7 +58,8 @@ public class CartAjaxController {
 	/** 목록 페이지 */
     @RequestMapping(value = "/06_cart/cart.do", method = RequestMethod.GET)
     public ModelAndView list(Model model, HttpServletRequest request,
-            @RequestParam(value="userno", defaultValue="0") int userno) {
+            @RequestParam(value="userno", defaultValue="0") int userno,
+            @CookieValue(value="my_wish", defaultValue="0", required=false)int my_wish) {
 
     	/** 1) 데이터 조회하기 */
         // 조회에 필요한 조건값를 Beans에 담는다.
@@ -86,10 +88,13 @@ public class CartAjaxController {
         } catch (Exception e) {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }
+        
+        
 
         /** 3) View 처리 */
         model.addAttribute("output", output);
-        model.addAttribute("productOutput", productOutput);
+        model.addAttribute("output", output);
+        model.addAttribute("my_wish", my_wish);
 
         return new ModelAndView("06_cart/cart");
     }

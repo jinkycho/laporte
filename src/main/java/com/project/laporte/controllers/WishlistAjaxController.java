@@ -79,7 +79,7 @@ public class WishlistAjaxController {
 				if(newwish.getUserno() != userno) {
 					Cookie cookiewish = new Cookie("my_wish", "0");
 					cookiewish.setPath("/");
-					cookiewish.setDomain("localhost");
+					cookiewish.setDomain("http://itproject.ezenac.co.kr");
 					cookiewish.setMaxAge(0);
 					response.addCookie(cookiewish);
 					my_wish=0;
@@ -115,7 +115,7 @@ public class WishlistAjaxController {
 			//현재 선택한 위시리스트 번호를 쿠키에 저장
 			Cookie cookie = new Cookie("my_wish", String.valueOf(basicno));
 			cookie.setPath("/");
-			cookie.setDomain("localhost");
+			cookie.setDomain("http://itproject.ezenac.co.kr");
 			if(String.valueOf(basicno).equals("")) {
 				cookie.setMaxAge(0);
 			}else {

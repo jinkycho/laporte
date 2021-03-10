@@ -179,38 +179,48 @@
                 <div class="home_product_listwrap">
                     <ul class="home_product_listwrap_ul">
                         <li class="home_product_listwrap_ul_li">
-                            <img class="home_product_listwrap_ul_li_img" src="assets/img/product1.png" />
+                        	<a href ="${pageContext.request.contextPath}/03_detail/detail.do?prodno=20001">
+                        		<img class="home_product_listwrap_ul_li_img" src="assets/img/product1.png" />
+                        	</a>
                             <div class="home_product_listwrap_ul_li_div">
-                                <a class="home_product_listwrap_ul_li_div_a">고양이와 집사가 함께 쓰는 가구</a>
-                                <a class="home_product_listwrap_ul_li_div_span"></a>
+                                <a class="home_product_listwrap_ul_li_div_a" href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=20001">고양이와 집사가 함께 쓰는 가구</a>
+                                <a class="home_product_listwrap_ul_li_div_span" data-userno="${userno}" data-prodno="20001"></a>
                             </div>
                         </li>
                         <li class="home_product_listwrap_ul_li">
-                            <img class="home_product_listwrap_ul_li_img" src="assets/img/product2.png" />
+                        	<a href ="${pageContext.request.contextPath}/03_detail/detail.do?prodno=20002">
+                        		<img class="home_product_listwrap_ul_li_img" src="assets/img/product2.png" />
+                        	</a>
                             <div class="home_product_listwrap_ul_li_div">
-                                <a class="home_product_listwrap_ul_li_div_a"> 침대같은 편안한 의자 수납공감은 덤</a>
-                                <a class="home_product_listwrap_ul_li_div_span"></a>
+                                <a class="home_product_listwrap_ul_li_div_a" href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=20002"> 침대같은 편안한 의자 수납공감은 덤</a>
+                                <a class="home_product_listwrap_ul_li_div_span" data-userno="${userno}" data-prodno="20002"></a>
                             </div>
                         </li>
                         <li class="home_product_listwrap_ul_li">
-                            <img class="home_product_listwrap_ul_li_img" src="assets/img/product3.png" />
+                        	<a href ="${pageContext.request.contextPath}/03_detail/detail.do?prodno=20003">
+                        		<img class="home_product_listwrap_ul_li_img" src="assets/img/product3.png" />
+                        	</a>
                             <div class="home_product_listwrap_ul_li_div">
-                                <a class="home_product_listwrap_ul_li_div_a">선택까지 편안한 새로운 La porte 스프링 매트리스</a>
-                                <a class="home_product_listwrap_ul_li_div_span"></a>
+                                <a class="home_product_listwrap_ul_li_div_a" href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=20003">선택까지 편안한 새로운 La porte 스프링 매트리스</a>
+                                <a class="home_product_listwrap_ul_li_div_span" data-userno="${uesrno}" data-prodno="20003"></a>
                             </div>
                         </li>
                         <li class="home_product_listwrap_ul_li">
-                            <img class="home_product_listwrap_ul_li_img" src="assets/img/product4.png" />
+                        	<a href="#">
+                        		<img class="home_product_listwrap_ul_li_img" src="assets/img/product4.png" />
+                        	</a>
                             <div class="home_product_listwrap_ul_li_div">
                                 <a class="home_product_listwrap_ul_li_div_a">면벨벳 소재로 색상이 입체적이며 감촉이 부드러운 커버</a>
                                 <a class="home_product_listwrap_ul_li_div_span"></a>
                             </div>
                         </li>
                         <li class="home_product_listwrap_ul_li">
-                            <img class="home_product_listwrap_ul_li_img" src="assets/img/product5.png" />
+                        	<a href ="${pageContext.request.contextPath}/03_detail/detail.do?prodno=20004">
+                        		<img class="home_product_listwrap_ul_li_img" src="assets/img/product5.png" />
+                        	</a>
                             <div class="home_product_listwrap_ul_li_div">
-                                <a class="home_product_listwrap_ul_li_div_a">보기만해도 푹신푹신 하고 편안한 STOCKSUND 암체어</a>
-                                <a class="home_product_listwrap_ul_li_div_span"></a>
+                                <a class="home_product_listwrap_ul_li_div_a" >보기만해도 푹신푹신 하고 편안한 STOCKSUND 암체어</a>
+                                <a class="home_product_listwrap_ul_li_div_span" data-userno="${userno}" data-prodno="20004"></a>
                             </div>
                         </li>
                     </ul>
@@ -477,6 +487,26 @@
                     alert("상품이 장바구니에 추가 되었습니다.");
                 location.reload(); // 장바구니로 이동 수정 예
             })
+        });
+        
+     // 1개 상품만 장바구니로 옮기기
+        $(document).on("click", ".home_product_listwrap_ul_li_div_span", function() {
+        	let current = $(this);
+            let userno = current.data('userno');
+            let prodno = current.data('prodno');
+            
+            if(userno == 0){
+            	alert("로그인을 먼저 해주세요.");
+            }else{
+            	$.post("${pageContext.request.contextPath}/06_cart/cart", {
+                    "userno": userno,
+                    "prodno": prodno,
+                }, function(json) {
+                    if (json.rt == "OK")
+                        alert("상품이 장바구니에 추가 되었습니다.");
+                    location.reload(); // 장바구니로 이동 수정 예
+                })
+            }
         });
     });
     </script>
