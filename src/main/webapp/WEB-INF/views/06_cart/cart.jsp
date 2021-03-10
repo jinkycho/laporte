@@ -318,42 +318,42 @@
 			});
 			
 			/** 추천제품 - 위시리스트 클릭 */
-			$(document).on("change",".chk_heart heart",function() {
-				let current = $(this); 
-	    		let userno = current.data('userno');
-				if (userno==0){
-					alert("로그인을 먼저 하세요");
-					location.reload();
-				} else if($(this).is(":checked") == true) {
-		    		
-		    		let prodno = current.data('prodno');
-		    		let wishno = current.data('wishno');
-		    		
-		    		$.post("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
-		    			"userno": userno,
-		    			"prodno": prodno,
-		    			"wishno": wishno
-		    		} , function(json) {
-		    			if(json.rt=="OK")
-		    				alert("상품이 위시리스트에 추가 되었습니다.");
-		    		})
-				} else {
-					let current = $(this); 
-		    		let prodno = current.data('prodno');
-		    		let wishno = current.data('wishno');
-		    		
-		    		$.delete("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
-		    			"prodno": prodno,
-		    			"wishno": wishno
-		    		}, function(json) {
-		    			if(json.rt=="OK"){
-		    				alert("상품이 위시리스트에서 삭제 되었습니다.");
-		    				location.reload();
-		    			}
-		    		})
-				}
-			
-			});
+			$(document).on("change",".home_wishlist_loc > .chk_heart",function() {
+				let current = $(this);
+	            let userno = current.data('userno');
+	            if (userno == 0) {
+	                alert("로그인을 먼저 하세요");
+	                location.reload();
+	            } else if ($(this).is(":checked") == true) {
+
+	                let prodno = current.data('prodno');
+	                let wishno = current.data('wishno');
+
+	                $.post("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+	                    "userno": userno,
+	                    "prodno": prodno,
+	                    "wishno": wishno
+	                }, function(json) {
+	                    if (json.rt == "OK")
+	                        alert("상품이 위시리스트에 추가 되었습니다.");
+	                })
+	            } else {
+	                let current = $(this);
+	                let prodno = current.data('prodno');
+	                let wishno = current.data('wishno');
+
+	                $.delete("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+	                    "prodno": prodno,
+	                    "wishno": wishno
+	                }, function(json) {
+	                    if (json.rt == "OK") {
+	                        alert("상품이 위시리스트에서 삭제 되었습니다.");
+	                        location.reload();
+	                    }
+	                })
+	            }
+
+	        });
 			
 			/** 추천제품 - 장바구니 클릭 */
 			$(document).on("click",".home_cartloc",function() {
@@ -370,7 +370,6 @@
 			  				location.reload();
 			  		})
 			});
-			
 		</script>
 	</body>
 </html>

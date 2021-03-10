@@ -93,8 +93,8 @@ public class CartAjaxController {
 
         /** 3) View 처리 */
         model.addAttribute("output", output);
-        model.addAttribute("output", output);
         model.addAttribute("my_wish", my_wish);
+        model.addAttribute("productOutput", productOutput);
 
         return new ModelAndView("06_cart/cart");
     }
