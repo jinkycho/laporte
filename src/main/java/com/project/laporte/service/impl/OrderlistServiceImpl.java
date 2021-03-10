@@ -182,6 +182,27 @@ public class OrderlistServiceImpl implements OrderlistService {
 		}
 		return result;
 	}
+	
+	/** 배송정보 저장을 위한 기능 정의 */
+	@Override
+	public int updateOrderStatus(Orderlist input) throws Exception {
+		int result = 0;
+
+		try {
+			result = sqlSession.update("OrderlistMapper.updateOrderStatus", input);
+
+			if (result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("저장된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error((e.getLocalizedMessage()));
+			throw new Exception("데이터 저장에 실패했습니다.");
+		}
+		return result;
+	}
 
 	/** 취소정보 수정 */
 	@Override
@@ -218,7 +239,4 @@ public class OrderlistServiceImpl implements OrderlistService {
 		}
 		return result;
 	}
-
-
-
 }

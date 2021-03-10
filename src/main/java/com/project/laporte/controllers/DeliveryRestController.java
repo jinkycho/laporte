@@ -106,9 +106,14 @@ public class DeliveryRestController {
         input.setTrackingnum(trackingnum);
         input.setUserno(userno);
         input.setOrderno(orderno);
+        
+        /** 주문정보 수정 */
+        Orderlist orderInput = new Orderlist();
+        orderInput.setOrderno(orderno);
 
         // 저장된 결과를 조회하기 위한 객체
         List<Delivery> output = null;
+        Orderlist orderOutput = null;
 
         try {
             // 데이터 저장
@@ -117,6 +122,10 @@ public class DeliveryRestController {
             
             // 데이터 조회
             output = deliveryService.getDeliveryList(input);
+            orderOutput = orderlistService.getOrderDeliveryItem(orderInput);
+            orderOutput.setDelistatus("Y");
+            orderlistService.updateOrderStatus(orderOutput);
+            
         } catch (Exception e) {
             return webHelper.getJsonError(e.getLocalizedMessage());
         }

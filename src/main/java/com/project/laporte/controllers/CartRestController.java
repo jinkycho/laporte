@@ -139,7 +139,6 @@ public class CartRestController {
     	
     	/** 1) 데이터 수정하기 */
     	// 수정할 값들을 Beans에 담는다.
-    	
     	HttpSession session = request.getSession();
     	int userno = (int) session.getAttribute("my_session");
     	
@@ -192,44 +191,4 @@ public class CartRestController {
     	// 확인할 대상이 삭제된 결과값만 OK로 전달
     	return webHelper.getJsonData();
     }
-    
-//    /** 중복 상품 검사 */
-//    @RequestMapping(value="/06_cart/cart/prodno_check.do", method=RequestMethod.POST)
-//    public Map<String, Object>post(
-//    		@RequestParam(value = "userno", defaultValue="0") int userno,
-//			@RequestParam(value = "prodno", defaultValue="0") int prodno){
-//			
-//		/** 1) 상품번호 조회를 위해 Bean에 담는다*/
-//		Cart input = new Cart();
-//		input.setUserno(10002);		// session 객체가 주입예정
-//		input.setProdno(prodno);	// 사용자가 입력한 상품번호 주입
-//			
-//		// 조회된 결과를 확인하기 위한 객체
-//		int output = 0;
-//		
-//		// 중복검사
-//		try {
-//			output = cartService.countCart(input);
-//		} catch (Exception e) {
-//            return webHelper.getJsonError(e.getLocalizedMessage());
-//        }
-//		
-//		if (output != 0) {
-//			// 갯수 추가
-//			try {
-//				output = cartService.updateCart(input);
-//			} catch (Exception e) {
-//	            return webHelper.getJsonError(e.getLocalizedMessage());
-//	        }
-//		}
-//		
-//		// 저장
-//		
-//		
-//        /** 2) JSON 출력하기 */
-//        Map<String, Object> data = new HashMap<String, Object>();
-//        data.put("item", output);
-//	        
-//        return webHelper.getJsonData(data);
-//    }
 }

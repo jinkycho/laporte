@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert2.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
+	    <link rel="stylesheet" type="text/css" href="../assets/css/home.css">
 	    <link rel="stylesheet" type="text/css" href="../assets/css/cart.css">
 	
 	<!-- javascript -->
@@ -136,162 +137,65 @@
 	           	</div>
 	           	
 				<!-- 모든 제품 -->
-	            <div>
-	            	<h4>모든 제품</h4>
-	            	<div id="home_item_box">
-	            		<ul id="home_item_listbox">
-							<!-- 항목(1) 시작 -->
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="STUVA 스투바 / FRITIDS 프리티스" 
-		            						src="https://secure.ikea.com/kr/ko/images/products/strala-seuteulolla-ledteibeuljangsigjomyeong__0675789_PE719481_S3.JPG"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">STRÅLA 스트롤라</p>
-		            						<p class="home_item_info">LED테이블장식조명 
-		            						17x11 cm<br/>
-		            						<span class="home_item_price">&#8361; 18,600</span></p>
-	            						</a>
-	           						</div>
-	            					<a id="carticon" class="home_cartloc" href="${pageContext.request.contextPath}/06_cart/cart.do?prodno=20001"><span class="cart_icon"></span></a>
-	            				</div>
-	            			</li>
-	            			<!-- 항목(1) 끝 -->
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="STUVA 스투바 / FRITIDS 프리티스" 
-		            						src="https://www.ikea.com/kr/ko/images/products/stuva-fritids-toy-storage-with-wheels-white-green__0629926_PE694540_S5.JPG?f=s"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">STUVA 스투바 / FRITIDS 프리티스</p>
-		            						<p class="home_item_info">이동식장난감수납함 
-		            						60x50x64 cm<br/>
-		            						<span class="home_item_price">&#8361; 90,000</span></p>
-	            						</a>
-	           						</div>
-	            					<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-	            				</div>
-	            			</li>
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="DUKTIG 둑티그"
-		            						src="https://www.ikea.com/kr/ko/images/products/duktig-play-kitchen-birch__0756010_PE754469_S5.JPG?f=xxs"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">DUKTIG 둑티그</p>
-		            						<p class="home_item_info">주방놀이세트
-		            						72x40x109 cm<br/>
-		            						<span class="home_item_price">&#8361; 99,900</span></p>
-	            						</a>
-	           						</div>
-	           						<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-	            				</div>
-	            			</li>
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="JONAXEL 요낙셀"
-		            						src="https://www.ikea.com/kr/ko/images/products/jonaxel-shelving-unit-white__0678052_PE719167_S5.JPG?f=xxs"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">JONAXEL 요낙셀</p>
-		            						<p class="home_item_info">선반유닛<br/>
-		            						80x38x160 cm<br/>
-		            						<span class="home_item_price">&#8361; 59,900<span></p>
-	            						</a>
-	           						</div>
-	           						<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-	            				</div>
-	            			</li>
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="GODMORGON 고드모르곤"
-		            						src="https://www.ikea.com/kr/ko/images/products/godmorgon-box-with-lid-set-of-5-smoked__0802868_PE768615_S5.JPG?f=xxs"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">GODMORGON 고드모르곤</p>
-		            						<p class="home_item_info">수납함+뚜껑5종<br/>
-		            						24x20x10 cm<br/>
-		            						<span class="home_item_info home_item_pricedown">&#8361; 14,900</span><br/>
-		            						<span class="home_item_price">&#8361; 12,900</span></p>
-	            						</a>
-	           						</div>
-	           						<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-	           						<p class="home_item_down">할인가격</p>
-	            				</div>
-	            			</li>
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="RINNIG 린니그"
-		            						src="https://www.ikea.com/kr/ko/images/products/rinnig-tea-towel-white-dark-grey-patterned__0813216_PE772338_S5.JPG?f=xxs"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">RINNIG 린니그</p>
-		            						<p class="home_item_info">행주<br/>
-		            						45x60 cm<br/>
-		            						<span class="home_item_price">&#8361; 3,900 / 4개</span></p>
-	            						</a>
-	           						</div>
-	           						<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-	            				</div>
-	            			</li>
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="LAIVA 라이바"
-		            						src="https://www.ikea.com/kr/ko/images/products/laiva-bookcase-black-brown__0644278_PE702556_S5.JPG?f=xxs"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">LAIVA 라이바</p>
-		            						<p class="home_item_info">책장<br/>
-		            						62x165 cm<br/>
-		            						<span class="home_item_price home_item_mark">&#8361; 25,000</span></p>
-	            						</a>
-	           						</div>
-	           						<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-	            				</div>
-	            			</li>
-	            			<li>
-	            				<div class="home_item">
-	            					<div class="home_wishlist_loc">
-		            					<a href="#"><span class="home_wishlist_icon"></span></a>
-	            					</div>
-	            					<div>
-		            					<a href="#"><img class="home_item_img" alt="LUSTIGKURRE 루스틱쿠레"
-		            						src="https://www.ikea.com/kr/ko/images/products/lustigkurre-basket-natural-jute__0922223_PE788091_S5.JPG?f=xxs"></a>
-		            					<a href="#">
-		            						<p class="home_item_title">LUSTIGKURRE 루스틱쿠레</p>
-		            						<p class="home_item_info">바구니<br/>
-		            						25x20x33 cm<br/>
-		            						<span class="home_item_price">&#8361; 3,900</span></p>
-	            						</a>
-	           						</div>
-	           						<a class="home_cartloc" href="#"><span class="cart_icon"></span></a>
-	           						<p class="home_item_new">new</p>
-	            				</div>
-	            			</li>
-	            		</ul>
-	            	</div>
-	            </div>
+				<div id="home_content">
+					<h4>추천 제품</h4>
+					<div id="home_item_box">
+						<ul id="home_item_listbox">
+							<c:forEach var="item" items="${productOutput}" begin="0" end="10" step="1">
+								<li>
+									<div class="home_item">
+										<div class="home_wishlist_loc">
+											<input type="checkbox" class="chk_heart heart" style="display: none;" name="chk_heart" id="${item.prodno }"
+												<c:set var ="result" value="0" />
+												<c:forEach var="wishitem" items="${wishoutput}" >
+													<c:if test="${item.prodno== wishitem.prodno}">
+														<c:set var ="result" value="${result+1 }" />
+													</c:if>
+												</c:forEach>
+												<c:if test="${result>0 }">checked</c:if>
+													data-wishno="${my_wish}" data-prodno="${item.prodno }"
+													data-userno="<%out.print(session.getAttribute("my_session"));%>"/>
+											<label class="heart" for="${item.prodno }"></label>
+										</div>
+										<div>
+											<a href="${pageContext.request.contextPath}/03_detail/detail.do?prodno=${item.prodno}">
+												<img class="home_item_img" alt="${item.name}" src="${item.thumbnailUrl}">
+											</a> 
+											<a href="#"> <c:set var="group" value="${item.group }" />
+												<span class="home_item_title">${item.name}</span> <br />
+												<span class="home_item_info">${item.size} <br />${item.color}</span><br />
+												<c:choose>
+													<c:when test="${fn:contains(group, '세일') }">
+														<span class="home_item_info home_item_pricedown">&#8361;
+															<fmt:formatNumber value="${item.price}" pattern="#,###" />
+														</span>
+														<br />
+														<span class="home_item_price <c:if test="${fn:contains(group, '인기') }">home_item_mark</c:if>">&#8361;
+															<fmt:formatNumber value="${item.saleprice}" pattern="#,###" />
+														</span>
+													</c:when>
+													<c:otherwise>
+														<span class="home_item_price <c:if test="${fn:contains(group, '인기') }">home_item_mark</c:if>">&#8361;
+															<fmt:formatNumber value="${item.price}" pattern="#,###" />
+														</span>
+													</c:otherwise>
+												</c:choose>
+											</a>
+										</div>
+										<a class="home_cartloc" href="#" data-userno="${userno}" data-prodno="${item.prodno }"><span class="cart_icon"></span></a>
+										<c:if test="${fn:contains(group, '세일') }">
+											<p class="home_item_down">할인가격</p>
+										</c:if>
+										<c:if test="${fn:contains(group, '신제품') }">
+											<p class="home_item_new">new</p>
+										</c:if>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+				<!-- 모든 제품 끝 -->
 	        </div>
 		</section>
 		<%@ include file="../01_home/footer.jsp" %>
@@ -306,7 +210,7 @@
 	    <script src="../assets/js/home.js"></script>
 	    <script type="text/javascript">
 	    	
-	    	// 총 금액 단위에 천의자리만큼 (,) 찍기 함수
+	    	/** 총 금액 단위에 천의자리만큼 (,) 찍기 함수 */
 	    	function addComma(num) {
 	    	  var regexp = /\B(?=(\d{3})+(?!\d))/g;
 	    	  return num.toString().replace(regexp, ',');
@@ -411,6 +315,60 @@
 						window.location = "${pageContext.request.contextPath}/06_cart/cart.do?userno="+ <%out.print(session.getAttribute("my_session"));%>;
 					}
 				});
+			});
+			
+			/** 추천제품 - 위시리스트 클릭 */
+			$(document).on("change",".heart",function() {
+				let current = $(this); 
+	    		let userno = current.data('userno');
+				if (userno==0){
+					alert("로그인을 먼저 하세요");
+					location.reload();
+				} else if($(this).is(":checked") == true) {
+		    		
+		    		let prodno = current.data('prodno');
+		    		let wishno = current.data('wishno');
+		    		
+		    		$.post("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+		    			"userno": userno,
+		    			"prodno": prodno,
+		    			"wishno": wishno
+		    		} , function(json) {
+		    			if(json.rt=="OK")
+		    				alert("상품이 위시리스트에 추가 되었습니다.");
+		    		})
+				} else {
+					let current = $(this); 
+		    		let prodno = current.data('prodno');
+		    		let wishno = current.data('wishno');
+		    		
+		    		$.delete("${pageContext.request.contextPath}/05_wishlist/wishlist/item", {
+		    			"prodno": prodno,
+		    			"wishno": wishno
+		    		}, function(json) {
+		    			if(json.rt=="OK"){
+		    				alert("상품이 위시리스트에서 삭제 되었습니다.");
+		    				location.reload();
+		    			}
+		    		})
+				}
+			
+			});
+			
+			/** 추천제품 - 장바구니 클릭 */
+			$(document).on("click",".home_cartloc",function() {
+			    let current = $(this); 
+			  		let userno = current.data('userno');
+			  		let prodno = current.data('prodno');
+			  		
+			  		$.post("${pageContext.request.contextPath}/06_cart/cart", {
+			  			"userno": userno,
+			  			"prodno": prodno,
+			  		}, function(json) {
+			  			if(json.rt=="OK")
+			  				alert("상품이 장바구니에 추가 되었습니다.");
+			  				location.reload();
+			  		})
 			});
 			
 		</script>

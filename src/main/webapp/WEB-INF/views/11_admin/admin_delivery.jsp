@@ -259,7 +259,7 @@
 								                    </c:when>
 								                    <c:otherwise>
 							                    		<c:forEach var="item" items="${output }" varStatus="status">
-							                    			<c:if test="${item.orderstatus=='N' && (deliveryOutput[status.index].deliverystatus!='R' || deliveryOutput[status.index].deliverystatus==null) }">
+							                    			<c:if test="${item.orderstatus=='N' && item.delistatus =='N'}">
 								                    			<tr>
 								                    				<td>
 				                                                    	<input type='checkbox' class="check" name='chkn[]' value="${item.orderno }">
@@ -748,7 +748,7 @@
 	            $(".content_complete").hide();
 	            $("#form_hidden").hide();
 	            
-	            /* 상단 탭 수량표시 */
+	            // 상단 탭 수량표시
 	            var countn = $("input:checkbox[name='chkn[]']").length;
 	            $("#N").html(countn);
 	            
@@ -766,15 +766,21 @@
 	            
             });
 
-            // 탭 아이콘 클릭시 색 변화
+            /** 탭 아이콘 클릭제어 */
             $(document).on("click", ".tab", function(e) {
             	e.preventDefault();
 
+            	// 탭 아이콘 클릭시 색 변화
             	$(this).addClass("selected");
             	$(".tab").not(this).removeClass("selected");
+            	
+            	// 탭 아이콘 클릭시 전체 체크박스 해제
+            	if ($(".check").is(":checked")) {
+	            	$(".check").prop("checked", false);
+	            }
            	});
 
-            // 탭 아이콘 클릭시 내용 전환
+            /** 탭 아이콘 클릭시 내용 전환 */
             $(document).on("click", "#tab_nopay", function(e) {
             	e.preventDefault();
 
@@ -783,6 +789,7 @@
 	            $(".content_stanby").hide();
 	            $(".content_delivery").hide();
 	            $(".content_complete").hide();
+	            
             });
 
             $(document).on("click", "#tab_ready", function(e) {
@@ -835,20 +842,9 @@
         	$("#form_hidden").slideToggle(200);
         });
 		
-        /* 선택한 요소 --------------------------여기 오류*/
+        /* 선택한 요소 */
         $(document).on("click",".check", function() {
-        	var current = null;														// 체크된 요소 담을 객체
-			var count = $("input:checkbox[name='chkn[]']").length;					// 총 갯수
-			var ckcount = $("input:checkbox[name='chkn[]']:checked").length;		// 체크된 요소 갯수
-			
-			for (var i=0; i<count; i++) {
-				if(ckcount != 1) {
-					alert("주문정보 한개씩 선택해 주세요.");
-				} else {
-					current = $("input:checkbox[name='chkn[]']:checked");		// 체크된 주문정보
-				}
-			}
-			
+        	var current = $("input:checkbox[name='chkn[]']:checked");														// 체크된 요소 담을 객체
 			var orderno = $(current).parent().next().html();
 			var userno = $(current).next().val();
 			$("#orderno").val(orderno);
@@ -880,6 +876,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkn[]']:checked").val();		// 체크된 주문정보
 				}
@@ -918,6 +915,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkn[]']:checked").val();		// 체크된 주문정보
 				}
@@ -951,6 +949,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkr[]']:checked").val();		// 체크된 주문정보
 				}
@@ -985,6 +984,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chks[]']:checked").val();		// 체크된 주문정보
 				}
@@ -1019,6 +1019,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkd[]']:checked").val();		// 체크된 주문정보
 				}
@@ -1053,6 +1054,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkc[]']:checked").val();		// 체크된 주문정보
 				}
@@ -1070,7 +1072,7 @@
 				if(json.rt == "OK") {
 					alert("배송삭제처리 되었습니다");
 					// 변경 완료 후 목록 페이지 이동
-					window.location = "${pageContext.request.contextPath}/11_admin/admin_delivery.do";
+					window.location = "${pageContext.request.contextPath}/11_admin/admin_cancel.do";
 				}
 			});
 		});

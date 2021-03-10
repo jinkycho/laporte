@@ -32,6 +32,7 @@
         <result property="editdate" column="editdate" />
         <result property="ccdate" column="ccdate" />
         <result property="ccstatus" column="ccstatus" />
+        <result property="delistatus" column="delistatus" />
 
         <!--deltype(배송 유형) 테이블과 조인  -->
         <result property="d_name" column="d_name" />
@@ -105,7 +106,7 @@
     <select id="selectOrderItem"
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
-        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate, o.point, o.deltypeno,
+        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate, o.point, o.deltypeno, o.delistatus,
         	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate, o.ccstatus, o.ccdate,
         	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color, c.distype, c.discount, f.thumbnailUrl
         FROM orderlist o
@@ -122,7 +123,7 @@
     <select id="selectOrderList"
         parameterType="com.project.laporte.model.Orderlist"
         resultMap="orderlistMap">
-        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate,
+        SELECT o.orderno, o.addr1, o.addr2, o.name, o.email, o.phoneno, o.servicetype, o.editdate, o.delistatus,
         	o.request, o.deldate, o.paytype, o.totalprice, o.orderstatus, o.paystatus, o.regdate, o.ccstatus, o.ccdate,
         	 u.userno, p.prodno, p.name AS `pname`, op.ea, p.price, p.size, p.color, c.distype, c.discount, c.couponno, c.name AS `c_name`
         FROM orderlist o
@@ -136,10 +137,17 @@
             <if test="name != null and name != ''">
                 o.name LIKE concat('%', #{name}, '%')
             </if>
+            <if test="orderno != null and orderno != ''">
+                o.orderno LIKE concat('%', #{orderno}, '%')
+            </if>
         </where>
         
         ORDER BY o.orderno
         
+<!--         <if test="listCount > 0">
+        	LIMIT #{offset}, #{listCount}
+        </if>
+ -->        
     </select>
 
 	<!-- 회원별 주문 정보 조회를 위한 기능 정의 -->
@@ -179,14 +187,14 @@
         
         <where>
             <if test="name != null and name != ''">
-                name LIKE concat('%', #{name}, '%')
+                o.name LIKE concat('%', #{name}, '%')
+            </if>
+            <if test="orderno != null and orderno != ''">
+                o.orderno LIKE concat('%', #{orderno}, '%')
             </if>
         </where>
         
         ORDER BY o.orderno
-        <if test="listCount > 0">
-            LIMIT #{offset}, #{listCount}
-        </if>
     </select>
 
     <!-- 주문상태 수정을 위한 기능 정의 -->
@@ -194,6 +202,14 @@
         parameterType="com.project.laporte.model.Orderlist">
         UPDATE orderlist SET
             paystatus=#{paystatus}, orderstatus=#{orderstatus}, editdate=now(), ccdate=now(), ccstatus=#{ccstatus}
+        WHERE orderno=#{orderno}
+    </update>
+    
+    <!-- 배송정보 저장을 위한 기능 정의 -->
+    <update id="updateOrderStatus"
+        parameterType="com.project.laporte.model.Orderlist">
+        UPDATE orderlist SET
+            delistatus=#{delistatus}
         WHERE orderno=#{orderno}
     </update>
     

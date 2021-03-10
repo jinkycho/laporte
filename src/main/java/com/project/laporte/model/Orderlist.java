@@ -30,6 +30,7 @@ public class Orderlist {
 	private String editdate;
 	private String ccdate;
 	private String ccstatus;
+	private String delistatus;
 	
 	//2) deltype(배송 유형) 테이블과 조인
 	private String d_name;

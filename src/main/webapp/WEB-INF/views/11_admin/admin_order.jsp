@@ -164,7 +164,12 @@
                                                     <td class="search_title">주문자이름</td>
                                                     <td class="search_data">
                                                     	<form method="get" action="${pageContext.request.contextPath}/11_admin/admin_order.do">
-	                                                        <input id="order_name" type="search" name="keyword" id="keyword" value="${keyword}">
+                                                    		<select name="searchOption">
+	                                                            <optgroup label="-검색항목선택-"></optgroup>
+	                                                            <option value="name">주문자명</option>
+	                                                            <option value="orderno">주문번호</option>
+                                                       		</select>
+	                                                        <input id="order_name" type="search" name="keyword" value="${keyword}">
 				                                            <button type="submit" class="btn btn-primary" id="search_submit">검색</button>
 			                                            </form>
                                                     </td>
@@ -306,64 +311,62 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    
                                     <!--페이지 네이션-->
                                     <div class="content_footer">
                                         <div class="pagination_box">
-                                        
                                             <ul class="pagination pagination-sm m-0">
-                                            	<%-- 이전 그룹에 대한 링크 --%>
-												<c:choose>
-													<%-- 이전 그룹으로 이동 가능하다면? --%>
-													<c:when test="${pageData.prevPage > 0 }">
-														<%-- 이동할 URL 생성 --%>
-														<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="prevPageUrl">
-															<c:param name="page" value="${pageData.prevPage}" />
-															<c:param name="keyword" value="${keyword }" />
-														</c:url>
-                                           				<li class="page-item"><a class="page-link" href="${pageData.prevPage}">&laquo;</a></li>
-                                                	</c:when>
-                                                	<c:otherwise>
-                                                		<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                                	</c:otherwise>
+                                                <%-- 이전 그룹에 대한 링크 --%>
+                                                <c:choose>
+                                                    <%-- 이전 그룹으로 이동 가능하다면? --%>
+                                                    <c:when test="${pageData.prevPage > 0 }">
+                                                        <%-- 이동할 URL 생성 --%>
+                                                        <c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="prevPageUrl">
+                                                            <c:param name="page" value="${pageData.prevPage}" />
+                                                            <c:param name="keyword" value="${keyword }" />
+                                                        </c:url>
+                                                        <li class="page-item"><a class="page-link" href="${pageData.prevPage}">&laquo;</a></li>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                                    </c:otherwise>
                                                 </c:choose>
                                                 
                                                 <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
                                                 <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
-                                                	<%-- 이동할 URL 생성 --%>
-                                                	<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="pageUrl">
-											            <c:param name="page" value="${i}" />
-											            <c:param name="keyword" value="${keyword}" />
-											        </c:url>
-											        
-											        <%-- 페이지 번호 출력 --%>
-        											<c:choose>
-        												<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
-            											<c:when test="${pageData.nowPage == i}">
-                                                			<li class="page-item"><a class="page-link" href="#">${i}</a></li>
-                                               			</c:when>
-                                               			<%-- 나머지 페이지의 경우 링크 적용함 --%>
-											            <c:otherwise>
-											                <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
-										            	</c:otherwise>
-										            </c:choose>
+                                                    <%-- 이동할 URL 생성 --%>
+                                                    <c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="pageUrl">
+                                                        <c:param name="page" value="${i}" />
+                                                        <c:param name="keyword" value="${keyword}" />
+                                                    </c:url>
+                                                    
+                                                    <%-- 페이지 번호 출력 --%>
+                                                    <c:choose>
+                                                        <%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+                                                        <c:when test="${pageData.nowPage == i}">
+                                                            <li class="page-item"><span class="page-link"><strong>${i}</strong></span></li>
+                                                        </c:when>
+                                                        <%-- 나머지 페이지의 경우 링크 적용함 --%>
+                                                        <c:otherwise>
+                                                            <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:forEach>
                                                 
-	                                          	<%-- 다음 그룹에 대한 링크 --%>
-												<c:choose>
-	                                            	<%-- 다음 그룹으로 이동 가능하다면? --%>
-													<c:when test="${pageData.nextPage > 0 }">
-														<%-- 이동할 URL 생성 --%>
-														<c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="nextPageUrl">
-															<c:param name="page" value="${pageData.nextPage}" />
-															<c:param name="keyword" value="${keyword }" />
-														</c:url>
-                                         					<li class="page-item"><a class="page-link" href="${pageData.nextPage}">&raquo;</a></li>
-                                          	    	</c:when>
-                                            	  	<c:otherwise>
-                                           	   			<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                              		</c:otherwise>
-                                           		</c:choose>
+                                                <%-- 다음 그룹에 대한 링크 --%>
+                                                <c:choose>
+                                                    <%-- 다음 그룹으로 이동 가능하다면? --%>
+                                                    <c:when test="${pageData.nextPage > 0 }">
+                                                        <%-- 이동할 URL 생성 --%>
+                                                        <c:url value="${pageContext.request.contextPath}/11_admin/admin_order.do" var="nextPageUrl">
+                                                            <c:param name="page" value="${pageData.nextPage}" />
+                                                            <c:param name="keyword" value="${keyword }" />
+                                                        </c:url>
+                                                            <li class="page-item"><a class="page-link" href="${pageData.nextPage}">&raquo;</a></li>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </ul>
                                         </div>
                                     </div>
@@ -384,19 +387,6 @@
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
-        });
-        
-        // 전체 체크
-        $(".order_allcheck").change(function() {
-            $(".order_check").prop('checked', $(this).prop('checked'));
-        });
-
-        $(".csorder_allcheck").change(function() {
-            $(".csorder_check").prop('checked', $(this).prop('checked'));
-        });
-
-        $("#all_check").change(function() {
-            $(".check").prop('checked', $(this).prop('checked'));
         });
 	</script>
 </body>

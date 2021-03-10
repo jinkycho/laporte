@@ -36,7 +36,7 @@ public class DeliveryAjaxController {
 	// -> import study.spring.springhelper.helper.RegexHelper;
 	@Autowired
 	RegexHelper regexHelper;
-
+	
 	/** Service 패턴 구현체 주입 */
 	// -> import com.project.laporte.service.OrderlistService;
 	@Autowired
@@ -94,7 +94,7 @@ public class DeliveryAjaxController {
 	@RequestMapping(value = "/11_admin/admin_order.do", method = RequestMethod.GET)
 	public ModelAndView orderList(Model model,
 			// 검색어
-			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword,
 			// 페이지 구현에서 사용할 현재 페이지 번호
 			@RequestParam(value = "page", defaultValue = "1") int nowPage) {
 
@@ -108,9 +108,9 @@ public class DeliveryAjaxController {
 		Orderlist input = new Orderlist();
 		input.setName(keyword);
 		Delivery deliveryInput = null;
+		PageData pageData = null; 			// 페이지 번호를 계산한 결과가 저장될 객체
 
-		List<Orderlist> output = null; // 조회결과가 저장될 객체
-		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
+		List<Orderlist> output = null; 		// 조회결과가 저장될 객체
 		List<Delivery> deliveryOutput = new ArrayList<Delivery>(); // 조회결과가 저장될 객체
 
 		try {
@@ -152,11 +152,10 @@ public class DeliveryAjaxController {
 		/** 2) 데이터 조회하기 */
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Orderlist input = new Orderlist();
-		Delivery deliveryInput = null;
 
 		List<Orderlist> output = null; // 조회결과가 저장될 객체
 		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
-		List<Delivery> deliveryOutput = new ArrayList<Delivery>(); // 조회결과가 저장될 객체
+		List<Delivery> deliveryOutput = null; // 조회결과가 저장될 객체
 
 		try {
 			// 전체 게시글 수 조회
@@ -169,7 +168,7 @@ public class DeliveryAjaxController {
 			Orderlist.setListCount(pageData.getListCount());
 
 			output = OrderlistService.getOrderList(input);
-			deliveryOutput = deliveryService.getDeliveryList(deliveryInput);
+			deliveryOutput = deliveryService.getDeliveryList(null);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}

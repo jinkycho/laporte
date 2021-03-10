@@ -1,5 +1,6 @@
 package com.project.laporte.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.laporte.helper.RegexHelper;
 import com.project.laporte.helper.WebHelper;
 import com.project.laporte.model.Cart;
+import com.project.laporte.model.Product;
 import com.project.laporte.service.CartService;
+import com.project.laporte.service.ProductListService;
 import com.project.laporte.service.ProductService;
 import com.project.laporte.service.UserService;
 
@@ -43,6 +46,9 @@ public class CartAjaxController {
 	// -> import study.spring.springhelper.service.ProductService;
 	@Autowired ProductService productService;
 	
+	// -> import com.project.laporte.service.ProductListService;
+	@Autowired ProductListService productListService;
+	
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	// -> import org.springframework.beans.factory.annotation.Value;
 	@Value("#{servletContext.contextPath}")
@@ -56,13 +62,16 @@ public class CartAjaxController {
     	/** 1) 데이터 조회하기 */
         // 조회에 필요한 조건값를 Beans에 담는다.
         Cart input = new Cart();
+        Product productInput = new Product();
         
         List<Cart> output = null;   // 조회결과가 저장될 객체
+        List<Product> productOutput = new ArrayList<Product>();
         
         try {
         	if(userno == 0) {
         		input.setUserno(userno);
         		output = cartService.getCartList(input);
+        		productOutput = productListService.getProductlistList(productInput);
         		
         	// 데이터 조회하기
         	} else { 
@@ -71,6 +80,7 @@ public class CartAjaxController {
         		
         		input.setUserno(userno);
         		output = cartService.getCartList(input);
+        		productOutput = productListService.getProductlistList(productInput);
     		}
         	
         } catch (Exception e) {
@@ -79,6 +89,7 @@ public class CartAjaxController {
 
         /** 3) View 처리 */
         model.addAttribute("output", output);
+        model.addAttribute("productOutput", productOutput);
 
         return new ModelAndView("06_cart/cart");
     }

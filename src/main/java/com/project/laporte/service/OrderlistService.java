@@ -35,6 +35,9 @@ public interface OrderlistService {
 	/** 주문정보 수정 */
 	public int updateOrderlist(Orderlist input) throws Exception;
 	
+	/** 배송정보 저장을 위한 기능 정의 */
+	public int updateOrderStatus(Orderlist input) throws Exception;
+	
 	/** 취소정보 수정 */
 	public int updateOrderCClist(Orderlist input) throws Exception;
 

@@ -665,7 +665,7 @@
 	            $(".content_return").hide();
 	            $(".content_refund").hide();
 	            
-	            /* 상단 탭 수량표시 */
+	            // 상단 탭 수량표시
 	            var countcc = $("input:checkbox[name='chkcc[]']").length;
 	            $("#CC").html(countcc);
 	            
@@ -679,15 +679,21 @@
 	            $("#RF").html(countrf);
             });
 
-            // 탭 아이콘 클릭시 색 변화
+            /** 탭 아이콘 클릭제어 */
             $(document).on("click", ".tab", function(e) {
             	e.preventDefault();
 
-            $(this).addClass("selected");
+            	// 탭 아이콘 클릭시 색 변화
+            	$(this).addClass("selected");
             	$(".tab").not(this).removeClass("selected");
+            	
+            	// 탭 아이콘 클릭시 전체 체크박스 해제
+            	if ($(".check").is(":checked")) {
+	            	$(".check").prop("checked", false);
+	            }
             });
 
-            // 탭 아이콘 클릭시 내용 전환
+            /** 탭 아이콘 클릭시 내용 전환 */
             $(document).on("click", "#tab_cancel", function(e) {
             	e.preventDefault();
 
@@ -735,6 +741,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkcc[]']:checked");		// 체크된 주문정보
 				}
@@ -771,6 +778,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkch[]']:checked");	// 체크된 주문정보
 				}
@@ -807,6 +815,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkrt[]']:checked");	// 체크된 주문정보
 				}
@@ -843,6 +852,7 @@
 			for (var i=0; i<count; i++) {
 				if(ckcount != 1) {
 					alert("주문정보 한개씩 선택해 주세요.");
+					break;
 				} else {
 					current = $("input:checkbox[name='chkrf[]']:checked");	// 체크된 주문정보
 				}
