@@ -40,76 +40,79 @@
                 </button>
                 <span><a class="navbar-brand" href="#">HOME</a></span>
             </div>
-            <div class="navbar-button pull-right">
-                <button class="nav_logout_btn">LOGOUT</button>
-                <button class="nav_admin_btn">ADMINISTRATOR</button>
-            </div>
+           
         </nav>
         <div id="wrapper">
             <!-- Sidebar -->
-            <div id="slidebar-white" class="slidebar-nav">
-                <nav id="navbar-white" class="navbar navbar-default" role="navigation">
-                    <ul class="nav navbar-nav">
-                        <li class="brand_logo_box"><a href="#" class="brand_logo">
-                                <span></span> <span id="logo_img">la porte</span>
-                            </a></li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-edit"></i>
-                                홈 퍼블리싱 예약관리 <b class="caret"></b></a></li>
-                        <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/11_admin/admin_resvappv.do"><i class="glyphicon glyphicon-ok"></i> 예약 승인</a></li>
-                        </ul>
+			<div id="slidebar-white" class="slidebar-nav">
+				<nav id="navbar-white" class="navbar navbar-default"
+					role="navigation">
+					<ul class="nav navbar-nav">
+						<li class="brand_logo_box">
+                            <a href="#" class="brand_logo">
+								<span id="logo_img">la porte</span>
+                            </a>
                         </li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-tags"></i>
-                                제품 관리 <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="${pageContext.request.contextPath}/11_admin/stock_management.do"><i class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
-                                <li><a href="${pageContext.request.contextPath}/11_admin/product_add.do"><i class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
-                                <li><a href="${pageContext.request.contextPath}/11_admin/review_management.do"><i class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
-                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_sales.html"><i class="glyphicon glyphicon-usd"></i> 매출 관리</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown open"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><i class="glyphicon glyphicon-edit"></i>
+								홈 퍼블리싱 예약관리 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="${pageContext.request.contextPath}/11_admin/admin_resvappv.do">
+										<i class="glyphicon glyphicon-ok"></i>
+										예약 승인
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><i class="glyphicon glyphicon-tags"></i>
+								제품 관리 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="${pageContext.request.contextPath}/11_admin/stock_management.do">
+										<i class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
+               					<li><a href="${pageContext.request.contextPath}/11_admin/product_add.do">
+               					 		<i class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
+								<li><a href="${pageContext.request.contextPath}/11_admin/admin_review.do">
+										<i class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
+							
+							</ul>
+						</li>
+                        <li class="dropdown open">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
                                 고객 관리 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="active"><a href="${pageContext.request.contextPath}/11_admin/admin_userlist.do">
-                                        <i class="glyphicon glyphicon-user"></i> 회원정보 관리
-                                    </a></li>
-                                <li><a href="admin_order.html"> <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리
-                                    </a></li>
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_userlist.do">
+                                    <i class="glyphicon glyphicon-user"></i> 회원정보 관리</a></li>
+                                <li class="active"><a href="${pageContext.request.contextPath}/11_admin/admin_order.do">
+                                    <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_delivery.do">
-                                        <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리
-                                    </a></li>
+                                    <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_cancel.do">
-                                        <i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불
-                                    </a></li>
+                                    <i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_coupon.do">
-                                        <i class="glyphicon glyphicon-credit-card"></i> 쿠폰
-                                    </a></li>
-                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_point.do">
-                                        <i class="glyphicon glyphicon-usd"></i> 적립금
-                                    </a></li>
-                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_visitors.do">
-                                        <i class="glyphicon glyphicon-stats"></i> 방문자 수 관리
-                                    </a></li>
+                                    <i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>
+                                
                             </ul>
                         </li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-pencil"></i>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-pencil"></i>
                                 문의 관리 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_qanda.do">
-                                        <i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리
-                                    </a></li>
-                                <li><a href="admin_fanda.html"> <i class="glyphicon glyphicon-list-alt"></i> F&A 관리
-                                    </a></li>
+                                    <i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a></li>
+                                
                             </ul>
                         </li>
-                    </ul>
-                </nav>
-                <!--/.navbar -->
-            </div>
-            <!--/.sidebar-nav -->
+					</ul>
+				</nav>
+				<!--/.navbar -->
+			</div>
+			<!--/.sidebar-nav -->
             <div id="page-wrapper6">
                 <!-- Content Header (Page header) -->
                 <div class="content-header">
