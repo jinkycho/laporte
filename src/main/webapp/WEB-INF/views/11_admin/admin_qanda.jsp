@@ -49,7 +49,10 @@
                 </button>
                 <span><a class="navbar-brand" href="admin_home.html">HOME</a></span>
             </div>
-            
+            <div class="navbar-button pull-right">
+                <button class="nav_logout_btn">LOGOUT</button>
+                <button class="nav_admin_btn">ADMINISTRATOR</button>
+            </div>
         </nav>
 
 
@@ -80,7 +83,8 @@
                                         class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
                                 <li><a href="${pageContext.request.contextPath}/review_management.do"><i
                                         class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
-                                
+                                <li><a href="${pageContext.request.contextPath}/admin_sales.do"><i class="glyphicon glyphicon-usd"></i>
+                                        매출 관리</a></li>
                             </ul></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -98,7 +102,10 @@
 										<i class="glyphicon glyphicon-retweet"></i> 취소/교환/반품/환불</a></li>
 									<li><a href="${pageContext.request.contextPath}/admin_coupon.do">
 										<i class="glyphicon glyphicon-credit-card"></i> 쿠폰 </a></li>
-								
+									<li><a href="${pageContext.request.contextPath}/admin_point.do" >
+										<i class="glyphicon glyphicon-usd"></i> 적립금</a></li>
+									<li><a href="${pageContext.request.contextPath}/admin_visitors.do">
+										<i class="glyphicon glyphicon-stats"></i> 방문자 수 관리</a></li>
 								</ul>
 							</li>
 							<li class="dropdown open">
@@ -109,7 +116,8 @@
 								<ul class="dropdown-menu">
 									<li class="active"><a href="${pageContext.request.contextPath}/admin_qanda.do">
 										<i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리</a></li>
-									
+									<li><a href="${pageContext.request.contextPath}/admin_fanda.do">
+										<i class="glyphicon glyphicon-list-alt"></i> F&A 관리</a></li>
 								</ul>
 							</li>
                     </ul>
@@ -166,11 +174,11 @@
                                             </td>
                                           </tr> -->
 
-                                        <tr>
+                                       <!--  <tr>
                                             <td class="search_title">카테고리 분류
                                             <td>
                                                 <form class="form-inline">
-                                                    <!-- 1차 카테고리 -->
+                                                    1차 카테고리
                                                     <div class="form-group">
                                                         <select id="parent" name="category" class="form-control">
                                                             <option value="">--전체보기--</option>
@@ -181,7 +189,7 @@
                                                             <option value="A">laporte 웹사이트 이용 약관</option>
                                                         </select>
                                                     </div>
-                                                    <!-- 1차 카테고리 끝 -->
+                                                    1차 카테고리 끝
                                                 </form>
                                             </td>
                                         </tr>
@@ -204,7 +212,7 @@
 
 
                                     </table>
-                                    <button type="button" class="btn btn-block btn-info search_btn">검색</button>
+                                    <button type="button" class="btn btn-block btn-info search_btn">검색</button> -->
                                     <!-- // 조건 검색 목록 끝 -->
                                   
 

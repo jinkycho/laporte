@@ -65,6 +65,7 @@
         </div>
 <!-- 검색제외 본문영역 -->
 	<section>
+	<%@ include file="../01_home/search.jsp"%>
 		<div class="container">
 			<div class="profile_header">
 				<div>

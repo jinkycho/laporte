@@ -40,7 +40,10 @@
                 </button>
                 <span><a class="navbar-brand" href="#">HOME</a></span>
             </div>
-            
+            <div class="navbar-button pull-right">
+                <button class="nav_logout_btn">LOGOUT</button>
+                <button class="nav_admin_btn">ADMINISTRATOR</button>
+            </div>
         </nav>
         <div id="wrapper">
             <!-- Sidebar -->
@@ -62,7 +65,7 @@
                                 <li><a href="${pageContext.request.contextPath}/11_admin/stock_management.do"><i class="glyphicon glyphicon-briefcase"></i> 상품 관리</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/product_add.do"><i class="glyphicon glyphicon-plus"></i> 상품 등록</a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/review_management.do"><i class="glyphicon glyphicon-star-empty"></i> 리뷰 관리</a></li>
-                                
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_sales.html"><i class="glyphicon glyphicon-usd"></i> 매출 관리</a></li>
                             </ul>
                         </li>
                         <li class="dropdown open"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i>
@@ -72,8 +75,8 @@
                                 <li class="active"><a href="${pageContext.request.contextPath}/11_admin/admin_userlist.do">
                                         <i class="glyphicon glyphicon-user"></i> 회원정보 관리
                                     </a></li>
-                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_order.do">
-									<i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리</a></li>
+                                <li><a href="admin_order.html"> <i class="glyphicon glyphicon-shopping-cart"></i> 주문내역 관리
+                                    </a></li>
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_delivery.do">
                                         <i class="glyphicon glyphicon-transfer"></i> 배송정보 관리
                                     </a></li>
@@ -83,7 +86,12 @@
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_coupon.do">
                                         <i class="glyphicon glyphicon-credit-card"></i> 쿠폰
                                     </a></li>
-                                
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_point.do">
+                                        <i class="glyphicon glyphicon-usd"></i> 적립금
+                                    </a></li>
+                                <li><a href="${pageContext.request.contextPath}/11_admin/admin_visitors.do">
+                                        <i class="glyphicon glyphicon-stats"></i> 방문자 수 관리
+                                    </a></li>
                             </ul>
                         </li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-pencil"></i>
@@ -93,7 +101,8 @@
                                 <li><a href="${pageContext.request.contextPath}/11_admin/admin_qanda.do">
                                         <i class="glyphicon glyphicon-envelope"></i> 이메일 문의 관리
                                     </a></li>
-                               
+                                <li><a href="admin_fanda.html"> <i class="glyphicon glyphicon-list-alt"></i> F&A 관리
+                                    </a></li>
                             </ul>
                         </li>
                     </ul>
@@ -179,6 +188,7 @@
 											<thead>
 													<tr class="table_color">
 														<th>고객번호</th>
+														<th>보유 포인트</th>
 													</tr>
 											</thead>
 											<tbody>
@@ -186,7 +196,13 @@
 											<td>
 											<input id="userno-input" value="${u_output.userno}" readonly>
 											</td>
+											<td><fmt:formatNumber pattern="###,###,###"
+																value="${u_output.point}" /></td>
+																
 											</tr>
+											
+										
+													
 											</table>
 											<table id="order-form" class="table table-bordered">
 											</tbody>
@@ -290,18 +306,9 @@
 											<table id="point-form" class="table table-bordered">
 												<thead>
 													<tr class="table_color">
-														<th>보유 포인트</th>
+													
 													</tr>
 												</thead>
-
-												<tbody id="point_list">
-													<tr>
-														<td><fmt:formatNumber pattern="###,###,###"
-																value="${u_output.point}" /></td>
-													</tr>
-
-
-												</tbody>
 											</table>
 
 											<table id="coupon-form" class="table table-bordered">

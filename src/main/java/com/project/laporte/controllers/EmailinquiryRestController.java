@@ -77,11 +77,13 @@ public class EmailinquiryRestController {
 		UploadItem uploadFile = new UploadItem();
 		
 		try {
+			if(file != null) {
 			//업로드 결과가 저장된 Beans를 리턴받는다.
 			uploadFile = webHelper.saveMultipartFile(file);
 			
 			String fileUrl = uploadFile.getFileUrl();
 			input.setFile(fileUrl);
+			}
 			
 			//데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
 			emailinquiryService.addEmailInquiry(input);

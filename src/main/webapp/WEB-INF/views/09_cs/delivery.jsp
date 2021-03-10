@@ -31,6 +31,7 @@
 	<body>
 		<%@ include file="../01_home/header.jsp" %>
 		<section>
+		<%@ include file="../01_home/search.jsp"%>
 			<!-- 검색 -->
             <div class="hd_searchbox">
                 <div class="hd_search">

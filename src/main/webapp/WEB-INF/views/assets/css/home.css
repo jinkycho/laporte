@@ -28,7 +28,8 @@
 }
 
 .home_banner_img img {
-	width: 100%;
+	width: 500px;
+	height: 430px;
 }
 
 .home_banner_txt {
@@ -44,7 +45,7 @@
 
 .home_banner_txt p {
 	display: block;
-	width: 85%;
+	width: 75%;
 	margin: 20px 0 50px 20px;
 	color: #ffffff;
 	font-size: 16px;
@@ -63,96 +64,13 @@
 	margin-bottom: 40px;
 }
 
-/* 배너 모달윈도우 */
-/* 화면 전체를 덮는 배경 레이어의 위치, 크기, 투명도 지정 > 기본적으로 표시x */
-.banner_gray_layer {
-	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	background-color: black;
-	opacity: 0.7;
-	z-index: 7000;
-	display: none;
-}
-/* 메뉴가 표현될 레이어를 화면좌측에 배치 > 기본적으로 표시x */
-.banner_over_layer {
-	position: fixed;
-	left: 5%;
-	bottom: 45%;
-	display: none;
-	margin: auto;
-	width: 90%;
-	height: 50%;
-	z-index: 8000;
-}
-
 .slider__controller__dot {
 	position: absolute;
 	z-index: 3;
 	left: 50%;
+	bottom:70px;
 	width: 35.46667vw;
 	margin-left: -17.73333vw;
-}
-
-@media ( max-width : 620px) {
-	.banner_carousel_txt {
-		display: inline-block;
-		margin-left: 0;
-		width: 100%;
-		color: #000;
-		background-color: #cebea7;
-		padding: 20px;
-	}
-	.banner_carousel_img {
-		display: block;
-		width: 100%;
-	}
-	.slider__controller__dot {
-		top: -2vw;
-	}
-}
-
-@media ( min-width : 621px) and (max-width: 850px) {
-	.banner_carousel_txt {
-		display: inline-block;
-		margin-left: 0;
-		width: 100%;
-		color: #000;
-		background-color: #cebea7;
-		padding: 20px;
-	}
-	.banner_carousel_img {
-		display: inline-block;
-		width: 100%;
-	}
-	.slider__controller__dot {
-		top: -2vw;
-	}
-}
-
-@media ( min-width : 851px) {
-	.banner_carousel_img {
-		display: inline-block;
-		width: 60rem;
-		height: 60rem;
-	}
-	.banner_carousel_txt {
-		display: inline-block;
-		margin-left: 0;
-		width: 105rem;
-		height: 60rem;
-		color: #000;
-		background-color: #cebea7;
-		padding: 20px;
-		position: absolute;
-	}
-	.slider__controller__dot {
-		position: fixed;
-		top: 33vw;
-		width: 30vw;
-	}
 }
 
 .swiper-pagination-progressbar {

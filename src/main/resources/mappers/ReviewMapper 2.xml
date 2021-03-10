@@ -190,10 +190,9 @@
         DELETE FROM revcomment WHERE reviewno=#{reviewno}
     </delete>
     
-     <!-- 회원 삭제 시 회원 번호 null로 업데이트 -->
-    <update id = "unsetUsernoRev"
-    	parameterType = "com.project.laporte.model.User">
-    	UPDATE review SET userno = null WHERE userno = #{userno} 
-    </update>
+    <select id="selectCountAllAdmin"
+    	parameterType="com.project.laporte.model.Review" resultType="int">
+    	SELECT COUNT(*) FROM review 
+    </select>
 	
 </mapper>
