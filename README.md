@@ -1,4 +1,6 @@
-# Team Project
+# laporte
+
+IKEA를 벤치마킹하여 구현한 심플하면서 감각적인 가구 쇼핑몰 입니다.
 
 Frontend
 HTML/CSS/JS/Jquery/Ajax
