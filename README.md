@@ -2,14 +2,49 @@
 
 IKEA를 벤치마킹하여 구현한 심플하면서 감각적인 가구 쇼핑몰 입니다.
 
-Frontend : HTML/CSS/JS/Jquery/Ajax
+# 개발상태
+개발 완료
 
-Backend : Java/JSP
+# Tech/Library
+**Frontend**
 
-Database : mongoDB
+```
+- HTML
+- CSS
+- Javascript
+- Jquery
+- Ajax
+```
+**Backend**
 
-Server : Linux
+```
+-Java
+-JSP
+-Spring Framework
+```
 
-자세한 개발 과정 및 데모 웹사이트 정보는 아래 노션페이지에서 확인할 수 있습니다.
-https://butter-mechanic-726.notion.site/laporte-3985f377ab0e40379bf52f60dae360f1
+**Database**
+
+```
+MariaDB
+```
+
+**Server**
+```
+Linux
+```
+
+# 데모사이트
+[데모사이트 보러가기](http://itproject.ezenac.co.kr/laporte/)
+
+# 노션
+자세한 개발과정을 볼 수 있습니다.
+[Notion]https://butter-mechanic-726.notion.site/laporte-3985f377ab0e40379bf52f60dae360f1
+
+
+
+
+
+
+
 
