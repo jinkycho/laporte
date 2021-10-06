@@ -38,7 +38,7 @@ Linux
 [데모사이트 보러가기](http://itproject.ezenac.co.kr/laporte/)
 
 # 개발과정
-[개발과정 보러가기](https://butter-mechanic-726.notion.site/laporte-3985f377ab0e40379bf52f60dae360f1)
+[개발과정 보러가기](https://jinkycho.notion.site/laporte-3985f377ab0e40379bf52f60dae360f1)
 >자세한 개발과정을 볼 수 있습니다.
 
 
